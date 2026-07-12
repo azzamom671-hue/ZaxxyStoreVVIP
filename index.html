@@ -19,6 +19,10 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #030014;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .glass {
@@ -36,26 +40,24 @@
             box-shadow: 0 0 35px rgba(139, 92, 246, 0.4);
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #030014;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #1e1b4b;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4c1d95;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #030014; }
+        ::-webkit-scrollbar-thumb { background: #1e1b4b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4c1d95; }
     </style>
+    <script>
+        // ANTI-INSPECT / DEVTOOLS BLOCKER GENERATOR
+        (function() {
+            const block = () => {
+                setInterval(() => {
+                    (function() {}).constructor("debugger")();
+                }, 50);
+            };
+            try { block(); } catch (e) {}
+        })();
+    </script>
 </head>
-<body class="text-slate-100 min-h-screen selection:bg-violet-500 selection:text-white overflow-x-hidden pb-12">
+<body class="text-slate-100 min-h-screen selection:bg-violet-500 selection:text-white overflow-x-hidden pb-12" oncontextmenu="return false;">
 
     <div class="absolute top-0 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-violet-900/15 rounded-full blur-[80px] sm:blur-[120px] -z-10"></div>
     <div class="absolute top-1/3 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-fuchsia-900/10 rounded-full blur-[70px] sm:blur-[100px] -z-10"></div>
@@ -88,8 +90,7 @@
                 </p>
             </div>
 
-            <div id="catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center w-full px-2 max-w-6xl mx-auto">
-            </div>
+            <div id="catalog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center w-full px-2 max-w-6xl mx-auto"></div>
         </main>
     </div>
 
@@ -109,34 +110,33 @@
                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Email Address</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500"><i class="fa-solid fa-envelope text-xs"></i></span>
-                        <input type="email" id="login-email" placeholder="nama@email.com" class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30 transition-all">
+                        <input type="email" id="login-email" placeholder="nama@email.com" class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Password</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500"><i class="fa-solid fa-key text-xs"></i></span>
-                        <input type="password" id="login-password" placeholder="••••••••" class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30 transition-all">
+                        <input type="password" id="login-password" placeholder="••••••••" class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                     </div>
                 </div>
                 <div class="flex items-center justify-between pt-1">
                     <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
-                        <input type="checkbox" id="login-remember" class="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 focus:ring-0 focus:ring-offset-0 accent-purple-600">
+                        <input type="checkbox" id="login-remember" class="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600">
                         <span>Remember Me</span>
                     </label>
                 </div>
                 <div class="flex gap-2 pt-2">
-                    <button onclick="submitAdminLogin()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 cursor-pointer flex items-center justify-center gap-2">
+                    <button onclick="submitAdminLogin()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-right-to-bracket"></i> Masuk Dashboard
                     </button>
-                    <button onclick="closeAdminLoginModal()" class="bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 px-4 rounded-xl text-xs transition-all cursor-pointer">Batal</button>
+                    <button onclick="closeAdminLoginModal()" class="bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 px-4 rounded-xl text-xs transition-all">Batal</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="view-admin-panel" class="hidden opacity-0 transition-all duration-500 flex min-h-screen">
-        
         <aside class="w-64 border-r border-purple-500/10 bg-[#06031e]/90 backdrop-blur-xl hidden lg:flex flex-col justify-between p-6 shrink-0 fixed h-full z-30">
             <div class="space-y-8">
                 <div class="flex items-center gap-3 px-2">
@@ -148,7 +148,6 @@
                         <span class="text-[9px] px-1.5 py-0.2 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded font-bold uppercase tracking-wider">v2.4</span>
                     </div>
                 </div>
-
                 <div class="space-y-1">
                     <span class="px-3 text-[10px] uppercase font-bold text-slate-500 tracking-wider block mb-2">Main Controls</span>
                     <a href="#section-manajemen-produk" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-300 font-semibold text-xs transition-all">
@@ -159,7 +158,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="border-t border-purple-500/10 pt-4 flex flex-col gap-3">
                 <div class="flex items-center gap-3 px-1">
                     <div class="w-8 h-8 rounded-full bg-slate-800 border border-purple-500/30 flex items-center justify-center font-bold text-xs text-purple-400">AZ</div>
@@ -168,14 +166,13 @@
                         <span class="block text-[10px] text-emerald-400">Online Master</span>
                     </div>
                 </div>
-                <button onclick="logoutAdminDashboard()" class="w-full py-2.5 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                <button onclick="logoutAdminDashboard()" class="w-full py-2.5 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
                     <i class="fa-solid fa-right-from-bracket"></i> Keluar Dashboard
                 </button>
             </div>
         </aside>
 
         <div class="flex-1 lg:pl-64 flex flex-col min-w-0">
-            
             <nav class="sticky top-0 z-20 w-full glass px-4 sm:px-8 py-4 flex items-center justify-between border-b border-purple-500/10 shadow-lg backdrop-blur-md">
                 <div class="flex items-center gap-4">
                     <div class="flex lg:hidden items-center gap-2">
@@ -184,7 +181,6 @@
                         </div>
                         <span class="text-sm font-bold tracking-tight text-white">Zaxxy<span class="text-purple-400">HQ</span></span>
                     </div>
-                    
                     <div class="hidden sm:block">
                         <div class="flex items-center gap-2">
                             <h2 class="text-sm font-extrabold text-slate-200 tracking-wide">Realtime Control Dashboard</h2>
@@ -192,28 +188,25 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex items-center gap-2 sm:gap-4">
                     <div class="flex items-center gap-3 sm:gap-4 text-xs bg-slate-950/40 px-3 py-1.5 rounded-xl border border-white/5">
-                        <div class="text-center sm:text-left">
+                        <div>
                             <span class="text-slate-500 block text-[9px] uppercase font-semibold">Katalog</span>
                             <strong id="nav-stat-products" class="text-white text-xs sm:text-sm font-bold">0</strong>
                         </div>
                         <div class="w-px h-6 bg-white/10"></div>
-                        <div class="text-center sm:text-left">
+                        <div>
                             <span class="text-slate-500 block text-[9px] uppercase font-semibold">Volume Trx</span>
                             <strong id="nav-stat-sales" class="text-emerald-400 text-xs sm:text-sm font-bold">0</strong>
                         </div>
                     </div>
-
-                    <button onclick="logoutAdminDashboard()" class="lg:hidden p-2.5 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all cursor-pointer">
+                    <button onclick="logoutAdminDashboard()" class="lg:hidden p-2.5 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
             </nav>
 
             <div class="p-4 sm:p-8 space-y-12 max-w-7xl w-full mx-auto">
-                
                 <div id="section-manajemen-produk" class="scroll-mt-24">
                     <div class="flex items-center justify-between border-b border-white/5 pb-2 mb-6">
                         <h3 class="text-lg font-bold text-white flex items-center gap-2"><i class="fa-solid fa-box text-purple-400"></i> Manajemen Produk Toko</h3>
@@ -226,7 +219,6 @@
                                 <i class="fa-solid fa-square-plus text-purple-400"></i> Tambah Produk Baru
                             </h3>
                             <input type="hidden" id="adm-prod-id">
-                            
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Nama Produk</label>
@@ -242,14 +234,14 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Fitur Produk (Pisahkan dengan baris baru)</label>
-                                    <textarea id="adm-prod-features" rows="4" placeholder="SCREENSHOT BYPASS&#10;FLOATING APP SYSTEM&#10;SUPPORT ROOT" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all font-mono text-xs"></textarea>
+                                    <textarea id="adm-prod-features" rows="4" placeholder="SCREENSHOT BYPASS&#10;FLOATING APP SYSTEM" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all font-mono text-xs"></textarea>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Unduhan (Mediafire/Drive)</label>
                                     <input type="text" id="adm-prod-link" placeholder="https://www.mediafire.com/file/..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                 </div>
                                 <div class="flex gap-2 pt-2">
-                                    <button onclick="submitProductToFirebase()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 cursor-pointer flex items-center justify-center gap-2">
+                                    <button onclick="submitProductToFirebase()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 flex items-center justify-center gap-2">
                                         <i class="fa-solid fa-floppy-disk"></i> Simpan Produk
                                     </button>
                                     <button id="btn-cancel-edit-prod" onclick="resetProductForm()" class="hidden bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 px-3 rounded-xl text-xs transition-all">Batal</button>
@@ -272,8 +264,7 @@
                                                 <th class="py-3.5 px-4 text-right">Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="admin-product-table-body" class="divide-y divide-purple-500/5">
-                                        </tbody>
+                                        <tbody id="admin-product-table-body" class="divide-y divide-purple-500/5"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -310,9 +301,9 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kuota Limit Penggunaan</label>
-                                    <input type="number" id="adm-input-maxuses" placeholder="Contoh: 50 (Isi 0 jika tanpa batas)" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    <input type="number" id="adm-input-maxuses" placeholder="Contoh: 50" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                 </div>
-                                <button onclick="submitNewPromoToFirebase()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 mt-2 cursor-pointer flex items-center justify-center gap-2">
+                                <button onclick="submitNewPromoToFirebase()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 mt-2 flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-floppy-disk"></i> Simpan Kode Promo
                                 </button>
                             </div>
@@ -334,15 +325,13 @@
                                                 <th class="py-3.5 px-4 text-right">Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="admin-promo-table-body" class="divide-y divide-purple-500/5">
-                                        </tbody>
+                                        <tbody id="admin-promo-table-body" class="divide-y divide-purple-500/5"></tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -351,7 +340,7 @@
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 transform transition-all scale-95 opacity-0 duration-300" id="modal-card">
             
-            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white transition-colors">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
@@ -370,8 +359,8 @@
                 <div class="mb-6">
                     <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Punya Kode Promo?</label>
                     <div class="flex gap-2">
-                        <input type="text" id="promo-input" placeholder="Masukkan kode (Contoh: Kntl)" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all uppercase placeholder:normal-case">
-                        <button onclick="applyPromoCode()" class="bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl text-sm font-medium text-white transition-all cursor-pointer">Klaim</button>
+                        <input type="text" id="promo-input" placeholder="Masukkan kode" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 uppercase placeholder:normal-case">
+                        <button onclick="applyPromoCode()" class="bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl text-sm font-medium text-white transition-all">Klaim</button>
                     </div>
                     <p id="promo-message" class="text-xs mt-2 hidden"></p>
                 </div>
@@ -391,7 +380,7 @@
                     </div>
                 </div>
 
-                <button id="btn-pay-process" onclick="processPayment()" class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-violet-600/20 text-white transition-all transform active:scale-98 glow-purple cursor-pointer flex justify-center items-center gap-2">
+                <button id="btn-pay-process" onclick="processPayment()" class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-violet-600/20 text-white transition-all transform active:scale-98 glow-purple flex justify-center items-center gap-2">
                     <span>Bayar Sekarang (QRIS)</span><i class="fa-solid fa-arrow-right text-xs"></i>
                 </button>
             </div>
@@ -413,7 +402,7 @@
                     <div class="flex justify-between"><span>Total Tagihan:</span><strong id="val-invoice-total" class="text-violet-400">--</strong></div>
                 </div>
 
-                <button onclick="cancelActiveInvoiceOrder()" class="w-full bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all active:scale-98 cursor-pointer flex items-center justify-center gap-2 shadow-sm">
+                <button onclick="cancelActiveInvoiceOrder()" class="w-full bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all active:scale-98 flex items-center justify-center gap-2 shadow-sm">
                     <i class="fa-solid fa-trash-can text-xs"></i> Batalkan Pesanan Ini
                 </button>
             </div>
@@ -437,27 +426,33 @@
             <div id="noti-icon" class="w-12 h-12 rounded-full flex items-center justify-center text-xl mx-auto mb-3"></div>
             <h4 id="noti-title" class="text-lg font-bold text-white mb-1">Pemberitahuan</h4>
             <p id="noti-desc" class="text-sm text-slate-400 mb-5 leading-relaxed">Isi pesan sistem</p>
-            <button onclick="closeNotification()" class="w-full bg-white/10 hover:bg-white/15 text-white font-medium py-2 rounded-xl text-sm transition-colors cursor-pointer">Mengerti</button>
+            <button onclick="closeNotification()" class="w-full bg-white/10 hover:bg-white/15 text-white font-medium py-2 rounded-xl text-sm transition-colors">Mengerti</button>
         </div>
     </div>
 
     <script>
-        // --- 1. CORE CONFIGURATIONS ---
+        // --- SECURE CRYPTO UTILITIES FOR INTERNAL HARDENING ---
+        // Menggunakan SHA-256 bawaan browser untuk mencegah modifikasi mentah kredensial di memory string.
+        async function hashValue(string) {
+            const utf8 = new TextEncoder().encode(string);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+            return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // --- 1. CONFIGURATIONS ---
         const API_KEY = "key_5fcfe74555ca411c";
         const API_BASE = "https://gateways.fyxzpedia.biz.id/api";
         const ADMIN_NOTIFICATION_EMAIL = "zaxxyxml@gmail.com";
-        const OWNER_WHATSAPP_NUMBER = "6285166219316";
         const AUTO_SAVE_KEY = "zaxxy_product_form_draft";
         const INVOICE_STORAGE_KEY = "zaxxy_active_invoice";
         const LOGIN_SESSION_KEY = "zaxxy_admin_session";
 
-        // Admin Security Credentials
-        const AUTH_CREDENTIALS = {
-            email: "azzamom671@gmail.com",
-            password: "Azzam2010"
+        // Hardened Admin Hashes
+        const HASHED_TARGETS = {
+            email: "03cc95d43fe00094709bc867a5b3a4a9b2b516ff83637e19d9b736b0485547cb", // 
+            pass: "8e7b9e078028448b11da086f6f966144e5cb092cf0955964098939c3629e3a6a"   // 
         };
 
-        // Initialize Firebase Database Engine
         const firebaseConfig = {
             apiKey: "AIzaSyAM1ZNUdgDsxG0a4AE4_3voeIM9UTgXs5w",
             authDomain: "cbt-key-suite.firebaseapp.com",
@@ -469,7 +464,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // --- 2. SYSTEM STATE MEMORY VARIABLES ---
+        // --- 2. STATE LOGIC ---
         let productsList = [];
         let brandClickCounter = 0;
         let brandClickTimer = null;
@@ -479,7 +474,6 @@
         let finalPayableAmount = 0;
         let invoicePollingInterval = null;
 
-        // Fetch wrapper
         async function secureFetchWithRetry(endpointUrl, retries = 3, delay = 2000) {
             const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(endpointUrl)}`;
             for (let i = 0; i < retries; i++) {
@@ -499,7 +493,7 @@
                     await new Promise(res => setTimeout(res, delay));
                 }
             }
-            throw new Error("Gagal terhubung ke gateway pembayaran.");
+            throw new Error("Gateway Timeout.");
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -508,9 +502,18 @@
             bindFirebaseRealtimePromoListener();
             initAutoSaveEngine();
             checkActiveInvoiceOnLoad(); 
+
+            // ANTI SHORTCUT KEY (F12, CTRL+SHIFT+I, CTRL+SHIFT+J, CTRL+U)
+            document.addEventListener('keydown', function(e) {
+                if (e.keyCode == 123 || 
+                    (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+                    (e.ctrlKey && e.keyCode == 85)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
         });
 
-        // --- AUTO SAVE PROGRESS ENGINE ---
         function initAutoSaveEngine() {
             const fields = ["adm-prod-name", "adm-prod-price", "adm-prod-img", "adm-prod-features", "adm-prod-link"];
             const badge = document.getElementById("draft-badge");
@@ -525,7 +528,7 @@
                         });
                         if (badge) badge.classList.remove("hidden");
                     }
-                } catch (e) { console.error(e); }
+                } catch (e) {}
             }
 
             fields.forEach(fId => {
@@ -554,7 +557,6 @@
             if (badge) badge.classList.add("hidden");
         }
 
-        // --- GATEWAY MASUK DASHBOARD (TRIPLE CLICK LOGO) ---
         function handleBrandClickCounter() {
             brandClickCounter++;
             clearTimeout(brandClickTimer);
@@ -568,9 +570,7 @@
         document.getElementById("brand-logo-trigger").addEventListener("click", handleBrandClickCounter);
 
         function triggerAdminDashboardAccess() {
-            // Cek Remember Me Session
-            const sessionActive = localStorage.getItem(LOGIN_SESSION_KEY);
-            if (sessionActive === "true") {
+            if (localStorage.getItem(LOGIN_SESSION_KEY) === "true") {
                 openAdminDashboardPanel();
             } else {
                 openAdminLoginModal();
@@ -588,19 +588,22 @@
             document.getElementById("admin-login-modal").classList.add("hidden");
         }
 
-        function submitAdminLogin() {
+        async function submitAdminLogin() {
             const emailInp = document.getElementById("login-email").value.trim();
             const passInp = document.getElementById("login-password").value;
             const rememberMe = document.getElementById("login-remember").checked;
 
-            if (emailInp === AUTH_CREDENTIALS.email && passInp === AUTH_CREDENTIALS.password) {
+            const hashedEmail = await hashValue(emailInp);
+            const hashedPass = await hashValue(passInp);
+
+            if (hashedEmail === HASHED_TARGETS.email && hashedPass === HASHED_TARGETS.pass) {
                 if (rememberMe) {
                     localStorage.setItem(LOGIN_SESSION_KEY, "true");
                 }
                 closeAdminLoginModal();
                 openAdminDashboardPanel();
             } else {
-                showCustomToast("Akses Ditolak", "Kombinasi Email atau Password Admin salah!", "error");
+                showCustomToast("Akses Ditolak", "Kredensial Salah!", "error");
             }
         }
 
@@ -610,24 +613,22 @@
             adminPanel.classList.remove("hidden");
             setTimeout(() => { adminPanel.classList.remove("opacity-0"); }, 50);
             
-            // Sync status data ke Premium Nav Bar
             document.getElementById("nav-stat-products").innerText = productsList.length;
             db.ref('sales_count').once('value', (snap) => {
                 document.getElementById("nav-stat-sales").innerText = snap.val() || 0;
             });
-
-            showCustomToast("Akses Diterima", "Selamat datang di Premium Admin Control Room Zaxxy Store.", "success");
+            showCustomToast("Akses Diterima", "Selamat datang di Admin Dashboard.", "success");
         }
 
         function logoutAdminDashboard() {
-            localStorage.removeItem(LOGIN_SESSION_KEY); // Reset Remember Me session
+            localStorage.removeItem(LOGIN_SESSION_KEY);
             const adminPanel = document.getElementById("view-admin-panel");
             adminPanel.classList.add("opacity-0");
             setTimeout(() => {
                 adminPanel.classList.add("hidden");
                 document.getElementById("view-store-panel").classList.remove("hidden");
             }, 300);
-            showCustomToast("Logged Out", "Sesi admin ditutup dengan aman.", "info");
+            showCustomToast("Logged Out", "Sesi admin ditutup.", "info");
         }
 
         function toggleDiscountFieldState() {
@@ -641,7 +642,6 @@
             }
         }
 
-        // --- 3. LIVE SALES COUNTER ENGINE ---
         function bindSalesCounterListener() {
             db.ref('sales_count').on('value', (snapshot) => {
                 const count = snapshot.val() || 0;
@@ -655,7 +655,6 @@
             db.ref('sales_count').transaction((currentCount) => { return (currentCount || 0) + 1; });
         }
 
-        // --- 4. FIREBASE REAL-TIME PRODUCTS CRUD ---
         function bindFirebaseRealtimeProductListener() {
             db.ref('products').on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -664,7 +663,7 @@
                 tbody.innerHTML = "";
 
                 if (!data) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="py-8 text-center text-slate-500 text-xs font-medium">Belum ada katalog produk di database Firebase.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="4" class="py-8 text-center text-slate-500 text-xs font-medium">Database kosong.</td></tr>`;
                     document.getElementById("nav-stat-products").innerText = 0;
                     renderCatalog();
                     return;
@@ -675,7 +674,7 @@
                     const productObj = {
                         id: key,
                         name: item.name,
-                        price: parseInt(item.price) || 0,
+                        price: Math.max(0, parseInt(item.price) || 0), // Anti minus value injection
                         image: item.image || "",
                         features: Array.isArray(item.features) ? item.features : [],
                         link: item.link || "#"
@@ -689,13 +688,12 @@
                         <td class="py-4 px-4 text-emerald-400 font-semibold">Rp ${productObj.price.toLocaleString('id-ID')}</td>
                         <td class="py-4 px-4 text-slate-400">${productObj.features.length} Fitur</td>
                         <td class="py-4 px-4 text-right space-x-1">
-                            <button onclick="editProductData('${productObj.id}')" class="text-cyan-400 hover:text-cyan-300 p-2 rounded-lg hover:bg-cyan-500/10 transition-colors cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button onclick="deleteProductFromFirebase('${productObj.id}')" class="text-rose-400 hover:text-rose-300 p-2 rounded-lg hover:bg-rose-500/10 transition-colors cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="editProductData('${productObj.id}')" class="text-cyan-400 p-2 hover:bg-cyan-500/10 rounded-lg"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button onclick="deleteProductFromFirebase('${productObj.id}')" class="text-rose-400 p-2 hover:bg-rose-500/10 rounded-lg"><i class="fa-solid fa-trash-can"></i></button>
                         </td>
                     `;
                     tbody.appendChild(tr);
                 });
-
                 document.getElementById("nav-stat-products").innerText = productsList.length;
                 renderCatalog();
             });
@@ -704,13 +702,13 @@
         async function submitProductToFirebase() {
             const id = document.getElementById("adm-prod-id").value;
             const name = document.getElementById("adm-prod-name").value.trim();
-            const price = parseInt(document.getElementById("adm-prod-price").value) || 0;
+            const price = Math.max(0, parseInt(document.getElementById("adm-prod-price").value) || 0);
             const image = document.getElementById("adm-prod-img").value.trim();
             const link = document.getElementById("adm-prod-link").value.trim();
             const featuresRaw = document.getElementById("adm-prod-features").value;
 
             if (!name || !price || !link) {
-                showCustomToast("Input Salah", "Silakan lengkapi form Nama, Harga, dan Link Unduhan produk.", "error");
+                showCustomToast("Input Salah", "Mohon lengkapi data produk.", "error");
                 return;
             }
 
@@ -719,11 +717,11 @@
 
             try {
                 await productTargetRef.set({ name, price, image, link, features });
-                showCustomToast("Berhasil", "Data katalog produk sukses diperbarui di Firebase.", "success");
+                showCustomToast("Berhasil", "Katalog berhasil diperbarui.", "success");
                 clearAutoSaveDraft();
                 resetProductForm();
             } catch (error) {
-                showCustomToast("Error Firebase", "Gagal menyimpan perubahan ke basis data server.", "error");
+                showCustomToast("Error Firebase", "Akses ditolak database.", "error");
             }
         }
 
@@ -756,16 +754,15 @@
         }
 
         async function deleteProductFromFirebase(id) {
-            if (confirm("Hapus produk ini secara permanen dari display toko & database?")) {
+            if (confirm("Hapus produk ini?")) {
                 try {
                     await db.ref('products/' + id).remove();
-                    showCustomToast("Dihapus", "Produk sukses dibersihkan dari server.", "success");
+                    showCustomToast("Dihapus", "Produk dibersihkan dari server.", "success");
                     if (document.getElementById("adm-prod-id").value === id) resetProductForm();
-                } catch (error) { showCustomToast("Gagal", "Sistem gagal menghapus data baris produk.", "error"); }
+                } catch (error) { showCustomToast("Gagal", "Gagal menghapus.", "error"); }
             }
         }
 
-        // --- 5. STORE FRONT CATALOG RENDERING SYSTEM ---
         const UXMixins = { fallbackImg: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" };
         function renderCatalog() {
             const container = document.getElementById("catalog-container");
@@ -773,7 +770,7 @@
             
             if (productsList.length === 0) {
                 container.className = "block w-full text-center py-12 text-slate-500 text-sm";
-                container.innerHTML = `<i class="fa-solid fa-store-slash text-3xl mb-3 block text-slate-600"></i> Stok Toko Sedang Kosong.`;
+                container.innerHTML = `<i class="fa-solid fa-store-slash text-3xl mb-3 block text-slate-600"></i> Stok Toko Kosong.`;
                 return;
             }
 
@@ -797,10 +794,10 @@
                                         <i class="fa-solid fa-shield-halved text-purple-400 mt-0.5 shrink-0 text-xs"></i>
                                         <span class="leading-tight font-medium tracking-wide break-words">${f}</span>
                                     </li>
-                                `).join('') : '<li class="text-slate-500 text-xs italic">Tidak ada deskripsi fitur khusus.</li>'}
+                                `).join('') : '<li class="text-slate-500 text-xs italic">Tidak ada deskripsi.</li>'}
                             </ul>
                         </div>
-                        <button onclick="openCheckoutModal('${product.id}')" class="w-full bg-purple-950/40 border border-purple-500/30 hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600 hover:border-transparent text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 group cursor-pointer shadow-md">
+                        <button onclick="openCheckoutModal('${product.id}')" class="w-full bg-purple-950/40 border border-purple-500/30 hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600 hover:border-transparent text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 group">
                             <span>Beli Sekarang</span><i class="fa-solid fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
                         </button>
                     </div>
@@ -809,7 +806,6 @@
             });
         }
 
-        // --- 6. PROMO CODE ENGINE ---
         function bindFirebaseRealtimePromoListener() {
             db.ref('promo_codes').on('value', (snapshot) => {
                 const promos = snapshot.val();
@@ -817,7 +813,7 @@
                 tbody.innerHTML = "";
 
                 if (!promos) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500 text-xs font-medium">Belum ada kode promo custom di database Firebase.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500 text-xs font-medium">Belum ada kode promo.</td></tr>`;
                     return;
                 }
 
@@ -833,7 +829,7 @@
                         <td class="py-4 px-4 text-slate-400">${data.expiry_date || '-'}</td>
                         <td class="py-4 px-4 text-slate-400">${data.used_count || 0} / ${data.max_uses == 0 ? '∞' : data.max_uses}</td>
                         <td class="py-4 px-4 text-right">
-                            <button onclick="deletePromoFromFirebase('${key}')" class="text-rose-400 hover:text-rose-300 p-2 rounded-lg hover:bg-rose-500/10 transition-colors cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="deletePromoFromFirebase('${key}')" class="text-rose-400 p-2 hover:bg-rose-500/10 rounded-lg"><i class="fa-solid fa-trash-can"></i></button>
                         </td>
                     `;
                     tbody.appendChild(tr);
@@ -846,20 +842,16 @@
             const type = document.getElementById("adm-select-type").value;
             const discountInput = document.getElementById("adm-input-discount").value;
             const expiry = document.getElementById("adm-input-expiry").value;
-            const maxUses = parseInt(document.getElementById("adm-input-maxuses").value) || 0;
+            const maxUses = Math.max(0, parseInt(document.getElementById("adm-input-maxuses").value) || 0);
 
             if (!code) {
-                showCustomToast("Input Salah", "Silakan tentukan string nama kode kupon voucher.", "error");
+                showCustomToast("Input Salah", "String kupon wajib diisi.", "error");
                 return;
             }
 
             let discountValue = 100;
             if (type === "custom") {
-                discountValue = parseInt(discountInput);
-                if (!discountValue || discountValue < 1 || discountValue > 99) {
-                    showCustomToast("Input Salah", "Besar persentase diskon kustom berkisar di nilai 1% - 99%.", "error");
-                    return;
-                }
+                discountValue = Math.min(99, Math.max(1, parseInt(discountInput) || 0));
             }
 
             try {
@@ -869,27 +861,29 @@
                     max_uses: maxUses,
                     used_count: 0
                 });
-                showCustomToast("Berhasil", `Kupon ${code} sukses diunggah langsung ke database Firebase.`, "success");
+                showCustomToast("Berhasil", `Kupon ${code} diunggah.`, "success");
                 document.getElementById("adm-input-code").value = "";
                 document.getElementById("adm-input-discount").value = "";
                 document.getElementById("adm-input-expiry").value = "";
                 document.getElementById("adm-input-maxuses").value = "";
-            } catch (error) { showCustomToast("Error Firebase", "Koneksi database menolak penulisan data.", "error"); }
+            } catch (error) { showCustomToast("Error Firebase", "Gagal menyimpan kupon.", "error"); }
         }
 
         async function deletePromoFromFirebase(codeKey) {
-            if (confirm(`Hapus kode kupon ${codeKey} secara permanen dari Firebase database?`)) {
+            if (confirm(`Hapus kupon ${codeKey}?`)) {
                 try {
                     await db.ref('promo_codes/' + codeKey).remove();
-                    showCustomToast("Dihapus", `Voucher ${codeKey} sukses dibersihkan dari server.`, "success");
-                } catch (error) { showCustomToast("Gagal", "Sistem gagal menghapus baris kupon tersebut.", "error"); }
+                    showCustomToast("Dihapus", "Voucher dihapus.", "success");
+                } catch (error) { showCustomToast("Gagal", "Gagal menghapus kupon.", "error"); }
             }
         }
 
-        // --- 7. MODAL TRANSACTION ENGINE ---
         function openCheckoutModal(productId) {
-            currentSelectedProduct = productsList.find(p => p.id === productId);
-            if (!currentSelectedProduct) return;
+            const rawProd = productsList.find(p => p.id === productId);
+            if (!rawProd) return;
+
+            // Deep clone object untuk mencegah manipulasi object references di runtime console (Trik Hacker level 1)
+            currentSelectedProduct = JSON.parse(JSON.stringify(rawProd));
 
             activeDiscountPercentage = 0;
             activePromoCode = "";
@@ -928,24 +922,16 @@
             setTimeout(() => { modal.classList.add("hidden"); }, 300);
         }
 
-        // --- FUNGSI BARU: PEMBATALAN PESANAN AKTIF ---
         function cancelActiveInvoiceOrder() {
-            if (confirm("Apakah Anda yakin ingin membatalkan pesanan ini? Sesi pembayaran saat ini akan dihapus.")) {
+            if (confirm("Apakah Anda yakin ingin membatalkan pesanan ini?")) {
                 destroyPollingEngine(); 
                 localStorage.removeItem(INVOICE_STORAGE_KEY); 
                 resetPaymentButton(); 
-                
-                const modal = document.getElementById("checkout-modal");
-                const card = document.getElementById("modal-card");
-                card.classList.remove("scale-100", "opacity-100");
-                card.classList.add("scale-95", "opacity-0");
-                setTimeout(() => { modal.classList.add("hidden"); }, 300);
-                
-                showCustomToast("Pesanan Dibatalkan", "Transaksi Anda telah berhasil dibatalkan.", "info");
+                closeModal();
+                showCustomToast("Pesanan Dibatalkan", "Transaksi dihapus.", "info");
             }
         }
 
-        // Toast Notification System
         function showCustomToast(title, message, type = "error") {
             const modal = document.getElementById("notification-modal");
             const iconBox = document.getElementById("noti-icon");
@@ -971,58 +957,74 @@
             const rawCode = document.getElementById("promo-input").value.trim();
             const msg = document.getElementById("promo-message");
             if (!rawCode) {
-                msg.innerText = "Masukkan kode promo terlebih dahulu!";
+                msg.innerText = "Masukkan kode promo!";
                 msg.className = "text-xs mt-2 text-rose-400 block";
                 return;
             }
-            if (rawCode.toLowerCase() === "azzam") {
-                activeDiscountPercentage = 100;
-                activePromoCode = "AZZAM";
-                recalculateTotalPrices();
-                msg.innerText = "Selamat! Kode AZZAM aktif. Produk ini GRATIS!";
-                msg.className = "text-xs mt-2 text-emerald-400 block";
-                return;
-            }
 
-            msg.innerText = "Mengecek validitas kode kupon... ";
+            // CEK INTEGRITAS DAN KEBENARAN HARGA DARI DATABASE REALTIME (MENCEGAH BAJAKAN DI MEMORY CONSOLE)
+            if (!currentSelectedProduct || !currentSelectedProduct.id) return;
+            
+            msg.innerText = "Memvalidasi kupon aman...";
             msg.className = "text-xs mt-2 text-cyan-400 block";
 
             try {
+                // Tarik data asli produk langsung dari Firebase demi menghentikan rekayasa variabel lokal
+                const syncProdSnap = await db.ref('products/' + currentSelectedProduct.id).once('value');
+                const freshProdData = syncProdSnap.val();
+                if (!freshProdData) {
+                    msg.innerText = "Katalog kedaluwarsa.";
+                    msg.className = "text-xs mt-2 text-rose-400 block";
+                    return;
+                }
+                currentSelectedProduct.price = Math.max(0, parseInt(freshProdData.price) || 0);
+
+                if (rawCode.toLowerCase() === "azzam") {
+                    activeDiscountPercentage = 100;
+                    activePromoCode = "AZZAM";
+                    recalculateTotalPrices();
+                    msg.innerText = "Kode AZZAM Aktif. GRATIS!";
+                    msg.className = "text-xs mt-2 text-emerald-400 block";
+                    return;
+                }
+
                 const snapshot = await db.ref('promo_codes/' + rawCode.toUpperCase()).once('value');
                 const promoData = snapshot.val();
                 if (!promoData) {
-                    msg.innerText = "Kode promo tidak valid / telah dihapus owner.";
+                    msg.innerText = "Kupon tidak valid.";
                     msg.className = "text-xs mt-2 text-rose-400 block";
+                    activeDiscountPercentage = 0;
+                    activePromoCode = "";
+                    recalculateTotalPrices();
                     return;
                 }
                 const todayStr = new Date().toISOString().split('T')[0];
                 if (promoData.expiry_date && todayStr > promoData.expiry_date) {
-                    msg.innerText = "Masa aktif kupon belanja sudah kedaluwarsa.";
+                    msg.innerText = "Kupon kedaluwarsa.";
                     msg.className = "text-xs mt-2 text-rose-400 block";
                     return;
                 }
                 if (promoData.max_uses > 0 && (promoData.used_count || 0) >= promoData.max_uses) {
-                    msg.innerText = "Kuota kuantitas pemakaian kode promo telah habis.";
+                    msg.innerText = "Kuota kupon habis.";
                     msg.className = "text-xs mt-2 text-rose-400 block";
                     return;
                 }
 
-                activeDiscountPercentage = parseFloat(promoData.discount_percentage) || 0;
+                activeDiscountPercentage = Math.min(100, Math.max(0, parseFloat(promoData.discount_percentage) || 0));
                 activePromoCode = rawCode.toUpperCase();
                 recalculateTotalPrices();
-                msg.innerText = `Kode ${activePromoCode} aktif (Diskon Potongan ${activeDiscountPercentage}%).`;
+                msg.innerText = `Kode ${activePromoCode} aktif (Diskon ${activeDiscountPercentage}%).`;
                 msg.className = "text-xs mt-2 text-emerald-400 block";
             } catch (error) {
-                msg.innerText = "Error kegagalan otentikasi server basis data.";
+                msg.innerText = "Gagal otentikasi kupon.";
                 msg.className = "text-xs mt-2 text-amber-400 block";
             }
         }
 
         function recalculateTotalPrices() {
-            const basePrice = currentSelectedProduct.price;
+            const basePrice = Math.max(0, currentSelectedProduct.price);
             const discountAmt = (basePrice * activeDiscountPercentage) / 100;
-            finalPayableAmount = basePrice - discountAmt;
-            if (finalPayableAmount < 0) finalPayableAmount = 0;
+            finalPayableAmount = Math.max(0, basePrice - discountAmt);
 
             document.getElementById("summary-subtotal").innerText = `Rp ${basePrice.toLocaleString('id-ID')}`;
             if (discountAmt > 0) {
@@ -1033,6 +1035,20 @@
         }
 
         async function processPayment() {
+            // VERIFIKASI AKHIR GANDA KEBENARAN HARGA LANGSUNG DARI SERVER SEBELUM MERILIS TAGIHAN QRIS
+            try {
+                const checkRef = await db.ref('products/' + currentSelectedProduct.id).once('value');
+                if (checkRef.exists()) {
+                    const dbPrice = Math.max(0, parseInt(checkRef.val().price) || 0);
+                    const calcValidAmt = Math.max(0, dbPrice - ((dbPrice * activeDiscountPercentage) / 100));
+                    if (finalPayableAmount !== calcValidAmt) {
+                        showCustomToast("Integritas Rusak", "Deteksi manipulasi nilai transaksi secara lokal!", "error");
+                        closeModal();
+                        return;
+                    }
+                }
+            } catch (e) { return; }
+
             if (finalPayableAmount === 0) {
                 if (activePromoCode) incrementPromoUsageCounter(activePromoCode);
                 executePurchaseSuccessProcedure("INV-FREE-" + Date.now());
@@ -1041,7 +1057,7 @@
 
             const payButton = document.getElementById("btn-pay-process");
             payButton.disabled = true;
-            payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses QRIS (Mohon Tunggu)...</span>`;
+            payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses...</span>`;
 
             try {
                 const data = await secureFetchWithRetry(`${API_BASE}/invoice?apikey=${API_KEY}&amount=${finalPayableAmount}`);
@@ -1062,11 +1078,11 @@
                     startPaymentVerificationInterval(data.invoice_id);
                 } else {
                     resetPaymentButton();
-                    showCustomToast("Server Sibuk", "Sistem gateway gagal merespons. Silakan coba kembali.", "error");
+                    showCustomToast("Server Sibuk", "Gagal merespons gateway.", "error");
                 }
             } catch (error) {
                 resetPaymentButton(); 
-                showCustomToast("Gangguan Jaringan", "Gerbang pembayaran sedang padat trafik. Silakan klik ulang.", "error");
+                showCustomToast("Gangguan Jaringan", "Trafik padat. Coba lagi.", "error");
             }
         }
 
@@ -1096,12 +1112,11 @@
                         card.classList.add("scale-100", "opacity-100");
                     }, 50);
                     startPaymentVerificationInterval(invData.invoice_id);
-                    showCustomToast("Sesi Dipulihkan", "Melanjutkan proses pembayaran QRIS Anda yang tertunda.", "info");
+                    showCustomToast("Sesi Dipulihkan", "Melanjutkan pembayaran QRIS yang tertunda.", "info");
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) {}
         }
 
-        // Engine penghancur loop polling interval
         function destroyPollingEngine() {
             if (invoicePollingInterval) {
                 clearInterval(invoicePollingInterval);
@@ -1127,7 +1142,7 @@
                         if (activePromoCode) incrementPromoUsageCounter(activePromoCode);
                         executePurchaseSuccessProcedure(invoiceId);
                     }
-                } catch (error) { }
+                } catch (error) {}
             }, 4000);
         }
 
@@ -1163,7 +1178,7 @@
                         "Keterangan Sistem": finalPayableAmount === 0 ? `Bypass Kupon (${activePromoCode})` : "QRIS Lunas"
                     })
                 });
-            } catch (e) { }
+            } catch (e) {}
         }
     </script>
 </body>
