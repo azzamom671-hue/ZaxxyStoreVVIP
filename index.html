@@ -94,6 +94,7 @@
         </main>
     </div>
 
+    <!-- ADMIN LOGIN MODAL (DIUBAH MENJADI KEY ACCESS VVIP) -->
     <div id="admin-login-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-lg"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -102,15 +103,15 @@
                     <i class="fa-solid fa-lock text-white text-xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white">Admin Secure Gateway</h3>
-                <p class="text-xs text-slate-400 mt-1">Verifikasi kredensial untuk mengakses kontrol panel utama Zaxxy Store</p>
+                <p class="text-xs text-slate-400 mt-1">Verifikasi Access Key untuk membuka kontrol panel utama Zaxxy Store</p>
             </div>
 
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Email Address</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Admin Access Key</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500"><i class="fa-solid fa-envelope text-xs"></i></span>
-                        <input type="email" id="login-email" placeholder="nama@email.com" class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500"><i class="fa-solid fa-key text-xs"></i></span>
+                        <input type="text" id="login-key" placeholder="Masukkan Access Key VVIP" class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                     </div>
                 </div>
                 <div>
@@ -303,7 +304,7 @@
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kuota Limit Penggunaan</label>
                                     <input type="number" id="adm-input-maxuses" placeholder="Contoh: 50" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                 </div>
-                                <button onclick="submitNewPromoToFirebase()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 mt-2 flex items-center justify-center gap-2">
+                                button onclick="submitNewPromoToFirebase()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 mt-2 flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-floppy-disk"></i> Simpan Kode Promo
                                 </button>
                             </div>
@@ -414,7 +415,7 @@
                 <h3 class="text-2xl font-bold text-white mb-2">Pembayaran Berhasil!</h3>
                 <p class="text-sm text-slate-400 max-w-xs mx-auto mb-6">Sistem memverifikasi pembayaran Anda. Pengunduhan file akan segera dimulai otomatis...</p>
                 <div class="w-full bg-white/5 border border-white/5 rounded-xl p-3 flex items-center justify-center gap-3 text-xs text-slate-400">
-                    <i class="fa-solid fa-spinner animate-spin text-slate-200"></i> Menghubungkan ke server Cloud...
+                    <i class="fa-solid fa-slate-200 animate-spin text-slate-200"></i> Menghubungkan ke server Cloud...
                 </div>
             </div>
         </div>
@@ -445,10 +446,9 @@
         const INVOICE_STORAGE_KEY = "zaxxy_active_invoice";
         const LOGIN_SESSION_KEY = "zaxxy_admin_session";
 
-        // Hardened Admin Hashes
+        // Hardened Admin Password Hash (Tetap dipertahankan untuk keamanan lapis kedua)
         const HASHED_TARGETS = {
-            email: "1", 
-            pass: "1"   
+            pass: "8e7b9e078028448b11da086f6f966144e5cb092cf0955964098939c3629e3a6a"   
         };
 
         const firebaseConfig = {
@@ -575,7 +575,7 @@
         }
 
         function openAdminLoginModal() {
-            document.getElementById("login-email").value = "";
+            document.getElementById("login-key").value = "";
             document.getElementById("login-password").value = "";
             document.getElementById("login-remember").checked = false;
             document.getElementById("admin-login-modal").classList.remove("hidden");
@@ -585,22 +585,23 @@
             document.getElementById("admin-login-modal").classList.add("hidden");
         }
 
+        // VERIFIKASI DENGAN ACCESS KEY VVIP BARU
         async function submitAdminLogin() {
-            const emailInp = document.getElementById("login-email").value.trim();
+            const keyInp = document.getElementById("login-key").value.trim();
             const passInp = document.getElementById("login-password").value;
             const rememberMe = document.getElementById("login-remember").checked;
 
-            const hashedEmail = await hashValue(emailInp);
             const hashedPass = await hashValue(passInp);
 
-            if (hashedEmail === HASHED_TARGETS.email && hashedPass === HASHED_TARGETS.pass) {
+            // Verifikasi Key langsung string ZaxxyVVIP + pass hash
+            if (keyInp === "ZaxxyVVIP" && hashedPass === HASHED_TARGETS.pass) {
                 if (rememberMe) {
                     localStorage.setItem(LOGIN_SESSION_KEY, "true");
                 }
                 closeAdminLoginModal();
                 openAdminDashboardPanel();
             } else {
-                showCustomToast("Akses Ditolak", "Kredensial Salah!", "error");
+                showCustomToast("Akses Ditolak", "Access Key atau Password Salah!", "error");
             }
         }
 
@@ -1053,7 +1054,6 @@
             payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses...</span>`;
 
             try {
-                // Fetch amandemen untuk Vercel Serverless internal Tunnel
                 const data = await secureFetchWithRetry('create', { amount: finalPayableAmount });
                 if (data && data.success) {
                     document.getElementById("qris-image-src").src = data.qris_image;
