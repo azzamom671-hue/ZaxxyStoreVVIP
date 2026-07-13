@@ -432,7 +432,6 @@
 
     <script>
         // --- SECURE CRYPTO UTILITIES FOR INTERNAL HARDENING ---
-        // Menggunakan SHA-256 bawaan browser untuk mencegah modifikasi mentah kredensial di memory string.
         async function hashValue(string) {
             const utf8 = new TextEncoder().encode(string);
             const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
@@ -441,7 +440,6 @@
 
         // --- 1. CONFIGURATIONS ---
         const API_KEY = "key_5fcfe74555ca411c";
-        const API_BASE = "https://gateways.fyxzpedia.biz.id/api";
         const ADMIN_NOTIFICATION_EMAIL = "zaxxyxml@gmail.com";
         const AUTO_SAVE_KEY = "zaxxy_product_form_draft";
         const INVOICE_STORAGE_KEY = "zaxxy_active_invoice";
@@ -449,8 +447,8 @@
 
         // Hardened Admin Hashes
         const HASHED_TARGETS = {
-            email: "03cc95d43fe00094709bc867a5b3a4a9b2b516ff83637e19d9b736b0485547cb", // 
-            pass: "8e7b9e078028448b11da086f6f966144e5cb092cf0955964098939c3629e3a6a"   // 
+            email: "03cc95d43fe00094709bc867a5b3a4a9b2b516ff83637e19d9b736b0485547cb", 
+            pass: "8e7b9e078028448b11da086f6f966144e5cb092cf0955964098939c3629e3a6a"   
         };
 
         const firebaseConfig = {
@@ -474,22 +472,22 @@
         let finalPayableAmount = 0;
         let invoicePollingInterval = null;
 
-        async function secureFetchWithRetry(endpointUrl, retries = 3, delay = 2000) {
-            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(endpointUrl)}`;
+        // VERCEL CORS BYPASS TUNNEL ENGINE
+        async function secureFetchWithRetry(actionType, params = {}, retries = 3, delay = 2000) {
+            let localApiUrl = `/api/invoice?type=${actionType}&apikey=${API_KEY}`;
+            Object.keys(params).forEach(key => {
+                localApiUrl += `&${key}=${encodeURIComponent(params[key])}`;
+            });
+
             for (let i = 0; i < retries; i++) {
                 try {
-                    const response = await fetch(proxyUrl, {
+                    const response = await fetch(localApiUrl, {
                         method: 'GET',
                         headers: { 'Accept': 'application/json' }
                     });
                     if (response.ok) return await response.json();
                 } catch (error) {
-                    if (i === retries - 1) {
-                        try {
-                            const directResponse = await fetch(endpointUrl, { method: 'GET' });
-                            if (directResponse.ok) return await directResponse.json();
-                        } catch (e) { throw error; }
-                    }
+                    if (i === retries - 1) throw error;
                     await new Promise(res => setTimeout(res, delay));
                 }
             }
@@ -503,7 +501,6 @@
             initAutoSaveEngine();
             checkActiveInvoiceOnLoad(); 
 
-            // ANTI SHORTCUT KEY (F12, CTRL+SHIFT+I, CTRL+SHIFT+J, CTRL+U)
             document.addEventListener('keydown', function(e) {
                 if (e.keyCode == 123 || 
                     (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
@@ -674,7 +671,7 @@
                     const productObj = {
                         id: key,
                         name: item.name,
-                        price: Math.max(0, parseInt(item.price) || 0), // Anti minus value injection
+                        price: Math.max(0, parseInt(item.price) || 0), 
                         image: item.image || "",
                         features: Array.isArray(item.features) ? item.features : [],
                         link: item.link || "#"
@@ -882,7 +879,6 @@
             const rawProd = productsList.find(p => p.id === productId);
             if (!rawProd) return;
 
-            // Deep clone object untuk mencegah manipulasi object references di runtime console (Trik Hacker level 1)
             currentSelectedProduct = JSON.parse(JSON.stringify(rawProd));
 
             activeDiscountPercentage = 0;
@@ -962,14 +958,12 @@
                 return;
             }
 
-            // CEK INTEGRITAS DAN KEBENARAN HARGA DARI DATABASE REALTIME (MENCEGAH BAJAKAN DI MEMORY CONSOLE)
             if (!currentSelectedProduct || !currentSelectedProduct.id) return;
             
             msg.innerText = "Memvalidasi kupon aman...";
             msg.className = "text-xs mt-2 text-cyan-400 block";
 
             try {
-                // Tarik data asli produk langsung dari Firebase demi menghentikan rekayasa variabel lokal
                 const syncProdSnap = await db.ref('products/' + currentSelectedProduct.id).once('value');
                 const freshProdData = syncProdSnap.val();
                 if (!freshProdData) {
@@ -1035,7 +1029,6 @@
         }
 
         async function processPayment() {
-            // VERIFIKASI AKHIR GANDA KEBENARAN HARGA LANGSUNG DARI SERVER SEBELUM MERILIS TAGIHAN QRIS
             try {
                 const checkRef = await db.ref('products/' + currentSelectedProduct.id).once('value');
                 if (checkRef.exists()) {
@@ -1060,7 +1053,8 @@
             payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses...</span>`;
 
             try {
-                const data = await secureFetchWithRetry(`${API_BASE}/invoice?apikey=${API_KEY}&amount=${finalPayableAmount}`);
+                // Fetch amandemen untuk Vercel Serverless internal Tunnel
+                const data = await secureFetchWithRetry('create', { amount: finalPayableAmount });
                 if (data && data.success) {
                     document.getElementById("qris-image-src").src = data.qris_image;
                     document.getElementById("val-invoice-id").innerText = data.invoice_id;
@@ -1094,7 +1088,7 @@
                 currentSelectedProduct = { name: invData.product_name, link: invData.product_link };
                 finalPayableAmount = invData.total;
 
-                const data = await secureFetchWithRetry(`${API_BASE}/invoice/status?apikey=${API_KEY}&invoice_id=${invData.invoice_id}`, 2, 1000);
+                const data = await secureFetchWithRetry('status', { invoice_id: invData.invoice_id }, 2, 1000);
                 if (data && data.status === "paid") {
                     executePurchaseSuccessProcedure(invData.invoice_id);
                 } else {
@@ -1136,7 +1130,7 @@
             destroyPollingEngine();
             invoicePollingInterval = setInterval(async () => {
                 try {
-                    const data = await secureFetchWithRetry(`${API_BASE}/invoice/status?apikey=${API_KEY}&invoice_id=${invoiceId}`, 2, 1000);
+                    const data = await secureFetchWithRetry('status', { invoice_id: invoiceId }, 2, 1000);
                     if (data && data.status === "paid") {
                         destroyPollingEngine();
                         if (activePromoCode) incrementPromoUsageCounter(activePromoCode);
