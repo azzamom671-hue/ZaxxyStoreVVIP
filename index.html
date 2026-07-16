@@ -573,6 +573,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
+            <!-- STEP 1: SUMMARY DETAILS -->
             <div id="checkout-step-details" class="block">
                 <h3 class="text-xl font-bold mb-4 text-white flex items-center gap-2">
                     <i class="fa-solid fa-wallet text-violet-400"></i> Ringkasan Pembayaran
@@ -614,6 +615,7 @@
                 </button>
             </div>
 
+            <!-- STEP 2: QRIS GRID ENGINE -->
             <div id="checkout-step-qris" class="hidden text-center">
                 <h3 class="text-xl font-bold mb-2 text-white">Scan QRIS Untuk Membayar</h3>
                 <p class="text-xs text-slate-400 mb-6">Silakan lakukan scan pembayaran sebelum batas waktu berakhir.</p>
@@ -636,6 +638,7 @@
                 </button>
             </div>
 
+            <!-- STEP 3: SUCCESS BANNER CONTAINER -->
             <div id="checkout-step-success" class="hidden text-center py-6">
                 <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-emerald-500/10">
                     <i class="fa-solid fa-circle-check animate-bounce"></i>
@@ -646,9 +649,22 @@
                     <i class="fa-solid fa-spinner animate-spin text-slate-200"></i> Menghubungkan ke server Cloud...
                 </div>
             </div>
+
+            <!-- STEP 4: EXPIRED STATE BANNER -->
+            <div id="checkout-step-expired" class="hidden text-center py-6">
+                <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-rose-500/10">
+                    <i class="fa-solid fa-hourglass-end animate-pulse"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Pembayaran Kadaluwarsa</h3>
+                <p class="text-sm text-slate-400 max-w-xs mx-auto mb-6">Batas waktu transfer aman untuk transaksi ini telah habis. Silakan buat pesanan baru.</p>
+                <button onclick="handleExpiredResetProcedure()" class="w-full bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-rotate-left"></i> Kembali Ke Toko
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- NOTIFICATION SYSTEM TOAST -->
     <div id="notification-modal" class="fixed inset-0 z-[100] overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
         <div class="glass max-w-sm w-full rounded-2xl p-6 text-center relative z-10 shadow-xl border border-white/10 transform transition-transform">
@@ -700,7 +716,6 @@
             }
         }
 
-        // CONTROL HANDLER FOR ADMIN LINK ACCESS
         function handleAdminDashboardAccess() {
             if (localStorage.getItem(LOGIN_SESSION_KEY) === "true") {
                 openAdminDashboardPanel();
@@ -919,11 +934,8 @@
 
         function closeAdminLoginModal() { document.getElementById("admin-login-modal").classList.add("hidden"); }
 
-        // OBFUSCATED METHOD TO SECURE ACCESS KEY '17910' FROM HARMFUL DEVTOOLS INSPECTIONS
         function submitAdminLogin() {
             const clientInputKey = document.getElementById("login-key").value.trim();
-            
-            // Base64 value encoding of token "17910" prevents standard source scanning
             if (btoa(clientInputKey) === "MTc5MTA=") {
                 if (document.getElementById("login-remember").checked) {
                     localStorage.setItem(LOGIN_SESSION_KEY, "true");
@@ -953,7 +965,7 @@
         function logoutAdminDashboard() {
             localStorage.removeItem(LOGIN_SESSION_KEY);
             const adminPanel = document.getElementById("view-admin-panel");
-            adminPanel.opacity-0;
+            adminPanel.classList.add("opacity-0");
             setTimeout(() => {
                 adminPanel.classList.add("hidden");
                 document.getElementById("view-store-panel").classList.remove("hidden");
@@ -1132,7 +1144,7 @@
             reader.onload = async function() {
                 try {
                     const parsedData = JSON.parse(reader.result);
-                    if (!parsedData || !Array.isArray(parsedData)) throw new Error("Format JSON harus berupa Array Produk.");
+                    if (!parsedData || !Array.isArray(parsedData)) throw new Error("Format JSON harus berupa Array.");
                     
                     if (confirm(`Menemukan ${parsedData.length} produk di dalam file. Impor data ini ke Firebase sekarang?`)) {
                         for (const prod of parsedData) {
@@ -1402,6 +1414,7 @@
             document.getElementById("checkout-step-details").classList.remove("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
             document.getElementById("checkout-step-success").classList.add("hidden");
+            document.getElementById("checkout-step-expired").classList.add("hidden");
 
             const modal = document.getElementById("checkout-modal");
             const card = document.getElementById("modal-card");
@@ -1455,6 +1468,9 @@
                     }
                     
                     showCustomToast("Lunas Terverifikasi", "Invoice lunas. Silakan lakukan transaksi ulang/hubungi CS untuk memicu unduhan instan.", "success");
+                } else if (data && (data.status === "expired" || data.status === "failed")) {
+                    closeTrackingModal();
+                    executePurchaseExpiredProcedure();
                 } else {
                     showCustomToast("Belum Dibayar", "Tagihan terdeteksi belum menerima transfer masuk.", "error");
                 }
@@ -1630,6 +1646,7 @@
             }
         }
 
+        // AUTO-SAVE LISTENER ONLOAD: AUTOMATICALLY TRIGGERS EXPIRED BANNER PROCEDURES IF DETECTED
         async function checkActiveInvoiceOnLoad() {
             const savedInvoice = localStorage.getItem(INVOICE_STORAGE_KEY);
             if (!savedInvoice) return; 
@@ -1641,6 +1658,8 @@
                 const data = await secureFetchWithRetry('status', { invoice_id: invData.invoice_id }, 2, 1000);
                 if (data && data.status === "paid") {
                     executePurchaseSuccessProcedure(invData.invoice_id);
+                } else if (data && (data.status === "expired" || data.status === "failed")) {
+                    executePurchaseExpiredProcedure();
                 } else {
                     document.getElementById("qris-image-src").src = invData.qris_image;
                     document.getElementById("val-invoice-id").innerText = invData.invoice_id;
@@ -1657,7 +1676,9 @@
                     }, 50);
                     startPaymentVerificationInterval(invData.invoice_id);
                 }
-            } catch (e) {}
+            } catch (e) {
+                executePurchaseExpiredProcedure();
+            }
         }
 
         function destroyPollingEngine() {
@@ -1684,9 +1705,37 @@
                         destroyPollingEngine();
                         if (activePromoCode) incrementPromoUsageCounter(activePromoCode);
                         executePurchaseSuccessProcedure(invoiceId);
+                    } else if (data && (data.status === "expired" || data.status === "failed")) {
+                        executePurchaseExpiredProcedure();
                     }
                 } catch (error) {}
             }, 4000);
+        }
+
+        // PROCEDURAL ENGINE FOR HARD TERMINATIONS ON EXPIRED TAGS
+        function executePurchaseExpiredProcedure() {
+            localStorage.removeItem(INVOICE_STORAGE_KEY);
+            destroyPollingEngine();
+            
+            document.getElementById("checkout-step-details").classList.add("hidden");
+            document.getElementById("checkout-step-qris").classList.add("hidden");
+            document.getElementById("checkout-step-success").classList.add("hidden");
+            document.getElementById("checkout-step-expired").classList.remove("hidden");
+
+            const modal = document.getElementById("checkout-modal");
+            const card = document.getElementById("modal-card");
+            if (modal.classList.contains("hidden")) {
+                modal.classList.remove("hidden");
+                setTimeout(() => {
+                    card.classList.remove("scale-95", "opacity-0");
+                    card.classList.add("scale-100", "opacity-100");
+                }, 50);
+            }
+        }
+
+        function handleExpiredResetProcedure() {
+            document.getElementById("checkout-step-expired").classList.add("hidden");
+            closeModal();
         }
 
         function incrementPromoUsageCounter(code) {
@@ -1698,6 +1747,7 @@
             localStorage.removeItem(INVOICE_STORAGE_KEY);
             document.getElementById("checkout-step-details").classList.add("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
+            document.getElementById("checkout-step-expired").classList.add("hidden");
             document.getElementById("checkout-step-success").classList.remove("hidden");
 
             db.ref('sales_count').transaction((c) => { return (c || 0) + 1; });
