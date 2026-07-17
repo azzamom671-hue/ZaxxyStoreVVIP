@@ -23,24 +23,28 @@
         }
 
         .glass {
-            background: rgba(10, 7, 28, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(10, 7, 28, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(147, 51, 234, 0.15);
         }
 
         .glow-purple {
-            box-shadow: 0 0 25px rgba(139, 92, 246, 0.15);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.1);
         }
 
         .glow-purple:hover {
-            box-shadow: 0 0 35px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.3);
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #030014; }
         ::-webkit-scrollbar-thumb { background: #1e1b4b; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #4c1d95; }
+        
+        /* Utility for hiding scrollbars on tabs */
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
     <script>
         let enableAntiInspect = true;
@@ -61,7 +65,7 @@
     <div class="absolute top-0 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-violet-900/15 rounded-full blur-[80px] sm:blur-[120px] -z-10"></div>
     <div class="absolute top-1/3 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-fuchsia-900/10 rounded-full blur-[70px] sm:blur-[100px] -z-10"></div>
 
-    <div id="user-broadcast-banner" class="hidden bg-gradient-to-r from-violet-900/80 via-fuchsia-900/80 to-indigo-900/80 border-b border-purple-500/30 text-center py-2.5 px-4 text-xs font-semibold tracking-wide backdrop-blur-md sticky top-0 z-40 transition-all">
+    <div id="user-broadcast-banner" class="hidden bg-gradient-to-r from-violet-950/90 via-fuchsia-950/90 to-indigo-950/90 border-b border-purple-500/20 text-center py-3 px-4 text-xs font-semibold tracking-wide backdrop-blur-md sticky top-0 z-40 transition-all">
         <span class="flex items-center justify-center gap-2">
             <i class="fa-solid fa-bullhorn text-fuchsia-400 animate-bounce"></i>
             <span id="user-broadcast-text">Pengumuman Toko</span>
@@ -69,59 +73,64 @@
     </div>
 
     <div id="view-store-panel" class="block transition-all duration-300">
-        <!-- PREMIUM NAVIGATION BAR -->
-        <nav class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 border-b border-purple-500/10 sticky top-0 bg-[#030014]/80 backdrop-blur-md z-30">
-            <div class="flex items-center justify-between">
-                <!-- Brand logo left -->
-                <div id="brand-logo-trigger" class="flex items-center gap-3 cursor-pointer select-none group active:scale-98 transition-transform">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:rotate-6 transition-transform">
-                        <i class="fa-solid fa-bolt-lightning text-white text-lg"></i>
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-4 sticky top-0 z-30">
+            <nav class="glass rounded-2xl px-4 sm:px-6 py-3.5 border border-purple-500/15 shadow-2xl backdrop-blur-xl">
+                <div class="flex items-center justify-between">
+                    <div id="brand-logo-trigger" class="flex items-center gap-3 cursor-pointer select-none group active:scale-95 transition-transform">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:rotate-6 transition-transform duration-300">
+                            <i class="fa-solid fa-bolt-lightning text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                            Zaxxy<span class="text-violet-400">Store</span>
+                        </span>
                     </div>
-                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-                        Zaxxy<span class="text-violet-400">Store</span>
-                    </span>
+                    
+                    <div class="hidden md:flex items-center gap-2.5">
+                        <div class="bg-emerald-500/5 px-4 py-2 rounded-xl flex items-center gap-2 text-xs border border-emerald-500/20 shadow-inner">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="font-bold text-emerald-400 tracking-wide">Trx: <span class="sales-count-nodes">0</span></span>
+                        </div>
+                        
+                        <button onclick="openTrackingModal()" class="bg-cyan-500/5 hover:bg-cyan-500/10 px-4 py-2 rounded-xl text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-all border border-cyan-500/15 hover:border-cyan-500/30 flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Lacak Status
+                        </button>
+                        
+                        <a href="#" target="_blank" class="user-cs-btn-nodes hidden bg-emerald-500/5 hover:bg-emerald-500/10 px-4 py-2 rounded-xl text-xs font-bold text-emerald-400 hover:text-emerald-300 transition-all border border-emerald-500/15 hover:border-emerald-500/30 items-center gap-1.5">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Hubungi CS
+                        </a>
+                        
+                        <button onclick="handleAdminDashboardAccess()" class="bg-purple-600/10 hover:bg-purple-600/20 px-4 py-2 rounded-xl text-xs font-bold text-purple-400 hover:text-purple-300 transition-all border border-purple-500/20 hover:border-purple-500/40 flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-user-shield"></i> Dashboard
+                        </button>
+                    </div>
+
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden glass p-2.5 rounded-xl text-slate-300 hover:text-white border border-purple-500/20 active:scale-95 transition-all cursor-pointer flex items-center justify-center">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
                 </div>
-                
-                <!-- Menu Actions (Desktop Mode) -->
-                <div class="hidden md:flex items-center gap-2">
-                    <div class="glass px-4 py-2 rounded-full flex items-center gap-2 text-xs sm:text-sm shadow-inner border border-purple-500/15">
+
+                <div id="mobile-menu-dropdown" class="hidden md:hidden mt-4 pt-4 border-t border-purple-500/10 space-y-2.5 transition-all">
+                    <div class="bg-emerald-500/5 px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-xs border border-emerald-500/20 w-full">
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span class="font-semibold text-emerald-400 tracking-wide">Trx: <span class="sales-count-nodes">0</span></span>
+                        <span class="font-bold text-emerald-400 tracking-wide">Trx: <span class="sales-count-nodes">0</span></span>
                     </div>
-                    <button onclick="openTrackingModal()" class="glass px-3.5 py-2 rounded-full text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 transition-colors border border-cyan-500/20 flex items-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-clock-rotate-left text-sm"></i>Lacak Status Pesanan
-                    </button>
-                    <a href="#" target="_blank" class="user-cs-btn-nodes hidden glass px-3.5 py-2 rounded-full text-xs font-bold text-emerald-400 hover:bg-emerald-500/10 transition-colors border border-emerald-500/20 items-center gap-1.5">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>Hubungi CS
-                    </a>
-                    <button onclick="handleAdminDashboardAccess()" class="glass px-3.5 py-2 rounded-full text-xs font-bold text-purple-400 hover:bg-purple-500/10 transition-colors border border-purple-500/20 flex items-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-user-shield text-sm"></i>Admin Dashboard
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="openTrackingModal(); toggleMobileMenu();" class="w-full bg-cyan-500/5 hover:bg-cyan-500/10 py-3 rounded-xl text-xs font-bold text-cyan-400 hover:text-cyan-300 border border-cyan-500/15 flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Lacak Status
+                        </button>
+                        
+                        <a href="#" target="_blank" class="user-cs-btn-nodes hidden w-full bg-emerald-500/5 hover:bg-emerald-500/10 py-3 rounded-xl text-xs font-bold text-emerald-400 hover:text-emerald-300 border border-cyan-500/15 items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp"></i> Hubungi CS
+                        </a>
+                    </div>
+                    
+                    <button onclick="handleAdminDashboardAccess(); toggleMobileMenu();" class="w-full bg-purple-600/10 hover:bg-purple-600/20 py-3 rounded-xl text-xs font-bold text-purple-400 hover:text-purple-300 border border-purple-500/20 flex items-center justify-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-user-shield"></i> Admin Dashboard
                     </button>
                 </div>
-
-                <!-- Hamburger Menu Button (=) (Mobile Mode Only) -->
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden glass p-2.5 rounded-xl text-slate-300 hover:text-white border border-purple-500/20 active:scale-95 transition-all cursor-pointer flex items-center justify-center">
-                    <i class="fa-solid fa-bars text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Mobile Submenu Dropdown Container -->
-            <div id="mobile-menu-dropdown" class="hidden md:hidden mt-4 glass rounded-2xl p-4 space-y-3 border border-purple-500/20 shadow-2xl transition-all">
-                <div class="glass px-4 py-3 rounded-xl flex items-center justify-center gap-2 text-xs shadow-inner border border-purple-500/15 w-full">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="font-semibold text-emerald-400 tracking-wide">Trx: <span class="sales-count-nodes">0</span></span>
-                </div>
-                <button onclick="openTrackingModal(); toggleMobileMenu();" class="w-full glass px-4 py-3 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 transition-colors border border-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-clock-rotate-left"></i> Lacak Status Pesanan
-                </button>
-                <a href="#" target="_blank" class="user-cs-btn-nodes hidden w-full glass px-4 py-3 rounded-xl text-xs font-bold text-emerald-400 hover:bg-emerald-500/10 transition-colors border border-emerald-500/20 items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> Hubungi CS
-                </a>
-                <button onclick="handleAdminDashboardAccess(); toggleMobileMenu();" class="w-full glass px-4 py-3 rounded-xl text-xs font-bold text-purple-400 hover:bg-purple-500/10 transition-colors border border-purple-500/20 flex items-center justify-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-user-shield"></i> Admin Dashboard
-                </button>
-            </div>
-        </nav>
+            </nav>
+        </div>
 
         <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-12">
             <div class="text-center max-w-2xl mx-auto mb-8 px-2">
@@ -135,7 +144,6 @@
                 </p>
             </div>
 
-            <!-- SEARCH ENGINE & FILTERS (USER SIDE) -->
             <div class="max-w-2xl mx-auto mb-12 flex flex-col sm:flex-row gap-3 px-2">
                 <div class="relative flex-1">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500"><i class="fa-solid fa-magnifying-glass text-xs"></i></span>
@@ -143,9 +151,6 @@
                 </div>
                 <select id="user-filter-category" onchange="filterUserCatalog()" class="bg-slate-900 border border-purple-500/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-300 focus:outline-none focus:border-violet-500 transition-all">
                     <option value="all">Semua Kategori</option>
-                    <option value="Browser Ujian">Browser Ujian</option>
-                    <option value="Tools & Bypass">Tools & Bypass</option>
-                    <option value="Premium Mod">Premium Mod</option>
                 </select>
             </div>
 
@@ -153,7 +158,6 @@
         </main>
     </div>
 
-    <!-- TRACKING INVOICE MODAL -->
     <div id="tracking-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -179,7 +183,6 @@
         </div>
     </div>
 
-    <!-- ADMIN LOGIN MODAL -->
     <div id="admin-login-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-lg"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -215,67 +218,68 @@
         </div>
     </div>
 
-    <!-- VIEW ADMIN PANEL -->
     <div id="view-admin-panel" class="hidden opacity-0 transition-all duration-500 flex flex-col min-h-screen">
-        <nav class="w-full glass border-b border-purple-500/10 sticky top-0 z-30 shadow-2xl backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shadow-md shadow-purple-500/20 animate-pulse">
-                        <i class="fa-solid fa-user-shield text-white text-base"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h2 class="text-base font-extrabold text-white tracking-tight">Zaxxy<span class="text-cyan-400">HQ</span> Control</h2>
-                            <span class="text-[9px] px-1.5 py-0.2 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded font-bold uppercase tracking-wider">v2.5</span>
+        <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 sticky top-0 z-30">
+            <div class="glass rounded-2xl border border-purple-500/15 shadow-2xl backdrop-blur-xl overflow-hidden">
+                <div class="flex flex-col md:flex-row items-center justify-between p-4 sm:px-6 gap-4 border-b border-purple-500/10">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/20 animate-pulse shrink-0">
+                            <i class="fa-solid fa-user-shield text-white text-base"></i>
                         </div>
-                        <span class="text-[11px] text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Active Syncing</span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-base font-extrabold text-white tracking-tight">Zaxxy<span class="text-cyan-400">HQ</span> Control</h2>
+                                <span class="text-[9px] px-1.5 py-0.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded font-bold uppercase tracking-wider">v2.5</span>
+                            </div>
+                            <span class="text-[10px] text-emerald-400 flex items-center gap-1.5 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Active Syncing</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center flex-wrap justify-center gap-3 sm:gap-4">
+                        <div class="flex items-center gap-3.5 bg-slate-950/50 px-4 py-2 rounded-xl border border-purple-500/10">
+                            <div>
+                                <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">Katalog</span>
+                                <strong id="nav-stat-products" class="text-white text-xs sm:text-sm font-extrabold">0</strong>
+                            </div>
+                            <div class="w-px h-6 bg-purple-500/10"></div>
+                            <div>
+                                <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">Volume Trx</span>
+                                <strong id="nav-stat-sales" class="text-emerald-400 text-xs sm:text-sm font-extrabold">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="w-px h-8 bg-purple-500/10 hidden md:block"></div>
+
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 border border-purple-500/40 flex items-center justify-center font-bold text-[11px] text-white shadow-md shadow-purple-600/20">AZ</div>
+                            <span class="text-xs font-bold text-slate-300 hidden sm:inline">Azzam Admin</span>
+                        </div>
+
+                        <button onclick="logoutAdminDashboard()" class="p-2 sm:px-3 sm:py-2 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer" title="Keluar Dashboard">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span class="hidden md:inline text-xs">Keluar</span>
+                        </button>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <div class="hidden sm:flex items-center gap-3 text-xs bg-slate-950/50 px-4 py-2 rounded-xl border border-white/5">
-                        <div>
-                            <span class="text-slate-500 block text-[9px] uppercase font-bold">Katalog</span>
-                            <strong id="nav-stat-products" class="text-white text-xs sm:text-sm font-black">0</strong>
-                        </div>
-                        <div class="w-px h-6 bg-white/10 mx-1"></div>
-                        <div>
-                            <span class="text-slate-500 block text-[9px] uppercase font-bold">Volume Trx</span>
-                            <strong id="nav-stat-sales" class="text-emerald-400 text-xs sm:text-sm font-black">0</strong>
-                        </div>
+                <div class="bg-[#07041a]/60 px-4 sm:px-6 py-2.5 overflow-x-auto border-t border-purple-500/5 flex items-center scrollbar-none">
+                    <div class="flex items-center space-x-2 min-w-[560px]">
+                        <button onclick="switchAdminTab('analytics', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 border border-purple-500/40 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.15)] font-bold text-xs transition-all cursor-pointer duration-300">
+                            <i class="fa-solid fa-chart-line text-xs"></i> Realtime Revenue & Logs
+                        </button>
+                        <button onclick="switchAdminTab('produk', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300">
+                            <i class="fa-solid fa-box text-xs"></i> Manajemen Produk
+                        </button>
+                        <button onclick="switchAdminTab('voucher', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300">
+                            <i class="fa-solid fa-ticket text-xs"></i> Voucher Diskon
+                        </button>
+                        <button onclick="switchAdminTab('sistem', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300">
+                            <i class="fa-solid fa-sliders text-xs"></i> Pengaturan Toko
+                        </button>
                     </div>
-                    
-                    <div class="h-8 w-px bg-purple-500/10 hidden md:block"></div>
-                    
-                    <div class="flex items-center gap-2.5 pl-1">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 border border-purple-500/40 flex items-center justify-center font-bold text-xs text-white">AZ</div>
-                        <span class="text-xs font-bold text-slate-300 hidden md:inline">Azzam Admin</span>
-                    </div>
-
-                    <button onclick="logoutAdminDashboard()" class="p-2.5 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center gap-1.5 active:scale-95" title="Keluar Dashboard">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="hidden lg:inline text-xs">Keluar</span>
-                    </button>
                 </div>
             </div>
-
-            <div class="w-full bg-[#07041a]/90 border-t border-purple-500/5 px-4 overflow-x-auto">
-                <div class="max-w-7xl mx-auto flex space-x-2 py-2 min-w-[560px]">
-                    <button onclick="switchAdminTab('analytics', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 font-bold text-xs transition-all cursor-pointer">
-                        <i class="fa-solid fa-chart-line text-xs"></i> Realtime Revenue & Logs
-                    </button>
-                    <button onclick="switchAdminTab('produk', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 border border-transparent hover:text-white hover:bg-white/5 font-medium text-xs transition-all cursor-pointer">
-                        <i class="fa-solid fa-box text-xs"></i> Manajemen Produk
-                    </button>
-                    <button onclick="switchAdminTab('voucher', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 border border-transparent hover:text-white hover:bg-white/5 font-medium text-xs transition-all cursor-pointer">
-                        <i class="fa-solid fa-ticket text-xs"></i> Voucher Diskon
-                    </button>
-                    <button onclick="switchAdminTab('sistem', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 border border-transparent hover:text-white hover:bg-white/5 font-medium text-xs transition-all cursor-pointer">
-                        <i class="fa-solid fa-sliders text-xs"></i> Pengaturan Toko
-                    </button>
-                </div>
-            </div>
-        </nav>
+        </header>
 
         <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
             <div id="tab-analytics" class="admin-tab-content space-y-6 block">
@@ -317,7 +321,7 @@
                         <table class="w-full min-w-[600px] text-left border-collapse text-xs sm:text-sm">
                             <thead>
                                 <tr class="border-b border-purple-500/20 font-bold uppercase text-slate-400 tracking-wider">
-                                    <th class="py-3 elegance px-4">Invoice ID</th>
+                                    <th class="py-3 px-4">Invoice ID</th>
                                     <th class="py-3 px-4">Waktu</th>
                                     <th class="py-3 px-4">Nama Produk</th>
                                     <th class="py-3 px-4">Nominal</th>
@@ -353,10 +357,11 @@
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kategori Produk</label>
                                     <select id="adm-prod-category" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
-                                        <option value="Browser Ujian">Browser Ujian</option>
-                                        <option value="Tools & Bypass">Tools & Bypass</option>
-                                        <option value="Premium Mod">Premium Mod</option>
                                     </select>
+                                    <div class="mt-2 flex gap-2">
+                                        <input type="text" id="adm-new-category" placeholder="Kategori Baru (Kustom)..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all">
+                                        <button type="button" onclick="addNewCustomCategory()" class="bg-purple-600 hover:bg-purple-500 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-all cursor-pointer">+ Kategori</button>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Badge Unggulan</label>
@@ -366,17 +371,31 @@
                                         <option value="best_seller">BEST SELLER 🏆</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga (Rupiah)</label>
-                                    <input type="number" id="adm-prod-price" placeholder="Contoh: 25000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga (Rupiah)</label>
+                                        <input type="number" id="adm-prod-price" placeholder="Contoh: 25000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Produk</label>
+                                        <select id="adm-prod-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                            <option value="active">Aktif (Tersedia)</option>
+                                            <option value="out_of_stock">Stok Habis</option>
+                                            <option value="maintenance">Perbaikan</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Produk</label>
-                                    <select id="adm-prod-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
-                                        <option value="active">Aktif (Tersedia)</option>
-                                        <option value="out_of_stock">Stok Habis</option>
-                                        <option value="maintenance">Perbaikan</option>
-                                    </select>
+                                <div class="grid grid-cols-2 gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Jumlah Stok</label>
+                                        <input type="number" id="adm-prod-stock" min="0" placeholder="Kuantitas" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    </div>
+                                    <div class="flex items-center pt-5">
+                                        <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
+                                            <input type="checkbox" id="adm-prod-stock-unlimited" onchange="toggleStockInputState()" class="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600">
+                                            <span>Stok Tidak Terbatas</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Foto / Gambar Produk</label>
@@ -564,7 +583,6 @@
         </main>
     </div>
 
-    <!-- MAIN CHECKOUT OVERLAY MODAL -->
     <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 transform transition-all scale-95 opacity-0 duration-300" id="modal-card">
@@ -573,7 +591,6 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- STEP 1: SUMMARY DETAILS -->
             <div id="checkout-step-details" class="block">
                 <h3 class="text-xl font-bold mb-4 text-white flex items-center gap-2">
                     <i class="fa-solid fa-wallet text-violet-400"></i> Ringkasan Pembayaran
@@ -615,7 +632,6 @@
                 </button>
             </div>
 
-            <!-- STEP 2: QRIS GRID ENGINE -->
             <div id="checkout-step-qris" class="hidden text-center">
                 <h3 class="text-xl font-bold mb-2 text-white">Scan QRIS Untuk Membayar</h3>
                 <p class="text-xs text-slate-400 mb-6">Silakan lakukan scan pembayaran sebelum batas waktu berakhir.</p>
@@ -638,7 +654,6 @@
                 </button>
             </div>
 
-            <!-- STEP 3: SUCCESS BANNER CONTAINER -->
             <div id="checkout-step-success" class="hidden text-center py-6">
                 <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-emerald-500/10">
                     <i class="fa-solid fa-circle-check animate-bounce"></i>
@@ -650,7 +665,6 @@
                 </div>
             </div>
 
-            <!-- STEP 4: EXPIRED STATE BANNER -->
             <div id="checkout-step-expired" class="hidden text-center py-6">
                 <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-rose-500/10">
                     <i class="fa-solid fa-hourglass-end animate-pulse"></i>
@@ -664,7 +678,6 @@
         </div>
     </div>
 
-    <!-- NOTIFICATION SYSTEM TOAST -->
     <div id="notification-modal" class="fixed inset-0 z-[100] overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
         <div class="glass max-w-sm w-full rounded-2xl p-6 text-center relative z-10 shadow-xl border border-white/10 transform transition-transform">
@@ -696,6 +709,7 @@
 
         let productsList = [];
         let liveLogsList = [];
+        let dynamicCategories = ["Browser Ujian", "Tools & Bypass", "Premium Mod"];
         let brandClickCounter = 0;
         let brandClickTimer = null;
         let currentSelectedProduct = null;
@@ -732,10 +746,10 @@
             document.getElementById(`tab-${targetTabId}`).classList.replace('hidden', 'block');
 
             document.querySelectorAll('.admin-tab-btn').forEach(btn => {
-                btn.className = "admin-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 border border-transparent hover:text-white hover:bg-white/5 font-medium text-xs transition-all cursor-pointer";
+                btn.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300";
             });
 
-            currentButtonElement.className = "admin-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-300 font-bold text-xs transition-all cursor-pointer";
+            currentButtonElement.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 border border-purple-500/40 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.15)] font-bold text-xs transition-all cursor-pointer duration-300";
         }
 
         async function secureFetchWithRetry(actionType, params = {}, retries = 3, delay = 2000) {
@@ -761,6 +775,7 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             bindSalesCounterListener();
+            bindFirebaseCategoriesListener();
             bindFirebaseRealtimeProductListener();
             bindFirebaseRealtimePromoListener();
             bindSystemControlListeners(); 
@@ -780,6 +795,79 @@
                 }
             });
         });
+
+        function bindFirebaseCategoriesListener() {
+            db.ref('categories').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    dynamicCategories = Object.values(data);
+                } else {
+                    db.ref('categories').set(dynamicCategories);
+                }
+                updateCategoryDropdowns();
+            });
+        }
+
+        function updateCategoryDropdowns() {
+            const userFilter = document.getElementById("user-filter-category");
+            const admSelect = document.getElementById("adm-prod-category");
+            
+            const currentUserVal = userFilter ? userFilter.value : "all";
+            const currentAdmVal = admSelect ? admSelect.value : "";
+
+            if (userFilter) {
+                userFilter.innerHTML = `<option value="all">Semua Kategori</option>`;
+                dynamicCategories.forEach(cat => {
+                    userFilter.innerHTML += `<option value="${cat}">${cat}</option>`;
+                });
+                userFilter.value = currentUserVal;
+            }
+
+            if (admSelect) {
+                admSelect.innerHTML = "";
+                dynamicCategories.forEach(cat => {
+                    admSelect.innerHTML += `<option value="${cat}">${cat}</option>`;
+                });
+                if (currentAdmVal && dynamicCategories.includes(currentAdmVal)) {
+                    admSelect.value = currentAdmVal;
+                }
+            }
+        }
+
+        async function addNewCustomCategory() {
+            const inputField = document.getElementById("adm-new-category");
+            const newCat = inputField.value.trim();
+            if (!newCat) {
+                showCustomToast("Gagal", "Nama kategori tidak boleh kosong.", "error");
+                return;
+            }
+            if (dynamicCategories.includes(newCat)) {
+                showCustomToast("Gagal", "Kategori sudah terdaftar.", "error");
+                return;
+            }
+
+            try {
+                const updatedList = [...dynamicCategories, newCat];
+                await db.ref('categories').set(updatedList);
+                showCustomToast("Berhasil", `Kategori "${newCat}" ditambahkan!`, "success");
+                inputField.value = "";
+            } catch (e) {
+                showCustomToast("Gagal", "Terjadi kesalahan database.", "error");
+            }
+        }
+
+        function toggleStockInputState() {
+            const isUnlimited = document.getElementById("adm-prod-stock-unlimited").checked;
+            const stockInput = document.getElementById("adm-prod-stock");
+            if (isUnlimited) {
+                stockInput.value = "";
+                stockInput.disabled = true;
+                stockInput.classList.add("opacity-50");
+            } else {
+                stockInput.disabled = false;
+                stockInput.classList.remove("opacity-50");
+            }
+        }
 
         function bindSystemControlListeners() {
             db.ref('system_control/broadcast').on('value', (snap) => {
@@ -873,7 +961,7 @@
         }
 
         function initAutoSaveEngine() {
-            const fields = ["adm-prod-name", "adm-prod-price", "adm-prod-img", "adm-prod-features", "adm-prod-link"];
+            const fields = ["adm-prod-name", "adm-prod-price", "adm-prod-img", "adm-prod-features", "adm-prod-link", "adm-prod-stock"];
             const badge = document.getElementById("draft-badge");
             const savedDraft = localStorage.getItem(AUTO_SAVE_KEY);
             
@@ -1013,7 +1101,8 @@
                             category: item.category || "Browser Ujian",
                             badge: item.badge || "normal",
                             features: Array.isArray(item.features) ? item.features : [],
-                            link: item.link || "#"
+                            link: item.link || "#",
+                            stock: item.stock !== undefined ? parseInt(item.stock) : -1
                         });
                     });
                 }
@@ -1060,16 +1149,23 @@
 
             list.forEach(productObj => {
                 let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">Aktif</span>`;
-                if (productObj.status === "out_of_stock") {
+                if (productObj.stock !== -1 && productObj.stock <= 0) {
+                    statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
+                } else if (productObj.status === "out_of_stock") {
                     statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
                 } else if (productObj.status === "maintenance") {
                     statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold">Perbaikan</span>`;
                 }
 
+                const stockLabel = productObj.stock === -1 ? "Tidak Terbatas" : `${productObj.stock} pcs`;
+
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-purple-500/5";
                 tr.innerHTML = `
-                    <td class="py-4 px-4 font-bold text-white max-w-[200px] truncate">${productObj.name} <span class="text-[10px] text-slate-400 block">${productObj.category}</span></td>
+                    <td class="py-4 px-4 font-bold text-white max-w-[200px] truncate">
+                        ${productObj.name} 
+                        <span class="text-[10px] text-slate-400 block">${productObj.category} | Stok: ${stockLabel}</span>
+                    </td>
                     <td class="py-4 px-4 text-emerald-400 font-semibold">Rp ${productObj.price.toLocaleString('id-ID')}</td>
                     <td class="py-4 px-4">${statusBadge}</td>
                     <td class="py-4 px-4 text-right space-x-1">
@@ -1157,7 +1253,8 @@
                                     category: prod.category || "Browser Ujian",
                                     badge: prod.badge || "normal",
                                     link: prod.link,
-                                    features: Array.isArray(prod.features) ? prod.features : []
+                                    features: Array.isArray(prod.features) ? prod.features : [],
+                                    stock: prod.stock !== undefined ? parseInt(prod.stock) : -1
                                 });
                             }
                         }
@@ -1181,17 +1278,25 @@
             const image = document.getElementById("adm-prod-img").value.trim();
             const link = document.getElementById("adm-prod-link").value.trim();
             const featuresRaw = document.getElementById("adm-prod-features").value;
+            
+            const isUnlimited = document.getElementById("adm-prod-stock-unlimited").checked;
+            const stock = isUnlimited ? -1 : (parseInt(document.getElementById("adm-prod-stock").value) || 0);
 
             if (!name || !price || !link) {
                 showCustomToast("Input Salah", "Mohon lengkapi data produk.", "error");
                 return;
             }
 
+            let computedStatus = status;
+            if (!isUnlimited && stock <= 0) {
+                computedStatus = "out_of_stock";
+            }
+
             const features = featuresRaw.split('\n').map(f => f.trim()).filter(f => f.length > 0);
             const productTargetRef = id ? db.ref('products/' + id) : db.ref('products').push();
 
             try {
-                await productTargetRef.set({ name, price, status, image, link, features, category, badge });
+                await productTargetRef.set({ name, price, status: computedStatus, image, link, features, category, badge, stock });
                 showCustomToast("Berhasil", "Katalog berhasil diperbarui.", "success");
                 clearAutoSaveDraft();
                 resetProductForm();
@@ -1204,13 +1309,22 @@
 
             document.getElementById("adm-prod-id").value = item.id;
             document.getElementById("adm-prod-name").value = item.name;
-            document.getElementById("adm-prod-category").value = item.category || "Browser Ujian";
+            document.getElementById("adm-prod-category").value = item.category;
             document.getElementById("adm-prod-badge").value = item.badge || "normal";
             document.getElementById("adm-prod-price").value = item.price;
             document.getElementById("adm-prod-status").value = item.status || "active";
             document.getElementById("adm-prod-img").value = item.image;
             document.getElementById("adm-prod-link").value = item.link;
             document.getElementById("adm-prod-features").value = item.features.join('\n');
+
+            if (item.stock === -1) {
+                document.getElementById("adm-prod-stock-unlimited").checked = true;
+                document.getElementById("adm-prod-stock").value = "";
+            } else {
+                document.getElementById("adm-prod-stock-unlimited").checked = false;
+                document.getElementById("adm-prod-stock").value = item.stock;
+            }
+            toggleStockInputState();
 
             document.getElementById("product-form-title").innerHTML = `<i class="fa-solid fa-pen-to-square text-cyan-400"></i> Edit Informasi Produk`;
             document.getElementById("btn-cancel-edit-prod").classList.remove("hidden");
@@ -1223,13 +1337,19 @@
         function resetProductForm() {
             document.getElementById("adm-prod-id").value = "";
             document.getElementById("adm-prod-name").value = "";
-            document.getElementById("adm-prod-category").value = "Browser Ujian";
+            if (dynamicCategories.length > 0) {
+                document.getElementById("adm-prod-category").value = dynamicCategories[0];
+            }
             document.getElementById("adm-prod-badge").value = "normal";
             document.getElementById("adm-prod-price").value = "";
             document.getElementById("adm-prod-status").value = "active";
             document.getElementById("adm-prod-img").value = "";
             document.getElementById("adm-prod-link").value = "";
             document.getElementById("adm-prod-features").value = "";
+            document.getElementById("adm-prod-stock").value = "";
+            document.getElementById("adm-prod-stock-unlimited").checked = false;
+            toggleStockInputState();
+            
             document.getElementById("product-form-title").innerHTML = `<i class="fa-solid fa-square-plus text-purple-400"></i> Tambah Produk Baru`;
             document.getElementById("btn-cancel-edit-prod").classList.add("hidden");
             clearAutoSaveDraft();
@@ -1272,6 +1392,17 @@
                     statusRibbon = `<div class="absolute top-4 left-4 bg-gradient-to-r from-cyan-500 to-blue-600 border border-cyan-400 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg shadow-cyan-600/30"><i class="fa-solid fa-trophy mr-1"></i> BEST SELLER</div>`;
                 }
 
+                let stockBadgeHTML = "";
+                if (product.stock === -1) {
+                    stockBadgeHTML = `<div class="text-[11px] text-emerald-400 mb-3 flex items-center gap-1.5 bg-emerald-500/5 px-2.5 py-1 rounded-lg border border-emerald-500/10 w-fit"><i class="fa-solid fa-infinity"></i> Stok: Tidak Terbatas</div>`;
+                } else {
+                    stockBadgeHTML = `<div class="text-[11px] text-slate-300 mb-3 flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 w-fit"><i class="fa-solid fa-boxes-stacked text-purple-400"></i> Sisa Stok: ${product.stock}</div>`;
+                }
+
+                if (product.stock !== -1 && product.stock <= 0) {
+                    product.status = "out_of_stock";
+                }
+
                 if (product.status === "out_of_stock") {
                     statusRibbon = `<div class="absolute top-4 left-4 bg-amber-500 border border-amber-400 text-[#030014] font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg"><i class="fa-solid fa-boxes-empty mr-1"></i> Stok Habis</div>`;
                     buttonHTML = `<button disabled class="w-full bg-slate-900 border border-white/5 text-slate-500 font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 cursor-not-allowed"><i class="fa-solid fa-ban text-xs"></i> <span>Stok Habis</span></button>`;
@@ -1298,7 +1429,8 @@
                     <div class="p-5 sm:p-6 flex flex-col flex-1 justify-between bg-slate-950/20">
                         <div>
                             <span class="text-[10px] uppercase tracking-wider font-bold text-violet-400 block mb-1">${product.category}</span>
-                            <h3 class="text-base font-bold text-white mb-4 leading-snug tracking-wide uppercase line-clamp-2">${product.name}</h3>
+                            <h3 class="text-base font-bold text-white mb-2 leading-snug tracking-wide uppercase line-clamp-2">${product.name}</h3>
+                            ${stockBadgeHTML}
                             <ul class="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300">
                                 ${product.features.length > 0 ? product.features.map(f => `
                                     <li class="flex items-start gap-2.5">
@@ -1391,6 +1523,11 @@
             const rawProd = productsList.find(p => p.id === productId);
             if (!rawProd) return;
 
+            if (rawProd.stock !== -1 && rawProd.stock <= 0) {
+                showCustomToast("Batal otomatis", "Stok barang ini telah habis.", "error");
+                return;
+            }
+
             if (rawProd.status && rawProd.status !== "active") {
                 showCustomToast("Akses Ditutup", "Produk ini sedang tidak dapat dibeli.", "error");
                 return;
@@ -1460,7 +1597,7 @@
                     if(savedInvoice){
                         const parsed = JSON.parse(savedInvoice);
                         if(parsed.invoice_id === trackId) {
-                            currentSelectedProduct = { name: parsed.product_name, link: parsed.product_link };
+                            currentSelectedProduct = { id: parsed.product_id, name: parsed.product_name, link: parsed.product_link };
                             finalPayableAmount = parsed.total;
                             executePurchaseSuccessProcedure(trackId);
                             return;
@@ -1594,6 +1731,13 @@
                 const checkRef = await db.ref('products/' + currentSelectedProduct.id).once('value');
                 if (checkRef.exists()) {
                     const snapData = checkRef.val();
+                    
+                    if (snapData.stock !== undefined && snapData.stock !== -1 && snapData.stock <= 0) {
+                        showCustomToast("Batal otomatis", "Maaf, Kehabisan stok barang.", "error");
+                        closeModal();
+                        return;
+                    }
+
                     if (snapData.status && snapData.status !== "active") {
                         showCustomToast("Batal otomatis", "Status produk baru saja berubah.", "error");
                         closeModal();
@@ -1630,6 +1774,7 @@
 
                     localStorage.setItem(INVOICE_STORAGE_KEY, JSON.stringify({
                         invoice_id: data.invoice_id,
+                        product_id: currentSelectedProduct.id,
                         product_name: currentSelectedProduct.name,
                         product_link: currentSelectedProduct.link,
                         total: data.total,
@@ -1646,13 +1791,12 @@
             }
         }
 
-        // AUTO-SAVE LISTENER ONLOAD: AUTOMATICALLY TRIGGERS EXPIRED BANNER PROCEDURES IF DETECTED
         async function checkActiveInvoiceOnLoad() {
             const savedInvoice = localStorage.getItem(INVOICE_STORAGE_KEY);
             if (!savedInvoice) return; 
             try {
                 const invData = JSON.parse(savedInvoice);
-                currentSelectedProduct = { name: invData.product_name, link: invData.product_link };
+                currentSelectedProduct = { id: invData.product_id, name: invData.product_name, link: invData.product_link };
                 finalPayableAmount = invData.total;
 
                 const data = await secureFetchWithRetry('status', { invoice_id: invData.invoice_id }, 2, 1000);
@@ -1712,7 +1856,6 @@
             }, 4000);
         }
 
-        // PROCEDURAL ENGINE FOR HARD TERMINATIONS ON EXPIRED TAGS
         function executePurchaseExpiredProcedure() {
             localStorage.removeItem(INVOICE_STORAGE_KEY);
             destroyPollingEngine();
@@ -1753,6 +1896,21 @@
             db.ref('sales_count').transaction((c) => { return (c || 0) + 1; });
             const currentTimestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
             
+            if (currentSelectedProduct && currentSelectedProduct.id) {
+                const targetId = currentSelectedProduct.id;
+                db.ref('products/' + targetId).transaction((currProd) => {
+                    if (currProd) {
+                        if (currProd.stock !== undefined && currProd.stock !== -1) {
+                            currProd.stock = Math.max(0, currProd.stock - 1);
+                            if (currProd.stock === 0) {
+                                currProd.status = "out_of_stock";
+                            }
+                        }
+                    }
+                    return currProd;
+                });
+            }
+
             db.ref('orders_log').push({
                 invoice_id: invoiceId,
                 product_name: currentSelectedProduct.name,
