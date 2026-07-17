@@ -374,7 +374,8 @@
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga (Rupiah)</label>
-                                        <input type="number" id="adm-prod-price" placeholder="Contoh: 25000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                        <!-- Update: Input type berubah jadi text dan ditambahkan oninput format otomatis -->
+                                        <input type="text" id="adm-prod-price" oninput="formatRupiahElement(this)" placeholder="Contoh: Rp 25.000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                     </div>
                                     <div>
                                         <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Produk</label>
@@ -634,7 +635,12 @@
 
             <div id="checkout-step-qris" class="hidden text-center">
                 <h3 class="text-xl font-bold mb-2 text-white">Scan QRIS Untuk Membayar</h3>
-                <p class="text-xs text-slate-400 mb-6">Silakan lakukan scan pembayaran sebelum batas waktu berakhir.</p>
+                
+                <!-- Countdown Timer Area -->
+                <div id="qris-timer-display" class="text-xs font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-full inline-block mb-4 animate-pulse">
+                    Sisa Waktu Pembayaran: <span id="qris-countdown-node">05:00</span>
+                </div>
+
                 <div class="bg-white p-4 rounded-2xl inline-block shadow-xl mb-4 relative">
                     <img id="qris-image-src" src="" alt="QRIS Code" class="w-56 h-56 object-contain mx-auto">
                 </div>
@@ -645,8 +651,16 @@
                 </div>
 
                 <div class="text-slate-400 text-xs flex flex-col gap-1 border-t border-white/5 pt-4 text-left mb-6">
-                    <div class="flex justify-between"><span>Invoice ID:</span><strong id="val-invoice-id" class="text-slate-200">--</strong></div>
-                    <div class="flex justify-between"><span>Total Tagihan:</span><strong id="val-invoice-total" class="text-violet-400">--</strong></div>
+                    <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg border border-white/5 mb-1">
+                        <span>Invoice ID:</span>
+                        <div class="flex items-center gap-2">
+                            <strong id="val-invoice-id" class="text-slate-200 font-mono">--</strong>
+                            <button onclick="copyInvoiceIdToClipboard()" class="text-cyan-400 hover:text-cyan-300 transition-colors p-1 cursor-pointer" title="Salin ID">
+                                <i class="fa-solid fa-copy text-[11px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between px-2 py-1"><span>Total Tagihan:</span><strong id="val-invoice-total" class="text-violet-400">--</strong></div>
                 </div>
 
                 <button onclick="cancelActiveInvoiceOrder()" class="w-full bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all active:scale-98 flex items-center justify-center gap-2 shadow-sm cursor-pointer">
@@ -666,7 +680,7 @@
             </div>
 
             <div id="checkout-step-expired" class="hidden text-center py-6">
-                <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-rose-500/10">
+                <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-emerald-500/10">
                     <i class="fa-solid fa-hourglass-end animate-pulse"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-white mb-2">Pembayaran Kadaluwarsa</h3>
@@ -680,7 +694,7 @@
 
     <div id="notification-modal" class="fixed inset-0 z-[100] overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
-        <div class="glass max-w-sm w-full rounded-2xl p-6 text-center relative z-10 shadow-xl border border-white/10 transform transition-transform">
+        <div class="glass max-sm w-full rounded-2xl p-6 text-center relative z-10 shadow-xl border border-white/10 transform transition-transform">
             <div id="noti-icon" class="w-12 h-12 rounded-full flex items-center justify-center text-xl mx-auto mb-3"></div>
             <h4 id="noti-title" class="text-lg font-bold text-white mb-1">Pemberitahuan</h4>
             <p id="noti-desc" class="text-sm text-slate-400 mb-5 leading-relaxed">Isi pesan sistem</p>
@@ -717,6 +731,24 @@
         let activePromoCode = "";
         let finalPayableAmount = 0;
         let invoicePollingInterval = null;
+        let qrisCountdownTimer = null;
+
+        // Fungsi Baru: Generator Format Rupiah Otomatis saat diketik
+        function formatRupiahElement(element) {
+            let number_string = element.value.replace(/[^,\d]/g, '').toString(),
+                split   		= number_string.split('Custom'),
+                sisa     		= split[0].length % 3,
+                rupiah     		= split[0].substr(0, sisa),
+                ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+        
+            if(ribuan){
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+        
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            element.value = rupiah ? 'Rp ' + rupiah : '';
+        }
 
         function toggleMobileMenu() {
             const dropdown = document.getElementById("mobile-menu-dropdown");
@@ -970,7 +1002,12 @@
                     const draft = JSON.parse(savedDraft);
                     if (!draft.id) {
                         fields.forEach(fId => {
-                            if (draft[fId] !== undefined) document.getElementById(fId).value = draft[fId];
+                            if (draft[fId] !== undefined) {
+                                const inputEl = document.getElementById(fId);
+                                inputEl.value = draft[fId];
+                                // Jalankan format otomatis jika yang dimuat adalah input harga
+                                if (fId === "adm-prod-price") formatRupiahElement(inputEl);
+                            }
                         });
                         if (badge) badge.classList.remove("hidden");
                     }
@@ -1273,7 +1310,11 @@
             const name = document.getElementById("adm-prod-name").value.trim();
             const category = document.getElementById("adm-prod-category").value;
             const badge = document.getElementById("adm-prod-badge").value;
-            const price = Math.max(0, parseInt(document.getElementById("adm-prod-price").value) || 0);
+            
+            // Update: Membersihkan karakter selain angka sebelum diparsing ke database
+            const priceRaw = document.getElementById("adm-prod-price").value.replace(/[^0-9]/g, "");
+            const price = Math.max(0, parseInt(priceRaw) || 0);
+            
             const status = document.getElementById("adm-prod-status").value;
             const image = document.getElementById("adm-prod-img").value.trim();
             const link = document.getElementById("adm-prod-link").value.trim();
@@ -1311,7 +1352,12 @@
             document.getElementById("adm-prod-name").value = item.name;
             document.getElementById("adm-prod-category").value = item.category;
             document.getElementById("adm-prod-badge").value = item.badge || "normal";
-            document.getElementById("adm-prod-price").value = item.price;
+            
+            // Update: Memasukkan data harga lama lalu memicu fungsi format rupiah otomatis
+            const priceInput = document.getElementById("adm-prod-price");
+            priceInput.value = String(item.price);
+            formatRupiahElement(priceInput);
+
             document.getElementById("adm-prod-status").value = item.status || "active";
             document.getElementById("adm-prod-img").value = item.image;
             document.getElementById("adm-prod-link").value = item.link;
@@ -1422,7 +1468,7 @@
                     <div class="relative w-full aspect-square bg-slate-950 overflow-hidden border-b border-purple-500/10">
                         <img src="${product.image || UXMixins.fallbackImg}" alt="${product.name}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" onerror="this.src='${UXMixins.fallbackImg}'">
                         ${statusRibbon}
-                        <div class="absolute top-4 right-4 bg-slate-950/80 backdrop-blur-md border border-purple-500/20 text-white font-bold text-xs px-4 py-1.5 rounded-full shadow-lg">
+                        <div class="absolute top-4 right-4 bg-slate-955/80 backdrop-blur-md border border-purple-500/20 text-white font-bold text-xs px-4 py-1.5 rounded-full shadow-lg">
                             Rp ${product.price.toLocaleString('id-ID')}
                         </div>
                     </div>
@@ -1780,6 +1826,7 @@
                         total: data.total,
                         qris_image: data.qris_image
                     }));
+                    startVisualQrisCountdown(300); 
                     startPaymentVerificationInterval(data.invoice_id);
                 } else {
                     resetPaymentButton();
@@ -1818,6 +1865,7 @@
                         card.classList.remove("scale-95", "opacity-0");
                         card.classList.add("scale-100", "opacity-100");
                     }, 50);
+                    startVisualQrisCountdown(300);
                     startPaymentVerificationInterval(invData.invoice_id);
                 }
             } catch (e) {
@@ -1830,6 +1878,43 @@
                 clearInterval(invoicePollingInterval);
                 invoicePollingInterval = null;
             }
+            if (qrisCountdownTimer) {
+                clearInterval(qrisCountdownTimer);
+                qrisCountdownTimer = null;
+            }
+        }
+
+        function copyInvoiceIdToClipboard() {
+            const invoiceText = document.getElementById("val-invoice-id").innerText;
+            if(invoiceText && invoiceText !== "--") {
+                navigator.clipboard.writeText(invoiceText).then(() => {
+                    showCustomToast("Berhasil Disalin", "Invoice ID disimpan di clipboard.", "success");
+                }).catch(() => {
+                    showCustomToast("Gagal", "Tidak dapat menyalin teks.", "error");
+                });
+            }
+        }
+
+        function startVisualQrisCountdown(durationInSeconds) {
+            if (qrisCountdownTimer) clearInterval(qrisCountdownTimer);
+            
+            let timer = durationInSeconds;
+            const displayNode = document.getElementById("qris-countdown-node");
+
+            qrisCountdownTimer = setInterval(() => {
+                let minutes = parseInt(timer / 60, 10);
+                let seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                displayNode.innerText = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(qrisCountdownTimer);
+                    executePurchaseExpiredProcedure(); 
+                }
+            }, 1000);
         }
 
         function resetPaymentButton() {
