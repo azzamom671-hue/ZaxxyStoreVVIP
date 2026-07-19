@@ -29,6 +29,12 @@
             border: 1px solid rgba(147, 51, 234, 0.15);
         }
 
+        .glass-admin {
+            background: rgba(6, 4, 18, 0.8);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         .glow-purple {
             box-shadow: 0 0 25px rgba(139, 92, 246, 0.1);
         }
@@ -42,7 +48,6 @@
         ::-webkit-scrollbar-thumb { background: #1e1b4b; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #4c1d95; }
         
-        /* Utility for hiding scrollbars on tabs */
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -72,6 +77,7 @@
         </span>
     </div>
 
+    <!-- PANEL UTAMA USER STORE -->
     <div id="view-store-panel" class="block transition-all duration-300">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-4 sticky top-0 z-30">
             <nav class="glass rounded-2xl px-4 sm:px-6 py-3.5 border border-purple-500/15 shadow-2xl backdrop-blur-xl">
@@ -158,6 +164,7 @@
         </main>
     </div>
 
+    <!-- TRACKING MODAL -->
     <div id="tracking-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -183,6 +190,7 @@
         </div>
     </div>
 
+    <!-- ADMIN LOGIN MODAL -->
     <div id="admin-login-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-lg"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -218,63 +226,63 @@
         </div>
     </div>
 
-    <div id="view-admin-panel" class="hidden opacity-0 transition-all duration-500 flex flex-col min-h-screen">
+    <!-- UPDATE TOTAL: PANEL CONTROL DASHBOARD ADMIN -->
+    <div id="view-admin-panel" class="hidden opacity-0 transition-all duration-500 flex flex-col min-h-screen bg-[#06040f]">
         <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 sticky top-0 z-30">
-            <div class="glass rounded-2xl border border-purple-500/15 shadow-2xl backdrop-blur-xl overflow-hidden">
-                <div class="flex flex-col md:flex-row items-center justify-between p-4 sm:px-6 gap-4 border-b border-purple-500/10">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/20 animate-pulse shrink-0">
-                            <i class="fa-solid fa-user-shield text-white text-base"></i>
+            <div class="glass-admin rounded-2xl border border-white/5 shadow-2xl">
+                <div class="flex flex-col md:flex-row items-center justify-between p-5 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-cube text-white text-lg"></i>
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
-                                <h2 class="text-base font-extrabold text-white tracking-tight">Zaxxy<span class="text-cyan-400">HQ</span> Control</h2>
-                                <span class="text-[9px] px-1.5 py-0.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded font-bold uppercase tracking-wider">v2.5</span>
+                                <h2 class="text-lg font-black text-white tracking-tight">Zaxxy<span class="text-cyan-400">HQ</span> Control</h2>
+                                <span class="text-[9px] px-2 py-0.5 bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 rounded font-bold tracking-wider">PREMIUM</span>
                             </div>
-                            <span class="text-[10px] text-emerald-400 flex items-center gap-1.5 mt-0.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Active Syncing</span>
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Cloud Stream Sync Active</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center flex-wrap justify-center gap-3 sm:gap-4">
-                        <div class="flex items-center gap-3.5 bg-slate-950/50 px-4 py-2 rounded-xl border border-purple-500/10">
-                            <div>
-                                <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">Katalog</span>
-                                <strong id="nav-stat-products" class="text-white text-xs sm:text-sm font-extrabold">0</strong>
+                    <div class="flex items-center flex-wrap justify-center gap-3">
+                        <div class="flex items-center gap-4 bg-slate-900/60 px-5 py-2.5 rounded-xl border border-white/5">
+                            <div class="text-center">
+                                <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-widest">Katalog</span>
+                                <strong id="nav-stat-products" class="text-white text-base font-extrabold">0</strong>
                             </div>
-                            <div class="w-px h-6 bg-purple-500/10"></div>
-                            <div>
-                                <span class="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">Volume Trx</span>
-                                <strong id="nav-stat-sales" class="text-emerald-400 text-xs sm:text-sm font-extrabold">0</strong>
+                            <div class="w-px h-6 bg-white/10"></div>
+                            <div class="text-center">
+                                <span class="text-slate-400 block text-[9px] uppercase font-bold tracking-widest">Volume Trx</span>
+                                <strong id="nav-stat-sales" class="text-emerald-400 text-base font-extrabold">0</strong>
                             </div>
                         </div>
 
-                        <div class="w-px h-8 bg-purple-500/10 hidden md:block"></div>
+                        <!-- TOMBOL KEMBALI KE HALAMAN UTAMA (TANPA LOGOUT) -->
+                        <button onclick="closeAdminDashboardView()" class="px-4 py-2.5 text-xs font-bold bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 text-cyan-400 rounded-xl transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95">
+                            <i class="fa-solid fa-store text-xs"></i>
+                            <span>Lihat Toko</span>
+                        </button>
 
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 border border-purple-500/40 flex items-center justify-center font-bold text-[11px] text-white shadow-md shadow-purple-600/20">AZ</div>
-                            <span class="text-xs font-bold text-slate-300 hidden sm:inline">Azzam Admin</span>
-                        </div>
-
-                        <button onclick="logoutAdminDashboard()" class="p-2 sm:px-3 sm:py-2 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer" title="Keluar Dashboard">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            <span class="hidden md:inline text-xs">Keluar</span>
+                        <button onclick="logoutAdminDashboard()" class="p-2.5 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center justify-center cursor-pointer active:scale-95" title="Keluar Sesi Admin">
+                            <i class="fa-solid fa-power-off text-xs"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="bg-[#07041a]/60 px-4 sm:px-6 py-2.5 overflow-x-auto border-t border-purple-500/5 flex items-center scrollbar-none">
-                    <div class="flex items-center space-x-2 min-w-[560px]">
-                        <button onclick="switchAdminTab('analytics', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 border border-purple-500/40 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.15)] font-bold text-xs transition-all cursor-pointer duration-300">
-                            <i class="fa-solid fa-chart-line text-xs"></i> Realtime Revenue & Logs
+                <!-- Navigasi Tab Menu -->
+                <div class="bg-slate-950/40 px-4 py-2 border-t border-white/5 flex items-center overflow-x-auto scrollbar-none">
+                    <div class="flex items-center space-x-2 min-w-[560px] w-full">
+                        <button onclick="switchAdminTab('analytics', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/20 to-fuchsia-600/20 border border-purple-500/30 text-purple-300 font-bold text-xs transition-all cursor-pointer">
+                            <i class="fa-solid fa-chart-simple"></i> Realtime Revenue & Logs
                         </button>
-                        <button onclick="switchAdminTab('produk', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300">
-                            <i class="fa-solid fa-box text-xs"></i> Manajemen Produk
+                        <button onclick="switchAdminTab('produk', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer">
+                            <i class="fa-solid fa-boxes-stacked"></i> Manajemen Produk
                         </button>
-                        <button onclick="switchAdminTab('voucher', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300">
-                            <i class="fa-solid fa-ticket text-xs"></i> Voucher Diskon
+                        <button onclick="switchAdminTab('voucher', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer">
+                            <i class="fa-solid fa-ticket-simple"></i> Voucher Diskon
                         </button>
-                        <button onclick="switchAdminTab('sistem', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300">
-                            <i class="fa-solid fa-sliders text-xs"></i> Pengaturan Toko
+                        <button onclick="switchAdminTab('sistem', this)" class="admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer">
+                            <i class="fa-solid fa-sliders"></i> Pengaturan Toko
                         </button>
                     </div>
                 </div>
@@ -282,90 +290,96 @@
         </header>
 
         <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+            <!-- TAB 1: ANALYTICS -->
             <div id="tab-analytics" class="admin-tab-content space-y-6 block">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="glass rounded-2xl p-5 border border-purple-500/10 bg-slate-950/20 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-sack-dollar"></i></div>
+                    <div class="glass-admin rounded-2xl p-6 flex items-center gap-5 border border-white/5">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-2xl border border-emerald-500/20 shadow-inner"><i class="fa-solid fa-money-bill-wave"></i></div>
                         <div>
-                            <span class="text-slate-400 text-[11px] block uppercase tracking-wider font-semibold">Gross Income</span>
-                            <span id="adm-analytics-revenue" class="text-xl font-black text-white">Rp 175.000</span>
+                            <span class="text-slate-400 text-xs block font-medium tracking-wide">Gross Income</span>
+                            <span id="adm-analytics-revenue" class="text-2xl font-black text-white mt-1 block">Rp 0</span>
                         </div>
                     </div>
-                    <div class="glass rounded-2xl p-5 border border-purple-500/10 bg-slate-950/20 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center text-xl"><i class="fa-solid fa-cash-register"></i></div>
+                    <div class="glass-admin rounded-2xl p-6 flex items-center gap-5 border border-white/5">
+                        <div class="w-14 h-14 rounded-2xl bg-violet-500/10 text-violet-400 flex items-center justify-center text-2xl border border-violet-500/20 shadow-inner"><i class="fa-solid fa-receipt"></i></div>
                         <div>
-                            <span class="text-slate-400 text-[11px] block uppercase tracking-wider font-semibold">Total Transaksi</span>
-                            <span id="adm-analytics-count" class="text-xl font-black text-white">0 Trx</span>
+                            <span class="text-slate-400 text-xs block font-medium tracking-wide">Total Transaksi</span>
+                            <span id="adm-analytics-count" class="text-2xl font-black text-white mt-1 block">0 Trx</span>
                         </div>
                     </div>
-                    <div class="glass rounded-2xl p-5 border border-purple-500/10 bg-slate-950/20 flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl"><i class="fa-solid fa-clock"></i></div>
+                    <div class="glass-admin rounded-2xl p-6 flex items-center gap-5 border border-white/5">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl border border-cyan-500/20 shadow-inner"><i class="fa-solid fa-server"></i></div>
                         <div>
-                            <span class="text-slate-400 text-[11px] block uppercase tracking-wider font-semibold">Server Sync Status</span>
-                            <span class="text-sm font-bold text-emerald-400 flex items-center gap-1.5 mt-0.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Active Listening</span>
+                            <span class="text-slate-400 text-xs block font-medium tracking-wide">Gateway Verification</span>
+                            <span class="text-sm font-bold text-emerald-400 flex items-center gap-2 mt-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Active Listening</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="glass rounded-3xl p-6 border border-purple-500/10 bg-slate-950/10 shadow-lg">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                        <h4 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-list text-purple-400 text-xs"></i> Live Activity Feed (15 Transaksi Terakhir)</h4>
-                        <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-                            <input type="text" id="adm-search-logs" oninput="filterAdminLogsTable()" placeholder="Cari Invoice / Produk..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all w-full sm:w-48">
-                            <button onclick="clearAllTransactionsHistory()" class="bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 w-full sm:w-auto justify-center cursor-pointer">
-                                <i class="fa-solid fa-trash-arrow-up"></i> Reset Log & Counter
+                <div class="glass-admin rounded-3xl p-6 border border-white/5 shadow-xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                            <h4 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-list-check text-purple-400"></i> Live Activity Feed</h4>
+                            <p class="text-xs text-slate-400 mt-1">Menampilkan data aliran 15 transaksi terakhir secara realtime.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                            <input type="text" id="adm-search-logs" oninput="filterAdminLogsTable()" placeholder="Cari invoice / produk..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-purple-500 w-full sm:w-56 transition-all">
+                            <button onclick="clearAllTransactionsHistory()" class="bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 text-xs font-bold px-4 py-2 rounded-xl transition-all flex items-center gap-2 w-full sm:w-auto justify-center cursor-pointer">
+                                <i class="fa-solid fa-trash-can text-xs"></i> Reset Log & Counter
                             </button>
                         </div>
                     </div>
-                    <div class="overflow-x-auto w-full">
+                    <div class="overflow-x-auto w-full rounded-xl border border-white/5">
                         <table class="w-full min-w-[600px] text-left border-collapse text-xs sm:text-sm">
                             <thead>
-                                <tr class="border-b border-purple-500/20 font-bold uppercase text-slate-400 tracking-wider">
-                                    <th class="py-3 px-4">Invoice ID</th>
-                                    <th class="py-3 px-4">Waktu</th>
-                                    <th class="py-3 px-4">Nama Produk</th>
-                                    <th class="py-3 px-4">Nominal</th>
-                                    <th class="py-3 px-4 text-right">Metode</th>
+                                <tr class="bg-white/5 border-b border-white/10 font-bold uppercase text-slate-400 tracking-wider">
+                                    <th class="py-3.5 px-5">Invoice ID</th>
+                                    <th class="py-3.5 px-5">Waktu</th>
+                                    <th class="py-3.5 px-5">Nama Produk / Varian</th>
+                                    <th class="py-3.5 px-5">Nominal</th>
+                                    <th class="py-3.5 px-5 text-right">Metode</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-live-logs-table" class="divide-y divide-purple-500/5 font-medium text-slate-200">
-                                <tr><td colspan="5" class="py-6 text-center text-slate-500 italic">Mendengarkan data baru...</td></tr>
+                            <tbody id="admin-live-logs-table" class="divide-y divide-white/5 font-medium text-slate-200 bg-slate-950/20">
+                                <tr><td colspan="5" class="py-8 text-center text-slate-500 italic">Mendengarkan data baru...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
+            <!-- TAB 2: MANAJEMEN PRODUK -->
             <div id="tab-produk" class="admin-tab-content space-y-6 hidden">
-                <div class="flex items-center justify-between border-b border-white/5 pb-2">
-                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-box text-purple-400"></i> Gudang Inventaris Produk</h3>
-                    <span id="draft-badge" class="hidden text-[10px] px-2.5 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full animate-pulse"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Draf Tersimpan Otomatis</span>
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                    <h3 class="text-base font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-warehouse text-purple-400"></i> Gudang Inventaris Produk</h3>
+                    <span id="draft-badge" class="hidden text-[10px] px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full animate-pulse"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Draf Tersimpan Lokal</span>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div class="flex flex-col gap-6">
-                        <div class="glass rounded-3xl p-6 h-fit border border-purple-500/10 shadow-lg bg-slate-950/20">
-                            <h3 id="product-form-title" class="text-base font-bold text-white mb-5 flex items-center gap-2">
+                        <!-- Formulir Tambah/Edit Barang -->
+                        <div class="glass-admin rounded-3xl p-6 h-fit border border-white/5 shadow-xl space-y-5">
+                            <h3 id="product-form-title" class="text-base font-extrabold text-white flex items-center gap-2">
                                 <i class="fa-solid fa-square-plus text-purple-400"></i> Tambah Produk Baru
                             </h3>
                             <input type="hidden" id="adm-prod-id">
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Nama Produk</label>
-                                    <input type="text" id="adm-prod-name" placeholder="Contoh: CBT EXAM BROWSER MOD" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Nama Produk Utama</label>
+                                    <input type="text" id="adm-prod-name" placeholder="Contoh: CBT EXAM BROWSER MOD" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kategori Produk</label>
-                                    <select id="adm-prod-category" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                    <select id="adm-prod-category" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                     </select>
                                     <div class="mt-2 flex gap-2">
-                                        <input type="text" id="adm-new-category" placeholder="Kategori Baru (Kustom)..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all">
-                                        <button type="button" onclick="addNewCustomCategory()" class="bg-purple-600 hover:bg-purple-500 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-all cursor-pointer">+ Kategori</button>
+                                        <input type="text" id="adm-new-category" placeholder="Kategori Baru..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500 transition-all">
+                                        <button type="button" onclick="addNewCustomCategory()" class="bg-purple-600 hover:bg-purple-500 px-3 py-2 rounded-xl text-xs font-bold text-white transition-all cursor-pointer shrink-0">+ Kategori</button>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Badge Unggulan</label>
-                                    <select id="adm-prod-badge" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                    <select id="adm-prod-badge" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                         <option value="normal">Normal</option>
                                         <option value="hot">HOT DEALS 🔥</option>
                                         <option value="best_seller">BEST SELLER 🏆</option>
@@ -373,12 +387,12 @@
                                 </div>
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga Utama (Rupiah)</label>
-                                        <input type="text" id="adm-prod-price" oninput="formatRupiahElement(this)" placeholder="Contoh: Rp 25.000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga Utama</label>
+                                        <input type="text" id="adm-prod-price" oninput="formatRupiahElement(this)" placeholder="Rp 25.000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all font-semibold text-emerald-400">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Produk</label>
-                                        <select id="adm-prod-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Awal</label>
+                                        <select id="adm-prod-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                             <option value="active">Aktif (Tersedia)</option>
                                             <option value="out_of_stock">Stok Habis</option>
                                             <option value="maintenance">Perbaikan</option>
@@ -386,53 +400,56 @@
                                     </div>
                                 </div>
                                 
-                                <div class="grid grid-cols-2 gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
+                                <div class="grid grid-cols-2 gap-3 bg-slate-950/60 p-3 rounded-xl border border-white/5">
                                     <div>
-                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Jumlah Stok Utama</label>
-                                        <input type="number" id="adm-prod-stock" min="0" placeholder="Kuantitas" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Stok Utama</label>
+                                        <input type="number" id="adm-prod-stock" min="0" placeholder="Kuantitas" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                     </div>
                                     <div class="flex items-center pt-5">
                                         <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
                                             <input type="checkbox" id="adm-prod-stock-unlimited" onchange="toggleStockInputState()" class="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600">
-                                            <span>Stok Tidak Terbatas</span>
+                                            <span>Stok Unlimited (∞)</span>
                                         </label>
                                     </div>
                                 </div>
 
-                                <!-- MODIFIKASI: Input Varian Produk + Fitur Harga Kustom Per Varian -->
-                                <div class="bg-white/5 p-4 rounded-xl border border-white/5 space-y-3">
+                                <!-- RESPONSIVE UI UPDATE: Workspace Manajemen Varian Anti-Gepeng -->
+                                <div class="bg-slate-950/40 p-4 rounded-xl border border-white/5 space-y-3">
                                     <div class="flex items-center justify-between">
-                                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide">Varian Produk (Opsional)</label>
-                                        <button type="button" onclick="addVariantRow()" class="bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/30 text-purple-300 text-[11px] font-bold px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 cursor-pointer">+ Tambah Varian</button>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wide">Suite Varian Produk</label>
+                                            <span class="text-[10px] text-slate-500 block">Kosongkan kolom harga agar ikut Harga Utama</span>
+                                        </div>
+                                        <button type="button" onclick="addVariantRow()" class="bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1 cursor-pointer shadow-md shadow-purple-600/10">+ Varian</button>
                                     </div>
-                                    <div id="adm-variants-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
-                                        <!-- Baris varian dimasukkan secara dinamis di sini -->
+                                    <div id="adm-variants-list" class="space-y-3 max-h-72 overflow-y-auto pr-1">
+                                        <!-- Baris Varian Masuk Di Sini Secara Dinamis -->
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Foto / Gambar Produk</label>
-                                    <input type="text" id="adm-prod-img" placeholder="https://link-gambar.com/foto.jpg" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Gambar Banner</label>
+                                    <input type="text" id="adm-prod-img" placeholder="https://link-gambar.com/foto.jpg" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Fitur Produk (Pisahkan dengan baris baru)</label>
-                                    <textarea id="adm-prod-features" rows="4" placeholder="SCREENSHOT BYPASS&#10;FLOATING APP SYSTEM" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all font-mono text-xs"></textarea>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Fitur (Pisahkan Baris Baru)</label>
+                                    <textarea id="adm-prod-features" rows="4" placeholder="SCREENSHOT BYPASS&#10;ANTI-LAZY SYSTEM" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all font-mono"></textarea>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Unduhan (Mediafire/Drive)</label>
-                                    <input type="text" id="adm-prod-link" placeholder="https://www.mediafire.com/file/..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Gateway Unduhan File</label>
+                                    <input type="text" id="adm-prod-link" placeholder="https://www.mediafire.com/file/..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                 </div>
                                 <div class="flex gap-2 pt-2">
-                                    <button onclick="submitProductToFirebase()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+                                    <button onclick="submitProductToFirebase()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
                                         <i class="fa-solid fa-floppy-disk"></i> Simpan Produk
                                     </button>
-                                    <button id="btn-cancel-edit-prod" onclick="resetProductForm()" class="hidden bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 px-3 rounded-xl text-xs transition-all cursor-pointer">Batal</button>
+                                    <button id="btn-cancel-edit-prod" onclick="resetProductForm()" class="hidden bg-white/10 border border-white/10 hover:bg-white/20 text-slate-300 px-4 rounded-xl text-xs transition-all cursor-pointer">Batal</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="glass rounded-3xl p-6 border border-purple-500/10 bg-slate-950/20 shadow-lg">
-                            <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-database text-cyan-400 text-xs"></i> Backup & Migrasi JSON</h4>
+                        <div class="glass-admin rounded-3xl p-5 border border-white/5 shadow-lg">
+                            <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-down text-cyan-400 text-xs"></i> Backup & Migrasi JSON</h4>
                             <p class="text-[11px] text-slate-400 mb-4">Cadangkan database produk Anda ke file JSON lokal atau import dari cadangan lama.</p>
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="exportProductsToJSON()" class="bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-3 rounded-xl text-[11px] transition-all flex items-center justify-center gap-1.5 cursor-pointer">
@@ -446,13 +463,17 @@
                         </div>
                     </div>
 
+                    <!-- List Inventaris Aktif -->
                     <div class="lg:col-span-2 flex flex-col">
-                        <div class="glass rounded-3xl p-6 flex-1 overflow-hidden flex flex-col border border-purple-500/10 bg-slate-950/10 shadow-lg">
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                                <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-list-ul text-purple-400"></i> List Produk Aktif</h3>
+                        <div class="glass-admin rounded-3xl p-6 flex-1 overflow-hidden flex flex-col border border-white/5 shadow-xl">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-5">
+                                <div>
+                                    <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-rectangle-list text-purple-400"></i> Inventaris Gudang</h3>
+                                    <p class="text-xs text-slate-400 mt-0.5">Daftar item katalog yang tersinkronisasi di Firebase.</p>
+                                </div>
                                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                                    <input type="text" id="adm-search-product" oninput="filterAdminProductsTable()" placeholder="Cari produk..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all w-full sm:w-40">
-                                    <select id="adm-filter-status-prod" onchange="filterAdminProductsTable()" class="bg-slate-900 border border-white/10 rounded-xl px-2 py-1.5 text-xs text-slate-300 focus:outline-none">
+                                    <input type="text" id="adm-search-product" oninput="filterAdminProductsTable()" placeholder="Cari nama barang..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-purple-500 w-full sm:w-44 transition-all">
+                                    <select id="adm-filter-status-prod" onchange="filterAdminProductsTable()" class="bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none">
                                         <option value="all">Semua</option>
                                         <option value="active">Aktif</option>
                                         <option value="out_of_stock">Habis</option>
@@ -460,17 +481,17 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="overflow-x-auto w-full flex-1">
+                            <div class="overflow-x-auto w-full flex-1 rounded-xl border border-white/5">
                                 <table class="w-full min-w-[550px] text-left border-collapse">
                                     <thead>
-                                        <tr class="border-b border-purple-500/20 text-xs font-bold uppercase text-slate-400 tracking-wider">
-                                            <th class="py-3.5 px-4">Nama Produk</th>
-                                            <th class="py-3.5 px-4">Harga</th>
+                                        <tr class="bg-white/5 border-b border-white/10 text-xs font-bold uppercase text-slate-400 tracking-wider">
+                                            <th class="py-3.5 px-4">Informasi Produk Utama</th>
+                                            <th class="py-3.5 px-4">Harga Dasar</th>
                                             <th class="py-3.5 px-4">Status</th>
-                                            <th class="py-3.5 px-4 text-right">Aksi</th>
+                                            <th class="py-3.5 px-4 text-right">Aksi Kelola</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="admin-product-table-body" class="divide-y divide-purple-500/5"></tbody>
+                                    <tbody id="admin-product-table-body" class="divide-y divide-white/5 bg-slate-950/20"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -478,54 +499,55 @@
                 </div>
             </div>
 
+            <!-- TAB 3: VOUCHER -->
             <div id="tab-voucher" class="admin-tab-content space-y-6 hidden">
-                <div class="border-b border-white/5 pb-2">
-                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-ticket text-purple-400"></i> Promosi & Kupon</h3>
+                <div class="border-b border-white/5 pb-3">
+                    <h3 class="text-base font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-ticket text-purple-400"></i> Promosi & Kupon</h3>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="glass rounded-3xl p-6 h-fit border border-purple-500/10 shadow-lg bg-slate-950/20">
+                    <div class="glass-admin rounded-3xl p-6 h-fit border border-white/5 shadow-xl">
                         <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-circle-plus text-purple-400"></i> Buat Voucher Baru
                         </h3>
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kode Kupon</label>
-                                <input type="text" id="adm-input-code" placeholder="Contoh: PROMOOKTOBER" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white uppercase focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="text" id="adm-input-code" placeholder="Contoh: PROMOOKTOBER" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white uppercase focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Jenis Sistem Diskon</label>
-                                <select id="adm-select-type" onchange="toggleDiscountFieldState()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                <select id="adm-select-type" onchange="toggleDiscountFieldState()" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                     <option value="gratis">Gratis (Potongan Penuh 100%)</option>
                                     <option value="custom">Kustom Nilai Diskon (%)</option>
                                 </select>
                             </div>
                             <div id="adm-row-discount" class="hidden">
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Persentase Potongan (%)</label>
-                                <input type="number" id="adm-input-discount" min="1" max="99" placeholder="Masukkan angka 1 - 99" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="number" id="adm-input-discount" min="1" max="99" placeholder="Masukkan angka 1 - 99" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Masa Berlaku Expired</label>
-                                <input type="date" id="adm-input-expiry" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="date" id="adm-input-expiry" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kuota Limit Penggunaan</label>
-                                <input type="number" id="adm-input-maxuses" placeholder="Contoh: 50" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="number" id="adm-input-maxuses" placeholder="Contoh: 50" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
-                            <button onclick="submitNewPromoToFirebase()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 mt-2 flex items-center justify-center gap-2 cursor-pointer">
+                            <button onclick="submitNewPromoToFirebase()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 mt-2 flex items-center justify-center gap-2 cursor-pointer">
                                 <i class="fa-solid fa-floppy-disk"></i> Simpan Kode Promo
                             </button>
                         </div>
                     </div>
 
                     <div class="lg:col-span-2 flex flex-col">
-                        <div class="glass rounded-3xl p-6 flex-1 overflow-hidden flex flex-col border border-purple-500/10 bg-slate-950/10 shadow-lg">
+                        <div class="glass-admin rounded-3xl p-6 flex-1 overflow-hidden flex flex-col border border-white/5 shadow-xl">
                             <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
-                                <i class="fa-solid fa-tags text-purple-400"></i> Daftar Kode Promo Aktif (Firebase)
+                                <i class="fa-solid fa-tags text-purple-400"></i> Daftar Kode Promo Aktif
                             </h3>
-                            <div class="overflow-x-auto w-full flex-1">
+                            <div class="overflow-x-auto w-full flex-1 rounded-xl border border-white/5">
                                 <table class="w-full min-w-[500px] text-left border-collapse">
                                     <thead>
-                                        <tr class="border-b border-purple-500/20 text-xs font-bold uppercase text-slate-400 tracking-wider">
+                                        <tr class="bg-white/5 border-b border-white/10 text-xs font-bold uppercase text-slate-400 tracking-wider">
                                             <th class="py-3.5 px-4">Kupon</th>
                                             <th class="py-3.5 px-4">Besar Potongan</th>
                                             <th class="py-3.5 px-4">Masa Berlaku</th>
@@ -533,7 +555,7 @@
                                             <th class="py-3.5 px-4 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="admin-promo-table-body" class="divide-y divide-purple-500/5"></tbody>
+                                    <tbody id="admin-promo-table-body" class="divide-y divide-white/5 bg-slate-950/20"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -541,25 +563,26 @@
                 </div>
             </div>
 
+            <!-- TAB 4: SYSTEM CONFIG -->
             <div id="tab-sistem" class="admin-tab-content space-y-6 hidden">
-                <div class="border-b border-white/5 pb-2">
-                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-sliders text-purple-400"></i> Konfigurasi Sistem Cloud</h3>
+                <div class="border-b border-white/5 pb-3">
+                    <h3 class="text-base font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-gears text-purple-400"></i> Konfigurasi Sistem Cloud</h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass rounded-3xl p-6 border border-purple-500/10 bg-slate-950/20 shadow-lg">
-                        <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-bullhorn text-purple-400"></i> Broadcast Banner Atas</h4>
-                        <p class="text-xs text-slate-400 mb-4">Ubah isi pengumuman teks berjalan di bagian atas halaman katalog user secara realtime.</p>
+                    <div class="glass-admin rounded-3xl p-6 border border-white/5 shadow-xl space-y-4">
+                        <h4 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-bullhorn text-purple-400"></i> Broadcast Banner Atas</h4>
+                        <p class="text-xs text-slate-400">Ubah isi pengumuman teks berjalan di bagian atas halaman katalog secara global.</p>
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Tampilan Banner</label>
-                                <select id="adm-broadcast-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                <select id="adm-broadcast-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                     <option value="false">Sembunyikan / Nonaktif</option>
                                     <option value="true">Tampilkan / Aktif</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Pesan Pengumuman</label>
-                                <input type="text" id="adm-broadcast-text" placeholder="Contoh: Diskon khusus akhir pekan masukkan kupon..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="text" id="adm-broadcast-text" placeholder="Contoh: Diskon khusus akhir pekan masukkan kupon..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <button onclick="saveGlobalBroadcastConfig()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-purple-600/10 active:scale-98 cursor-pointer">
                                 <i class="fa-solid fa-paper-plane"></i> Publikasikan Pengumuman
@@ -567,21 +590,21 @@
                         </div>
                     </div>
 
-                    <div class="glass rounded-3xl p-6 border border-purple-500/10 bg-slate-950/20 shadow-lg">
-                        <h4 class="text-base font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-gears text-purple-400"></i> Konfigurasi Operasional Toko</h4>
-                        <p class="text-xs text-slate-400 mb-4">Atur parameter keamanan dan tujuan notifikasi secara instan tanpa ubah kode.</p>
+                    <div class="glass-admin rounded-3xl p-6 border border-white/5 shadow-xl space-y-4">
+                        <h4 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-shield-halved text-purple-400"></i> Operasional & Security Parameter</h4>
+                        <p class="text-xs text-slate-400">Atur parameter keamanan dan tujuan notifikasi secara instan tanpa ubah kode.</p>
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Email Notifikasi FormSubmit</label>
-                                <input type="email" id="adm-sys-email" placeholder="zaxxyxml@gmail.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="email" id="adm-sys-email" placeholder="zaxxyxml@gmail.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link WhatsApp Customer Service</label>
-                                <input type="text" id="adm-sys-wa" placeholder="https://wa.me/628123456789" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="text" id="adm-sys-wa" placeholder="https://wa.me/628123456789" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Proteksi Anti-Inspect (Klik Kanan & F12)</label>
-                                <select id="adm-sys-antiinspect" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                <select id="adm-sys-antiinspect" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                     <option value="true">Aktif (Kunci Klik Kanan & F12)</option>
                                     <option value="false">Nonaktif (Izinkan Inspect)</option>
                                 </select>
@@ -596,6 +619,7 @@
         </main>
     </div>
 
+    <!-- CHECKOUT MODAL SYSTEM -->
     <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 transform transition-all scale-95 opacity-0 duration-300" id="modal-card">
@@ -627,7 +651,7 @@
                     <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Punya Kode Promo?</label>
                     <div class="flex gap-2">
                         <input type="text" id="promo-input" placeholder="Masukkan kode" class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 uppercase placeholder:normal-case">
-                        <button onclick="applyPromoCode()" class="bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl text-sm font-medium text-white transition-all cursor-pointer">Klaim</button>
+                        <input type="button" value="Klaim" onclick="applyPromoCode()" class="bg-violet-600 hover:bg-violet-500 px-4 py-2.5 rounded-xl text-sm font-medium text-white transition-all cursor-pointer">
                     </div>
                     <p id="promo-message" class="text-xs mt-2 hidden"></p>
                 </div>
@@ -710,6 +734,7 @@
         </div>
     </div>
 
+    <!-- NOTIFICATION POPUP -->
     <div id="notification-modal" class="fixed inset-0 z-[100] overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
         <div class="glass max-sm w-full rounded-2xl p-6 text-center relative z-10 shadow-xl border border-white/10 transform transition-transform">
@@ -720,6 +745,7 @@
         </div>
     </div>
 
+    <!-- LOGIK ENGINE SCRIPT -->
     <script>
         const API_KEY = "key_5fcfe74555ca411c";
         const AUTO_SAVE_KEY = "zaxxy_product_form_draft";
@@ -799,7 +825,7 @@
                 btn.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300";
             });
 
-            currentButtonElement.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 border border-purple-500/40 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.15)] font-bold text-xs transition-all cursor-pointer duration-300";
+            currentButtonElement.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/20 to-fuchsia-600/20 border border-purple-500/30 text-purple-300 font-bold text-xs transition-all cursor-pointer duration-300";
         }
 
         async function secureFetchWithRetry(actionType, params = {}, retries = 3, delay = 2000) {
@@ -912,31 +938,44 @@
             if (isUnlimited) {
                 stockInput.value = "";
                 stockInput.disabled = true;
-                stockInput.classList.add("opacity-50");
+                stockInput.classList.add("opacity-30");
             } else {
                 stockInput.disabled = false;
-                stockInput.classList.remove("opacity-50");
+                stockInput.classList.remove("opacity-30");
             }
         }
 
-        // MODIFIKASI: Input Deretan Baris Varian Dengan Kolom Harga Kustom
+        // RESPONSIVE UPDATE: Engine Penambah Baris Varian Dengan Grid Sistem Adaptif Mobile
         function addVariantRow(name = '', stock = '', isUnlimited = false, price = '') {
             const container = document.getElementById("adm-variants-list");
             const rowId = "var-row-" + Date.now() + Math.random().toString(36).substr(2, 5);
             
             const row = document.createElement("div");
-            row.className = "flex items-center gap-2 bg-slate-900/80 p-2 rounded-xl border border-white/5 variant-data-row";
+            row.className = "flex flex-col gap-2 sm:grid sm:grid-cols-12 sm:gap-2 bg-[#120e2e]/90 p-4 rounded-xl border border-white/5 variant-data-row shadow-inner relative";
             row.id = rowId;
             
             row.innerHTML = `
-                <input type="text" placeholder="Nama Varian" value="${name}" class="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none var-item-name">
-                <input type="text" placeholder="Harga Kustom" value="${price}" oninput="formatRupiahElement(this)" class="w-24 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white var-item-price" title="Kosongkan jika ingin mengikuti Harga Utama">
-                <input type="number" placeholder="Stok" value="${stock}" ${isUnlimited ? 'disabled class="w-16 bg-slate-950 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white opacity-50 var-item-stock"' : 'class="w-16 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white var-item-stock"'} min="0">
-                <label class="flex items-center gap-1 text-[10px] text-slate-400 select-none shrink-0 cursor-pointer">
-                    <input type="checkbox" ${isUnlimited ? 'checked' : ''} onchange="toggleVariantRowStock(this)" class="w-3.5 h-3.5 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600 var-item-unlimited">
-                    <span>∞</span>
-                </label>
-                <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-rose-400 p-1.5 hover:bg-rose-500/10 rounded-lg shrink-0 transition-colors"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                <div class="col-span-12 sm:col-span-4">
+                    <label class="block text-[10px] text-slate-500 font-bold uppercase mb-1 sm:hidden">Nama Varian</label>
+                    <input type="text" placeholder="Nama Varian (contoh: Full Akun)" value="${name}" class="w-full bg-slate-950 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 var-item-name">
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-[10px] text-slate-500 font-bold uppercase mb-1 sm:hidden">Harga Kustom (Rp)</label>
+                    <input type="text" placeholder="Harga Kustom" value="${price}" oninput="formatRupiahElement(this)" class="w-full bg-slate-950 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-emerald-400 font-medium focus:outline-none focus:border-purple-500 var-item-price">
+                </div>
+                <div class="col-span-3 sm:col-span-2">
+                    <label class="block text-[10px] text-slate-500 font-bold uppercase mb-1 sm:hidden">Stok</label>
+                    <input type="number" placeholder="Stok" value="${stock}" ${isUnlimited ? 'disabled class="w-full bg-slate-950/40 border border-white/5 rounded-lg px-2 py-1.5 text-xs text-slate-500 opacity-40 var-item-stock"' : 'class="w-full bg-slate-950 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 var-item-stock"'} min="0">
+                </div>
+                <div class="col-span-3 sm:col-span-2 flex items-center justify-center pt-4 sm:pt-0">
+                    <label class="flex items-center gap-1.5 text-[11px] text-slate-400 select-none cursor-pointer bg-slate-950 px-2.5 py-1.5 rounded-lg border border-white/5 w-full justify-center">
+                        <input type="checkbox" ${isUnlimited ? 'checked' : ''} onchange="toggleVariantRowStock(this)" class="w-3.5 h-3.5 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600 var-item-unlimited">
+                        <span class="font-bold text-xs text-purple-400">∞</span>
+                    </label>
+                </div>
+                <div class="col-span-12 sm:col-span-1 flex justify-end items-center pt-2 sm:pt-0">
+                    <button type="button" onclick="document.getElementById('${rowId}').remove()" class="w-full sm:w-auto bg-rose-500/10 sm:bg-transparent text-rose-400 p-2 hover:bg-rose-500/20 rounded-lg transition-colors cursor-pointer text-center"><i class="fa-solid fa-trash-can text-xs"></i><span class="inline sm:hidden ml-2 text-xs font-bold">Hapus</span></button>
+                </div>
             `;
             container.appendChild(row);
         }
@@ -947,11 +986,24 @@
             if (checkbox.checked) {
                 stockInput.value = "";
                 stockInput.disabled = true;
-                stockInput.classList.add("opacity-50");
+                stockInput.classList.add("opacity-40", "bg-slate-950/40");
+                stockInput.classList.remove("bg-slate-950");
             } else {
                 stockInput.disabled = false;
-                stockInput.classList.remove("opacity-50");
+                stockInput.classList.remove("opacity-40", "bg-slate-950/40");
+                stockInput.classList.add("bg-slate-950");
             }
+        }
+
+        // ENGINE BACKUP: Berpindah ke Halaman Utama Katalog User Tanpa Hapus Sesi Admin
+        function closeAdminDashboardView() {
+            const adminPanel = document.getElementById("view-admin-panel");
+            adminPanel.classList.add("opacity-0");
+            setTimeout(() => {
+                adminPanel.classList.add("hidden");
+                document.getElementById("view-store-panel").classList.remove("hidden");
+            }, 300);
+            showCustomToast("Kembali ke Toko", "Beralih ke tampilan halaman utama katalog pembeli.", "info");
         }
 
         function bindSystemControlListeners() {
@@ -1238,38 +1290,42 @@
             }
 
             list.forEach(productObj => {
-                let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">Aktif</span>`;
+                let statusBadge = `<span class="px-2.5 py-1 rounded-md text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold uppercase tracking-wider">Aktif</span>`;
                 
                 if (productObj.variants && productObj.variants.length > 0) {
                     const allOut = productObj.variants.every(v => v.stock !== -1 && v.stock <= 0);
-                    if (allOut) statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
+                    if (allOut) statusBadge = `<span class="px-2.5 py-1 rounded-md text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold uppercase tracking-wider">Stok Habis</span>`;
                 } else if (productObj.stock !== -1 && productObj.stock <= 0) {
-                    statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
+                    statusBadge = `<span class="px-2.5 py-1 rounded-md text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold uppercase tracking-wider">Stok Habis</span>`;
                 }
                 
                 if (productObj.status === "maintenance") {
-                    statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold">Perbaikan</span>`;
+                    statusBadge = `<span class="px-2.5 py-1 rounded-md text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold uppercase tracking-wider">Perbaikan</span>`;
                 }
 
                 let stockLabel = "";
                 if (productObj.variants && productObj.variants.length > 0) {
-                    stockLabel = `${productObj.variants.length} Varian`;
+                    stockLabel = `<span class="bg-purple-500/10 text-purple-300 px-2 py-0.5 border border-purple-500/20 rounded font-semibold">${productObj.variants.length} Varian Suite</span>`;
                 } else {
-                    stockLabel = productObj.stock === -1 ? "Tidak Terbatas" : `${productObj.stock} pcs`;
+                    stockLabel = productObj.stock === -1 ? "Unlimited (∞)" : `${productObj.stock} pcs`;
                 }
 
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-purple-500/5";
+                tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-white/5";
                 tr.innerHTML = `
-                    <td class="py-4 px-4 font-bold text-white max-w-[200px] truncate">
-                        ${productObj.name} 
-                        <span class="text-[10px] text-slate-400 block">${productObj.category} | Stok: ${stockLabel}</span>
+                    <td class="py-4 px-4 max-w-[220px]">
+                        <div class="font-bold text-slate-100 text-sm truncate">${productObj.name}</div> 
+                        <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-2 flex-wrap">
+                            <span class="text-slate-500">${productObj.category}</span>
+                            <span class="text-slate-600">|</span>
+                            <span>Stok: ${stockLabel}</span>
+                        </div>
                     </td>
-                    <td class="py-4 px-4 text-emerald-400 font-semibold">Rp ${productObj.price.toLocaleString('id-ID')}</td>
+                    <td class="py-4 px-4 text-emerald-400 font-bold text-sm">Rp ${productObj.price.toLocaleString('id-ID')}</td>
                     <td class="py-4 px-4">${statusBadge}</td>
-                    <td class="py-4 px-4 text-right space-x-1">
-                        <button onclick="editProductData('${productObj.id}')" class="text-cyan-400 p-2 hover:bg-cyan-500/10 rounded-lg cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteProductFromFirebase('${productObj.id}')" class="text-rose-400 p-2 hover:bg-rose-500/10 rounded-lg cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
+                    <td class="py-4 px-4 text-right space-x-1 whitespace-nowrap">
+                        <button onclick="editProductData('${productObj.id}')" class="text-cyan-400 p-2 hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/20 rounded-xl transition-all cursor-pointer" title="Edit Data"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteProductFromFirebase('${productObj.id}')" class="text-rose-400 p-2 hover:bg-rose-500/10 border border-transparent hover:border-rose-500/20 rounded-xl transition-all cursor-pointer" title="Hapus Permanen"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1291,28 +1347,16 @@
             tableBody.innerHTML = "";
             filtered.forEach(item => {
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-white/5 transition-colors border-b border-purple-500/5";
+                tr.className = "hover:bg-white/5 transition-colors border-b border-white/5";
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-mono text-purple-400 max-w-[120px] truncate">${item.invoice_id}</td>
-                    <td class="py-3 px-4 text-slate-400 font-normal">${item.date || '-'}</td>
-                    <td class="py-3 px-4 text-white font-bold truncate max-w-[150px]">${item.product_name}</td>
-                    <td class="py-3 px-4 text-emerald-400 font-semibold">Rp ${parseInt(item.amount).toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4 text-right text-slate-400"><span class="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10 font-bold uppercase">${item.type || 'QRIS'}</span></td>
+                    <td class="py-3.5 px-5 font-mono text-purple-400 max-w-[120px] truncate font-bold">${item.invoice_id}</td>
+                    <td class="py-3.5 px-5 text-slate-400 font-normal">${item.date || '-'}</td>
+                    <td class="py-3.5 px-5 text-white font-bold truncate max-w-[200px]">${item.product_name}</td>
+                    <td class="py-3.5 px-5 text-emerald-400 font-black">Rp ${parseInt(item.amount).toLocaleString('id-ID')}</td>
+                    <td class="py-3.5 px-5 text-right text-slate-400"><span class="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10 font-bold uppercase tracking-wide">${item.type || 'QRIS'}</span></td>
                 `;
                 tableBody.appendChild(tr);
             });
-        }
-
-        async function clearAllTransactionsHistory() {
-            if (confirm("🚨 PERINGATAN: Tindakan ini akan menghapus seluruh data RIWAYAT TRANSAKSI dan mengatur ulang ke 0. Lanjutkan?")) {
-                try {
-                    await db.ref('orders_log').remove();
-                    await db.ref('sales_count').set(0);
-                    showCustomToast("Database Dibersihkan", "Riwayat transaksi di-reset.", "info");
-                } catch (e) {
-                    showCustomToast("Gagal", "Penghapusan database ditolak server.", "error");
-                }
-            }
         }
 
         function exportProductsToJSON() {
@@ -1385,13 +1429,12 @@
             const isUnlimited = document.getElementById("adm-prod-stock-unlimited").checked;
             const stock = isUnlimited ? -1 : (parseInt(document.getElementById("adm-prod-stock").value) || 0);
 
-            // MODIFIKASI: Ambil data nama varian + harga kustom masing-masing dari form admin
             const variantRows = document.querySelectorAll(".variant-data-row");
             let variants = [];
             variantRows.forEach(row => {
                 const vName = row.querySelector(".var-item-name").value.trim();
                 const vPriceRaw = row.querySelector(".var-item-price").value.replace(/[^0-9]/g, "");
-                const vPrice = parseInt(vPriceRaw) || 0; // Jika 0/kosong, nanti otomatis ikut harga utama
+                const vPrice = parseInt(vPriceRaw) || 0; 
                 
                 const vUnlimited = row.querySelector(".var-item-unlimited").checked;
                 const vStock = vUnlimited ? -1 : (parseInt(row.querySelector(".var-item-stock").value) || 0);
@@ -1456,12 +1499,10 @@
             }
             toggleStockInputState();
 
-            // MODIFIKASI: Render ulang data harga kustom varian ke form editor admin
             document.getElementById("adm-variants-list").innerHTML = "";
             if (item.variants && Array.isArray(item.variants)) {
                 item.variants.forEach(v => {
                     let formattedPrice = (v.price && v.price > 0) ? String(v.price) : "";
-                    // Panggil addVariantRow lalu jalankan format rupiah manual pada elemen input yang dibuat
                     addVariantRow(v.name, v.stock === -1 ? '' : v.stock, v.stock === -1, formattedPrice);
                     
                     const lastRow = document.getElementById("adm-variants-list").lastChild;
@@ -1529,7 +1570,7 @@
             listToRender.forEach(product => {
                 let statusRibbon = "";
                 let buttonHTML = `
-                    <button onclick="openCheckoutModal('${product.id}')" class="w-full bg-purple-950/40 border border-purple-500/30 hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600 hover:border-transparent text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 group cursor-pointer">
+                    <button onclick="openCheckoutModal('${product.id}')" class="w-full bg-purple-955/40 border border-purple-500/30 hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600 hover:border-transparent text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 group cursor-pointer">
                         <span>Beli Sekarang</span><i class="fa-solid fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 `;
@@ -1616,7 +1657,7 @@
                 Object.keys(promos).forEach(key => {
                     const data = promos[key];
                     const tr = document.createElement("tr");
-                    tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-purple-500/5";
+                    tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-white/5";
                     tr.innerHTML = `
                         <td class="py-4 px-4 font-mono font-bold text-violet-400">${key}</td>
                         <td class="py-4 px-4">
@@ -1695,7 +1736,6 @@
             }
 
             currentSelectedProduct = JSON.parse(JSON.stringify(rawProd));
-            // Cadangkan harga asli utama produk untuk fallback hitungan varian harga sama
             currentSelectedProduct.baseOriginalPrice = rawProd.price;
             
             activeDiscountPercentage = 0;
@@ -1706,7 +1746,6 @@
             document.getElementById("modal-product-img").src = currentSelectedProduct.image || UXMixins.fallbackImg;
             document.getElementById("modal-product-img").onerror = function() { this.src = UXMixins.fallbackImg; };
             
-            // MODIFIKASI: Tampilkan menu varian beserta list harga dinamisnya masing-masing
             const variantRow = document.getElementById("modal-variant-row");
             const variantSelect = document.getElementById("modal-variant-select");
             
@@ -1718,7 +1757,6 @@
                     let stockInfoText = v.stock === -1 ? "Unlimited" : `Sisa ${v.stock}`;
                     let isDisableStr = (v.stock !== -1 && v.stock <= 0) ? "disabled" : "";
                     
-                    // Gunakan harga kustom jika diisi admin, jika tidak/diisi 0 pakai harga utama produk
                     let displayPrice = (v.price && v.price > 0) ? v.price : currentSelectedProduct.baseOriginalPrice;
                     
                     variantSelect.innerHTML += `<option value="${index}" ${isDisableStr}>${v.name} - (Rp ${displayPrice.toLocaleString('id-ID')}) [${stockInfoText}]</option>`;
@@ -1747,7 +1785,6 @@
             }, 50);
         }
 
-        // MODIFIKASI: Menghandle kalkulasi harga dinamis di checkout saat varian dipilih pembeli
         function handleModalVariantChange() {
             const select = document.getElementById("modal-variant-select");
             const stockInfo = document.getElementById("modal-variant-stock-info");
@@ -1756,10 +1793,8 @@
             
             const variant = currentSelectedProduct.variants[index];
             if (variant) {
-                // Tentukan harga acuan: Jika varian punya harga kustom gunakan itu, jika tidak ikut harga utama produk
                 let computedActivePrice = (variant.price && variant.price > 0) ? variant.price : currentSelectedProduct.baseOriginalPrice;
                 
-                // Set harga dasar ke objek agar dibaca fungsi recalculateTotalPrices
                 currentSelectedProduct.price = computedActivePrice;
                 document.getElementById("modal-product-price-raw").innerText = `Rp ${computedActivePrice.toLocaleString('id-ID')}`;
                 
@@ -1885,7 +1920,6 @@
                     return;
                 }
                 
-                // Ambil ulang harga dinamis varian saat ini jika ada
                 let basePriceRef = Math.max(0, parseInt(freshProdData.price) || 0);
                 if (currentSelectedProduct.variants && currentSelectedProduct.variants.length > 0 && currentSelectedVariantIndex !== null) {
                     const freshVar = freshProdData.variants[currentSelectedVariantIndex];
@@ -1964,7 +1998,6 @@
                             closeModal();
                             return;
                         }
-                        // MODIFIKASI: Ambil harga varian dari database server untuk validasi anti-bypass/manipulasi harga lokal
                         if (targetVar.price && targetVar.price > 0) {
                             dbPrice = targetVar.price;
                         }
