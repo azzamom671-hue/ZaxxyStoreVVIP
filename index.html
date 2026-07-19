@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zaxxy Store - Premium Catalog & Automatic Payment</title>
 
-    <script src="[https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4](https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4)"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-    <link href="[https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap)" rel="stylesheet">
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script src="[https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js](https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js)"></script>
-    <script src="[https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js](https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js)"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
     <style>
         body {
@@ -42,6 +42,7 @@
         ::-webkit-scrollbar-thumb { background: #1e1b4b; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #4c1d95; }
         
+        /* Utility for hiding scrollbars on tabs */
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -71,7 +72,6 @@
         </span>
     </div>
 
-    <!-- TAMPILAN KATALOG USER -->
     <div id="view-store-panel" class="block transition-all duration-300">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-4 sticky top-0 z-30">
             <nav class="glass rounded-2xl px-4 sm:px-6 py-3.5 border border-purple-500/15 shadow-2xl backdrop-blur-xl">
@@ -158,7 +158,6 @@
         </main>
     </div>
 
-    <!-- MODAL LACAK STATUS -->
     <div id="tracking-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -184,7 +183,6 @@
         </div>
     </div>
 
-    <!-- MODAL ADMIN LOGIN -->
     <div id="admin-login-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-lg"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 border border-purple-500/30 transform transition-all">
@@ -220,7 +218,6 @@
         </div>
     </div>
 
-    <!-- PANEL UTAMA ADMIN DASHBOARD -->
     <div id="view-admin-panel" class="hidden opacity-0 transition-all duration-500 flex flex-col min-h-screen">
         <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 sticky top-0 z-30">
             <div class="glass rounded-2xl border border-purple-500/15 shadow-2xl backdrop-blur-xl overflow-hidden">
@@ -258,7 +255,7 @@
                             <span class="text-xs font-bold text-slate-300 hidden sm:inline">Azzam Admin</span>
                         </div>
 
-                        <button onclick="logoutAdminDashboard()" class="p-2 sm:px-3 sm:py-2 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer">
+                        <button onclick="logoutAdminDashboard()" class="p-2 sm:px-3 sm:py-2 text-xs font-bold bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 rounded-xl transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer" title="Keluar Dashboard">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             <span class="hidden md:inline text-xs">Keluar</span>
                         </button>
@@ -285,14 +282,13 @@
         </header>
 
         <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
-            <!-- TAB: LOGS & ANALYTICS -->
             <div id="tab-analytics" class="admin-tab-content space-y-6 block">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div class="glass rounded-2xl p-5 border border-purple-500/10 bg-slate-950/20 flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-sack-dollar"></i></div>
                         <div>
                             <span class="text-slate-400 text-[11px] block uppercase tracking-wider font-semibold">Gross Income</span>
-                            <span id="adm-analytics-revenue" class="text-xl font-black text-white">Rp 0</span>
+                            <span id="adm-analytics-revenue" class="text-xl font-black text-white">Rp 175.000</span>
                         </div>
                     </div>
                     <div class="glass rounded-2xl p-5 border border-purple-500/10 bg-slate-950/20 flex items-center gap-4">
@@ -340,147 +336,126 @@
                 </div>
             </div>
 
-            <!-- TAB: MANAJEMEN PRODUK -->
             <div id="tab-produk" class="admin-tab-content space-y-6 hidden">
                 <div class="flex items-center justify-between border-b border-white/5 pb-2">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-box text-purple-400"></i> Gudang Inventaris Produk</h3>
-                    <span id="draft-badge" class="hidden text-[10px] px-2.5 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full animate-pulse"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Draf Tersimpan</span>
+                    <span id="draft-badge" class="hidden text-[10px] px-2.5 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full animate-pulse"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Draf Tersimpan Otomatis</span>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-                    <div class="flex flex-col gap-5 lg:col-span-1">
-                        <div class="glass rounded-3xl p-5 border border-purple-500/15 shadow-2xl bg-[#090620]/90">
-                            <h3 id="product-form-title" class="text-sm font-bold text-white mb-4 pb-2 border-b border-white/5 flex items-center gap-2">
-                                <i class="fa-solid fa-square-plus text-purple-400"></i> Editor Modul Produk
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="flex flex-col gap-6">
+                        <div class="glass rounded-3xl p-6 h-fit border border-purple-500/10 shadow-lg bg-slate-950/20">
+                            <h3 id="product-form-title" class="text-base font-bold text-white mb-5 flex items-center gap-2">
+                                <i class="fa-solid fa-square-plus text-purple-400"></i> Tambah Produk Baru
                             </h3>
                             <input type="hidden" id="adm-prod-id">
-                            
-                            <div class="space-y-5">
-                                <!-- BLOK 1: INFORMASI UTAMA -->
-                                <div class="space-y-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                                    <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">1. Informasi Utama</span>
-                                    <div>
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Nama Produk</label>
-                                        <input type="text" id="adm-prod-name" placeholder="Contoh: CBT EXAM BROWSER MOD" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <div>
-                                            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Harga (Rupiah)</label>
-                                            <input type="text" id="adm-prod-price" oninput="formatRupiahElement(this)" placeholder="Rp 25.000" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-                                        </div>
-                                        <div>
-                                            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Badge</label>
-                                            <select id="adm-prod-badge" class="w-full bg-slate-900 border border-white/10 rounded-xl px-2 py-2 text-xs text-slate-200 focus:outline-none">
-                                                <option value="normal">Normal</option>
-                                                <option value="hot">HOT DEALS 🔥</option>
-                                                <option value="best_seller">BEST SELLER 🏆</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Kategori Utama</label>
-                                        <select id="adm-prod-category" class="w-full bg-slate-900 border border-white/10 rounded-xl px-2 py-2 text-xs text-slate-200 focus:outline-none"></select>
-                                    </div>
-                                    <div class="pt-1 border-t border-white/5 flex gap-1.5">
-                                        <input type="text" id="adm-new-category" placeholder="Buat kategori kustom baru..." class="flex-1 bg-slate-900 border border-white/10 rounded-xl px-2 py-1 text-[11px] text-white focus:outline-none">
-                                        <button type="button" onclick="addNewCustomCategory()" class="bg-purple-600/30 hover:bg-purple-600 border border-purple-500/40 px-2 py-1 rounded-xl text-[10px] font-bold text-purple-200 transition-colors shrink-0">+ Add</button>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Nama Produk</label>
+                                    <input type="text" id="adm-prod-name" placeholder="Contoh: CBT EXAM BROWSER MOD" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Kategori Produk</label>
+                                    <select id="adm-prod-category" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                    </select>
+                                    <div class="mt-2 flex gap-2">
+                                        <input type="text" id="adm-new-category" placeholder="Kategori Baru (Kustom)..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all">
+                                        <button type="button" onclick="addNewCustomCategory()" class="bg-purple-600 hover:bg-purple-500 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-all cursor-pointer">+ Kategori</button>
                                     </div>
                                 </div>
-
-                                <!-- BLOK 2: KONTROL STOK GLOBAL -->
-                                <div class="space-y-3 p-3 rounded-xl bg-purple-950/10 border border-purple-500/10">
-                                    <span class="text-[10px] font-bold text-purple-300 block uppercase tracking-wider"><i class="fa-solid fa-boxes-stacked mr-1"></i> 2. Kontrol Stok Global</span>
-                                    
-                                    <div class="flex items-center justify-between bg-slate-900 px-3 py-2 rounded-xl border border-white/5">
-                                        <label for="adm-prod-stock-unlimited" class="text-xs text-slate-300 font-medium cursor-pointer select-none">Setel Sebagai Stok Tak Terbatas</label>
-                                        <input type="checkbox" id="adm-prod-stock-unlimited" onchange="toggleStockInputState()" class="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600 cursor-pointer">
-                                    </div>
-
-                                    <div id="stock-input-wrapper" class="transition-all duration-200">
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Jumlah Unit Tersedia (Pcs)</label>
-                                        <input type="number" id="adm-prod-stock" min="0" placeholder="Kuantitas stok angka" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-                                    </div>
-
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Badge Unggulan</label>
+                                    <select id="adm-prod-badge" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
+                                        <option value="normal">Normal</option>
+                                        <option value="hot">HOT DEALS 🔥</option>
+                                        <option value="best_seller">BEST SELLER 🏆</option>
+                                    </select>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Status Penjualan</label>
-                                        <select id="adm-prod-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-2 py-2 text-xs text-slate-200 focus:outline-none">
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga (Rupiah)</label>
+                                        <!-- Update: Input type berubah jadi text dan ditambahkan oninput format otomatis -->
+                                        <input type="text" id="adm-prod-price" oninput="formatRupiahElement(this)" placeholder="Contoh: Rp 25.000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Status Produk</label>
+                                        <select id="adm-prod-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all">
                                             <option value="active">Aktif (Tersedia)</option>
                                             <option value="out_of_stock">Stok Habis</option>
                                             <option value="maintenance">Perbaikan</option>
                                         </select>
                                     </div>
                                 </div>
-
-                                <!-- BLOK 3: FITUR, VARIAN KUSTOM & ASSET -->
-                                <div class="space-y-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                                    <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">3. Fitur, Varian & File</span>
+                                <div class="grid grid-cols-2 gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
                                     <div>
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Fitur Aplikasi (Per Baris)</label>
-                                        <textarea id="adm-prod-features" rows="2" placeholder="SCREENSHOT BYPASS&#10;ANTI FLOATING" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-slate-200 font-mono focus:outline-none"></textarea>
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Jumlah Stok</label>
+                                        <input type="number" id="adm-prod-stock" min="0" placeholder="Kuantitas" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                     </div>
-                                    <div>
-                                        <div class="flex justify-between items-center mb-1">
-                                            <label class="block text-[11px] font-semibold text-slate-400">Pilihan Varian & Stok Varian</label>
-                                            <span class="text-[9px] text-purple-400 font-bold">Format: Nama | Stok</span>
-                                        </div>
-                                        <textarea id="adm-prod-options" rows="3" placeholder="Format: Nama Varian | Stok&#10;Contoh:&#10;Varian Biru (Real Madrid) | 5&#10;Varian Merah Terang | -1" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-emerald-400 font-mono focus:outline-none"></textarea>
-                                    </div>
-                                    <div>
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Link Gambar (.jpg/.png)</label>
-                                        <input type="text" id="adm-prod-img" placeholder="[https://link.com/foto.jpg](https://link.com/foto.jpg)" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[11px] font-semibold text-slate-400 mb-1">Link Unduhan Aset File (Drive/Mediafire)</label>
-                                        <input type="text" id="adm-prod-link" placeholder="[https://www.mediafire.com/file/](https://www.mediafire.com/file/)..." class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
+                                    <div class="flex items-center pt-5">
+                                        <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
+                                            <input type="checkbox" id="adm-prod-stock-unlimited" onchange="toggleStockInputState()" class="w-4 h-4 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600">
+                                            <span>Stok Tidak Terbatas</span>
+                                        </label>
                                     </div>
                                 </div>
-
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Foto / Gambar Produk</label>
+                                    <input type="text" id="adm-prod-img" placeholder="https://link-gambar.com/foto.jpg" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Fitur Produk (Pisahkan dengan baris baru)</label>
+                                    <textarea id="adm-prod-features" rows="4" placeholder="SCREENSHOT BYPASS&#10;FLOATING APP SYSTEM" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all font-mono text-xs"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Unduhan (Mediafire/Drive)</label>
+                                    <input type="text" id="adm-prod-link" placeholder="https://www.mediafire.com/file/..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                </div>
                                 <div class="flex gap-2 pt-2">
-                                    <button onclick="submitProductToFirebase()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-2.5 px-4 rounded-xl text-xs text-white transition-all flex items-center justify-center gap-2 cursor-pointer">
-                                        <i class="fa-solid fa-floppy-disk"></i> Simpan Modul
+                                    <button onclick="submitProductToFirebase()" class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 font-bold py-3 px-4 rounded-xl text-sm transition-all shadow-lg shadow-purple-600/20 active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+                                        <i class="fa-solid fa-floppy-disk"></i> Simpan Produk
                                     </button>
                                     <button id="btn-cancel-edit-prod" onclick="resetProductForm()" class="hidden bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 px-3 rounded-xl text-xs transition-all cursor-pointer">Batal</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- JSON MIGRASI DATA -->
-                        <div class="glass rounded-2xl p-4 border border-purple-500/10 bg-slate-950/20 shadow-lg">
-                            <h4 class="text-[11px] font-bold text-white mb-1 flex items-center gap-2"><i class="fa-solid fa-database text-cyan-400"></i> Backup JSON</h4>
-                            <div class="grid grid-cols-2 gap-2 mt-2">
-                                <button onclick="exportProductsToJSON()" class="bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 font-bold py-2 px-2 rounded-xl text-[10px] flex items-center justify-center gap-1 cursor-pointer">
-                                    <i class="fa-solid fa-download text-purple-400"></i> Export
+                        <div class="glass rounded-3xl p-6 border border-purple-500/10 bg-slate-950/20 shadow-lg">
+                            <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-database text-cyan-400 text-xs"></i> Backup & Migrasi JSON</h4>
+                            <p class="text-[11px] text-slate-400 mb-4">Cadangkan database produk Anda ke file JSON lokal atau import dari cadangan lama.</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="exportProductsToJSON()" class="bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 font-bold py-2.5 px-3 rounded-xl text-[11px] transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                                    <i class="fa-solid fa-download text-purple-400"></i> Export JSON
                                 </button>
-                                <label class="bg-purple-600/10 border border-purple-500/20 hover:bg-purple-600/20 text-purple-300 font-bold py-2 px-2 rounded-xl text-[10px] flex items-center justify-center gap-1 cursor-pointer text-center">
-                                    <i class="fa-solid fa-upload"></i> Import
+                                <label class="bg-purple-600/20 border border-purple-500/30 hover:bg-purple-600/30 text-purple-300 font-bold py-2.5 px-3 rounded-xl text-[11px] transition-all flex items-center justify-center gap-1.5 cursor-pointer text-center">
+                                    <i class="fa-solid fa-upload"></i> Import JSON
                                     <input type="file" id="import-json-file" accept=".json" onchange="importProductsFromJSON(event)" class="hidden">
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TABEL MONITOR LIST PRODUK -->
-                    <div class="lg:col-span-2 flex flex-col h-full">
-                        <div class="glass rounded-3xl p-5 flex-1 overflow-hidden flex flex-col border border-purple-500/10 bg-slate-950/10 shadow-lg">
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                                <h3 class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-list-ul text-purple-400"></i> Gudang Aktif</h3>
+                    <div class="lg:col-span-2 flex flex-col">
+                        <div class="glass rounded-3xl p-6 flex-1 overflow-hidden flex flex-col border border-purple-500/10 bg-slate-950/10 shadow-lg">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                                <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-list-ul text-purple-400"></i> List Produk Aktif</h3>
                                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                                    <input type="text" id="adm-search-product" oninput="filterAdminProductsTable()" placeholder="Cari..." class="bg-white/5 border border-white/10 rounded-xl px-3 py-1 text-xs text-white focus:outline-none w-full sm:w-36">
-                                    <select id="adm-filter-status-prod" onchange="filterAdminProductsTable()" class="bg-slate-900 border border-white/10 rounded-xl px-2 py-1 text-xs text-slate-300 focus:outline-none">
+                                    <input type="text" id="adm-search-product" oninput="filterAdminProductsTable()" placeholder="Cari produk..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-1.5 text-xs text-white focus:outline-none focus:border-purple-500 transition-all w-full sm:w-40">
+                                    <select id="adm-filter-status-prod" onchange="filterAdminProductsTable()" class="bg-slate-900 border border-white/10 rounded-xl px-2 py-1.5 text-xs text-slate-300 focus:outline-none">
                                         <option value="all">Semua</option>
                                         <option value="active">Aktif</option>
                                         <option value="out_of_stock">Habis</option>
+                                        <option value="maintenance">Perbaikan</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="overflow-x-auto w-full flex-1">
-                                <table class="w-full min-w-[500px] text-left border-collapse">
+                                <table class="w-full min-w-[550px] text-left border-collapse">
                                     <thead>
                                         <tr class="border-b border-purple-500/20 text-xs font-bold uppercase text-slate-400 tracking-wider">
-                                            <th class="py-3 px-4">Nama Item</th>
-                                            <th class="py-3 px-4">Harga</th>
-                                            <th class="py-3 px-4">Status</th>
-                                            <th class="py-3 px-4 text-right">Aksi</th>
+                                            <th class="py-3.5 px-4">Nama Produk</th>
+                                            <th class="py-3.5 px-4">Harga</th>
+                                            <th class="py-3.5 px-4">Status</th>
+                                            <th class="py-3.5 px-4 text-right">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="admin-product-table-body" class="divide-y divide-purple-500/5"></tbody>
@@ -491,7 +466,6 @@
                 </div>
             </div>
 
-            <!-- TAB: VOUCHER & KUPON -->
             <div id="tab-voucher" class="admin-tab-content space-y-6 hidden">
                 <div class="border-b border-white/5 pb-2">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-ticket text-purple-400"></i> Promosi & Kupon</h3>
@@ -555,7 +529,6 @@
                 </div>
             </div>
 
-            <!-- TAB: CONFIG SISTEM -->
             <div id="tab-sistem" class="admin-tab-content space-y-6 hidden">
                 <div class="border-b border-white/5 pb-2">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2"><i class="fa-solid fa-sliders text-purple-400"></i> Konfigurasi Sistem Cloud</h3>
@@ -592,7 +565,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link WhatsApp Customer Service</label>
-                                <input type="text" id="adm-sys-wa" placeholder="[https://wa.me/628123456789](https://wa.me/628123456789)" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
+                                <input type="text" id="adm-sys-wa" placeholder="https://wa.me/628123456789" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Proteksi Anti-Inspect (Klik Kanan & F12)</label>
@@ -611,7 +584,6 @@
         </main>
     </div>
 
-    <!-- MAIN MODAL USER CHECKOUT -->
     <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity"></div>
         <div class="glass max-w-md w-full rounded-3xl overflow-hidden shadow-2xl relative z-10 p-6 md:p-8 transform transition-all scale-95 opacity-0 duration-300" id="modal-card">
@@ -630,11 +602,6 @@
                         <h4 id="modal-product-name" class="font-bold text-white text-base leading-snug break-words">Nama Produk</h4>
                         <p id="modal-product-price-raw" class="text-slate-400 text-sm">Rp 0</p>
                     </div>
-                </div>
-
-                <div id="modal-options-container" class="mb-6 hidden">
-                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Pilih Varian / Kustomisasi Produk</label>
-                    <select id="checkout-product-option" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all font-sans"></select>
                 </div>
 
                 <div class="mb-6">
@@ -668,27 +635,35 @@
 
             <div id="checkout-step-qris" class="hidden text-center">
                 <h3 class="text-xl font-bold mb-2 text-white">Scan QRIS Untuk Membayar</h3>
+                
+                <!-- Countdown Timer Area -->
                 <div id="qris-timer-display" class="text-xs font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-full inline-block mb-4 animate-pulse">
                     Sisa Waktu Pembayaran: <span id="qris-countdown-node">05:00</span>
                 </div>
+
                 <div class="bg-white p-4 rounded-2xl inline-block shadow-xl mb-4 relative">
                     <img id="qris-image-src" src="" alt="QRIS Code" class="w-56 h-56 object-contain mx-auto">
                 </div>
+
                 <div class="flex items-center justify-center gap-2 text-sm text-cyan-400 mb-4 bg-cyan-500/5 border border-cyan-500/10 py-2 rounded-xl">
                     <i class="fa-solid fa-circle-notch animate-spin text-xs"></i>
                     <span id="payment-status-text">Menunggu Pembayaran Masuk...</span>
                 </div>
+
                 <div class="text-slate-400 text-xs flex flex-col gap-1 border-t border-white/5 pt-4 text-left mb-6">
                     <div class="flex justify-between items-center bg-white/5 p-2 rounded-lg border border-white/5 mb-1">
                         <span>Invoice ID:</span>
                         <div class="flex items-center gap-2">
                             <strong id="val-invoice-id" class="text-slate-200 font-mono">--</strong>
-                            <button onclick="copyInvoiceIdToClipboard()" class="text-cyan-400 hover:text-cyan-300 transition-colors p-1 cursor-pointer"><i class="fa-solid fa-copy text-[11px]"></i></button>
+                            <button onclick="copyInvoiceIdToClipboard()" class="text-cyan-400 hover:text-cyan-300 transition-colors p-1 cursor-pointer" title="Salin ID">
+                                <i class="fa-solid fa-copy text-[11px]"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="flex justify-between px-2 py-1"><span>Total Tagihan:</span><strong id="val-invoice-total" class="text-violet-400">--</strong></div>
                 </div>
-                <button onclick="cancelActiveInvoiceOrder()" class="w-full bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 font-bold py-3 px-4 rounded-xl text-xs transition-all active:scale-98 flex items-center justify-center gap-2 shadow-sm cursor-pointer">
+
+                <button onclick="cancelActiveInvoiceOrder()" class="w-full bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-400 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all active:scale-98 flex items-center justify-center gap-2 shadow-sm cursor-pointer">
                     <i class="fa-solid fa-trash-can text-xs"></i> Batalkan Pesanan Ini
                 </button>
             </div>
@@ -705,19 +680,18 @@
             </div>
 
             <div id="checkout-step-expired" class="hidden text-center py-6">
-                <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg">
+                <div class="w-16 h-16 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-emerald-500/10">
                     <i class="fa-solid fa-hourglass-end animate-pulse"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-white mb-2">Pembayaran Kadaluwarsa</h3>
                 <p class="text-sm text-slate-400 max-w-xs mx-auto mb-6">Batas waktu transfer aman untuk transaksi ini telah habis. Silakan buat pesanan baru.</p>
-                <button onclick="handleExpiredResetProcedure()" class="w-full bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 font-bold py-3 px-4 rounded-xl text-xs transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+                <button onclick="handleExpiredResetProcedure()" class="w-full bg-white/5 border border-white/10 hover:bg-white/10 text-slate-200 font-bold py-3 px-4 rounded-xl text-xs sm:text-sm transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-rotate-left"></i> Kembali Ke Toko
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- NOTIFIKASI TOAST -->
     <div id="notification-modal" class="fixed inset-0 z-[100] overflow-y-auto hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"></div>
         <div class="glass max-sm w-full rounded-2xl p-6 text-center relative z-10 shadow-xl border border-white/10 transform transition-transform">
@@ -728,7 +702,6 @@
         </div>
     </div>
 
-    <!-- MAIN ENGINE CODE SCRIPTS INTEGRATION -->
     <script>
         const API_KEY = "key_5fcfe74555ca411c";
         const AUTO_SAVE_KEY = "zaxxy_product_form_draft";
@@ -740,7 +713,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyAM1ZNUdgDsxG0a4AE4_3voeIM9UTgXs5w",
             authDomain: "cbt-key-suite.firebaseapp.com",
-            databaseURL: "[https://cbt-key-suite-default-rtdb.asia-southeast1.firebasedatabase.app](https://cbt-key-suite-default-rtdb.asia-southeast1.firebasedatabase.app)",
+            databaseURL: "https://cbt-key-suite-default-rtdb.asia-southeast1.firebasedatabase.app",
             storageBucket: "cbt-key-suite.firebasestorage.app",
             messagingSenderId: "646851767976",
             appId: "1:646851767976:web:e65faf7f052caadcef5c9d"
@@ -760,6 +733,7 @@
         let invoicePollingInterval = null;
         let qrisCountdownTimer = null;
 
+        // Fungsi Baru: Generator Format Rupiah Otomatis saat diketik
         function formatRupiahElement(element) {
             let number_string = element.value.replace(/[^,\d]/g, '').toString(),
                 split   		= number_string.split('Custom'),
@@ -771,6 +745,7 @@
                 let separator = sisa ? '.' : '';
                 rupiah += separator + ribuan.join('.');
             }
+        
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             element.value = rupiah ? 'Rp ' + rupiah : '';
         }
@@ -799,10 +774,13 @@
             document.querySelectorAll('.admin-tab-content').forEach(contentBlock => {
                 contentBlock.classList.replace('block', 'hidden');
             });
+
             document.getElementById(`tab-${targetTabId}`).classList.replace('hidden', 'block');
+
             document.querySelectorAll('.admin-tab-btn').forEach(btn => {
                 btn.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl text-slate-400 border border-transparent hover:text-slate-200 hover:bg-white/5 font-semibold text-xs transition-all cursor-pointer duration-300";
             });
+
             currentButtonElement.className = "admin-tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-violet-600/30 to-fuchsia-600/30 border border-purple-500/40 text-purple-200 shadow-[0_0_15px_rgba(168,85,247,0.15)] font-bold text-xs transition-all cursor-pointer duration-300";
         }
 
@@ -811,6 +789,7 @@
             Object.keys(params).forEach(key => {
                 localApiUrl += `&${key}=${encodeURIComponent(params[key])}`;
             });
+
             for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(localApiUrl, {
@@ -864,6 +843,7 @@
         function updateCategoryDropdowns() {
             const userFilter = document.getElementById("user-filter-category");
             const admSelect = document.getElementById("adm-prod-category");
+            
             const currentUserVal = userFilter ? userFilter.value : "all";
             const currentAdmVal = admSelect ? admSelect.value : "";
 
@@ -874,6 +854,7 @@
                 });
                 userFilter.value = currentUserVal;
             }
+
             if (admSelect) {
                 admSelect.innerHTML = "";
                 dynamicCategories.forEach(cat => {
@@ -896,6 +877,7 @@
                 showCustomToast("Gagal", "Kategori sudah terdaftar.", "error");
                 return;
             }
+
             try {
                 const updatedList = [...dynamicCategories, newCat];
                 await db.ref('categories').set(updatedList);
@@ -908,14 +890,14 @@
 
         function toggleStockInputState() {
             const isUnlimited = document.getElementById("adm-prod-stock-unlimited").checked;
-            const wrapper = document.getElementById("stock-input-wrapper");
             const stockInput = document.getElementById("adm-prod-stock");
-            
             if (isUnlimited) {
                 stockInput.value = "";
-                wrapper.classList.add("opacity-0", "h-0", "overflow-hidden", "pointer-events-none", "mt-0");
+                stockInput.disabled = true;
+                stockInput.classList.add("opacity-50");
             } else {
-                wrapper.classList.remove("opacity-0", "h-0", "overflow-hidden", "pointer-events-none", "mt-0");
+                stockInput.disabled = false;
+                stockInput.classList.remove("opacity-50");
             }
         }
 
@@ -933,6 +915,7 @@
                 } else {
                     banner.classList.add("hidden");
                 }
+
                 if(document.getElementById("view-admin-panel").classList.contains("hidden") === false) {
                     if(admStatus && !admStatus.dataset.focused) admStatus.value = String(data.active);
                     if(admText && !admText.dataset.focused) admText.value = data.text;
@@ -953,6 +936,7 @@
                         btn.classList.add("hidden");
                     }
                 });
+
                 if(document.getElementById("view-admin-panel").classList.contains("hidden") === false) {
                     document.getElementById("adm-sys-email").value = adminNotificationEmail;
                     document.getElementById("adm-sys-wa").value = data.wa_link || "";
@@ -964,6 +948,7 @@
                 const data = snap.val();
                 liveLogsList = [];
                 let totalRevenue = 0;
+                
                 if (data) {
                     Object.keys(data).forEach(key => {
                         const order = data[key];
@@ -971,6 +956,7 @@
                         liveLogsList.unshift({ id: key, ...order });
                     });
                 }
+
                 document.getElementById("adm-analytics-revenue").innerText = "Rp " + totalRevenue.toLocaleString('id-ID');
                 filterAdminLogsTable();
             });
@@ -979,30 +965,38 @@
         async function saveGlobalBroadcastConfig() {
             const isActive = document.getElementById("adm-broadcast-status").value === "true";
             const textContent = document.getElementById("adm-broadcast-text").value.trim();
+
             if (isActive && !textContent) {
                 showCustomToast("Gagal kirim", "Isi pesan pengumuman tidak boleh kosong.", "error");
                 return;
             }
+
             try {
                 await db.ref('system_control/broadcast').set({ active: isActive, text: textContent });
                 showCustomToast("Berhasil Synchronize", "Pengumuman disebarkan secara global.", "success");
-            } catch (e) { showCustomToast("Gagal", "Terjadi kegagalan unggah server.", "error"); }
+            } catch (e) {
+                showCustomToast("Gagal", "Terjadi kegagalan unggah server.", "error");
+            }
         }
 
         async function saveAdvancedSystemConfig() {
             const email = document.getElementById("adm-sys-email").value.trim() || "zaxxyxml@gmail.com";
             const wa_link = document.getElementById("adm-sys-wa").value.trim();
             const antiInspect = document.getElementById("adm-sys-antiinspect").value === "true";
+
             try {
                 await db.ref('system_control/config').set({ email, wa_link, antiInspect });
                 showCustomToast("Sistem Diperbarui", "Konfigurasi sistem cloud berhasil disinkronkan.", "success");
-            } catch (e) { showCustomToast("Gagal", "Akses database gagal.", "error"); }
+            } catch (e) {
+                showCustomToast("Gagal", "Akses database gagal.", "error");
+            }
         }
 
         function initAutoSaveEngine() {
-            const fields = ["adm-prod-name", "adm-prod-price", "adm-prod-img", "adm-prod-features", "adm-prod-options", "adm-prod-link", "adm-prod-stock"];
+            const fields = ["adm-prod-name", "adm-prod-price", "adm-prod-img", "adm-prod-features", "adm-prod-link", "adm-prod-stock"];
             const badge = document.getElementById("draft-badge");
             const savedDraft = localStorage.getItem(AUTO_SAVE_KEY);
+            
             if (savedDraft) {
                 try {
                     const draft = JSON.parse(savedDraft);
@@ -1011,6 +1005,7 @@
                             if (draft[fId] !== undefined) {
                                 const inputEl = document.getElementById(fId);
                                 inputEl.value = draft[fId];
+                                // Jalankan format otomatis jika yang dimuat adalah input harga
                                 if (fId === "adm-prod-price") formatRupiahElement(inputEl);
                             }
                         });
@@ -1018,6 +1013,7 @@
                     }
                 } catch (e) {}
             }
+
             fields.forEach(fId => {
                 document.getElementById(fId).addEventListener("input", () => {
                     if (document.getElementById("adm-prod-id").value) return;
@@ -1031,7 +1027,9 @@
                     if (hasContent) {
                         localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(draft));
                         if (badge) badge.classList.remove("hidden");
-                    } else { clearAutoSaveDraft(); }
+                    } else {
+                        clearAutoSaveDraft();
+                    }
                 });
             });
         }
@@ -1058,6 +1056,7 @@
             document.getElementById("login-remember").checked = false;
             document.getElementById("admin-login-modal").classList.remove("hidden");
         }
+
         function closeAdminLoginModal() { document.getElementById("admin-login-modal").classList.add("hidden"); }
 
         function submitAdminLogin() {
@@ -1068,7 +1067,9 @@
                 }
                 closeAdminLoginModal();
                 openAdminDashboardPanel();
-            } else { showCustomToast("Akses Ditolak", "Access Key Salah!", "error"); }
+            } else {
+                showCustomToast("Akses Ditolak", "Access Key Salah!", "error");
+            }
         }
 
         function openAdminDashboardPanel() {
@@ -1111,7 +1112,9 @@
         function bindSalesCounterListener() {
             db.ref('sales_count').on('value', (snapshot) => {
                 const count = snapshot.val() || 0;
-                document.querySelectorAll(".sales-count-nodes").forEach(node => { node.innerText = count; });
+                document.querySelectorAll(".sales-count-nodes").forEach(node => {
+                    node.innerText = count;
+                });
                 const navStat = document.getElementById("nav-stat-sales");
                 if (navStat) navStat.innerText = count;
                 const analyticCount = document.getElementById("adm-analytics-count");
@@ -1135,7 +1138,6 @@
                             category: item.category || "Browser Ujian",
                             badge: item.badge || "normal",
                             features: Array.isArray(item.features) ? item.features : [],
-                            options: Array.isArray(item.options) ? item.options : [], 
                             link: item.link || "#",
                             stock: item.stock !== undefined ? parseInt(item.stock) : -1
                         });
@@ -1149,11 +1151,13 @@
         function filterAdminProductsTable() {
             const query = document.getElementById("adm-search-product").value.toLowerCase();
             const statusFilter = document.getElementById("adm-filter-status-prod").value;
+            
             const filtered = productsList.filter(p => {
                 const matchesSearch = p.name.toLowerCase().includes(query);
                 const matchesStatus = statusFilter === "all" || p.status === statusFilter;
                 return matchesSearch && matchesStatus;
             });
+
             renderAdminProductsTableHTML(filtered);
             filterUserCatalog();
         }
@@ -1161,11 +1165,13 @@
         function filterUserCatalog() {
             const searchQuery = document.getElementById("user-search-catalog").value.toLowerCase();
             const categoryFilter = document.getElementById("user-filter-category").value;
+
             const filtered = productsList.filter(p => {
                 const matchSearch = p.name.toLowerCase().includes(searchQuery) || p.features.some(f => f.toLowerCase().includes(searchQuery));
                 const matchCategory = categoryFilter === "all" || p.category === categoryFilter;
                 return matchSearch && matchCategory;
             });
+
             renderUserCatalogHTML(filtered);
         }
 
@@ -1187,33 +1193,25 @@
                 } else if (productObj.status === "maintenance") {
                     statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold">Perbaikan</span>`;
                 }
+
                 const stockLabel = productObj.stock === -1 ? "Tidak Terbatas" : `${productObj.stock} pcs`;
 
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-white/5 transition-colors text-xs border-b border-purple-500/5";
+                tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-purple-500/5";
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-white max-w-[180px] truncate">
+                    <td class="py-4 px-4 font-bold text-white max-w-[200px] truncate">
                         ${productObj.name} 
-                        <span class="text-[10px] text-slate-400 block font-normal mt-0.5">${productObj.category} | Stok: ${stockLabel}</span>
+                        <span class="text-[10px] text-slate-400 block">${productObj.category} | Stok: ${stockLabel}</span>
                     </td>
-                    <td class="py-3 px-4 text-emerald-400 font-semibold">Rp ${productObj.price.toLocaleString('id-ID')}</td>
-                    <td class="py-3 px-4">${statusBadge}</td>
-                    <td class="py-3 px-4 text-right space-x-1 whitespace-nowrap">
-                        <button onclick="editProductData('${productObj.id}')" class="text-cyan-400 p-1.5 hover:bg-cyan-500/10 rounded-lg cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteProductFromFirebase('${productObj.id}')" class="text-rose-400 p-1.5 hover:bg-rose-500/10 rounded-lg cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
+                    <td class="py-4 px-4 text-emerald-400 font-semibold">Rp ${productObj.price.toLocaleString('id-ID')}</td>
+                    <td class="py-4 px-4">${statusBadge}</td>
+                    <td class="py-4 px-4 text-right space-x-1">
+                        <button onclick="editProductData('${productObj.id}')" class="text-cyan-400 p-2 hover:bg-cyan-500/10 rounded-lg cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteProductFromFirebase('${productObj.id}')" class="text-rose-400 p-2 hover:bg-rose-500/10 rounded-lg cursor-pointer"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
-        }
-
-        async function deleteProductFromFirebase(id) {
-            if(confirm("Apakah Anda yakin ingin menghapus produk ini dari katalog?")) {
-                try {
-                    await db.ref('products/' + id).remove();
-                    showCustomToast("Terhapus", "Produk berhasil dihapus dari cloud.", "success");
-                } catch(e) { showCustomToast("Gagal", "Database menolak penghapusan.", "error"); }
-            }
         }
 
         function filterAdminLogsTable() {
@@ -1221,11 +1219,13 @@
             const filtered = liveLogsList.filter(log => {
                 return log.invoice_id.toLowerCase().includes(query) || log.product_name.toLowerCase().includes(query);
             });
+
             const tableBody = document.getElementById("admin-live-logs-table");
             if (filtered.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500 italic">Data tidak ditemukan...</td></tr>`;
                 return;
             }
+
             tableBody.innerHTML = "";
             filtered.forEach(item => {
                 const tr = document.createElement("tr");
@@ -1233,10 +1233,7 @@
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-mono text-purple-400 max-w-[120px] truncate">${item.invoice_id}</td>
                     <td class="py-3 px-4 text-slate-400 font-normal">${item.date || '-'}</td>
-                    <td class="py-3 px-4 text-white font-bold truncate max-w-[150px]">
-                        ${item.product_name}
-                        ${item.custom_option ? `<span class="block text-[10px] text-fuchsia-400 font-medium tracking-wide mt-0.5"><i class="fa-solid fa-square-check text-[9px]"></i> Varian: ${item.custom_option}</span>` : ''}
-                    </td>
+                    <td class="py-3 px-4 text-white font-bold truncate max-w-[150px]">${item.product_name}</td>
                     <td class="py-3 px-4 text-emerald-400 font-semibold">Rp ${parseInt(item.amount).toLocaleString('id-ID')}</td>
                     <td class="py-3 px-4 text-right text-slate-400"><span class="px-2 py-0.5 rounded text-[10px] bg-white/5 border border-white/10 font-bold uppercase">${item.type || 'QRIS'}</span></td>
                 `;
@@ -1250,7 +1247,9 @@
                     await db.ref('orders_log').remove();
                     await db.ref('sales_count').set(0);
                     showCustomToast("Database Dibersihkan", "Riwayat transaksi di-reset.", "info");
-                } catch (e) { showCustomToast("Gagal", "Penghapusan database ditolak server.", "error"); }
+                } catch (e) {
+                    showCustomToast("Gagal", "Penghapusan database ditolak server.", "error");
+                }
             }
         }
 
@@ -1273,11 +1272,13 @@
         function importProductsFromJSON(event) {
             const input = event.target;
             if (!input.files || input.files.length === 0) return;
+
             const reader = new FileReader();
             reader.onload = async function() {
                 try {
                     const parsedData = JSON.parse(reader.result);
                     if (!parsedData || !Array.isArray(parsedData)) throw new Error("Format JSON harus berupa Array.");
+                    
                     if (confirm(`Menemukan ${parsedData.length} produk di dalam file. Impor data ini ke Firebase sekarang?`)) {
                         for (const prod of parsedData) {
                             if (prod.name && prod.link) {
@@ -1290,7 +1291,6 @@
                                     badge: prod.badge || "normal",
                                     link: prod.link,
                                     features: Array.isArray(prod.features) ? prod.features : [],
-                                    options: Array.isArray(prod.options) ? prod.options : [], 
                                     stock: prod.stock !== undefined ? parseInt(prod.stock) : -1
                                 });
                             }
@@ -1298,7 +1298,9 @@
                         showCustomToast("Impor Berhasil", `${parsedData.length} Produk dimigrasikan.`, "success");
                         input.value = ""; 
                     }
-                } catch (e) { showCustomToast("Impor Gagal", "Struktur JSON tidak sesuai standar.", "error"); }
+                } catch (e) {
+                    showCustomToast("Impor Gagal", "Struktur JSON tidak sesuai standar.", "error");
+                }
             };
             reader.readAsText(input.files[0]);
         }
@@ -1308,13 +1310,16 @@
             const name = document.getElementById("adm-prod-name").value.trim();
             const category = document.getElementById("adm-prod-category").value;
             const badge = document.getElementById("adm-prod-badge").value;
+            
+            // Update: Membersihkan karakter selain angka sebelum diparsing ke database
             const priceRaw = document.getElementById("adm-prod-price").value.replace(/[^0-9]/g, "");
             const price = Math.max(0, parseInt(priceRaw) || 0);
+            
             const status = document.getElementById("adm-prod-status").value;
             const image = document.getElementById("adm-prod-img").value.trim();
             const link = document.getElementById("adm-prod-link").value.trim();
             const featuresRaw = document.getElementById("adm-prod-features").value;
-            const optionsRaw = document.getElementById("adm-prod-options").value; 
+            
             const isUnlimited = document.getElementById("adm-prod-stock-unlimited").checked;
             const stock = isUnlimited ? -1 : (parseInt(document.getElementById("adm-prod-stock").value) || 0);
 
@@ -1322,23 +1327,17 @@
                 showCustomToast("Input Salah", "Mohon lengkapi data produk.", "error");
                 return;
             }
+
             let computedStatus = status;
-            if (!isUnlimited && stock <= 0) { computedStatus = "out_of_stock"; }
+            if (!isUnlimited && stock <= 0) {
+                computedStatus = "out_of_stock";
+            }
 
             const features = featuresRaw.split('\n').map(f => f.trim()).filter(f => f.length > 0);
-            
-            // PROSES PARSING DENGAN SMART FORMAT (NAMA | STOK)
-            const options = optionsRaw.split('\n').map(o => {
-                let parts = o.split('|');
-                let vName = parts[0].trim();
-                let vStock = parts[1] !== undefined ? parseInt(parts[1].trim()) : -1;
-                return { name: vName, stock: isNaN(vStock) ? -1 : vStock };
-            }).filter(o => o.name.length > 0);
-
             const productTargetRef = id ? db.ref('products/' + id) : db.ref('products').push();
 
             try {
-                await productTargetRef.set({ name, price, status: computedStatus, image, link, features, options, category, badge, stock });
+                await productTargetRef.set({ name, price, status: computedStatus, image, link, features, category, badge, stock });
                 showCustomToast("Berhasil", "Katalog berhasil diperbarui.", "success");
                 clearAutoSaveDraft();
                 resetProductForm();
@@ -1354,6 +1353,7 @@
             document.getElementById("adm-prod-category").value = item.category;
             document.getElementById("adm-prod-badge").value = item.badge || "normal";
             
+            // Update: Memasukkan data harga lama lalu memicu fungsi format rupiah otomatis
             const priceInput = document.getElementById("adm-prod-price");
             priceInput.value = String(item.price);
             formatRupiahElement(priceInput);
@@ -1362,14 +1362,6 @@
             document.getElementById("adm-prod-img").value = item.image;
             document.getElementById("adm-prod-link").value = item.link;
             document.getElementById("adm-prod-features").value = item.features.join('\n');
-            
-            // MENGEMBALIKAN DATA STOK VARIAN KE TEXTAREA EDITOR
-            document.getElementById("adm-prod-options").value = item.options ? item.options.map(o => {
-                if (typeof o === 'object' && o.name) {
-                    return `${o.name} | ${o.stock}`;
-                }
-                return o;
-            }).join('\n') : ''; 
 
             if (item.stock === -1) {
                 document.getElementById("adm-prod-stock-unlimited").checked = true;
@@ -1391,14 +1383,15 @@
         function resetProductForm() {
             document.getElementById("adm-prod-id").value = "";
             document.getElementById("adm-prod-name").value = "";
-            if (dynamicCategories.length > 0) { document.getElementById("adm-prod-category").value = dynamicCategories[0]; }
+            if (dynamicCategories.length > 0) {
+                document.getElementById("adm-prod-category").value = dynamicCategories[0];
+            }
             document.getElementById("adm-prod-badge").value = "normal";
             document.getElementById("adm-prod-price").value = "";
             document.getElementById("adm-prod-status").value = "active";
             document.getElementById("adm-prod-img").value = "";
             document.getElementById("adm-prod-link").value = "";
             document.getElementById("adm-prod-features").value = "";
-            document.getElementById("adm-prod-options").value = ""; 
             document.getElementById("adm-prod-stock").value = "";
             document.getElementById("adm-prod-stock-unlimited").checked = false;
             toggleStockInputState();
@@ -1408,48 +1401,69 @@
             clearAutoSaveDraft();
         }
 
-        const UXMixins = { fallbackImg: "[https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop)" };
+        async function deleteProductFromFirebase(id) {
+            if (confirm("Hapus produk ini?")) {
+                try {
+                    await db.ref('products/' + id).remove();
+                    showCustomToast("Dihapus", "Produk dibersihkan dari server.", "success");
+                    if (document.getElementById("adm-prod-id").value === id) resetProductForm();
+                } catch (error) { showCustomToast("Gagal", "Gagal menghapus.", "error"); }
+            }
+        }
+
+        const UXMixins = { fallbackImg: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" };
         
         function renderUserCatalogHTML(listToRender = productsList) {
             const container = document.getElementById("catalog-container");
             container.innerHTML = "";
+            
             if (listToRender.length === 0) {
                 container.className = "block w-full text-center py-12 text-slate-500 text-sm";
                 container.innerHTML = `<i class="fa-solid fa-store-slash text-3xl mb-3 block text-slate-600"></i> Tidak ada produk atau mod yang cocok.`;
                 return;
             }
+
             container.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center w-full px-2 max-w-6xl mx-auto";
             listToRender.forEach(product => {
                 let statusRibbon = "";
                 let buttonHTML = `
-                    <button onclick="openCheckoutModal('${product.id}')" class="w-full bg-purple-950/40 border border-purple-500/30 hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600 hover:border-transparent text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 group cursor-pointer font-sans">
+                    <button onclick="openCheckoutModal('${product.id}')" class="w-full bg-purple-950/40 border border-purple-500/30 hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600 hover:border-transparent text-white font-bold py-3.5 px-4 rounded-xl transition-all duration-300 text-xs sm:text-sm flex items-center justify-center gap-2 group cursor-pointer">
                         <span>Beli Sekarang</span><i class="fa-solid fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 `;
+
                 if (product.badge === "hot") {
-                    statusRibbon = `<div class="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-orange-600 border border-amber-400 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg"><i class="fa-solid fa-fire mr-1"></i> HOT DEALS</div>`;
+                    statusRibbon = `<div class="absolute top-4 left-4 bg-gradient-to-r from-amber-500 to-orange-600 border border-amber-400 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg shadow-orange-600/30"><i class="fa-solid fa-fire mr-1"></i> HOT DEALS</div>`;
                 } else if (product.badge === "best_seller") {
-                    statusRibbon = `<div class="absolute top-4 left-4 bg-gradient-to-r from-cyan-500 to-blue-600 border border-cyan-400 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg"><i class="fa-solid fa-trophy mr-1"></i> BEST SELLER</div>`;
+                    statusRibbon = `<div class="absolute top-4 left-4 bg-gradient-to-r from-cyan-500 to-blue-600 border border-cyan-400 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg shadow-cyan-600/30"><i class="fa-solid fa-trophy mr-1"></i> BEST SELLER</div>`;
                 }
+
                 let stockBadgeHTML = "";
-                if (product.stock !== -1) {
+                if (product.stock === -1) {
+                    stockBadgeHTML = `<div class="text-[11px] text-emerald-400 mb-3 flex items-center gap-1.5 bg-emerald-500/5 px-2.5 py-1 rounded-lg border border-emerald-500/10 w-fit"><i class="fa-solid fa-infinity"></i> Stok: Tidak Terbatas</div>`;
+                } else {
                     stockBadgeHTML = `<div class="text-[11px] text-slate-300 mb-3 flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 w-fit"><i class="fa-solid fa-boxes-stacked text-purple-400"></i> Sisa Stok: ${product.stock}</div>`;
                 }
-                if (product.stock !== -1 && product.stock <= 0) { product.status = "out_of_stock"; }
+
+                if (product.stock !== -1 && product.stock <= 0) {
+                    product.status = "out_of_stock";
+                }
 
                 if (product.status === "out_of_stock") {
                     statusRibbon = `<div class="absolute top-4 left-4 bg-amber-500 border border-amber-400 text-[#030014] font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg"><i class="fa-solid fa-boxes-empty mr-1"></i> Stok Habis</div>`;
-                    buttonHTML = `<button disabled class="w-full bg-slate-900 border border-white/5 text-slate-500 font-bold py-3.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 cursor-not-allowed"><i class="fa-solid fa-ban text-xs"></i> <span>Stok Habis</span></button>`;
+                    buttonHTML = `<button disabled class="w-full bg-slate-900 border border-white/5 text-slate-500 font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 cursor-not-allowed"><i class="fa-solid fa-ban text-xs"></i> <span>Stok Habis</span></button>`;
                 } else if (product.status === "maintenance") {
                     statusRibbon = `<div class="absolute top-4 left-4 bg-rose-600 border border-rose-500 text-white font-black text-[10px] uppercase tracking-wider px-3 py-1 rounded-md shadow-lg animate-pulse"><i class="fa-solid fa-screwdriver-wrench mr-1"></i> Perbaikan</div>`;
-                    buttonHTML = `<button disabled class="w-full bg-slate-900 border border-white/5 text-slate-500 font-bold py-3.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 cursor-not-allowed"><i class="fa-solid fa-gears text-xs animate-spin"></i> <span>Sedang Perbaikan</span></button>`;
+                    buttonHTML = `<button disabled class="w-full bg-slate-900 border border-white/5 text-slate-500 font-bold py-3.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 cursor-not-allowed"><i class="fa-solid fa-gears text-xs animate-spin"></i> <span>Sedang Perbaikan</span></button>`;
                 }
 
                 const card = document.createElement("div");
                 card.className = "glass rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 glow-purple flex flex-col w-full shadow-xl relative";
+                
                 if(product.badge !== "normal") {
                     card.style.borderColor = product.badge === "hot" ? "rgba(249, 115, 22, 0.4)" : "rgba(6, 182, 212, 0.4)";
                 }
+
                 card.innerHTML = `
                     <div class="relative w-full aspect-square bg-slate-950 overflow-hidden border-b border-purple-500/10">
                         <img src="${product.image || UXMixins.fallbackImg}" alt="${product.name}" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" onerror="this.src='${UXMixins.fallbackImg}'">
@@ -1463,7 +1477,7 @@
                             <span class="text-[10px] uppercase tracking-wider font-bold text-violet-400 block mb-1">${product.category}</span>
                             <h3 class="text-base font-bold text-white mb-2 leading-snug tracking-wide uppercase line-clamp-2">${product.name}</h3>
                             ${stockBadgeHTML}
-                            <ul class="space-y-2.5 mb-6 text-xs text-slate-300">
+                            <ul class="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300">
                                 ${product.features.length > 0 ? product.features.map(f => `
                                     <li class="flex items-start gap-2.5">
                                         <i class="fa-solid fa-shield-halved text-purple-400 mt-0.5 shrink-0 text-xs"></i>
@@ -1484,14 +1498,16 @@
                 const promos = snapshot.val();
                 const tbody = document.getElementById("admin-promo-table-body");
                 tbody.innerHTML = "";
+
                 if (!promos) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500 text-xs font-medium">Belum ada kupon aktif.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500 text-xs font-medium">Belum ada kode promo.</td></tr>`;
                     return;
                 }
+
                 Object.keys(promos).forEach(key => {
                     const data = promos[key];
                     const tr = document.createElement("tr");
-                    tr.className = "hover:bg-white/5 transition-colors text-xs border-b border-purple-500/5";
+                    tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-purple-500/5";
                     tr.innerHTML = `
                         <td class="py-4 px-4 font-mono font-bold text-violet-400">${key}</td>
                         <td class="py-4 px-4">
@@ -1519,8 +1535,12 @@
                 showCustomToast("Input Salah", "String kupon wajib diisi.", "error");
                 return;
             }
+
             let discountValue = 100;
-            if (type === "custom") { discountValue = Math.min(99, Math.max(1, parseInt(discountInput) || 0)); }
+            if (type === "custom") {
+                discountValue = Math.min(99, Math.max(1, parseInt(discountInput) || 0));
+            }
+
             try {
                 await db.ref('promo_codes/' + code).set({
                     discount_percentage: discountValue,
@@ -1545,14 +1565,15 @@
             }
         }
 
-        // PEMBARUAN DI SISI CHECKOUT UNTUK VALIDASI KUNCI STOK VARIAN
         function openCheckoutModal(productId) {
             const rawProd = productsList.find(p => p.id === productId);
             if (!rawProd) return;
+
             if (rawProd.stock !== -1 && rawProd.stock <= 0) {
                 showCustomToast("Batal otomatis", "Stok barang ini telah habis.", "error");
                 return;
             }
+
             if (rawProd.status && rawProd.status !== "active") {
                 showCustomToast("Akses Ditutup", "Produk ini sedang tidak dapat dibeli.", "error");
                 return;
@@ -1572,30 +1593,6 @@
             document.getElementById("summary-total").innerText = `Rp ${finalPayableAmount.toLocaleString('id-ID')}`;
             document.getElementById("promo-input").value = "";
             document.getElementById("promo-message").className = "text-xs mt-2 hidden";
-
-            const optionsContainer = document.getElementById("modal-options-container");
-            const optionsSelect = document.getElementById("checkout-product-option");
-            optionsSelect.innerHTML = "";
-            
-            // RENDERING LIST DROPDOWN BESERTA VALIDASI SISA UNIT STOK
-            if (currentSelectedProduct.options && currentSelectedProduct.options.length > 0) {
-                optionsContainer.classList.remove("hidden");
-                currentSelectedProduct.options.forEach((opt, idx) => {
-                    let optName = (typeof opt === 'object' && opt.name) ? opt.name : opt;
-                    let optStock = (typeof opt === 'object' && opt.stock !== undefined) ? opt.stock : -1;
-                    
-                    let label = optName;
-                    let disabledAttr = "";
-                    if (optStock !== -1 && optStock <= 0) {
-                        label += " (Habis)";
-                        disabledAttr = "disabled class='text-slate-600 bg-slate-950'";
-                    } else if (optStock !== -1) {
-                        label += ` (Sisa ${optStock})`;
-                    }
-                    
-                    optionsSelect.innerHTML += `<option value="${idx}" ${disabledAttr}>${label}</option>`;
-                });
-            } else { optionsContainer.classList.add("hidden"); }
 
             document.getElementById("checkout-step-details").classList.remove("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
@@ -1625,7 +1622,10 @@
             document.getElementById("track-invoice-id").value = "";
             document.getElementById("tracking-modal").classList.remove("hidden");
         }
-        function closeTrackingModal() { document.getElementById("tracking-modal").classList.add("hidden"); }
+        
+        function closeTrackingModal() {
+            document.getElementById("tracking-modal").classList.add("hidden");
+        }
         
         async function checkManualInvoiceStatus() {
             const trackId = document.getElementById("track-invoice-id").value.trim();
@@ -1638,22 +1638,28 @@
                 const data = await secureFetchWithRetry('status', { invoice_id: trackId }, 2, 1000);
                 if (data && data.status === "paid") {
                     closeTrackingModal();
+                    
                     const savedInvoice = localStorage.getItem(INVOICE_STORAGE_KEY);
                     if(savedInvoice){
                         const parsed = JSON.parse(savedInvoice);
                         if(parsed.invoice_id === trackId) {
-                            currentSelectedProduct = { id: parsed.product_id, name: parsed.product_name, link: parsed.product_link, options: parsed.options || [] };
+                            currentSelectedProduct = { id: parsed.product_id, name: parsed.product_name, link: parsed.product_link };
                             finalPayableAmount = parsed.total;
                             executePurchaseSuccessProcedure(trackId);
                             return;
                         }
                     }
-                    showCustomToast("Lunas Terverifikasi", "Invoice lunas. Transaksi sukses diverifikasi.", "success");
+                    
+                    showCustomToast("Lunas Terverifikasi", "Invoice lunas. Silakan lakukan transaksi ulang/hubungi CS untuk memicu unduhan instan.", "success");
                 } else if (data && (data.status === "expired" || data.status === "failed")) {
                     closeTrackingModal();
                     executePurchaseExpiredProcedure();
-                } else { showCustomToast("Belum Dibayar", "Tagihan terdeteksi belum menerima transfer masuk.", "error"); }
-            } catch(e) { showCustomToast("Batas Waktu Habis", "Invoice ID salah atau kadaluwarsa.", "error"); }
+                } else {
+                    showCustomToast("Belum Dibayar", "Tagihan terdeteksi belum menerima transfer masuk.", "error");
+                }
+            } catch(e) {
+                showCustomToast("Batas Waktu Habis", "Invoice ID salah atau kadaluwarsa.", "error");
+            }
         }
 
         function cancelActiveInvoiceOrder() {
@@ -1684,6 +1690,7 @@
             }
             modal.classList.remove("hidden");
         }
+
         window.closeNotification = function() { document.getElementById("notification-modal").classList.add("hidden"); }
 
         async function applyPromoCode() {
@@ -1694,6 +1701,7 @@
                 msg.className = "text-xs mt-2 text-rose-400 block";
                 return;
             }
+
             if (!currentSelectedProduct || !currentSelectedProduct.id) return;
             msg.innerText = "Memvalidasi kupon aman...";
             msg.className = "text-xs mt-2 text-cyan-400 block";
@@ -1706,6 +1714,7 @@
                     msg.className = "text-xs mt-2 text-rose-400 block";
                     return;
                 }
+                
                 currentSelectedProduct.price = Math.max(0, parseInt(freshProdData.price) || 0);
 
                 if (rawCode.toLowerCase() === "azzam") {
@@ -1754,6 +1763,7 @@
             const basePrice = Math.max(0, currentSelectedProduct.price);
             const discountAmt = (basePrice * activeDiscountPercentage) / 100;
             finalPayableAmount = Math.max(0, basePrice - discountAmt);
+
             document.getElementById("summary-subtotal").innerText = `Rp ${basePrice.toLocaleString('id-ID')}`;
             if (discountAmt > 0) {
                 document.getElementById("summary-discount").innerText = `-Rp ${discountAmt.toLocaleString('id-ID')}`;
@@ -1767,11 +1777,13 @@
                 const checkRef = await db.ref('products/' + currentSelectedProduct.id).once('value');
                 if (checkRef.exists()) {
                     const snapData = checkRef.val();
+                    
                     if (snapData.stock !== undefined && snapData.stock !== -1 && snapData.stock <= 0) {
                         showCustomToast("Batal otomatis", "Maaf, Kehabisan stok barang.", "error");
                         closeModal();
                         return;
                     }
+
                     if (snapData.status && snapData.status !== "active") {
                         showCustomToast("Batal otomatis", "Status produk baru saja berubah.", "error");
                         closeModal();
@@ -1792,6 +1804,7 @@
                 executePurchaseSuccessProcedure("INV-FREE-" + Date.now());
                 return;
             }
+
             const payButton = document.getElementById("btn-pay-process");
             payButton.disabled = true;
             payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses...</span>`;
@@ -1810,7 +1823,6 @@
                         product_id: currentSelectedProduct.id,
                         product_name: currentSelectedProduct.name,
                         product_link: currentSelectedProduct.link,
-                        options: currentSelectedProduct.options || [],
                         total: data.total,
                         qris_image: data.qris_image
                     }));
@@ -1831,7 +1843,7 @@
             if (!savedInvoice) return; 
             try {
                 const invData = JSON.parse(savedInvoice);
-                currentSelectedProduct = { id: invData.product_id, name: invData.product_name, link: invData.product_link, options: invData.options || [] };
+                currentSelectedProduct = { id: invData.product_id, name: invData.product_name, link: invData.product_link };
                 finalPayableAmount = invData.total;
 
                 const data = await secureFetchWithRetry('status', { invoice_id: invData.invoice_id }, 2, 1000);
@@ -1843,20 +1855,9 @@
                     document.getElementById("qris-image-src").src = invData.qris_image;
                     document.getElementById("val-invoice-id").innerText = invData.invoice_id;
                     document.getElementById("val-invoice-total").innerText = `Rp ${invData.total.toLocaleString('id-ID')}`;
-                    
-                    const optionsContainer = document.getElementById("modal-options-container");
-                    const optionsSelect = document.getElementById("checkout-product-option");
-                    optionsSelect.innerHTML = "";
-                    if (currentSelectedProduct.options && currentSelectedProduct.options.length > 0) {
-                        optionsContainer.classList.remove("hidden");
-                        currentSelectedProduct.options.forEach((opt, idx) => {
-                            let optName = (typeof opt === 'object' && opt.name) ? opt.name : opt;
-                            optionsSelect.innerHTML += `<option value="${idx}">${optName}</option>`;
-                        });
-                    }
-
                     document.getElementById("checkout-step-details").classList.add("hidden");
                     document.getElementById("checkout-step-qris").classList.remove("hidden");
+
                     const modal = document.getElementById("checkout-modal");
                     const card = document.getElementById("modal-card");
                     modal.classList.remove("hidden");
@@ -1867,12 +1868,20 @@
                     startVisualQrisCountdown(300);
                     startPaymentVerificationInterval(invData.invoice_id);
                 }
-            } catch (e) { executePurchaseExpiredProcedure(); }
+            } catch (e) {
+                executePurchaseExpiredProcedure();
+            }
         }
 
         function destroyPollingEngine() {
-            if (invoicePollingInterval) { clearInterval(invoicePollingInterval); invoicePollingInterval = null; }
-            if (qrisCountdownTimer) { clearInterval(qrisCountdownTimer); qrisCountdownTimer = null; }
+            if (invoicePollingInterval) {
+                clearInterval(invoicePollingInterval);
+                invoicePollingInterval = null;
+            }
+            if (qrisCountdownTimer) {
+                clearInterval(qrisCountdownTimer);
+                qrisCountdownTimer = null;
+            }
         }
 
         function copyInvoiceIdToClipboard() {
@@ -1880,20 +1889,27 @@
             if(invoiceText && invoiceText !== "--") {
                 navigator.clipboard.writeText(invoiceText).then(() => {
                     showCustomToast("Berhasil Disalin", "Invoice ID disimpan di clipboard.", "success");
-                }).catch(() => { showCustomToast("Gagal", "Tidak dapat menyalin teks.", "error"); });
+                }).catch(() => {
+                    showCustomToast("Gagal", "Tidak dapat menyalin teks.", "error");
+                });
             }
         }
 
         function startVisualQrisCountdown(durationInSeconds) {
             if (qrisCountdownTimer) clearInterval(qrisCountdownTimer);
+            
             let timer = durationInSeconds;
             const displayNode = document.getElementById("qris-countdown-node");
+
             qrisCountdownTimer = setInterval(() => {
                 let minutes = parseInt(timer / 60, 10);
                 let seconds = parseInt(timer % 60, 10);
+
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
+
                 displayNode.innerText = minutes + ":" + seconds;
+
                 if (--timer < 0) {
                     clearInterval(qrisCountdownTimer);
                     executePurchaseExpiredProcedure(); 
@@ -1928,10 +1944,12 @@
         function executePurchaseExpiredProcedure() {
             localStorage.removeItem(INVOICE_STORAGE_KEY);
             destroyPollingEngine();
+            
             document.getElementById("checkout-step-details").classList.add("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
             document.getElementById("checkout-step-success").classList.add("hidden");
             document.getElementById("checkout-step-expired").classList.remove("hidden");
+
             const modal = document.getElementById("checkout-modal");
             const card = document.getElementById("modal-card");
             if (modal.classList.contains("hidden")) {
@@ -1953,15 +1971,8 @@
             db.ref('promo_codes/' + code + '/used_count').transaction((currentCount) => { return (currentCount || 0) + 1; });
         }
 
-        // AUTO-CUT STOK VARIAN PAS TRANSAKSI QRIS SELESAI
         function executePurchaseSuccessProcedure(invoiceId) {
             localStorage.removeItem(INVOICE_STORAGE_KEY);
-            const selectedOptEl = document.getElementById("checkout-product-option");
-            const selectedOptIdx = selectedOptEl.value;
-            
-            const targetOptObj = (currentSelectedProduct && currentSelectedProduct.options) ? currentSelectedProduct.options[selectedOptIdx] : null;
-            const chosenOption = targetOptObj ? (typeof targetOptObj === 'object' ? targetOptObj.name : targetOptObj) : "Default Varian";
-
             document.getElementById("checkout-step-details").classList.add("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
             document.getElementById("checkout-step-expired").classList.add("hidden");
@@ -1974,17 +1985,10 @@
                 const targetId = currentSelectedProduct.id;
                 db.ref('products/' + targetId).transaction((currProd) => {
                     if (currProd) {
-                        // 1. Potong kuantitas stok produk global
                         if (currProd.stock !== undefined && currProd.stock !== -1) {
                             currProd.stock = Math.max(0, currProd.stock - 1);
-                            if (currProd.stock === 0) { currProd.status = "out_of_stock"; }
-                        }
-                        
-                        // 2. Potong spesifik unit stok varian yang dipilih user
-                        if (currProd.options && currProd.options[selectedOptIdx]) {
-                            let specificOpt = currProd.options[selectedOptIdx];
-                            if (typeof specificOpt === 'object' && specificOpt.stock !== undefined && specificOpt.stock !== -1) {
-                                specificOpt.stock = Math.max(0, specificOpt.stock - 1);
+                            if (currProd.stock === 0) {
+                                currProd.status = "out_of_stock";
                             }
                         }
                     }
@@ -1995,20 +1999,19 @@
             db.ref('orders_log').push({
                 invoice_id: invoiceId,
                 product_name: currentSelectedProduct.name,
-                custom_option: chosenOption,
                 amount: finalPayableAmount,
                 date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short'}),
                 type: finalPayableAmount === 0 ? "VOUCHER" : "QRIS LUNAS",
                 timestamp: firebase.database.ServerValue.TIMESTAMP
             });
 
-            dispatchAdminEmailNotification(invoiceId, currentTimestamp, chosenOption);
+            dispatchAdminEmailNotification(invoiceId, currentTimestamp);
             setTimeout(() => { window.location.href = currentSelectedProduct.link; }, 3500);
         }
 
-        async function dispatchAdminEmailNotification(invoiceId, dateString, chosenOption) {
+        async function dispatchAdminEmailNotification(invoiceId, dateString) {
             try {
-                await fetch(`[https://formsubmit.co/ajax/$](https://formsubmit.co/ajax/$){adminNotificationEmail}`, {
+                await fetch(`https://formsubmit.co/ajax/${adminNotificationEmail}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json", "Accept": "application/json" },
                     body: JSON.stringify({
@@ -2016,7 +2019,6 @@
                         "Tanggal": dateString,
                         "Nama Toko": "Zaxxy Store Premium Platform",
                         "Nama Produk": currentSelectedProduct.name,
-                        "Pilihan Varian": chosenOption,
                         "Harga Keluar": `Rp ${finalPayableAmount.toLocaleString('id-ID')}`,
                         "Keterangan Sistem": finalPayableAmount === 0 ? `Bypass Kupon (${activePromoCode})` : "QRIS Lunas"
                     })
