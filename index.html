@@ -373,8 +373,7 @@
                                 </div>
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga (Rupiah)</label>
-                                        <!-- Update: Input type berubah jadi text dan ditambahkan oninput format otomatis -->
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Harga Utama (Rupiah)</label>
                                         <input type="text" id="adm-prod-price" oninput="formatRupiahElement(this)" placeholder="Contoh: Rp 25.000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                     </div>
                                     <div>
@@ -386,9 +385,10 @@
                                         </select>
                                     </div>
                                 </div>
+                                
                                 <div class="grid grid-cols-2 gap-3 bg-white/5 p-3 rounded-xl border border-white/5">
                                     <div>
-                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Jumlah Stok</label>
+                                        <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Jumlah Stok Utama</label>
                                         <input type="number" id="adm-prod-stock" min="0" placeholder="Kuantitas" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
                                     </div>
                                     <div class="flex items-center pt-5">
@@ -398,6 +398,18 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                <!-- MODIFIKASI: Input Varian Produk + Fitur Harga Kustom Per Varian -->
+                                <div class="bg-white/5 p-4 rounded-xl border border-white/5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wide">Varian Produk (Opsional)</label>
+                                        <button type="button" onclick="addVariantRow()" class="bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/30 text-purple-300 text-[11px] font-bold px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 cursor-pointer">+ Tambah Varian</button>
+                                    </div>
+                                    <div id="adm-variants-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                                        <!-- Baris varian dimasukkan secara dinamis di sini -->
+                                    </div>
+                                </div>
+
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Link Foto / Gambar Produk</label>
                                     <input type="text" id="adm-prod-img" placeholder="https://link-gambar.com/foto.jpg" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 transition-all">
@@ -596,12 +608,19 @@
                 <h3 class="text-xl font-bold mb-4 text-white flex items-center gap-2">
                     <i class="fa-solid fa-wallet text-violet-400"></i> Ringkasan Pembayaran
                 </h3>
-                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-2xl mb-6 border border-white/5">
+                <div class="flex items-center gap-4 bg-white/5 p-3 rounded-2xl mb-4 border border-white/5">
                     <img id="modal-product-img" src="" alt="Produk" class="w-16 h-16 rounded-xl object-cover aspect-square shrink-0 bg-slate-950">
                     <div>
                         <h4 id="modal-product-name" class="font-bold text-white text-base leading-snug break-words">Nama Produk</h4>
                         <p id="modal-product-price-raw" class="text-slate-400 text-sm">Rp 0</p>
                     </div>
+                </div>
+
+                <!-- Pilihan Varian Produk Pada Checkout -->
+                <div id="modal-variant-row" class="mb-4 hidden">
+                    <label class="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wide">Pilih Varian Produk</label>
+                    <select id="modal-variant-select" onchange="handleModalVariantChange()" class="w-full bg-slate-900 border border-purple-500/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-violet-500 transition-all"></select>
+                    <p id="modal-variant-stock-info" class="text-[11px] mt-1 text-slate-400"></p>
                 </div>
 
                 <div class="mb-6">
@@ -636,7 +655,6 @@
             <div id="checkout-step-qris" class="hidden text-center">
                 <h3 class="text-xl font-bold mb-2 text-white">Scan QRIS Untuk Membayar</h3>
                 
-                <!-- Countdown Timer Area -->
                 <div id="qris-timer-display" class="text-xs font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-full inline-block mb-4 animate-pulse">
                     Sisa Waktu Pembayaran: <span id="qris-countdown-node">05:00</span>
                 </div>
@@ -727,13 +745,13 @@
         let brandClickCounter = 0;
         let brandClickTimer = null;
         let currentSelectedProduct = null;
+        let currentSelectedVariantIndex = null; 
         let activeDiscountPercentage = 0;
         let activePromoCode = "";
         let finalPayableAmount = 0;
         let invoicePollingInterval = null;
         let qrisCountdownTimer = null;
 
-        // Fungsi Baru: Generator Format Rupiah Otomatis saat diketik
         function formatRupiahElement(element) {
             let number_string = element.value.replace(/[^,\d]/g, '').toString(),
                 split   		= number_string.split('Custom'),
@@ -901,6 +919,41 @@
             }
         }
 
+        // MODIFIKASI: Input Deretan Baris Varian Dengan Kolom Harga Kustom
+        function addVariantRow(name = '', stock = '', isUnlimited = false, price = '') {
+            const container = document.getElementById("adm-variants-list");
+            const rowId = "var-row-" + Date.now() + Math.random().toString(36).substr(2, 5);
+            
+            const row = document.createElement("div");
+            row.className = "flex items-center gap-2 bg-slate-900/80 p-2 rounded-xl border border-white/5 variant-data-row";
+            row.id = rowId;
+            
+            row.innerHTML = `
+                <input type="text" placeholder="Nama Varian" value="${name}" class="flex-1 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none var-item-name">
+                <input type="text" placeholder="Harga Kustom" value="${price}" oninput="formatRupiahElement(this)" class="w-24 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white var-item-price" title="Kosongkan jika ingin mengikuti Harga Utama">
+                <input type="number" placeholder="Stok" value="${stock}" ${isUnlimited ? 'disabled class="w-16 bg-slate-950 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white opacity-50 var-item-stock"' : 'class="w-16 bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white var-item-stock"'} min="0">
+                <label class="flex items-center gap-1 text-[10px] text-slate-400 select-none shrink-0 cursor-pointer">
+                    <input type="checkbox" ${isUnlimited ? 'checked' : ''} onchange="toggleVariantRowStock(this)" class="w-3.5 h-3.5 rounded border-white/10 bg-white/5 text-purple-600 accent-purple-600 var-item-unlimited">
+                    <span>∞</span>
+                </label>
+                <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-rose-400 p-1.5 hover:bg-rose-500/10 rounded-lg shrink-0 transition-colors"><i class="fa-solid fa-trash-can text-xs"></i></button>
+            `;
+            container.appendChild(row);
+        }
+
+        function toggleVariantRowStock(checkbox) {
+            const row = checkbox.closest(".variant-data-row");
+            const stockInput = row.querySelector(".var-item-stock");
+            if (checkbox.checked) {
+                stockInput.value = "";
+                stockInput.disabled = true;
+                stockInput.classList.add("opacity-50");
+            } else {
+                stockInput.disabled = false;
+                stockInput.classList.remove("opacity-50");
+            }
+        }
+
         function bindSystemControlListeners() {
             db.ref('system_control/broadcast').on('value', (snap) => {
                 const data = snap.val() || { active: false, text: "" };
@@ -1005,7 +1058,6 @@
                             if (draft[fId] !== undefined) {
                                 const inputEl = document.getElementById(fId);
                                 inputEl.value = draft[fId];
-                                // Jalankan format otomatis jika yang dimuat adalah input harga
                                 if (fId === "adm-prod-price") formatRupiahElement(inputEl);
                             }
                         });
@@ -1139,7 +1191,8 @@
                             badge: item.badge || "normal",
                             features: Array.isArray(item.features) ? item.features : [],
                             link: item.link || "#",
-                            stock: item.stock !== undefined ? parseInt(item.stock) : -1
+                            stock: item.stock !== undefined ? parseInt(item.stock) : -1,
+                            variants: Array.isArray(item.variants) ? item.variants : [] 
                         });
                     });
                 }
@@ -1186,15 +1239,24 @@
 
             list.forEach(productObj => {
                 let statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">Aktif</span>`;
-                if (productObj.stock !== -1 && productObj.stock <= 0) {
+                
+                if (productObj.variants && productObj.variants.length > 0) {
+                    const allOut = productObj.variants.every(v => v.stock !== -1 && v.stock <= 0);
+                    if (allOut) statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
+                } else if (productObj.stock !== -1 && productObj.stock <= 0) {
                     statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
-                } else if (productObj.status === "out_of_stock") {
-                    statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Stok Habis</span>`;
-                } else if (productObj.status === "maintenance") {
+                }
+                
+                if (productObj.status === "maintenance") {
                     statusBadge = `<span class="px-2 py-0.5 rounded text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 font-bold">Perbaikan</span>`;
                 }
 
-                const stockLabel = productObj.stock === -1 ? "Tidak Terbatas" : `${productObj.stock} pcs`;
+                let stockLabel = "";
+                if (productObj.variants && productObj.variants.length > 0) {
+                    stockLabel = `${productObj.variants.length} Varian`;
+                } else {
+                    stockLabel = productObj.stock === -1 ? "Tidak Terbatas" : `${productObj.stock} pcs`;
+                }
 
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-white/5 transition-colors text-xs sm:text-sm border-b border-purple-500/5";
@@ -1291,7 +1353,8 @@
                                     badge: prod.badge || "normal",
                                     link: prod.link,
                                     features: Array.isArray(prod.features) ? prod.features : [],
-                                    stock: prod.stock !== undefined ? parseInt(prod.stock) : -1
+                                    stock: prod.stock !== undefined ? parseInt(prod.stock) : -1,
+                                    variants: Array.isArray(prod.variants) ? prod.variants : null 
                                 });
                             }
                         }
@@ -1311,7 +1374,6 @@
             const category = document.getElementById("adm-prod-category").value;
             const badge = document.getElementById("adm-prod-badge").value;
             
-            // Update: Membersihkan karakter selain angka sebelum diparsing ke database
             const priceRaw = document.getElementById("adm-prod-price").value.replace(/[^0-9]/g, "");
             const price = Math.max(0, parseInt(priceRaw) || 0);
             
@@ -1323,21 +1385,44 @@
             const isUnlimited = document.getElementById("adm-prod-stock-unlimited").checked;
             const stock = isUnlimited ? -1 : (parseInt(document.getElementById("adm-prod-stock").value) || 0);
 
+            // MODIFIKASI: Ambil data nama varian + harga kustom masing-masing dari form admin
+            const variantRows = document.querySelectorAll(".variant-data-row");
+            let variants = [];
+            variantRows.forEach(row => {
+                const vName = row.querySelector(".var-item-name").value.trim();
+                const vPriceRaw = row.querySelector(".var-item-price").value.replace(/[^0-9]/g, "");
+                const vPrice = parseInt(vPriceRaw) || 0; // Jika 0/kosong, nanti otomatis ikut harga utama
+                
+                const vUnlimited = row.querySelector(".var-item-unlimited").checked;
+                const vStock = vUnlimited ? -1 : (parseInt(row.querySelector(".var-item-stock").value) || 0);
+                if (vName) {
+                    variants.push({ name: vName, stock: vStock, price: vPrice });
+                }
+            });
+
             if (!name || !price || !link) {
-                showCustomToast("Input Salah", "Mohon lengkapi data produk.", "error");
+                showCustomToast("Input Salah", "Mohon lengkapi data produk dasar.", "error");
                 return;
             }
 
             let computedStatus = status;
-            if (!isUnlimited && stock <= 0) {
-                computedStatus = "out_of_stock";
+            if (variants.length > 0) {
+                const allOut = variants.every(v => v.stock !== -1 && v.stock <= 0);
+                if (allOut) computedStatus = "out_of_stock";
+            } else {
+                if (!isUnlimited && stock <= 0) {
+                    computedStatus = "out_of_stock";
+                }
             }
 
             const features = featuresRaw.split('\n').map(f => f.trim()).filter(f => f.length > 0);
             const productTargetRef = id ? db.ref('products/' + id) : db.ref('products').push();
 
             try {
-                await productTargetRef.set({ name, price, status: computedStatus, image, link, features, category, badge, stock });
+                await productTargetRef.set({ 
+                    name, price, status: computedStatus, image, link, features, category, badge, stock,
+                    variants: variants.length > 0 ? variants : null 
+                });
                 showCustomToast("Berhasil", "Katalog berhasil diperbarui.", "success");
                 clearAutoSaveDraft();
                 resetProductForm();
@@ -1353,7 +1438,6 @@
             document.getElementById("adm-prod-category").value = item.category;
             document.getElementById("adm-prod-badge").value = item.badge || "normal";
             
-            // Update: Memasukkan data harga lama lalu memicu fungsi format rupiah otomatis
             const priceInput = document.getElementById("adm-prod-price");
             priceInput.value = String(item.price);
             formatRupiahElement(priceInput);
@@ -1371,6 +1455,22 @@
                 document.getElementById("adm-prod-stock").value = item.stock;
             }
             toggleStockInputState();
+
+            // MODIFIKASI: Render ulang data harga kustom varian ke form editor admin
+            document.getElementById("adm-variants-list").innerHTML = "";
+            if (item.variants && Array.isArray(item.variants)) {
+                item.variants.forEach(v => {
+                    let formattedPrice = (v.price && v.price > 0) ? String(v.price) : "";
+                    // Panggil addVariantRow lalu jalankan format rupiah manual pada elemen input yang dibuat
+                    addVariantRow(v.name, v.stock === -1 ? '' : v.stock, v.stock === -1, formattedPrice);
+                    
+                    const lastRow = document.getElementById("adm-variants-list").lastChild;
+                    if(lastRow && formattedPrice) {
+                        const pInput = lastRow.querySelector(".var-item-price");
+                        if(pInput) formatRupiahElement(pInput);
+                    }
+                });
+            }
 
             document.getElementById("product-form-title").innerHTML = `<i class="fa-solid fa-pen-to-square text-cyan-400"></i> Edit Informasi Produk`;
             document.getElementById("btn-cancel-edit-prod").classList.remove("hidden");
@@ -1395,6 +1495,8 @@
             document.getElementById("adm-prod-stock").value = "";
             document.getElementById("adm-prod-stock-unlimited").checked = false;
             toggleStockInputState();
+            
+            document.getElementById("adm-variants-list").innerHTML = "";
             
             document.getElementById("product-form-title").innerHTML = `<i class="fa-solid fa-square-plus text-purple-400"></i> Tambah Produk Baru`;
             document.getElementById("btn-cancel-edit-prod").classList.add("hidden");
@@ -1439,13 +1541,20 @@
                 }
 
                 let stockBadgeHTML = "";
-                if (product.stock === -1) {
-                    stockBadgeHTML = `<div class="text-[11px] text-emerald-400 mb-3 flex items-center gap-1.5 bg-emerald-500/5 px-2.5 py-1 rounded-lg border border-emerald-500/10 w-fit"><i class="fa-solid fa-infinity"></i> Stok: Tidak Terbatas</div>`;
+                if (product.variants && product.variants.length > 0) {
+                    stockBadgeHTML = `<div class="text-[11px] text-purple-400 mb-3 flex items-center gap-1.5 bg-purple-500/5 px-2.5 py-1 rounded-lg border border-purple-500/10 w-fit"><i class="fa-solid fa-layer-group"></i> Tersedia ${product.variants.length} Varian Pilihan</div>`;
                 } else {
-                    stockBadgeHTML = `<div class="text-[11px] text-slate-300 mb-3 flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 w-fit"><i class="fa-solid fa-boxes-stacked text-purple-400"></i> Sisa Stok: ${product.stock}</div>`;
+                    if (product.stock === -1) {
+                        stockBadgeHTML = `<div class="text-[11px] text-emerald-400 mb-3 flex items-center gap-1.5 bg-emerald-500/5 px-2.5 py-1 rounded-lg border border-emerald-500/10 w-fit"><i class="fa-solid fa-infinity"></i> Stok: Tidak Terbatas</div>`;
+                    } else {
+                        stockBadgeHTML = `<div class="text-[11px] text-slate-300 mb-3 flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 w-fit"><i class="fa-solid fa-boxes-stacked text-purple-400"></i> Sisa Stok: ${product.stock}</div>`;
+                    }
                 }
 
-                if (product.stock !== -1 && product.stock <= 0) {
+                if (product.variants && product.variants.length > 0) {
+                    const allOut = product.variants.every(v => v.stock !== -1 && v.stock <= 0);
+                    if (allOut) product.status = "out_of_stock";
+                } else if (product.stock !== -1 && product.stock <= 0) {
                     product.status = "out_of_stock";
                 }
 
@@ -1569,7 +1678,13 @@
             const rawProd = productsList.find(p => p.id === productId);
             if (!rawProd) return;
 
-            if (rawProd.stock !== -1 && rawProd.stock <= 0) {
+            if (rawProd.variants && rawProd.variants.length > 0) {
+                const allOut = rawProd.variants.every(v => v.stock !== -1 && v.stock <= 0);
+                if (allOut) {
+                    showCustomToast("Batal otomatis", "Maaf seluruh pilihan varian barang ini telah habis.", "error");
+                    return;
+                }
+            } else if (rawProd.stock !== -1 && rawProd.stock <= 0) {
                 showCustomToast("Batal otomatis", "Stok barang ini telah habis.", "error");
                 return;
             }
@@ -1580,6 +1695,9 @@
             }
 
             currentSelectedProduct = JSON.parse(JSON.stringify(rawProd));
+            // Cadangkan harga asli utama produk untuk fallback hitungan varian harga sama
+            currentSelectedProduct.baseOriginalPrice = rawProd.price;
+            
             activeDiscountPercentage = 0;
             activePromoCode = "";
             finalPayableAmount = currentSelectedProduct.price;
@@ -1587,12 +1705,33 @@
             document.getElementById("modal-product-name").innerText = currentSelectedProduct.name;
             document.getElementById("modal-product-img").src = currentSelectedProduct.image || UXMixins.fallbackImg;
             document.getElementById("modal-product-img").onerror = function() { this.src = UXMixins.fallbackImg; };
-            document.getElementById("modal-product-price-raw").innerText = `Rp ${currentSelectedProduct.price.toLocaleString('id-ID')}`;
-            document.getElementById("summary-subtotal").innerText = `Rp ${currentSelectedProduct.price.toLocaleString('id-ID')}`;
-            document.getElementById("summary-discount-row").classList.add("hidden");
-            document.getElementById("summary-total").innerText = `Rp ${finalPayableAmount.toLocaleString('id-ID')}`;
-            document.getElementById("promo-input").value = "";
-            document.getElementById("promo-message").className = "text-xs mt-2 hidden";
+            
+            // MODIFIKASI: Tampilkan menu varian beserta list harga dinamisnya masing-masing
+            const variantRow = document.getElementById("modal-variant-row");
+            const variantSelect = document.getElementById("modal-variant-select");
+            
+            if (currentSelectedProduct.variants && currentSelectedProduct.variants.length > 0) {
+                variantRow.classList.remove("hidden");
+                variantSelect.innerHTML = "";
+                
+                currentSelectedProduct.variants.forEach((v, index) => {
+                    let stockInfoText = v.stock === -1 ? "Unlimited" : `Sisa ${v.stock}`;
+                    let isDisableStr = (v.stock !== -1 && v.stock <= 0) ? "disabled" : "";
+                    
+                    // Gunakan harga kustom jika diisi admin, jika tidak/diisi 0 pakai harga utama produk
+                    let displayPrice = (v.price && v.price > 0) ? v.price : currentSelectedProduct.baseOriginalPrice;
+                    
+                    variantSelect.innerHTML += `<option value="${index}" ${isDisableStr}>${v.name} - (Rp ${displayPrice.toLocaleString('id-ID')}) [${stockInfoText}]</option>`;
+                });
+                
+                let firstValIndex = currentSelectedProduct.variants.findIndex(v => v.stock === -1 || v.stock > 0);
+                variantSelect.value = firstValIndex !== -1 ? firstValIndex : 0;
+                handleModalVariantChange();
+            } else {
+                variantRow.classList.add("hidden");
+                currentSelectedVariantIndex = null;
+                recalculateTotalPrices();
+            }
 
             document.getElementById("checkout-step-details").classList.remove("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
@@ -1606,6 +1745,37 @@
                 card.classList.remove("scale-95", "opacity-0");
                 card.classList.add("scale-100", "opacity-100");
             }, 50);
+        }
+
+        // MODIFIKASI: Menghandle kalkulasi harga dinamis di checkout saat varian dipilih pembeli
+        function handleModalVariantChange() {
+            const select = document.getElementById("modal-variant-select");
+            const stockInfo = document.getElementById("modal-variant-stock-info");
+            const index = parseInt(select.value);
+            currentSelectedVariantIndex = index;
+            
+            const variant = currentSelectedProduct.variants[index];
+            if (variant) {
+                // Tentukan harga acuan: Jika varian punya harga kustom gunakan itu, jika tidak ikut harga utama produk
+                let computedActivePrice = (variant.price && variant.price > 0) ? variant.price : currentSelectedProduct.baseOriginalPrice;
+                
+                // Set harga dasar ke objek agar dibaca fungsi recalculateTotalPrices
+                currentSelectedProduct.price = computedActivePrice;
+                document.getElementById("modal-product-price-raw").innerText = `Rp ${computedActivePrice.toLocaleString('id-ID')}`;
+                
+                recalculateTotalPrices();
+
+                if (variant.stock !== -1 && variant.stock <= 0) {
+                    stockInfo.innerText = "Stok pilihan varian ini habis!";
+                    stockInfo.className = "text-xs text-rose-400 mt-1";
+                    document.getElementById("btn-pay-process").disabled = true;
+                } else {
+                    let displayText = variant.stock === -1 ? "Stok Varian: Tidak Terbatas (∞)" : `Stok Varian Tersedia: ${variant.stock} pcs`;
+                    stockInfo.innerText = displayText;
+                    stockInfo.className = "text-xs text-emerald-400 mt-1";
+                    document.getElementById("btn-pay-process").disabled = false;
+                }
+            }
         }
 
         function closeModal() {
@@ -1715,7 +1885,15 @@
                     return;
                 }
                 
-                currentSelectedProduct.price = Math.max(0, parseInt(freshProdData.price) || 0);
+                // Ambil ulang harga dinamis varian saat ini jika ada
+                let basePriceRef = Math.max(0, parseInt(freshProdData.price) || 0);
+                if (currentSelectedProduct.variants && currentSelectedProduct.variants.length > 0 && currentSelectedVariantIndex !== null) {
+                    const freshVar = freshProdData.variants[currentSelectedVariantIndex];
+                    if (freshVar && freshVar.price > 0) {
+                        basePriceRef = freshVar.price;
+                    }
+                }
+                currentSelectedProduct.price = basePriceRef;
 
                 if (rawCode.toLowerCase() === "azzam") {
                     activeDiscountPercentage = 100;
@@ -1777,8 +1955,20 @@
                 const checkRef = await db.ref('products/' + currentSelectedProduct.id).once('value');
                 if (checkRef.exists()) {
                     const snapData = checkRef.val();
+                    let dbPrice = Math.max(0, parseInt(snapData.price) || 0);
                     
-                    if (snapData.stock !== undefined && snapData.stock !== -1 && snapData.stock <= 0) {
+                    if (currentSelectedProduct.variants && currentSelectedProduct.variants.length > 0 && currentSelectedVariantIndex !== null) {
+                        const targetVar = snapData.variants[currentSelectedVariantIndex];
+                        if (!targetVar || (targetVar.stock !== -1 && targetVar.stock <= 0)) {
+                            showCustomToast("Batal otomatis", "Maaf varian ini baru saja kehabisan stok.", "error");
+                            closeModal();
+                            return;
+                        }
+                        // MODIFIKASI: Ambil harga varian dari database server untuk validasi anti-bypass/manipulasi harga lokal
+                        if (targetVar.price && targetVar.price > 0) {
+                            dbPrice = targetVar.price;
+                        }
+                    } else if (snapData.stock !== undefined && snapData.stock !== -1 && snapData.stock <= 0) {
                         showCustomToast("Batal otomatis", "Maaf, Kehabisan stok barang.", "error");
                         closeModal();
                         return;
@@ -1789,7 +1979,7 @@
                         closeModal();
                         return;
                     }
-                    const dbPrice = Math.max(0, parseInt(snapData.price) || 0);
+                    
                     const calcValidAmt = Math.max(0, dbPrice - ((dbPrice * activeDiscountPercentage) / 100));
                     if (finalPayableAmount !== calcValidAmt) {
                         showCustomToast("Integritas Rusak", "Deteksi manipulasi nilai transaksi secara lokal!", "error");
@@ -1824,7 +2014,8 @@
                         product_name: currentSelectedProduct.name,
                         product_link: currentSelectedProduct.link,
                         total: data.total,
-                        qris_image: data.qris_image
+                        qris_image: data.qris_image,
+                        variant_index: currentSelectedVariantIndex
                     }));
                     startVisualQrisCountdown(300); 
                     startPaymentVerificationInterval(data.invoice_id);
@@ -1843,8 +2034,9 @@
             if (!savedInvoice) return; 
             try {
                 const invData = JSON.parse(savedInvoice);
-                currentSelectedProduct = { id: invData.product_id, name: invData.product_name, link: invData.product_link };
+                currentSelectedProduct = { id: invData.product_id, name: invData.product_name, link: invData.product_link, variants: [] };
                 finalPayableAmount = invData.total;
+                currentSelectedVariantIndex = invData.variant_index !== undefined ? invData.variant_index : null;
 
                 const data = await secureFetchWithRetry('status', { invoice_id: invData.invoice_id }, 2, 1000);
                 if (data && data.status === "paid") {
@@ -1972,6 +2164,17 @@
         }
 
         function executePurchaseSuccessProcedure(invoiceId) {
+            const savedInvoice = localStorage.getItem(INVOICE_STORAGE_KEY);
+            let targetVariantIndex = currentSelectedVariantIndex;
+            let displayProductName = currentSelectedProduct.name;
+            
+            if (savedInvoice) {
+                try {
+                    const parsed = JSON.parse(savedInvoice);
+                    if (parsed.variant_index !== undefined) targetVariantIndex = parsed.variant_index;
+                } catch(e) {}
+            }
+
             localStorage.removeItem(INVOICE_STORAGE_KEY);
             document.getElementById("checkout-step-details").classList.add("hidden");
             document.getElementById("checkout-step-qris").classList.add("hidden");
@@ -1985,10 +2188,19 @@
                 const targetId = currentSelectedProduct.id;
                 db.ref('products/' + targetId).transaction((currProd) => {
                     if (currProd) {
-                        if (currProd.stock !== undefined && currProd.stock !== -1) {
-                            currProd.stock = Math.max(0, currProd.stock - 1);
-                            if (currProd.stock === 0) {
-                                currProd.status = "out_of_stock";
+                        if (targetVariantIndex !== null && currProd.variants && currProd.variants[targetVariantIndex]) {
+                            let tVar = currProd.variants[targetVariantIndex];
+                            if (tVar.stock !== -1) {
+                                tVar.stock = Math.max(0, tVar.stock - 1);
+                            }
+                            const allOut = currProd.variants.every(v => v.stock !== -1 && v.stock <= 0);
+                            if (allOut) currProd.status = "out_of_stock";
+                        } else {
+                            if (currProd.stock !== undefined && currProd.stock !== -1) {
+                                currProd.stock = Math.max(0, currProd.stock - 1);
+                                if (currProd.stock === 0) {
+                                    currProd.status = "out_of_stock";
+                                }
                             }
                         }
                     }
@@ -1996,20 +2208,24 @@
                 });
             }
 
+            if (targetVariantIndex !== null && currentSelectedProduct.variants && currentSelectedProduct.variants[targetVariantIndex]) {
+                displayProductName += ` (${currentSelectedProduct.variants[targetVariantIndex].name})`;
+            }
+
             db.ref('orders_log').push({
                 invoice_id: invoiceId,
-                product_name: currentSelectedProduct.name,
+                product_name: displayProductName,
                 amount: finalPayableAmount,
                 date: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short'}),
                 type: finalPayableAmount === 0 ? "VOUCHER" : "QRIS LUNAS",
                 timestamp: firebase.database.ServerValue.TIMESTAMP
             });
 
-            dispatchAdminEmailNotification(invoiceId, currentTimestamp);
+            dispatchAdminEmailNotification(invoiceId, currentTimestamp, displayProductName);
             setTimeout(() => { window.location.href = currentSelectedProduct.link; }, 3500);
         }
 
-        async function dispatchAdminEmailNotification(invoiceId, dateString) {
+        async function dispatchAdminEmailNotification(invoiceId, dateString, displayProductName) {
             try {
                 await fetch(`https://formsubmit.co/ajax/${adminNotificationEmail}`, {
                     method: "POST",
@@ -2018,7 +2234,7 @@
                         "Pembayaran id": invoiceId,
                         "Tanggal": dateString,
                         "Nama Toko": "Zaxxy Store Premium Platform",
-                        "Nama Produk": currentSelectedProduct.name,
+                        "Nama Produk": displayProductName,
                         "Harga Keluar": `Rp ${finalPayableAmount.toLocaleString('id-ID')}`,
                         "Keterangan Sistem": finalPayableAmount === 0 ? `Bypass Kupon (${activePromoCode})` : "QRIS Lunas"
                     })
