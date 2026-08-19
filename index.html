@@ -854,7 +854,7 @@
 
     <!-- LOGIC ENGINE SCRIPT -->
     <script>
-        let API_KEY = "key_5fcfe74555ca411c"; // Ganti dengan API Key MyDuit Anda
+        let API_KEY = "key_5fcfe74555ca411c"; 
         const AUTO_SAVE_KEY = "zaxxy_product_form_draft";
         const INVOICE_STORAGE_KEY = "zaxxy_active_invoice";
         const LOGIN_SESSION_KEY = "zaxxy_admin_session";
@@ -950,38 +950,48 @@
         }
 
         /* ================================================================= */
-        /* PERBAIKAN CORE ENGINE: DYNAMIC SINKRONISASI API MYDUIT QRIS       */
+        /* CORE ENGINE: DYNAMIC SINKRONISASI API MYDUIT + ANTI-CORS FALLBACK */
         /* ================================================================= */
-        async function secureFetchWithRetry(actionType, params = {}, retries = 3, delay = 2000) {
-            let targetUrl = "";
+        async function secureFetchWithRetry(actionType, params = {}, retries = 2, delay = 1000) {
             const BASE_URL = "https://app.myduit.web.id/api";
+            let directUrl = "";
             
             if (actionType === 'create') {
-                // Sesuai Dokumentasi MyDuit Poin C: https://app.myduit.web.id/api/invoice
-                targetUrl = `${BASE_URL}/invoice?apikey=${API_KEY}`;
+                directUrl = `${BASE_URL}/invoice?apikey=${encodeURIComponent(API_KEY)}`;
             } else if (actionType === 'status') {
-                // Sesuai Dokumentasi MyDuit Poin D: https://app.myduit.web.id/api/invoice/status
-                targetUrl = `${BASE_URL}/invoice/status?apikey=${API_KEY}`;
+                directUrl = `${BASE_URL}/invoice/status?apikey=${encodeURIComponent(API_KEY)}`;
             }
 
-            // Append parameter tambahan dinamis (seperti amount atau invoice_id)
             Object.keys(params).forEach(key => {
-                targetUrl += `&${key}=${encodeURIComponent(params[key])}`;
+                directUrl += `&${key}=${encodeURIComponent(params[key])}`;
             });
 
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(targetUrl, {
-                        method: 'GET',
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    if (response.ok) return await response.json();
-                } catch (error) {
-                    if (i === retries - 1) throw error;
-                    await new Promise(res => setTimeout(res, delay));
+            // Urutan pemanggilan: Langsung -> CORS Proxy 1 -> CORS Proxy 2
+            const urlsToTry = [
+                directUrl,
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(directUrl)}`,
+                `https://corsproxy.io/?url=${encodeURIComponent(directUrl)}`
+            ];
+
+            let lastErr = null;
+
+            for (const targetUrl of urlsToTry) {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(targetUrl, {
+                            method: 'GET',
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        const parsed = await response.json().catch(() => null);
+                        if (parsed) return parsed;
+                    } catch (error) {
+                        lastErr = error;
+                        await new Promise(res => setTimeout(res, delay));
+                    }
                 }
             }
-            throw new Error("Gateway Timeout.");
+
+            throw new Error(lastErr ? "Koneksi gateway terganggu." : "Gateway Timeout.");
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -2115,7 +2125,7 @@
                 showCustomToast("Input Kosong", "Masukkan Invoice ID terlebih dahulu.", "error");
                 return;
             }
-            showCustomToast("Sinkronisasi Gateway", "Memeriksa status pesanan aman ke server cloud...", "info");
+            showCustomToast("Sinkronisasi Gateway", "Memeriksa status pesanan...", "info");
             try {
                 const data = await secureFetchWithRetry('status', { invoice_id: trackId }, 2, 1000);
                 if (data && data.status === "paid") {
@@ -2132,13 +2142,13 @@
                             return;
                         }
                     }
-                    showCustomToast("Lunas Terverifikasi", "Invoice lunas. Silakan lakukan transaksi ulang/hubungi CS untuk memicu unduhan instan.", "success");
+                    showCustomToast("Lunas Terverifikasi", "Invoice telah lunas dibayar.", "success");
                 } else if (data && (data.status === "expired" || data.status === "failed")) {
                     updateLocalHistoryStatus(trackId, "expired");
                     closeHistoryModal();
                     executePurchaseExpiredProcedure();
                 } else {
-                    showCustomToast("Belum Dibayar", "Tagihan terdeteksi belum menerima transfer masuk.", "error");
+                    showCustomToast("Belum Dibayar", "Tagihan terdeteksi belum menerima transfer.", "error");
                 }
             } catch(e) {
                 showCustomToast("Batas Waktu Habis", "Invoice ID salah atau kadaluwarsa.", "error");
@@ -2191,7 +2201,7 @@
             }
 
             if (!currentSelectedProduct || !currentSelectedProduct.id) return;
-            msg.innerText = "Memvalidasi kupon aman...";
+            msg.innerText = "Memvalidasi kupon...";
             msg.className = "text-xs mt-2 text-cyan-400 block";
 
             try {
@@ -2298,7 +2308,7 @@
                     
                     const calcValidAmt = Math.max(0, dbPrice - ((dbPrice * activeDiscountPercentage) / 100));
                     if (finalPayableAmount !== calcValidAmt) {
-                        showCustomToast("Integritas Rusak", "Deteksi manipulasi nilai transaksi secara lokal!", "error");
+                        showCustomToast("Integritas Rusak", "Deteksi manipulasi nilai transaksi!", "error");
                         closeModal();
                         return;
                     }
@@ -2313,14 +2323,15 @@
 
             const payButton = document.getElementById("btn-pay-process");
             payButton.disabled = true;
-            payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses...</span>`;
+            payButton.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-sm"></i> <span>Memproses QRIS...</span>`;
 
             try {
-                const data = await secureFetchWithRetry('create', { amount: finalPayableAmount });
-                if (data && data.success) {
+                const data = await secureFetchWithRetry('create', { amount: Math.round(finalPayableAmount) });
+                
+                if (data && (data.success || data.invoice_id)) {
                     document.getElementById("qris-image-src").src = data.qris_image;
                     document.getElementById("val-invoice-id").innerText = data.invoice_id;
-                    document.getElementById("val-invoice-total").innerText = `Rp ${data.total.toLocaleString('id-ID')}`;
+                    document.getElementById("val-invoice-total").innerText = `Rp ${Number(data.total).toLocaleString('id-ID')}`;
                     document.getElementById("checkout-step-details").classList.add("hidden");
                     document.getElementById("checkout-step-qris").classList.remove("hidden");
 
@@ -2347,11 +2358,12 @@
                     startPaymentVerificationInterval(data.invoice_id);
                 } else {
                     resetPaymentButton();
-                    showCustomToast("Server Sibuk", "Gagal merespons gateway.", "error");
+                    const errMsg = (data && data.message) ? data.message : "Gagal membuat invoice QRIS.";
+                    showCustomToast("Respon Gateway", errMsg, "error");
                 }
             } catch (error) {
                 resetPaymentButton(); 
-                showCustomToast("Gangguan Jaringan", "Trafik padat. Coba lagi.", "error");
+                showCustomToast("Gangguan Gateway", error.message || "Gagal menghubungi server MyDuit.", "error");
             }
         }
 
@@ -2372,7 +2384,7 @@
                 } else {
                     document.getElementById("qris-image-src").src = invData.qris_image;
                     document.getElementById("val-invoice-id").innerText = invData.invoice_id;
-                    document.getElementById("val-invoice-total").innerText = `Rp ${invData.total.toLocaleString('id-ID')}`;
+                    document.getElementById("val-invoice-total").innerText = `Rp ${Number(invData.total).toLocaleString('id-ID')}`;
                     document.getElementById("checkout-step-details").classList.add("hidden");
                     document.getElementById("checkout-step-qris").classList.remove("hidden");
 
