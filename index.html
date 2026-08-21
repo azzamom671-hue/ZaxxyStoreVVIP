@@ -1974,6 +1974,34 @@
         let hitungKlikLogo = 0;
         let timerKlikLogo = null;
 
+        // MULTI-PROXY FETCH HELPER UNTUK MENGATASI CORS BROWSER DI VERCEL
+        async function fetchWithProxy(targetUrl) {
+            const proxyList = [
+                targetUrl, // Coba Direct
+                `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+                `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
+                `https://thingproxy.freeboard.io/fetch/${targetUrl}`
+            ];
+
+            for (const url of proxyList) {
+                try {
+                    const res = await fetch(url, { cache: 'no-store' });
+                    if (res.ok) {
+                        const resText = await res.text();
+                        try {
+                            const jsonData = JSON.parse(resText);
+                            if (jsonData) return jsonData;
+                        } catch (e) {
+                            console.warn("Proxy returned non-JSON:", url);
+                        }
+                    }
+                } catch (err) {
+                    console.warn("Gagal via proxy:", url, err);
+                }
+            }
+            throw new Error("Semua jalur koneksi proxy terhalang.");
+        }
+
         // FUNSI WAKTU DINAMIS / REAL-TIME RELATIVE TIMESTAMP
         function formatRelativeTime(ts) {
             if (!ts) return "Baru saja";
@@ -3163,16 +3191,9 @@
             dataArea.style.display = 'none';
 
             try {
-                // Gunakan Proxy CORS secara langsung (1 kali hit saja agar invoice tidak ganda)
-                const baseUrl = `https://app.myduit.web.id/api/invoice?apikey=${API_KEY_MYDUIT}&amount=${finalPrice}`;
-                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(baseUrl)}`;
-                
-                const res = await fetch(proxyUrl);
-                if (!res.ok) throw new Error("Gagal menghubungkan ke gateway MyDuit");
+                const targetUrl = `https://app.myduit.web.id/api/invoice?apikey=${API_KEY_MYDUIT}&amount=${finalPrice}`;
+                const data = await fetchWithProxy(targetUrl);
 
-                const data = await res.json();
-
-                // Ekstraksi respons MyDuit yang fleksibel (baik nested data maupun flat)
                 const resData = data.data || data;
                 const qrisImg = resData.qris_image || resData.qris_url || resData.qr_image || resData.qr_code || resData.qris || data.qris_image;
                 const invId = resData.invoice_id || resData.id || data.invoice_id;
@@ -3188,14 +3209,12 @@
                     cekStatusQRIS(invId, nama, curPkg, hargaTerpilih);
                 } else {
                     tutupModal();
-                    showCustomAlert("Gagal membaca gambar QRIS MyDuit. Silakan coba lagi.", "GATEWAY ERROR", "error");
+                    showCustomAlert("Format respon gateway tidak sesuai. Silakan coba lagi.", "GATEWAY ERROR", "error");
                 }
             } catch (err) {
                 console.error("MyDuit Gateway Error:", err);
                 tutupModal();
-                showCustomAlert("Server QRIS MyDuit terhalang CORS/gangguan.\n\nIngin melanjutkan pemesanan secara manual via CS WhatsApp?", "KONEKSI GATEWAY GAGAL", "warning", () => {
-                    bukaWhatsApp();
-                });
+                showCustomAlert("Gagal terhubung ke Gateway QRIS MyDuit. Silakan coba klik Beli lagi.", "KONEKSI GATEWAY GAGAL", "error");
             }
         }
 
@@ -3204,13 +3223,9 @@
             
             loopStatus = setInterval(async () => {
                 try {
-                    const baseUrl = `https://app.myduit.web.id/api/invoice/status?apikey=${API_KEY_MYDUIT}&invoice_id=${invoiceId}`;
-                    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(baseUrl)}`;
+                    const targetUrl = `https://app.myduit.web.id/api/invoice/status?apikey=${API_KEY_MYDUIT}&invoice_id=${invoiceId}`;
+                    const data = await fetchWithProxy(targetUrl);
                     
-                    const res = await fetch(proxyUrl).catch(() => null);
-                    if (!res || !res.ok) return;
-
-                    const data = await res.json();
                     const resData = data.data || data;
                     const status = resData.status || data.status;
 
