@@ -1670,7 +1670,7 @@
             <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Gunakan Kode Voucher / Promo</div>
             <div class="form-card">
                 <div class="promo-container">
-                    <input type="text" id="inputPromoCode" class="form-input" style="margin-bottom: 0;" placeholder="Cth: Kntl">
+                    <input type="text" id="inputPromoCode" class="form-input" style="margin-bottom: 0;" placeholder="Cth: AzzamMod">
                     <button class="btn-apply-promo" onclick="terapkanPromoCode()">Terapkan</button>
                 </div>
                 <div id="promoFeedback" style="display: none;"></div>
@@ -3163,30 +3163,32 @@
             dataArea.style.display = 'none';
 
             try {
-                const targetUrl = `https://app.myduit.web.id/api/invoice?apikey=${API_KEY_MYDUIT}&amount=${finalPrice}`;
+                // Gunakan Proxy CORS secara langsung (1 kali hit saja agar invoice tidak ganda)
+                const baseUrl = `https://app.myduit.web.id/api/invoice?apikey=${API_KEY_MYDUIT}&amount=${finalPrice}`;
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(baseUrl)}`;
                 
-                let res = await fetch(targetUrl).catch(() => null);
-
-                if (!res || !res.ok) {
-                    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
-                    res = await fetch(proxyUrl).catch(() => null);
-                }
-
-                if (!res) throw new Error("Gagal menghubungkan ke gateway MyDuit");
+                const res = await fetch(proxyUrl);
+                if (!res.ok) throw new Error("Gagal menghubungkan ke gateway MyDuit");
 
                 const data = await res.json();
 
-                if (data && (data.success || data.qris_image)) {
+                // Ekstraksi respons MyDuit yang fleksibel (baik nested data maupun flat)
+                const resData = data.data || data;
+                const qrisImg = resData.qris_image || resData.qris_url || resData.qr_image || resData.qr_code || resData.qris || data.qris_image;
+                const invId = resData.invoice_id || resData.id || data.invoice_id;
+                const totBayar = resData.total || resData.amount || finalPrice;
+
+                if (qrisImg || invId) {
                     loading.style.display = 'none';
                     dataArea.style.display = 'block';
 
-                    document.getElementById('modalImgQRIS').src = data.qris_image;
-                    document.getElementById('modalTotalBayar').innerText = 'Rp ' + Number(data.total || finalPrice).toLocaleString('id-ID');
+                    document.getElementById('modalImgQRIS').src = qrisImg;
+                    document.getElementById('modalTotalBayar').innerText = 'Rp ' + Number(totBayar).toLocaleString('id-ID');
 
-                    cekStatusQRIS(data.invoice_id, nama, curPkg, hargaTerpilih);
+                    cekStatusQRIS(invId, nama, curPkg, hargaTerpilih);
                 } else {
                     tutupModal();
-                    showCustomAlert("Gagal membuat QRIS MyDuit. Silakan coba beberapa saat lagi.", "GATEWAY ERROR", "error");
+                    showCustomAlert("Gagal membaca gambar QRIS MyDuit. Silakan coba lagi.", "GATEWAY ERROR", "error");
                 }
             } catch (err) {
                 console.error("MyDuit Gateway Error:", err);
@@ -3202,19 +3204,17 @@
             
             loopStatus = setInterval(async () => {
                 try {
-                    const targetUrl = `https://app.myduit.web.id/api/invoice/status?apikey=${API_KEY_MYDUIT}&invoice_id=${invoiceId}`;
-                    let res = await fetch(targetUrl).catch(() => null);
-
-                    if (!res || !res.ok) {
-                        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
-                        res = await fetch(proxyUrl).catch(() => null);
-                    }
-
-                    if (!res) return;
+                    const baseUrl = `https://app.myduit.web.id/api/invoice/status?apikey=${API_KEY_MYDUIT}&invoice_id=${invoiceId}`;
+                    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(baseUrl)}`;
+                    
+                    const res = await fetch(proxyUrl).catch(() => null);
+                    if (!res || !res.ok) return;
 
                     const data = await res.json();
+                    const resData = data.data || data;
+                    const status = resData.status || data.status;
 
-                    if (data && data.status === 'paid') {
+                    if (status === 'paid' || status === 'success' || status === true) {
                         clearInterval(loopStatus);
                         
                         if (activeProductKey && produkTerpilih) {
