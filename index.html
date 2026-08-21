@@ -348,7 +348,7 @@
             display: flex;
             gap: 8px;
             overflow-x: auto;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
             scrollbar-width: none;
         }
 
@@ -462,9 +462,11 @@
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
+        /* --- Custom Badges (Best Seller, Hots, ROOT, IOS, PC) --- */
         .badge-bestseller {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #ffffff;
@@ -472,7 +474,7 @@
             padding: 3px 8px;
             border-radius: 5px;
             font-weight: 800;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
             box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
@@ -485,10 +487,82 @@
             padding: 3px 8px;
             border-radius: 5px;
             font-weight: 800;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
             box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-root {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: #ffffff;
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-ios {
+            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+            color: #ffffff;
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+        }
+
+        .badge-pc {
+            background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+            color: #ffffff;
+            font-size: 9px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+        }
+
+        .badge-checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .badge-checkbox {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.2s;
+        }
+
+        .badge-checkbox:hover {
+            border-color: var(--primary);
+        }
+
+        .badge-checkbox input {
+            accent-color: var(--primary);
+            cursor: pointer;
+            width: 14px;
+            height: 14px;
         }
 
         .product-desc {
@@ -1549,24 +1623,28 @@
 
                 <div class="category-scroll">
                     <button class="cat-btn active" data-cat="ALL" onclick="pilihKategori('ALL')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                         ALL
                     </button>
-                    <button class="cat-btn" data-cat="ANDROID" onclick="pilihKategori('ANDROID')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                        ANDROID
+                    <button class="cat-btn" data-cat="MLBB" onclick="pilihKategori('MLBB')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
+                        MLBB
                     </button>
-                    <button class="cat-btn" data-cat="IOS" onclick="pilihKategori('IOS')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-1.99.6-2.64 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.04-.52 2.66-1.27z"/></svg>
-                        IOS
+                    <button class="cat-btn" data-cat="FF" onclick="pilihKategori('FF')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
+                        FF
                     </button>
-                    <button class="cat-btn" data-cat="PC" onclick="pilihKategori('PC')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                        PC
+                    <button class="cat-btn" data-cat="PUBG" onclick="pilihKategori('PUBG')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
+                        PUBG
                     </button>
-                    <button class="cat-btn" data-cat="ROOT" onclick="pilihKategori('ROOT')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                        ROOT
+                    <button class="cat-btn" data-cat="8BP" onclick="pilihKategori('8BP')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6a2 2 0 1 0 0 4 2 2 0 1 0 0-4z"></path><path d="M12 12a3 3 0 1 0 0 6 3 3 0 1 0 0-6z"></path></svg>
+                        8BP
+                    </button>
+                    <button class="cat-btn" data-cat="BLOODSTRIKE" onclick="pilihKategori('BLOODSTRIKE')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
+                        BLOODSTRIKE
                     </button>
                 </div>
             </div>
@@ -1621,13 +1699,14 @@
             <div class="detail-header-card">
                 <div class="badges" style="margin-bottom: 12px;">
                     <span class="badge-device" id="detDevice">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path></svg>
-                        ANDROID
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
+                        MLBB
                     </span>
                     <span class="badge-ready" id="detStatusBadge">Ready</span>
                 </div>
                 <h1 id="detJudul" style="font-size: 22px; font-weight: 800;"></h1>
-                <p id="detSub" style="font-size: 13px; color: var(--text-muted); margin-top: 4px;"></p>
+                <div id="detBadgesList" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;"></div>
+                <p id="detSub" style="font-size: 13px; color: var(--text-muted); margin-top: 6px;"></p>
 
                 <div class="info-box-grid">
                     <div class="info-box">
@@ -1746,21 +1825,27 @@
                     <h4 id="prodFormTitle" style="font-size: 14px; font-weight: 800; margin-bottom: 12px; color: var(--accent);">Tambah Produk Baru</h4>
                     <input type="hidden" id="editProdKey" value="">
                     
-                    <input type="text" id="admNama" class="form-input" placeholder="Nama Produk (cth: CHAT GPT VIP)">
+                    <input type="text" id="admNama" class="form-input" placeholder="Nama Produk (cth: ATTIC PREMIUM MLBB)">
                     <input type="text" id="admDesc" class="form-input" placeholder="Deskripsi Singkat">
                     
                     <select id="admDevice" class="form-input" style="cursor: pointer;">
-                        <option value="ANDROID">ANDROID</option>
-                        <option value="IOS">IOS</option>
-                        <option value="PC">PC</option>
-                        <option value="ROOT">ROOT</option>
+                        <option value="MLBB">MLBB (Mobile Legends)</option>
+                        <option value="FF">FF (Free Fire)</option>
+                        <option value="PUBG">PUBG Mobile</option>
+                        <option value="8BP">8BP (8 Ball Pool)</option>
+                        <option value="BLOODSTRIKE">BLOODSTRIKE</option>
                     </select>
 
-                    <select id="admBadge" class="form-input" style="cursor: pointer;">
-                        <option value="">Tanpa Badge (Normal)</option>
-                        <option value="Best Seller">Best Seller (Paling Atas)</option>
-                        <option value="Hots">Hots (Di bawah Best Seller)</option>
-                    </select>
+                    <div style="font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">
+                        PILIH BADGE PRODUK (Bisa Pilih Lebih Dari 1):
+                    </div>
+                    <div id="admBadgesContainer" class="badge-checkbox-group">
+                        <label class="badge-checkbox"><input type="checkbox" value="Best Seller"> <span>⭐ Best Seller</span></label>
+                        <label class="badge-checkbox"><input type="checkbox" value="Hots"> <span>🔥 Hots</span></label>
+                        <label class="badge-checkbox"><input type="checkbox" value="ROOT"> <span>🛡️ ROOT</span></label>
+                        <label class="badge-checkbox"><input type="checkbox" value="IOS"> <span>📱 IOS</span></label>
+                        <label class="badge-checkbox"><input type="checkbox" value="PC"> <span>💻 PC</span></label>
+                    </div>
                     
                     <div style="font-size: 12px; font-weight: 800; color: var(--accent); margin-top: 14px; margin-bottom: 6px;">
                         Paket Produk & Batas Stok:
@@ -1965,7 +2050,7 @@
         let loopStatus = null;
         let alertCallback = null;
 
-        // Filter State
+        // Filter State (Default ALL)
         let activeKategori = 'ALL';
         let kataKunciCari = '';
 
@@ -1988,6 +2073,34 @@
             if (diffMin < 60) return `${diffMin} mnt lalu`;
             if (diffHour < 24) return `${diffHour} jam lalu`;
             return `${diffDay} hr lalu`;
+        }
+
+        // HELPER RENDER BADGE DINAMIS (Dukungan Multi-Badge)
+        function renderBadgesHTML(item) {
+            let badges = [];
+            if (Array.isArray(item.badges)) {
+                badges = item.badges;
+            } else if (item.badge) {
+                badges = [item.badge];
+            }
+            
+            if (!badges || badges.length === 0) return '';
+
+            return badges.map(b => {
+                const bClean = (b || '').trim();
+                if (bClean === 'Best Seller') {
+                    return `<span class="badge-bestseller"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> Best Seller</span>`;
+                } else if (bClean === 'Hots' || bClean === 'Hot') {
+                    return `<span class="badge-hots"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Hots</span>`;
+                } else if (bClean === 'ROOT') {
+                    return `<span class="badge-root"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> ROOT</span>`;
+                } else if (bClean === 'IOS') {
+                    return `<span class="badge-ios"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> IOS</span>`;
+                } else if (bClean === 'PC') {
+                    return `<span class="badge-pc"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> PC</span>`;
+                }
+                return '';
+            }).join(' ');
         }
 
         // GENERATOR KODE LISENSI AUTOMATIS ZaxxyStore-XXXX-XXXX
@@ -2083,15 +2196,11 @@
         }
 
         function getDeviceIcon(device) {
-            const dev = (device || 'ANDROID').toUpperCase();
-            if (dev === 'IOS') {
-                return `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-1.99.6-2.64 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.04-.52 2.66-1.27z"/></svg>`;
-            } else if (dev === 'PC') {
-                return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`;
-            } else if (dev === 'ROOT') {
-                return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+            const dev = (device || 'MLBB').toUpperCase();
+            if (dev === '8BP') {
+                return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6a2 2 0 1 0 0 4 2 2 0 1 0 0-4z"></path><path d="M12 12a3 3 0 1 0 0 6 3 3 0 1 0 0-6z"></path></svg>`;
             } else {
-                return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`;
+                return `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>`;
             }
         }
 
@@ -2196,19 +2305,14 @@
 
             const filteredKeys = keys.filter(key => {
                 const item = daftarProduk[key];
-                const device = (item.device || 'ANDROID').toUpperCase();
+                const device = (item.device || 'MLBB').toUpperCase();
                 const nama = (item.name || '').toLowerCase();
                 const desc = (item.desc || '').toLowerCase();
-                const badge = (item.badge || '').toLowerCase();
 
-                let passCategory = false;
-                if (activeKategori === 'ALL') {
-                    passCategory = true;
-                } else if (activeKategori === 'ROOT') {
-                    passCategory = device.includes('ROOT') || nama.includes('root') || badge.includes('root');
-                } else {
-                    passCategory = device === activeKategori;
-                }
+                let passCategory = (activeKategori === 'ALL') || 
+                                   (device === activeKategori) || 
+                                   (nama.includes(activeKategori.toLowerCase())) || 
+                                   (desc.includes(activeKategori.toLowerCase()));
 
                 let passSearch = true;
                 if (kataKunciCari) {
@@ -2230,16 +2334,17 @@
             }
 
             filteredKeys.sort((a, b) => {
-                const badgeA = (daftarProduk[a].badge || '').toLowerCase().trim();
-                const badgeB = (daftarProduk[b].badge || '').toLowerCase().trim();
+                const getBadgesArr = (item) => Array.isArray(item.badges) ? item.badges : (item.badge ? [item.badge] : []);
+                const badgesA = getBadgesArr(daftarProduk[a]).map(x => x.toLowerCase().trim());
+                const badgesB = getBadgesArr(daftarProduk[b]).map(x => x.toLowerCase().trim());
 
-                const getPriority = (badge) => {
-                    if (badge === 'best seller') return 1;
-                    if (badge === 'hots' || badge === 'hot') return 2;
+                const getPriority = (badges) => {
+                    if (badges.includes('best seller')) return 1;
+                    if (badges.includes('hots') || badges.includes('hot')) return 2;
                     return 3;
                 };
 
-                return getPriority(badgeA) - getPriority(badgeB);
+                return getPriority(badgesA) - getPriority(badgesB);
             });
 
             filteredKeys.forEach(key => {
@@ -2247,14 +2352,9 @@
                 const pkgs = item.packages || [];
                 const lowestPrice = pkgs.length > 0 ? pkgs[0].price : 10000;
                 const totalStock = pkgs.reduce((acc, p) => acc + (parseInt(p.stock) || 0), 0);
-                const devName = item.device || 'ANDROID';
+                const devName = item.device || 'MLBB';
 
-                let badgeHTML = '';
-                if (item.badge === 'Best Seller') {
-                    badgeHTML = `<span class="badge-bestseller"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> Best Seller</span>`;
-                } else if (item.badge === 'Hots' || item.badge === 'Hot') {
-                    badgeHTML = `<span class="badge-hots"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Hots</span>`;
-                }
+                const badgesHTML = renderBadgesHTML(item);
 
                 const prodCard = document.createElement('div');
                 prodCard.className = 'card-product';
@@ -2269,7 +2369,7 @@
                     </div>
                     <div class="product-name">
                         ${item.name}
-                        ${badgeHTML}
+                        ${badgesHTML}
                     </div>
                     <div class="product-desc">${item.desc}</div>
                     <div class="product-meta">
@@ -2353,13 +2453,14 @@
                 const pkgs = item.packages || [];
                 const totalStock = pkgs.reduce((acc, p) => acc + (parseInt(p.stock) || 0), 0);
                 const pkgSummary = pkgs.map(p => `${p.duration}: ${p.stock}`).join(' | ');
+                const badgesSummary = (Array.isArray(item.badges) ? item.badges.join(', ') : item.badge) || 'Tanpa Badge';
 
                 const admCard = document.createElement('div');
                 admCard.className = 'admin-item-card';
                 admCard.innerHTML = `
                     <div class="admin-item-info">
-                        <h4>${item.name} ${item.badge ? `<span style="color:var(--gold); font-size:11px;">[${item.badge}]</span>` : ''}</h4>
-                        <p>Total Stok: ${totalStock} | Device: ${item.device || 'ANDROID'}<br>${pkgSummary || 'Tidak ada paket'}</p>
+                        <h4>${item.name} <span style="color:var(--gold); font-size:11px;">[${badgesSummary}]</span></h4>
+                        <p>Total Stok: ${totalStock} | Kategori: ${item.device || 'MLBB'}<br>${pkgSummary || 'Tidak ada paket'}</p>
                     </div>
                     <div class="admin-actions">
                         <button class="btn-edit" onclick="isiFormEditProduk('${key}')">
@@ -2552,10 +2653,10 @@
         function seedInitialData() {
             const defaultProducts = {
                 prod_1: {
-                    name: "CHAT GPT VIP PANEL",
-                    desc: "Panel untuk ANDROID dengan fitur aktivasi instan & prompt tak terbatas.",
-                    device: "ANDROID",
-                    badge: "Best Seller",
+                    name: "ATTIC PREMIUM MLBB",
+                    desc: "Cheat Mobile Legends VIP dengan Maphack, Drone View, & Fitur Safe Auto.",
+                    device: "MLBB",
+                    badges: ["Best Seller", "ROOT"],
                     packages: [
                         { duration: "1 Day", price: 10000, stock: 20, desc: "1 day access" },
                         { duration: "3 Day", price: 20000, stock: 15, desc: "3 days access" },
@@ -2564,14 +2665,24 @@
                     ]
                 },
                 prod_2: {
-                    name: "DRIPCLIENT APKMOD",
-                    desc: "Enable Functions Aimbot Legit Aimbot Rage, Silent Aim, dan fitur panel lainnya.",
-                    device: "ANDROID",
-                    badge: "Hots",
+                    name: "DRIPCLIENT FF MOD",
+                    desc: "Fitur Aimbot Legit, Auto Headshot, Silent Aim, dan ESP Player untuk Free Fire.",
+                    device: "FF",
+                    badges: ["Hots", "IOS"],
                     packages: [
                         { duration: "1 Day", price: 15000, stock: 10, desc: "1 day access" },
                         { duration: "3 Day", price: 30000, stock: 8, desc: "3 days access" },
                         { duration: "7 Day", price: 60000, stock: 5, desc: "7 days access" }
+                    ]
+                },
+                prod_3: {
+                    name: "PUBG VIP MOD PC",
+                    desc: "Fitur ESP Player, Less Recoil, Bullet Tracking untuk PUBG PC/Emulator.",
+                    device: "PUBG",
+                    badges: ["PC"],
+                    packages: [
+                        { duration: "1 Day", price: 20000, stock: 10, desc: "1 day access" },
+                        { duration: "7 Day", price: 70000, stock: 5, desc: "7 days access" }
                     ]
                 }
             };
@@ -2592,7 +2703,7 @@
             const now = Date.now();
             const defaultNotifs = {
                 notif_1: { buyer: "L***y bought", product: "ATTIC PREMIUM MLBB · 3 Day", timestamp: now - (5 * 24 * 60 * 60 * 1000) },
-                notif_2: { buyer: "Kat** bought", product: "DRIPCLIENT APKMOD · 7 Day", timestamp: now - (2 * 60 * 1000) }
+                notif_2: { buyer: "Kat** bought", product: "DRIPCLIENT FF MOD · 7 Day", timestamp: now - (2 * 60 * 1000) }
             };
             db.ref('zaxxy_notifications').set(defaultNotifs);
         }
@@ -2725,9 +2836,10 @@
 
             const pkgs = produkTerpilih.packages || [];
             const totalStock = pkgs.reduce((acc, p) => acc + (parseInt(p.stock) || 0), 0);
-            const devName = produkTerpilih.device || 'ANDROID';
+            const devName = produkTerpilih.device || 'MLBB';
 
             document.getElementById('detJudul').innerText = produkTerpilih.name;
+            document.getElementById('detBadgesList').innerHTML = renderBadgesHTML(produkTerpilih);
             document.getElementById('detSub').innerText = produkTerpilih.desc;
             document.getElementById('detDevice').innerHTML = `
                 ${getDeviceIcon(devName)}
@@ -2843,7 +2955,12 @@
             const name = document.getElementById('admNama').value.trim();
             const desc = document.getElementById('admDesc').value.trim();
             const device = document.getElementById('admDevice').value;
-            const badge = document.getElementById('admBadge').value;
+
+            // Ambil semua badge yang dicentang
+            const selectedBadges = [];
+            document.querySelectorAll('#admBadgesContainer input[type="checkbox"]:checked').forEach(cb => {
+                selectedBadges.push(cb.value);
+            });
 
             if (!name || !desc) {
                 showCustomAlert("Nama dan deskripsi produk wajib diisi!", "FORM KOSONG", "warning");
@@ -2869,7 +2986,7 @@
                 return;
             }
 
-            const dataObj = { name, desc, device, badge, packages };
+            const dataObj = { name, desc, device, badges: selectedBadges, packages };
 
             if (key) {
                 db.ref('zaxxy_products/' + key).update(dataObj, () => {
@@ -2892,8 +3009,13 @@
             document.getElementById('prodFormTitle').innerText = "Edit Produk & Paket";
             document.getElementById('admNama').value = item.name;
             document.getElementById('admDesc').value = item.desc;
-            document.getElementById('admDevice').value = item.device || 'ANDROID';
-            document.getElementById('admBadge').value = item.badge || '';
+            document.getElementById('admDevice').value = item.device || 'MLBB';
+
+            // Set Checkbox Badges
+            const badgesArr = Array.isArray(item.badges) ? item.badges : (item.badge ? [item.badge] : []);
+            document.querySelectorAll('#admBadgesContainer input[type="checkbox"]').forEach(cb => {
+                cb.checked = badgesArr.includes(cb.value);
+            });
 
             const list = document.getElementById('adminPackagesList');
             list.innerHTML = '';
@@ -2913,8 +3035,13 @@
             document.getElementById('prodFormTitle').innerText = "Tambah Produk Baru";
             document.getElementById('admNama').value = "";
             document.getElementById('admDesc').value = "";
-            document.getElementById('admDevice').value = "ANDROID";
-            document.getElementById('admBadge').value = "";
+            document.getElementById('admDevice').value = "MLBB";
+            
+            // Reset Badges Checkbox
+            document.querySelectorAll('#admBadgesContainer input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+
             document.getElementById('btnSaveProd').innerText = "Simpan Produk";
             document.getElementById('btnCancelEditProd').style.display = "none";
 
