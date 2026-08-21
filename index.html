@@ -1260,7 +1260,7 @@
             padding: 2px;
         }
 
-        /* --- Custom Dialog / Notification Modal (Pengganti alert Browser) --- */
+        /* --- Custom Dialog / Notification Modal --- */
         .custom-alert-overlay {
             position: fixed;
             inset: 0;
@@ -1949,7 +1949,6 @@
         const db = firebase.database();
 
         // 2. Global State & Config
-        const API_KEY_MYDUIT = "key_5fcfe74555ca411c";
         let daftarProduk = {};
         let daftarDownloads = {};
         let daftarLeaderboard = {};
@@ -1973,34 +1972,6 @@
         // Secret Logo Click Tracker
         let hitungKlikLogo = 0;
         let timerKlikLogo = null;
-
-        // MULTI-PROXY FETCH HELPER UNTUK MENGATASI CORS BROWSER DI VERCEL
-        async function fetchWithProxy(targetUrl) {
-            const proxyList = [
-                targetUrl, // Coba Direct
-                `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-                `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-                `https://thingproxy.freeboard.io/fetch/${targetUrl}`
-            ];
-
-            for (const url of proxyList) {
-                try {
-                    const res = await fetch(url, { cache: 'no-store' });
-                    if (res.ok) {
-                        const resText = await res.text();
-                        try {
-                            const jsonData = JSON.parse(resText);
-                            if (jsonData) return jsonData;
-                        } catch (e) {
-                            console.warn("Proxy returned non-JSON:", url);
-                        }
-                    }
-                } catch (err) {
-                    console.warn("Gagal via proxy:", url, err);
-                }
-            }
-            throw new Error("Semua jalur koneksi proxy terhalang.");
-        }
 
         // FUNSI WAKTU DINAMIS / REAL-TIME RELATIVE TIMESTAMP
         function formatRelativeTime(ts) {
@@ -3065,7 +3036,7 @@
             }
 
             db.ref('zaxxy_contacts').set({ wa, tele }, () => {
-                showCustomAlert("Pengaturan kontak berhasil disimpan!", "KONTAK DISIMPANN", "success");
+                showCustomAlert("Pengaturan kontak berhasil disimpan!", "KONTAK DISIMPAN", "success");
             });
         }
 
@@ -3126,7 +3097,7 @@
             showCustomAlert("File download berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 18. PEMBAYARAN & GENERATE LISENSI SIKRON DENGAN REAL-TIME TIMESTAMP
+        // 18. PEMBAYARAN & GENERATE LISENSI SIKRON DENGAN REAL-TIME TIMESTAMP (VIA SERVERLESS API)
         async function eksekusiPembayaran() {
             const nama = document.getElementById('inputNama').value.trim();
             if (!nama) {
@@ -3191,12 +3162,14 @@
             dataArea.style.display = 'none';
 
             try {
-                const targetUrl = `https://app.myduit.web.id/api/invoice?apikey=${API_KEY_MYDUIT}&amount=${finalPrice}`;
-                const data = await fetchWithProxy(targetUrl);
+                // Memanggil backend Vercel Serverless Endpoint /api/invoice.js
+                const res = await fetch(`/api/invoice.js?amount=${finalPrice}`);
+                if (!res.ok) throw new Error("Gagal merespon dari endpoint API");
 
+                const data = await res.json();
                 const resData = data.data || data;
-                const qrisImg = resData.qris_image || resData.qris_url || resData.qr_image || resData.qr_code || resData.qris || data.qris_image;
-                const invId = resData.invoice_id || resData.id || data.invoice_id;
+                const qrisImg = resData.qris_image || resData.qris_url || resData.qr_image || resData.qr_code || resData.qris;
+                const invId = resData.invoice_id || resData.id;
                 const totBayar = resData.total || resData.amount || finalPrice;
 
                 if (qrisImg || invId) {
@@ -3214,7 +3187,7 @@
             } catch (err) {
                 console.error("MyDuit Gateway Error:", err);
                 tutupModal();
-                showCustomAlert("Gagal terhubung ke Gateway QRIS MyDuit. Silakan coba klik Beli lagi.", "KONEKSI GATEWAY GAGAL", "error");
+                showCustomAlert("Gagal terhubung ke Gateway QRIS MyDuit. Pastikan file /api/invoice.js sudah terdeploy.", "KONEKSI GATEWAY GAGAL", "error");
             }
         }
 
@@ -3223,9 +3196,11 @@
             
             loopStatus = setInterval(async () => {
                 try {
-                    const targetUrl = `https://app.myduit.web.id/api/invoice/status?apikey=${API_KEY_MYDUIT}&invoice_id=${invoiceId}`;
-                    const data = await fetchWithProxy(targetUrl);
-                    
+                    // Pengecekan status invoice via /api/invoice.js
+                    const res = await fetch(`/api/invoice.js?action=status&invoice_id=${invoiceId}`);
+                    if (!res.ok) return;
+
+                    const data = await res.json();
                     const resData = data.data || data;
                     const status = resData.status || data.status;
 
