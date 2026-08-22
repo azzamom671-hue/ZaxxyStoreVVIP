@@ -112,22 +112,78 @@
             100% { opacity: 1; transform: none; }
         }
 
-        /* --- Loading Screen Animasi --- */
+        /* --- PREMIUM LUXURY APP LOADER --- */
         #appLoader {
             position: fixed;
             inset: 0;
             background: var(--bg-main);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             z-index: 99999;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease;
         }
 
         #appLoader.fade-out {
             opacity: 0;
             visibility: hidden;
+        }
+
+        .loader-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 32px 42px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 0 35px rgba(147, 51, 234, 0.18);
+            animation: floatLoader 3s ease-in-out infinite;
+        }
+
+        @keyframes floatLoader {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .loader-logo {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            border-radius: 14px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 22px rgba(147, 51, 234, 0.55);
+            background: var(--bg-card-alt);
+            margin-bottom: 14px;
+        }
+
+        .loader-title {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #9333ea 0%, #c084fc 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .luxury-spinner {
+            width: 34px;
+            height: 34px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--accent);
+            border-right: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: luxurySpin 0.85s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+        }
+
+        @keyframes luxurySpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* --- Header & Navigation --- */
@@ -1901,11 +1957,13 @@
 </head>
 <body>
 
-    <!-- ANIMASI LOADING UTAMA WEB -->
+    <!-- ANIMASI LOADING UTAMA WEB (LUXURY REDESIGN) -->
     <div id="appLoader">
-        <img src="zxs.png" alt="ZaxxyStore Logo" style="width: 64px; height: 64px; object-fit: contain; border-radius: 16px; border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(147, 51, 234, 0.6); animation: pulseGlow 1.4s infinite alternate;">
-        <div style="font-size: 15px; font-weight: 900; letter-spacing: 2px; margin-top: 18px;" class="glow-text">ZAXXYSTORE</div>
-        <div class="loader" style="margin-top: 12px;"></div>
+        <div class="loader-card">
+            <img src="zxs.png" alt="ZaxxyStore Logo" class="loader-logo">
+            <div class="loader-title">ZaxxyStore</div>
+            <div class="luxury-spinner"></div>
+        </div>
     </div>
 
     <!-- MAINTENANCE MODE SCREEN (KECUALI ADMIN) -->
@@ -2946,7 +3004,7 @@
             checkMaintenanceDisplay();
             renderRiwayatLokal();
 
-            // Sembunyikan Loader Utama setelah 0.7s
+            // Sembunyikan Loader Utama setelah 0.7s dengan mulus
             setTimeout(() => {
                 const loader = document.getElementById('appLoader');
                 if (loader) loader.classList.add('fade-out');
@@ -3164,12 +3222,12 @@
             });
         }
 
-        // 6. REALTIME LISTENER: REVIEWS & RATINGS (ACC OLEH ADMIN)
+        // 6. REALTIME LISTENER: REVIEWS & RATINGS (DENGAN NAMA DISENSOR)
         db.ref('zaxxy_reviews').on('value', (snapshot) => {
             const data = snapshot.val() || {};
             daftarReviews = data;
             
-            // 1. Render Public Approved Reviews di Halaman Depan
+            // 1. Render Public Approved Reviews di Halaman Depan (Nama Disensor)
             const publicContainer = document.getElementById('publicReviewsContainer');
             if (publicContainer) {
                 const approvedKeys = Object.keys(data).filter(k => data[k].status === 'approved');
@@ -3187,12 +3245,13 @@
                     approvedKeys.forEach(key => {
                         const item = data[key];
                         const starsHTML = renderStarRatingHTML(item.rating || 5, 5, 12);
+                        const maskedReviewerName = maskBuyerName(item.buyerName); // Sensor Nama Pengulas
                         const rCard = document.createElement('div');
                         rCard.className = 'review-card';
                         rCard.innerHTML = `
                             <div class="review-header">
                                 <div class="review-author">
-                                    ${item.buyerName}
+                                    ${maskedReviewerName}
                                     <span class="verified-badge">
                                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         Terverifikasi
@@ -3211,7 +3270,7 @@
                 }
             }
 
-            // 2. Render Admin Panel Review Moderation
+            // 2. Render Admin Panel Review Moderation (Admin Tetap Bisa Lihat Nama Asli)
             const pendingContainer = document.getElementById('admListPendingReviews');
             const approvedContainer = document.getElementById('admListApprovedReviews');
             const countBadge = document.getElementById('adminPendingReviewCount');
