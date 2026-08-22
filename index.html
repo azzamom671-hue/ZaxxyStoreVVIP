@@ -16,7 +16,7 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
         }
 
         /* --- TEMA DARK (DEFAULT) --- */
@@ -36,7 +36,7 @@
             --success: #10b981;
             --danger: #ef4444;
             --gold: #f59e0b;
-            --header-bg: rgba(7, 4, 13, 0.9);
+            --header-bg: rgba(7, 4, 13, 0.88);
             --modal-overlay: rgba(4, 2, 8, 0.92);
             --hero-bg: linear-gradient(145deg, #170a2c 0%, #0c0517 60%, #07030e 100%);
             --hero-border: #3c1e6e;
@@ -72,7 +72,7 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
-            padding-bottom: 20px;
+            padding-bottom: 30px;
             overflow-x: hidden;
             position: relative;
         }
@@ -104,12 +104,30 @@
         }
 
         .page-view {
-            animation: viewSlideFade 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: viewSlideFade 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes viewSlideFade {
-            0% { opacity: 0; transform: translateY(12px); }
+            0% { opacity: 0; transform: translateY(14px) scale(0.99); }
             100% { opacity: 1; transform: none; }
+        }
+
+        /* --- Loading Screen Animasi --- */
+        #appLoader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-main);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+        }
+
+        #appLoader.fade-out {
+            opacity: 0;
+            visibility: hidden;
         }
 
         /* --- Header & Navigation --- */
@@ -119,8 +137,8 @@
             align-items: center;
             padding: 14px 18px;
             background: var(--header-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
@@ -136,7 +154,6 @@
             cursor: pointer;
             letter-spacing: -0.5px;
             user-select: none;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .brand-logo:active { transform: scale(0.94); }
@@ -145,9 +162,9 @@
             width: 34px;
             height: 34px;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 9px;
             border: 1px solid var(--primary);
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+            box-shadow: 0 0 14px rgba(168, 85, 247, 0.4);
             background: var(--bg-card);
         }
 
@@ -156,12 +173,12 @@
             border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 8px 12px;
-            border-radius: 9px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .btn-menu:active, .btn-theme-toggle:active { transform: scale(0.92); }
@@ -171,14 +188,14 @@
             position: fixed;
             inset: 0;
             background: var(--bg-main);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 150;
             display: flex;
             flex-direction: column;
             padding: 18px;
             transform: translateY(-100%);
-            transition: 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
             pointer-events: none;
         }
@@ -212,16 +229,18 @@
             color: var(--text-main);
             text-decoration: none;
             padding: 14px 14px;
-            border-radius: 12px;
+            border-radius: 14px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .menu-item:hover, .menu-item:active {
             border-color: var(--primary);
             color: var(--accent);
-            transform: translateX(4px);
+            transform: translateX(6px);
+            background: var(--bg-card-alt);
         }
 
         .social-buttons {
@@ -237,7 +256,7 @@
             border: 1px solid rgba(34, 197, 94, 0.3);
             color: #4ade80;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -252,7 +271,7 @@
             border: 1px solid rgba(59, 130, 246, 0.3);
             color: #60a5fa;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -280,7 +299,7 @@
             margin-bottom: 22px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
         }
 
         .hero-live-badge {
@@ -306,6 +325,12 @@
             background: #10b981;
             box-shadow: 0 0 8px #10b981;
             animation: livePulse 1.8s infinite;
+        }
+
+        @keyframes livePulse {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.6; }
         }
 
         .hero-title-glitch {
@@ -388,7 +413,7 @@
             flex: 1;
             background: var(--bg-card-alt);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 6px 4px;
             display: flex;
             align-items: center;
@@ -424,14 +449,14 @@
             border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 12px 38px 12px 40px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 13px;
             outline: none;
         }
 
         .search-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 16px rgba(147, 51, 234, 0.2);
+            box-shadow: 0 0 18px rgba(147, 51, 234, 0.25);
             background: var(--bg-input);
         }
 
@@ -463,7 +488,7 @@
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             padding: 8px 14px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 11px;
             font-weight: 800;
             letter-spacing: 0.5px;
@@ -483,7 +508,7 @@
             background: var(--primary);
             border-color: var(--primary);
             color: #ffffff;
-            box-shadow: 0 0 14px rgba(147, 51, 234, 0.4);
+            box-shadow: 0 0 16px rgba(147, 51, 234, 0.45);
         }
 
         .store-label {
@@ -513,19 +538,19 @@
         .card-product {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 16px;
             margin-bottom: 14px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04);
         }
 
         .card-product:hover {
             border-color: var(--primary);
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 15px rgba(147, 51, 234, 0.15);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), 0 0 18px rgba(147, 51, 234, 0.18);
         }
 
         .badges {
@@ -542,7 +567,7 @@
             font-size: 10px;
             font-weight: 700;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -555,7 +580,7 @@
             font-size: 10px;
             font-weight: 700;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .badge-out {
@@ -565,7 +590,7 @@
             font-size: 10px;
             font-weight: 700;
             padding: 4px 8px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .product-name {
@@ -584,7 +609,7 @@
             color: #ffffff;
             font-size: 9px;
             padding: 3px 8px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -596,7 +621,7 @@
             color: #ffffff;
             font-size: 9px;
             padding: 3px 8px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -608,7 +633,7 @@
             color: #ffffff;
             font-size: 9px;
             padding: 3px 8px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -620,7 +645,7 @@
             color: #ffffff;
             font-size: 9px;
             padding: 3px 8px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -632,7 +657,7 @@
             color: #ffffff;
             font-size: 9px;
             padding: 3px 8px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -688,7 +713,7 @@
             border: 1px solid var(--border-color);
             color: var(--accent);
             padding: 8px 16px;
-            border-radius: 9px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 700;
             display: flex;
@@ -710,10 +735,10 @@
         .review-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 14px;
             margin-bottom: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
         }
 
         .review-header {
@@ -738,7 +763,7 @@
             color: #10b981;
             background: rgba(16, 185, 129, 0.12);
             padding: 2px 6px;
-            border-radius: 4px;
+            border-radius: 6px;
             display: inline-flex;
             align-items: center;
             gap: 3px;
@@ -853,7 +878,7 @@
         .rank-number {
             width: 28px;
             height: 28px;
-            border-radius: 8px;
+            border-radius: 9px;
             background: var(--bg-card-alt);
             color: var(--accent);
             font-size: 12px;
@@ -896,7 +921,7 @@
         .download-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 16px;
             margin-bottom: 14px;
         }
@@ -920,7 +945,7 @@
             border: none;
             color: #fff;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -929,6 +954,7 @@
             justify-content: center;
             gap: 8px;
             text-decoration: none;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.35);
         }
 
         /* --- Detail & Checkout --- */
@@ -948,7 +974,7 @@
         .detail-header-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 18px;
             margin-bottom: 14px;
         }
@@ -991,7 +1017,7 @@
         .help-box {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 16px;
             margin-bottom: 14px;
         }
@@ -1021,7 +1047,7 @@
             border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 9px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 700;
             display: flex;
@@ -1036,7 +1062,7 @@
             border: none;
             color: #fff;
             padding: 9px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 700;
             display: flex;
@@ -1049,7 +1075,7 @@
         .form-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 16px;
             margin-bottom: 14px;
         }
@@ -1060,7 +1086,7 @@
             border: 1px solid var(--border-color);
             color: var(--text-main);
             padding: 12px 14px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 13px;
             margin-bottom: 10px;
             outline: none;
@@ -1068,7 +1094,7 @@
 
         .form-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 12px rgba(147, 51, 234, 0.25);
+            box-shadow: 0 0 16px rgba(147, 51, 234, 0.25);
         }
 
         /* --- Promo Code Section --- */
@@ -1089,7 +1115,7 @@
             border: 1px solid var(--primary);
             color: var(--accent);
             padding: 0 18px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
@@ -1156,7 +1182,7 @@
         .package-item {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 16px;
             cursor: pointer;
             position: relative;
@@ -1167,7 +1193,7 @@
         .package-item.active {
             border: 2px solid var(--primary);
             background: var(--bg-card-alt);
-            box-shadow: 0 0 16px rgba(147, 51, 234, 0.25);
+            box-shadow: 0 0 18px rgba(147, 51, 234, 0.3);
         }
 
         .package-item.out-of-stock {
@@ -1241,7 +1267,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000 !important;
-            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.15) !important;
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.18) !important;
         }
 
         .btn-checkout-now {
@@ -1249,14 +1275,14 @@
             border: none;
             color: #fff;
             padding: 12px 24px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+            box-shadow: 0 4px 18px rgba(147, 51, 234, 0.45);
         }
 
         .btn-checkout-now:active { transform: scale(0.96); }
@@ -1271,9 +1297,9 @@
             margin: 0 auto;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 12px 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             display: flex;
@@ -1367,7 +1393,7 @@
             text-decoration: none;
         }
 
-        /* --- Admin Layout --- */
+        /* --- UI ADMIN REDESIGN (WEB MAHAL / HIGH-END DASHBOARD) --- */
         .admin-login-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -1376,18 +1402,28 @@
             text-align: center;
             max-width: 380px;
             margin: 40px auto;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-login-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #9333ea, #38bdf8);
         }
 
         .admin-header-card {
-            background: var(--bg-card);
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-alt) 100%);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 16px 18px;
-            margin-bottom: 16px;
+            border-radius: 20px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
 
         .admin-user-profile {
@@ -1397,25 +1433,26 @@
         }
 
         .admin-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             background: linear-gradient(135deg, #9333ea 0%, #4c1d95 100%);
             border: 1px solid var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.35);
         }
 
         .admin-status-pill {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             color: #10b981;
-            padding: 2px 7px;
+            padding: 3px 8px;
             border-radius: 12px;
             font-size: 9px;
             font-weight: 800;
@@ -1426,8 +1463,8 @@
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.3);
             color: #ef4444;
-            padding: 8px 14px;
-            border-radius: 10px;
+            padding: 9px 14px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
@@ -1436,71 +1473,90 @@
             gap: 6px;
         }
 
+        .btn-logout-sleek:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        /* Nav Bar Kapsul Mahal */
         .admin-nav-bar {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             background: var(--bg-card);
-            padding: 6px;
-            border-radius: 14px;
+            padding: 8px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             overflow-x: auto;
             scrollbar-width: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
         .admin-nav-bar::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            background: transparent;
-            border: 1px solid transparent;
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
             color: var(--text-muted);
-            padding: 10px 14px;
-            border-radius: 10px;
+            padding: 10px 16px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             white-space: nowrap;
             flex-shrink: 0;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--text-main);
+            transform: translateY(-2px);
         }
 
         .tab-btn.active {
             background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
             color: #ffffff;
-            box-shadow: 0 4px 16px rgba(147, 51, 234, 0.35);
+            border-color: var(--accent);
+            box-shadow: 0 4px 18px rgba(147, 51, 234, 0.45);
+            transform: translateY(-2px);
         }
 
         .admin-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 20px 18px;
-            margin-bottom: 18px;
+            border-radius: 20px;
+            padding: 22px 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            position: relative;
+            animation: viewSlideFade 0.3s ease;
         }
 
         .admin-card-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--border-color);
         }
 
         .admin-card-header h4 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 900;
             color: var(--text-main);
+            letter-spacing: -0.3px;
         }
 
         .badge-checkbox-group {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .badge-checkbox {
@@ -1509,8 +1565,8 @@
             gap: 6px;
             background: var(--bg-card-alt);
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 10px;
+            padding: 8px 14px;
+            border-radius: 12px;
             font-size: 11px;
             font-weight: 700;
             color: var(--text-main);
@@ -1518,8 +1574,9 @@
         }
 
         .badge-checkbox:has(input:checked) {
-            background: rgba(147, 51, 234, 0.18);
+            background: rgba(147, 51, 234, 0.2);
             border-color: var(--accent);
+            color: var(--accent);
         }
 
         .btn-primary {
@@ -1528,26 +1585,28 @@
             border: none;
             color: #fff;
             padding: 13px;
-            border-radius: 11px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 800;
             cursor: pointer;
             margin-top: 8px;
-            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.35);
+            box-shadow: 0 6px 20px rgba(147, 51, 234, 0.35);
         }
+
+        .btn-primary:active { transform: scale(0.98); }
 
         .btn-secondary {
             width: 100%;
             background: var(--bg-card-alt);
             border: 1px dashed var(--accent);
             color: var(--accent);
-            padding: 11px;
-            border-radius: 11px;
+            padding: 12px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
             margin-top: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1557,16 +1616,16 @@
         .pkg-row {
             background: var(--bg-input);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 10px;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
         }
 
         .pkg-row-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .pkg-row-title {
@@ -1584,15 +1643,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 26px;
-            height: 26px;
-            border-radius: 7px;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
         }
 
         .pkg-row-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
         }
 
         .pkg-unlimited-label {
@@ -1610,14 +1669,15 @@
         .admin-item-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-left: 3px solid var(--primary);
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
+            border-left: 3.5px solid var(--primary);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .admin-item-info h4 {
@@ -1638,15 +1698,15 @@
 
         .admin-actions {
             display: flex;
-            gap: 6px;
+            gap: 8px;
         }
 
         .btn-edit, .btn-acc {
             background: var(--bg-card-alt);
             border: 1px solid var(--border-color);
             color: var(--accent);
-            padding: 8px;
-            border-radius: 8px;
+            padding: 9px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1655,16 +1715,16 @@
 
         .btn-acc {
             color: #10b981;
-            border-color: rgba(16, 185, 129, 0.3);
-            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.35);
+            background: rgba(16, 185, 129, 0.12);
         }
 
         .btn-delete {
             background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.35);
             color: #ef4444;
-            padding: 8px;
-            border-radius: 8px;
+            padding: 9px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1677,7 +1737,7 @@
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -1688,7 +1748,7 @@
             position: fixed;
             inset: 0;
             background: var(--modal-overlay);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -1699,17 +1759,18 @@
         .custom-alert-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 24px 20px;
+            border-radius: 22px;
+            padding: 26px 20px;
             width: 100%;
             max-width: 360px;
             text-align: center;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            animation: viewSlideFade 0.3s ease;
         }
 
         .custom-alert-icon {
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: rgba(147, 51, 234, 0.15);
             border: 1px solid var(--primary);
@@ -1718,10 +1779,11 @@
             justify-content: center;
             margin: 0 auto 14px auto;
             color: var(--accent);
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
         }
 
         .custom-alert-title {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 8px;
@@ -1733,8 +1795,8 @@
             line-height: 1.5;
             margin-bottom: 20px;
             background: var(--bg-input);
-            padding: 12px;
-            border-radius: 12px;
+            padding: 14px;
+            border-radius: 14px;
             border: 1px solid var(--border-color);
             text-align: left;
         }
@@ -1744,8 +1806,8 @@
             background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
             border: none;
             color: #ffffff;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 13px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 800;
             cursor: pointer;
@@ -1755,11 +1817,12 @@
         .modal-review-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 24px 20px;
+            border-radius: 22px;
+            padding: 26px 20px;
             width: 100%;
             max-width: 380px;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         }
 
         /* --- Modal QRIS --- */
@@ -1767,7 +1830,7 @@
             position: fixed;
             inset: 0;
             background: var(--modal-overlay);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -1778,17 +1841,18 @@
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 24px;
             width: 100%;
             max-width: 340px;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         }
 
         .qris-box {
             background: #fff;
-            padding: 10px;
-            border-radius: 14px;
+            padding: 12px;
+            border-radius: 16px;
             display: inline-block;
             margin: 14px 0;
             border: 1px solid #cbd5e1;
@@ -1805,8 +1869,8 @@
             background: rgba(234, 179, 8, 0.12);
             border: 1px solid rgba(234, 179, 8, 0.3);
             color: #d97706;
-            padding: 9px;
-            border-radius: 9px;
+            padding: 10px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 14px;
@@ -1823,8 +1887,8 @@
         }
 
         .loader {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border: 3px solid var(--border-color);
             border-top: 3px solid var(--accent);
             border-radius: 50%;
@@ -1837,8 +1901,15 @@
 </head>
 <body>
 
+    <!-- ANIMASI LOADING UTAMA WEB -->
+    <div id="appLoader">
+        <img src="zxs.png" alt="ZaxxyStore Logo" style="width: 64px; height: 64px; object-fit: contain; border-radius: 16px; border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(147, 51, 234, 0.6); animation: pulseGlow 1.4s infinite alternate;">
+        <div style="font-size: 15px; font-weight: 900; letter-spacing: 2px; margin-top: 18px;" class="glow-text">ZAXXYSTORE</div>
+        <div class="loader" style="margin-top: 12px;"></div>
+    </div>
+
     <!-- MAINTENANCE MODE SCREEN (KECUALI ADMIN) -->
-    <div id="maintenanceOverlay" style="position: fixed; inset: 0; background: var(--bg-main); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px;">
+    <div id="maintenanceOverlay" style="position: fixed; inset: 0; background: var(--bg-main); z-index: 99999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px;">
         <div style="width: 72px; height: 72px; background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--danger); box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
         </div>
@@ -1868,6 +1939,10 @@
             <li class="menu-item" onclick="pindahHalaman('viewLeaderboard')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"></path><path d="M18 14.66V17c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-2.34"></path><path d="M14 9V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v5"></path><path d="M18 9a6 6 0 0 1-12 0v-.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5z"></path></svg>
                 Leaderboard Top Buyer
+            </li>
+            <li class="menu-item" onclick="pindahHalaman('viewHistory')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Riwayat Pembelian
             </li>
             <li class="menu-item" onclick="pindahHalaman('viewDownloads')">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
@@ -2016,7 +2091,23 @@
             </div>
         </div>
 
-        <!-- ==================== VIEW 3: DOWNLOADS ==================== -->
+        <!-- ==================== VIEW 3: RIWAYAT PEMBELIAN (USER) ==================== -->
+        <div id="viewHistory" class="page-view" style="display: none;">
+            <div class="btn-back" onclick="pindahHalaman('viewHome')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Kembali ke Store
+            </div>
+
+            <div class="store-label">RIWAYAT TRANSAKSI</div>
+            <div class="store-title">Daftar Lisensi Anda</div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">Semua riwayat pembelian lisensi digital Anda yang tersimpan di perangkat ini.</p>
+            
+            <div id="listMyHistoryContainer">
+                <!-- Rendered via JS -->
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 4: DOWNLOADS ==================== -->
         <div id="viewDownloads" class="page-view" style="display: none;">
             <div class="store-label">DOWNLOADS</div>
             <div class="store-title">File & Launcher Mod</div>
@@ -2026,7 +2117,7 @@
             </div>
         </div>
 
-        <!-- ==================== VIEW 4: DETAIL & CHECKOUT ==================== -->
+        <!-- ==================== VIEW 5: DETAIL & CHECKOUT ==================== -->
         <div id="viewProduct" class="page-view" style="display: none;">
             <div class="btn-back" onclick="pindahHalaman('viewHome')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
@@ -2094,7 +2185,7 @@
             <div class="packages-container" id="packagesList"></div>
         </div>
 
-        <!-- ==================== VIEW 5: LOGIN ADMIN ==================== -->
+        <!-- ==================== VIEW 6: LOGIN ADMIN ==================== -->
         <div id="viewLogin" class="page-view" style="display: none;">
             <div class="admin-login-card">
                 <img src="zxs.png" alt="Logo" style="width: 48px; height: 48px; object-fit: contain; border-radius: 12px; margin-bottom: 14px; border: 1px solid var(--primary); box-shadow: 0 0 14px rgba(147, 51, 234, 0.4);">
@@ -2108,18 +2199,18 @@
             </div>
         </div>
 
-        <!-- ==================== VIEW 6: ADMIN PANEL ==================== -->
+        <!-- ==================== VIEW 7: ADMIN PANEL (REDESIGNED LUXURY) ==================== -->
         <div id="viewAdmin" class="page-view" style="display: none;">
             <div class="admin-header-card">
                 <div class="admin-user-profile">
                     <div class="admin-avatar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     </div>
                     <div>
-                        <div style="font-size: 15px; font-weight: 900;">Admin Central</div>
+                        <div style="font-size: 16px; font-weight: 900;">Admin Central Hub</div>
                         <div class="admin-status-pill">
                             <span class="live-dot" style="width: 6px; height: 6px;"></span>
-                            Live Sync
+                            Secure & Live Sync
                         </div>
                     </div>
                 </div>
@@ -2129,6 +2220,7 @@
                 </button>
             </div>
 
+            <!-- Navigasi Bar Kapsul Mewah -->
             <div class="admin-nav-bar">
                 <button id="tabBtnProd" class="tab-btn active" onclick="switchAdminTab('prod')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
@@ -2140,7 +2232,7 @@
                 </button>
                 <button id="tabBtnReview" class="tab-btn" onclick="switchAdminTab('review')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    ACC Review <span id="adminPendingReviewCount" style="background:#ef4444; color:#fff; padding:1px 6px; border-radius:10px; font-size:10px; display:none;">0</span>
+                    Review <span id="adminPendingReviewCount" style="background:#ef4444; color:#fff; padding:1px 6px; border-radius:10px; font-size:10px; display:none;">0</span>
                 </button>
                 <button id="tabBtnPromo" class="tab-btn" onclick="switchAdminTab('promo')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
@@ -2160,7 +2252,7 @@
                 </button>
                 <button id="tabBtnSetting" class="tab-btn" onclick="switchAdminTab('setting')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                    Pengaturan
+                    Sistem
                 </button>
             </div>
 
@@ -2179,7 +2271,7 @@
                     <label style="font-size: 10px; color: var(--text-muted); font-weight: 700; display:block; margin-bottom:4px;">KATEGORI PRODUK:</label>
                     <select id="admDevice" class="form-input" style="cursor: pointer;"></select>
 
-                    <div style="font-size: 11px; font-weight: 800; color: var(--accent); margin: 6px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <div style="font-size: 11px; font-weight: 800; color: var(--accent); margin: 8px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
                         Pilih Badge Produk:
                     </div>
                     <div id="admBadgesContainer" class="badge-checkbox-group">
@@ -2217,7 +2309,7 @@
                     </button>
 
                     <button class="btn-primary" id="btnSaveProd" onclick="simpanProdukFirebase()">Simpan Produk</button>
-                    <button class="btn-cancel" id="btnCancelEditProd" onclick="resetFormProduk()" style="display: none; margin-top: 8px;">Batal Edit</button>
+                    <button class="btn-cancel" id="btnCancelEditProd" onclick="resetFormProduk()" style="display: none; margin-top: 10px;">Batal Edit</button>
                 </div>
 
                 <div class="store-label">LIST PRODUK TERSIMPAN</div>
@@ -2548,7 +2640,6 @@
             const val = snapshot.val();
             isMaintenanceMode = (val === true || val === 'true');
 
-            // Update UI switch di Admin
             const btnMaint = document.getElementById('btnToggleMaintenance');
             const lblMaint = document.getElementById('maintenanceStatusLabel');
             if (btnMaint && lblMaint) {
@@ -2586,6 +2677,68 @@
             } else {
                 overlay.style.display = 'none';
             }
+        }
+
+        // --- RIWAYAT PEMBELIAN LOKAL (USER) ---
+        function simpanRiwayatLokal(productName, duration, price, licenseKey) {
+            let history = JSON.parse(localStorage.getItem('zaxxy_my_purchases') || '[]');
+            history.unshift({
+                productName,
+                duration,
+                price,
+                licenseKey,
+                timestamp: Date.now()
+            });
+            localStorage.setItem('zaxxy_my_purchases', JSON.stringify(history));
+            renderRiwayatLokal();
+        }
+
+        function renderRiwayatLokal() {
+            const container = document.getElementById('listMyHistoryContainer');
+            if (!container) return;
+
+            let history = JSON.parse(localStorage.getItem('zaxxy_my_purchases') || '[]');
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:36px 16px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:18px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-bottom:8px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        <p style="font-size:13px; font-weight:700; color:var(--text-main); margin-bottom:4px;">Belum Ada Riwayat Transaksi</p>
+                        <p style="font-size:11px; color:var(--text-muted);">Transaksi pembelian lisensi produk Anda akan otomatis tersimpan di perangkat ini.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            history.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'download-card';
+                card.style.marginBottom = '12px';
+                card.innerHTML = `
+                    <div class="download-top">
+                        <div class="download-title">${item.productName}</div>
+                        <span class="badge-ready">${item.duration}</span>
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">
+                        Harga: Rp ${Number(item.price).toLocaleString('id-ID')} · ${formatRelativeTime(item.timestamp)}
+                    </div>
+                    <div style="background: var(--bg-input); border: 1px dashed var(--primary); padding: 8px 10px; border-radius: 10px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                        <div style="font-size: 12px; font-weight: 800; color: var(--accent); word-break: break-all;">${item.licenseKey}</div>
+                        <button onclick="salinLisensiKustom('${item.licenseKey}', this)" style="background:var(--bg-card-alt); border:1px solid var(--primary); color:var(--accent); padding:6px 12px; border-radius:8px; font-size:10px; font-weight:800; cursor:pointer; white-space:nowrap;">Salin</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function salinLisensiKustom(key, btnEl) {
+            navigator.clipboard.writeText(key).then(() => {
+                const oldText = btnEl.innerText;
+                btnEl.innerText = 'Disalin!';
+                setTimeout(() => { btnEl.innerText = oldText; }, 2000);
+            }).catch(() => {
+                showCustomAlert("Kode Lisensi:\n" + key, "SALIN LISENSI", "info");
+            });
         }
 
         // --- SISTEM TEMA DARK / WHITE ---
@@ -2791,6 +2944,13 @@
             resetFormProduk();
             startNotificationRotation();
             checkMaintenanceDisplay();
+            renderRiwayatLokal();
+
+            // Sembunyikan Loader Utama setelah 0.7s
+            setTimeout(() => {
+                const loader = document.getElementById('appLoader');
+                if (loader) loader.classList.add('fade-out');
+            }, 700);
         });
 
         // 3. Filter Kategori & Search
@@ -2815,7 +2975,7 @@
 
         // 4. Navigasi Router
         function pindahHalaman(viewId) {
-            const views = ['viewHome', 'viewLeaderboard', 'viewDownloads', 'viewProduct', 'viewLogin', 'viewAdmin'];
+            const views = ['viewHome', 'viewLeaderboard', 'viewDownloads', 'viewProduct', 'viewLogin', 'viewAdmin', 'viewHistory'];
             views.forEach(v => {
                 const el = document.getElementById(v);
                 if (el) {
@@ -2829,6 +2989,10 @@
                     }
                 }
             });
+
+            if (viewId === 'viewHistory') {
+                renderRiwayatLokal();
+            }
 
             const bottomBar = document.getElementById('globalBottomBar');
             const csBtn = document.getElementById('floatingCSBtn');
@@ -2907,7 +3071,7 @@
 
             if (filteredKeys.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align:center; padding:36px 16px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:16px;">
+                    <div style="text-align:center; padding:36px 16px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:18px;">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-bottom:8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <p style="font-size:13px; font-weight:700; color:var(--text-main); margin-bottom:4px;">Produk Tidak Ditemukan</p>
                         <p style="font-size:11px; color:var(--text-muted);">Coba ubah kata kunci atau ganti filter kategori.</p>
@@ -3012,7 +3176,7 @@
                 
                 if (approvedKeys.length === 0) {
                     publicContainer.innerHTML = `
-                        <div style="text-align:center; padding:24px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:14px;">
+                        <div style="text-align:center; padding:24px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:16px;">
                             <p style="font-size:12px; color:var(--text-muted);">Belum ada ulasan yang disetujui admin. Jadilah pembeli pertama yang memberikan review!</p>
                         </div>
                     `;
@@ -3866,16 +4030,22 @@
             pindahHalaman('viewProduct');
         }
 
-        // 14. Admin Auth
+        // 14. Admin Auth dengan Loading Animasi
         function loginAdmin() {
             const user = document.getElementById('loginUser').value.trim();
             const pass = document.getElementById('loginPass').value.trim();
 
             if (user === "Azzam" && pass === "17") {
-                localStorage.setItem('zaxxy_admin_logged', 'true');
-                cekStatusNavAdmin();
-                checkMaintenanceDisplay();
-                pindahHalaman('viewAdmin');
+                const loader = document.getElementById('appLoader');
+                if (loader) loader.classList.remove('fade-out');
+
+                setTimeout(() => {
+                    localStorage.setItem('zaxxy_admin_logged', 'true');
+                    cekStatusNavAdmin();
+                    checkMaintenanceDisplay();
+                    pindahHalaman('viewAdmin');
+                    if (loader) loader.classList.add('fade-out');
+                }, 600);
             } else {
                 showCustomAlert("Username atau Password Admin salah!", "AKSES DITOLAK", "error");
             }
@@ -4242,6 +4412,7 @@
             }
 
             const finalPrice = hitungTotalSetelahDiskon();
+            const generatedKey = generateLicenseKey();
 
             // Skenario 1: Promo Gratis 100% (AzzamMod dsb.)
             if (finalPrice <= 0) {
@@ -4265,8 +4436,8 @@
                 });
 
                 tambahAtauUpdateLeaderboard(nama, hargaTerpilih);
+                simpanRiwayatLokal(produkTerpilih.name, curPkg.duration, finalPrice, generatedKey);
 
-                const generatedKey = generateLicenseKey();
                 const devSlot = promoAktifObj?.maxDevice ? `${promoAktifObj.maxDevice} Device Slot` : '1 Device Slot';
 
                 const infoMsg = `Selamat <b>${nama}</b>! Transaksi Anda Berhasil.<br><br>` +
@@ -4312,7 +4483,7 @@
                     document.getElementById('modalImgQRIS').src = qrisImg;
                     document.getElementById('modalTotalBayar').innerText = 'Rp ' + Number(totBayar).toLocaleString('id-ID');
 
-                    cekStatusQRIS(invId, nama, curPkg, hargaTerpilih);
+                    cekStatusQRIS(invId, nama, curPkg, hargaTerpilih, generatedKey);
                 } else {
                     tutupModal();
                     showCustomAlert("Format respon gateway tidak sesuai. Silakan coba lagi.", "GATEWAY ERROR", "error");
@@ -4324,7 +4495,7 @@
             }
         }
 
-        function cekStatusQRIS(invoiceId, namaPembeli, curPkg, leaderboardAmount) {
+        function cekStatusQRIS(invoiceId, namaPembeli, curPkg, leaderboardAmount, generatedKey) {
             if (!invoiceId) return;
             
             loopStatus = setInterval(async () => {
@@ -4360,6 +4531,7 @@
                         });
 
                         tambahAtauUpdateLeaderboard(namaPembeli, leaderboardAmount);
+                        simpanRiwayatLokal(produkTerpilih.name, curPkg.duration, hitungTotalSetelahDiskon(), generatedKey);
 
                         const statusBox = document.getElementById('modalStatus');
                         statusBox.innerHTML = `
@@ -4368,7 +4540,6 @@
                         `;
                         statusBox.classList.add('status-success');
                         
-                        const generatedKey = generateLicenseKey();
                         const devSlot = promoAktifObj?.maxDevice ? `${promoAktifObj.maxDevice} Device Slot` : '1 Device Slot';
 
                         setTimeout(() => {
