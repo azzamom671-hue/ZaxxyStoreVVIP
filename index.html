@@ -249,9 +249,7 @@
             z-index: 1;
         }
 
-        /* =========================================================
-           === NEW ULTRA-SLEEK CYBERPUNK HERO BANNER & STATS HUB ===
-           ========================================================= */
+        /* Hero Showcase */
         .hero-showcase {
             background: linear-gradient(145deg, #170a2c 0%, #0c0517 60%, #07030e 100%);
             border: 1px solid #3c1e6e;
@@ -322,7 +320,6 @@
             margin-bottom: 16px;
         }
 
-        /* 3-Column Compact Micro Stats Grid */
         .stats-counter-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -372,7 +369,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Feature Chips Horizontal Strip */
         .hero-feature-strip {
             display: flex;
             gap: 6px;
@@ -398,7 +394,7 @@
             color: var(--accent);
         }
 
-        /* --- Search & Category Filters --- */
+        /* --- Search & Filters --- */
         .search-filter-section {
             margin-bottom: 20px;
         }
@@ -491,7 +487,6 @@
             transform: scale(1.02);
         }
 
-        /* --- Section Titles --- */
         .store-label {
             font-size: 10px;
             letter-spacing: 1.5px;
@@ -511,7 +506,7 @@
             letter-spacing: -0.4px;
         }
 
-        /* --- Product Card with Hover Animation --- */
+        /* --- Product Card --- */
         .card-product {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -710,7 +705,7 @@
             color: #fff;
         }
 
-        /* --- View: Leaderboard --- */
+        /* --- Leaderboard --- */
         .leaderboard-top-card {
             background: linear-gradient(145deg, #1e0f38 0%, #100820 100%);
             border: 1px solid #3c2069;
@@ -805,7 +800,7 @@
             color: var(--text-muted);
         }
 
-        /* --- View: Downloads --- */
+        /* --- Downloads --- */
         .download-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -844,7 +839,7 @@
             transition: all 0.2s;
         }
 
-        /* --- View: Detail & Checkout --- */
+        /* --- Detail & Checkout --- */
         .btn-back {
             display: inline-flex;
             align-items: center;
@@ -1188,7 +1183,7 @@
             transform: scale(0.96);
         }
 
-        /* --- Toast Notification (Recent Purchase) --- */
+        /* --- Toast Notification --- */
         .recent-purchase-toast {
             position: fixed;
             bottom: 20px;
@@ -1368,12 +1363,6 @@
             background: #10b981;
             box-shadow: 0 0 8px #10b981;
             animation: livePulse 1.8s infinite;
-        }
-
-        @keyframes livePulse {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.3); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
         }
 
         .btn-logout-sleek {
@@ -1561,6 +1550,24 @@
             gap: 8px;
         }
 
+        .pkg-unlimited-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #34d399;
+            margin: 6px 0 10px 0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .pkg-unlimited-label input {
+            accent-color: #10b981;
+            width: 14px;
+            height: 14px;
+        }
+
         .admin-item-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -1628,7 +1635,7 @@
             cursor: pointer;
         }
 
-        /* --- Custom Dialog / Notification Modal --- */
+        /* --- Custom Alert Modal --- */
         .custom-alert-overlay {
             position: fixed;
             inset: 0;
@@ -1836,7 +1843,6 @@
         <!-- ==================== VIEW 1: HOME ==================== -->
         <div id="viewHome" class="page-view">
             
-            <!-- NEW CYBERPUNK SHOWCASE HERO BANNER -->
             <div class="hero-showcase">
                 <div class="hero-live-badge">
                     <span class="live-dot"></span>
@@ -1847,7 +1853,6 @@
                 </h1>
                 <p class="hero-subtitle">Lisensi digital VIP anti-banned dan tools instan terpercaya dengan garansi support penuh.</p>
                 
-                <!-- 3-Column Compact Micro Stats -->
                 <div class="stats-counter-grid">
                     <div class="stat-counter-box">
                         <div class="stat-num glow-purple">5.000+</div>
@@ -1863,7 +1868,6 @@
                     </div>
                 </div>
 
-                <!-- Feature Strip -->
                 <div class="hero-feature-strip">
                     <div class="feature-chip">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
@@ -1880,7 +1884,7 @@
                 </div>
             </div>
 
-            <!-- SEARCH & CATEGORY FILTER BAR -->
+            <!-- SEARCH & DYNAMIC CATEGORY FILTER BAR -->
             <div class="search-filter-section">
                 <div class="search-box">
                     <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -1890,31 +1894,8 @@
                     </button>
                 </div>
 
-                <div class="category-scroll">
-                    <button class="cat-btn active" data-cat="ALL" onclick="pilihKategori('ALL')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                        ALL
-                    </button>
-                    <button class="cat-btn" data-cat="MLBB" onclick="pilihKategori('MLBB')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
-                        MLBB
-                    </button>
-                    <button class="cat-btn" data-cat="FF" onclick="pilihKategori('FF')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
-                        FF
-                    </button>
-                    <button class="cat-btn" data-cat="PUBG" onclick="pilihKategori('PUBG')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
-                        PUBG
-                    </button>
-                    <button class="cat-btn" data-cat="8BP" onclick="pilihKategori('8BP')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6a2 2 0 1 0 0 4 2 2 0 1 0 0-4z"></path><path d="M12 12a3 3 0 1 0 0 6 3 3 0 1 0 0-6z"></path></svg>
-                        8BP
-                    </button>
-                    <button class="cat-btn" data-cat="BLOODSTRIKE" onclick="pilihKategori('BLOODSTRIKE')">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
-                        BLOODSTRIKE
-                    </button>
+                <div class="category-scroll" id="categoryScrollContainer">
+                    <button class="cat-btn active" data-cat="ALL" onclick="pilihKategori('ALL')">ALL</button>
                 </div>
             </div>
 
@@ -1926,7 +1907,7 @@
             </div>
         </div>
 
-        <!-- ==================== VIEW 2: LEADERBOARD TOP BUYER ==================== -->
+        <!-- ==================== VIEW 2: LEADERBOARD ==================== -->
         <div id="viewLeaderboard" class="page-view" style="display: none;">
             <div class="btn-back" onclick="pindahHalaman('viewHome')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
@@ -1967,10 +1948,7 @@
 
             <div class="detail-header-card">
                 <div class="badges" style="margin-bottom: 12px;">
-                    <span class="badge-device" id="detDevice">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
-                        MLBB
-                    </span>
+                    <span class="badge-device" id="detDevice">MLBB</span>
                     <span class="badge-ready" id="detStatusBadge">Ready</span>
                 </div>
                 <h1 id="detJudul" style="font-size: 22px; font-weight: 800;"></h1>
@@ -2013,12 +1991,11 @@
                 <input type="text" id="inputWA" class="form-input" style="margin-bottom: 0;" placeholder="Nomor WhatsApp (Opsional)">
             </div>
 
-            <!-- PROMO CODE SECTION -->
             <div class="store-label">KODE PROMO / VOUCHER</div>
             <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Gunakan Kode Voucher Promo</div>
             <div class="form-card">
                 <div class="promo-container">
-                    <input type="text" id="inputPromoCode" class="form-input" placeholder="Cth: AzzamMod">
+                    <input type="text" id="inputPromoCode" class="form-input" placeholder="Cth: Koncol">
                     <button class="btn-apply-promo" onclick="terapkanPromoCode()">Terapkan</button>
                 </div>
                 <div id="promoFeedback" style="display: none;"></div>
@@ -2070,6 +2047,10 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
                     Produk & Paket
                 </button>
+                <button id="tabBtnCat" class="tab-btn" onclick="switchAdminTab('cat')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Kategori
+                </button>
                 <button id="tabBtnPromo" class="tab-btn" onclick="switchAdminTab('promo')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
                     Voucher Promo
@@ -2100,13 +2081,8 @@
                     <input type="text" id="admNama" class="form-input" placeholder="Nama Produk (cth: ATTIC PREMIUM MLBB)">
                     <input type="text" id="admDesc" class="form-input" placeholder="Deskripsi Singkat">
                     
-                    <select id="admDevice" class="form-input" style="cursor: pointer;">
-                        <option value="MLBB">MLBB (Mobile Legends)</option>
-                        <option value="FF">FF (Free Fire)</option>
-                        <option value="PUBG">PUBG Mobile</option>
-                        <option value="8BP">8BP (8 Ball Pool)</option>
-                        <option value="BLOODSTRIKE">BLOODSTRIKE</option>
-                    </select>
+                    <label style="font-size: 10px; color: var(--text-muted); font-weight: 700; display:block; margin-bottom:4px;">KATEGORI PRODUK:</label>
+                    <select id="admDevice" class="form-input" style="cursor: pointer;"></select>
 
                     <div style="font-size: 11px; font-weight: 800; color: var(--accent); margin: 6px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
                         Pilih Badge Produk:
@@ -2138,7 +2114,24 @@
                 <div id="admListProduk"></div>
             </div>
 
-            <!-- TAB 2: KELOLA KODE PROMO -->
+            <!-- TAB 2: KELOLA KATEGORI -->
+            <div id="adminTabCat" style="display: none;">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        <h4>Kelola & Tambah Kategori</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Tambah kategori baru untuk memfilter katalog produk di halaman depan secara dinamis.</p>
+
+                    <input type="text" id="admNewCatName" class="form-input" placeholder="Nama Kategori (cth: VALORANT, GENSHIN, ROBLOX)">
+                    <button class="btn-primary" onclick="simpanKategoriFirebase()">+ Tambah Kategori Baru</button>
+                </div>
+
+                <div class="store-label">LIST KATEGORI AKTIF</div>
+                <div id="admListKategori"></div>
+            </div>
+
+            <!-- TAB 3: KELOLA KODE PROMO -->
             <div id="adminTabPromo" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2180,7 +2173,7 @@
                 <div id="admListPromo"></div>
             </div>
 
-            <!-- TAB 3: KELOLA LEADERBOARD & NOTIFIKASI -->
+            <!-- TAB 4: KELOLA LEADERBOARD & NOTIFIKASI -->
             <div id="adminTabNotif" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2216,7 +2209,7 @@
                 <div id="admListLeaderboard"></div>
             </div>
 
-            <!-- TAB 4: KELOLA KONTAK -->
+            <!-- TAB 5: KELOLA KONTAK -->
             <div id="adminTabContact" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2235,7 +2228,7 @@
                 </div>
             </div>
 
-            <!-- TAB 5: KELOLA DOWNLOADS -->
+            <!-- TAB 6: KELOLA DOWNLOADS -->
             <div id="adminTabDown" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2259,7 +2252,7 @@
 
     </div>
 
-    <!-- BILAH CHECKOUT GLOBAL DI DASAR LAYAR -->
+    <!-- BILAH CHECKOUT GLOBAL -->
     <div id="globalBottomBar" class="bottom-checkout-bar" style="display: none;">
         <div>
             <div style="font-size: 9px; color: #716489; font-weight: 800; letter-spacing: 1px;">TOTAL</div>
@@ -2271,7 +2264,7 @@
         </button>
     </div>
 
-    <!-- CUSTOM DIALOG / NOTIFICATION MODAL -->
+    <!-- CUSTOM DIALOG MODAL -->
     <div id="customAlertModal" class="custom-alert-overlay">
         <div class="custom-alert-card">
             <div class="custom-alert-icon" id="customAlertIcon">
@@ -2333,7 +2326,7 @@
         </div>
     </div>
 
-    <!-- ==================== LOGIKA SISTEM ==================== -->
+    <!-- ==================== LOGIKA SISTEM JAVASCRIPT ==================== -->
     <script>
         // 1. Firebase Inisialisasi
         const firebaseConfig = {
@@ -2349,6 +2342,7 @@
 
         // 2. Global State & Config
         let daftarProduk = {};
+        let daftarKategori = {};
         let daftarDownloads = {};
         let daftarLeaderboard = {};
         let daftarNotifikasi = [];
@@ -2370,6 +2364,11 @@
 
         let hitungKlikLogo = 0;
         let timerKlikLogo = null;
+
+        function isPackageUnlimited(pkg) {
+            if (!pkg) return false;
+            return pkg.isUnlimited === true || pkg.stock === -1 || pkg.stock === '-1' || pkg.stock === 'unlimited';
+        }
 
         function formatRelativeTime(ts) {
             if (!ts) return "Baru saja";
@@ -2591,7 +2590,7 @@
         }
 
         function switchAdminTab(tab) {
-            const tabs = ['Prod', 'Promo', 'Notif', 'Contact', 'Down'];
+            const tabs = ['Prod', 'Cat', 'Promo', 'Notif', 'Contact', 'Down'];
             tabs.forEach(t => {
                 const btn = document.getElementById('tabBtn' + t);
                 const content = document.getElementById('adminTab' + t);
@@ -2606,7 +2605,7 @@
             if (activeContent) activeContent.style.display = 'block';
         }
 
-        // 5. Render Storefront
+        // 5. Render Storefront (Sorting: Best Seller -> Hots -> A-Z)
         function renderStorefront() {
             const container = document.getElementById('listProdukContainer');
             if (!container) return;
@@ -2648,6 +2647,7 @@
                 return;
             }
 
+            // LOGIKA SORTING: Best Seller (1), Hots (2), Lainnya A-Z (3)
             filteredKeys.sort((a, b) => {
                 const getBadgesArr = (item) => Array.isArray(item.badges) ? item.badges : (item.badge ? [item.badge] : []);
                 const badgesA = getBadgesArr(daftarProduk[a]).map(x => x.toLowerCase().trim());
@@ -2659,14 +2659,38 @@
                     return 3;
                 };
 
-                return getPriority(badgesA) - getPriority(badgesB);
+                const prioA = getPriority(badgesA);
+                const prioB = getPriority(badgesB);
+
+                // Jika prioritas tag berbeda, urutkan berdasarkan prioritas
+                if (prioA !== prioB) {
+                    return prioA - prioB;
+                }
+
+                // Jika prioritasnya sama, urutkan berdasarkan nama produk secara alfabetis A-Z
+                const nameA = (daftarProduk[a].name || '').toLowerCase();
+                const nameB = (daftarProduk[b].name || '').toLowerCase();
+                return nameA.localeCompare(nameB);
             });
 
             filteredKeys.forEach(key => {
                 const item = daftarProduk[key];
                 const pkgs = item.packages || [];
                 const lowestPrice = pkgs.length > 0 ? pkgs[0].price : 10000;
-                const totalStock = pkgs.reduce((acc, p) => acc + (parseInt(p.stock) || 0), 0);
+                
+                let hasUnlimited = false;
+                let totalStock = 0;
+
+                pkgs.forEach(p => {
+                    if (isPackageUnlimited(p)) {
+                        hasUnlimited = true;
+                    } else {
+                        totalStock += (parseInt(p.stock) || 0);
+                    }
+                });
+
+                const isAvailable = hasUnlimited || totalStock > 0;
+                const stockText = hasUnlimited ? 'Unlimited ready' : `${totalStock} ready`;
                 const devName = item.device || 'MLBB';
 
                 const badgesHTML = renderBadgesHTML(item);
@@ -2680,7 +2704,7 @@
                             ${getDeviceIcon(devName)}
                             ${devName}
                         </span>
-                        <span class="${totalStock > 0 ? 'badge-ready' : 'badge-out'}">${totalStock > 0 ? 'Ready' : 'Out of Stock'}</span>
+                        <span class="${isAvailable ? 'badge-ready' : 'badge-out'}">${isAvailable ? 'Ready' : 'Out of Stock'}</span>
                     </div>
                     <div class="product-name">
                         ${item.name}
@@ -2692,9 +2716,9 @@
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                             From 1 day
                         </div>
-                        <div class="meta-item" style="color: ${totalStock > 0 ? '#34d399' : '#f87171'}; font-weight: 700;">
+                        <div class="meta-item" style="color: ${isAvailable ? '#34d399' : '#f87171'}; font-weight: 700;">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
-                            ${totalStock} ready
+                            ${stockText}
                         </div>
                     </div>
                     <div class="product-footer">
@@ -2712,7 +2736,116 @@
             });
         }
 
-        // 6. Realtime Listeners
+        // 6. REALTIME LISTENER: KATEGORI
+        db.ref('zaxxy_categories').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (!data) {
+                seedInitialCategories();
+                return;
+            }
+
+            daftarKategori = data;
+            
+            // Render Storefront Filter Scroll
+            const scrollContainer = document.getElementById('categoryScrollContainer');
+            if (scrollContainer) {
+                let html = `<button class="cat-btn ${activeKategori === 'ALL' ? 'active' : ''}" data-cat="ALL" onclick="pilihKategori('ALL')">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    ALL
+                </button>`;
+
+                Object.keys(data).forEach(key => {
+                    const catName = (data[key].name || data[key]).toUpperCase();
+                    html += `
+                        <button class="cat-btn ${activeKategori === catName ? 'active' : ''}" data-cat="${catName}" onclick="pilihKategori('${catName}')">
+                            ${getDeviceIcon(catName)}
+                            ${catName}
+                        </button>
+                    `;
+                });
+
+                scrollContainer.innerHTML = html;
+            }
+
+            // Render Select Device di Form Admin
+            const selectDevice = document.getElementById('admDevice');
+            if (selectDevice) {
+                const currentVal = selectDevice.value;
+                selectDevice.innerHTML = '';
+                Object.keys(data).forEach(key => {
+                    const catName = (data[key].name || data[key]).toUpperCase();
+                    const opt = document.createElement('option');
+                    opt.value = catName;
+                    opt.textContent = `${catName} (${catName})`;
+                    selectDevice.appendChild(opt);
+                });
+                if (currentVal) selectDevice.value = currentVal;
+            }
+
+            // Render List Kategori di Admin Panel
+            const admListCat = document.getElementById('admListKategori');
+            if (admListCat) {
+                admListCat.innerHTML = '';
+                Object.keys(data).forEach(key => {
+                    const catName = (data[key].name || data[key]).toUpperCase();
+                    const admCard = document.createElement('div');
+                    admCard.className = 'admin-item-card';
+                    admCard.innerHTML = `
+                        <div class="admin-item-info">
+                            <h4>${catName}</h4>
+                            <p>Kategori filter aktif ZaxxyStore</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn-delete" onclick="hapusKategoriFirebase('${key}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    `;
+                    admListCat.appendChild(admCard);
+                });
+            }
+
+            renderStorefront();
+        });
+
+        function seedInitialCategories() {
+            const defaultCats = {
+                cat_1: { name: "MLBB" },
+                cat_2: { name: "FF" },
+                cat_3: { name: "PUBG" },
+                cat_4: { name: "8BP" },
+                cat_5: { name: "BLOODSTRIKE" }
+            };
+            db.ref('zaxxy_categories').set(defaultCats);
+        }
+
+        function simpanKategoriFirebase() {
+            const inputEl = document.getElementById('admNewCatName');
+            const name = inputEl.value.trim().toUpperCase();
+
+            if (!name) {
+                showCustomAlert("Silakan masukkan nama kategori!", "INPUT KOSONG", "warning");
+                return;
+            }
+
+            if (name === 'ALL') {
+                showCustomAlert("Kategori 'ALL' adalah filter default sistem.", "KATEGORI DEFAULT", "warning");
+                return;
+            }
+
+            db.ref('zaxxy_categories').push({ name }, () => {
+                showCustomAlert(`Kategori <b>${name}</b> berhasil ditambahkan!`, "KATEGORI DITAMBAHKAN", "success");
+                inputEl.value = '';
+            });
+        }
+
+        function hapusKategoriFirebase(key) {
+            db.ref('zaxxy_categories/' + key).remove(() => {
+                showCustomAlert("Kategori berhasil dihapus!", "TERHAPUS", "success");
+            });
+        }
+
+        // 7. Realtime Listeners Lainnya
         db.ref('zaxxy_promos').on('value', (snapshot) => {
             const data = snapshot.val() || {};
             daftarPromo = data;
@@ -2770,8 +2903,17 @@
             Object.keys(data).forEach(key => {
                 const item = data[key];
                 const pkgs = item.packages || [];
-                const totalStock = pkgs.reduce((acc, p) => acc + (parseInt(p.stock) || 0), 0);
-                const pkgSummary = pkgs.map(p => `${p.duration}: ${p.stock}`).join(' | ');
+                let hasUnlimited = false;
+                let totalStock = 0;
+                
+                const pkgSummary = pkgs.map(p => {
+                    const isUnl = isPackageUnlimited(p);
+                    if (isUnl) hasUnlimited = true;
+                    else totalStock += (parseInt(p.stock) || 0);
+                    return `${p.duration}: ${isUnl ? 'Unlimited' : p.stock}`;
+                }).join(' | ');
+
+                const stockDisplay = hasUnlimited ? 'Unlimited' : totalStock;
                 const badgesSummary = (Array.isArray(item.badges) ? item.badges.join(', ') : item.badge) || 'Tanpa Badge';
 
                 const admCard = document.createElement('div');
@@ -2779,7 +2921,7 @@
                 admCard.innerHTML = `
                     <div class="admin-item-info">
                         <h4>${item.name} <span style="color:var(--gold); font-size:11px;">[${badgesSummary}]</span></h4>
-                        <p>Total Stok: ${totalStock} | Kategori: ${item.device || 'MLBB'}<br>${pkgSummary || 'Tidak ada paket'}</p>
+                        <p>Total Stok: ${stockDisplay} | Kategori: ${item.device || 'MLBB'}<br>${pkgSummary || 'Tidak ada paket'}</p>
                     </div>
                     <div class="admin-actions">
                         <button class="btn-edit" onclick="isiFormEditProduk('${key}')">
@@ -2794,7 +2936,7 @@
             });
         });
 
-        // 7. LEADERBOARD
+        // 8. Leaderboard & Notifikasi
         function tambahAtauUpdateLeaderboard(namaUser, nominal) {
             const masked = maskBuyerName(namaUser);
             const nominalAngka = parseInt(nominal) || 0;
@@ -2966,7 +3108,7 @@
             });
         });
 
-        // 8. Seed Data Default
+        // 9. Data Awal Default
         function seedInitialData() {
             const defaultProducts = {
                 prod_1: {
@@ -2975,10 +3117,10 @@
                     device: "MLBB",
                     badges: ["Best Seller", "ROOT"],
                     packages: [
-                        { duration: "1 Day", price: 10000, stock: 20, desc: "1 day access" },
-                        { duration: "3 Day", price: 20000, stock: 15, desc: "3 days access" },
-                        { duration: "7 Day", price: 45000, stock: 10, desc: "7 days access" },
-                        { duration: "30 Day", price: 100000, stock: 5, desc: "30 days access" }
+                        { duration: "1 Day", price: 10000, stock: 20, isUnlimited: false, desc: "1 day access" },
+                        { duration: "3 Day", price: 20000, stock: 15, isUnlimited: false, desc: "3 days access" },
+                        { duration: "7 Day", price: 45000, stock: 10, isUnlimited: false, desc: "7 days access" },
+                        { duration: "30 Day", price: 100000, stock: -1, isUnlimited: true, desc: "30 days access (Unlimited)" }
                     ]
                 },
                 prod_2: {
@@ -2987,9 +3129,9 @@
                     device: "FF",
                     badges: ["Hots", "IOS"],
                     packages: [
-                        { duration: "1 Day", price: 15000, stock: 10, desc: "1 day access" },
-                        { duration: "3 Day", price: 30000, stock: 8, desc: "3 days access" },
-                        { duration: "7 Day", price: 60000, stock: 5, desc: "7 days access" }
+                        { duration: "1 Day", price: 15000, stock: 10, isUnlimited: false, desc: "1 day access" },
+                        { duration: "3 Day", price: 30000, stock: 8, isUnlimited: false, desc: "3 days access" },
+                        { duration: "7 Day", price: 60000, stock: 5, isUnlimited: false, desc: "7 days access" }
                     ]
                 },
                 prod_3: {
@@ -2998,8 +3140,8 @@
                     device: "PUBG",
                     badges: ["PC"],
                     packages: [
-                        { duration: "1 Day", price: 20000, stock: 10, desc: "1 day access" },
-                        { duration: "7 Day", price: 70000, stock: 5, desc: "7 days access" }
+                        { duration: "1 Day", price: 20000, stock: 10, isUnlimited: false, desc: "1 day access" },
+                        { duration: "7 Day", price: 70000, stock: -1, isUnlimited: true, desc: "7 days access" }
                     ]
                 }
             };
@@ -3033,7 +3175,7 @@
             db.ref('zaxxy_downloads').set(defaultDownloads);
         }
 
-        // 9. Popup Notifikasi
+        // 10. Notifikasi Toast
         function tampilkanNotifikasiTerbaru() {
             if (!daftarNotifikasi || daftarNotifikasi.length === 0) return;
             const item = daftarNotifikasi[0];
@@ -3062,7 +3204,7 @@
             document.getElementById('recentToast').classList.remove('show');
         }
 
-        // 10. Detail, Checkout, & Logika Promo
+        // 11. Detail & Logika Pembelian
         function hitungTotalSetelahDiskon() {
             if (diskonPersen >= 100) return 0;
             if (diskonPersen > 0) {
@@ -3095,7 +3237,6 @@
 
             const cleanCode = codeInput.toUpperCase();
 
-            // Kode Default Permanen
             if (cleanCode === 'AZZAMMOD') {
                 diskonPersen = 100;
                 promoAktifKey = 'default_azzam';
@@ -3132,7 +3273,6 @@
                 return;
             }
 
-            // 1. Cek Expired Date
             if (promoDitemukan.expiry) {
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -3145,7 +3285,6 @@
                 }
             }
 
-            // 2. Cek Kuota Max Penggunaan
             const maxUsage = parseInt(promoDitemukan.maxUsage) || 0;
             const usedCount = parseInt(promoDitemukan.usedCount) || 0;
 
@@ -3194,7 +3333,14 @@
             batalkanPromo();
 
             const pkgs = produkTerpilih.packages || [];
-            const totalStock = pkgs.reduce((acc, p) => acc + (parseInt(p.stock) || 0), 0);
+            let hasUnlimited = false;
+            let totalStock = 0;
+
+            pkgs.forEach(p => {
+                if (isPackageUnlimited(p)) hasUnlimited = true;
+                else totalStock += (parseInt(p.stock) || 0);
+            });
+
             const devName = produkTerpilih.device || 'MLBB';
 
             document.getElementById('detJudul').innerText = produkTerpilih.name;
@@ -3204,9 +3350,10 @@
                 ${getDeviceIcon(devName)}
                 ${devName}
             `;
-            document.getElementById('detStatusBadge').className = totalStock > 0 ? "badge-ready" : "badge-out";
-            document.getElementById('detStatusBadge').innerText = totalStock > 0 ? "Ready" : "Out of Stock";
-            document.getElementById('detTotalStock').innerText = totalStock;
+            const isAnyReady = hasUnlimited || totalStock > 0;
+            document.getElementById('detStatusBadge').className = isAnyReady ? "badge-ready" : "badge-out";
+            document.getElementById('detStatusBadge').innerText = isAnyReady ? "Ready" : "Out of Stock";
+            document.getElementById('detTotalStock').innerText = hasUnlimited ? 'Unlimited' : totalStock;
 
             const pkgList = document.getElementById('packagesList');
             pkgList.innerHTML = '';
@@ -3216,8 +3363,9 @@
             let defaultSelected = false;
 
             pkgs.forEach((pkg, idx) => {
+                const isUnl = isPackageUnlimited(pkg);
                 const stockQty = parseInt(pkg.stock) || 0;
-                const isOutOfStock = stockQty <= 0;
+                const isOutOfStock = !isUnl && stockQty <= 0;
                 const isFirstAvailable = !defaultSelected && !isOutOfStock;
 
                 if (isFirstAvailable) {
@@ -3239,6 +3387,8 @@
                     };
                 }
 
+                const stockLabel = isUnl ? 'Unlimited ready' : (isOutOfStock ? 'Stok Habis (0 ready)' : `${stockQty} licenses ready`);
+
                 item.innerHTML = `
                     <div class="package-top">
                         <div>
@@ -3252,7 +3402,7 @@
                     </div>
                     <div class="package-meta-stock ${isOutOfStock ? 'empty' : ''}">
                         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 14 14 14"></polyline></svg>
-                        ${isOutOfStock ? 'Stok Habis (0 ready)' : `${stockQty} licenses ready`}
+                        ${stockLabel}
                     </div>
                 `;
                 pkgList.appendChild(item);
@@ -3266,7 +3416,7 @@
             pindahHalaman('viewProduct');
         }
 
-        // 11. Admin Auth
+        // 12. Admin Auth
         function loginAdmin() {
             const user = document.getElementById('loginUser').value.trim();
             const pass = document.getElementById('loginPass').value.trim();
@@ -3286,11 +3436,29 @@
             pindahHalaman('viewHome');
         }
 
-        // 12. Dinamisasi Paket
-        function tambahBarisPaket(duration = '', price = '', stock = '', desc = '') {
+        // 13. Dinamisasi Paket (Termasuk Opsi Unlimited Stock)
+        function toggleUnlimitedInput(checkbox) {
+            const row = checkbox.closest('.pkg-row');
+            const stockInput = row.querySelector('.pkg-stock');
+            if (checkbox.checked) {
+                stockInput.value = '';
+                stockInput.disabled = true;
+                stockInput.placeholder = '∞ Unlimited';
+            } else {
+                stockInput.disabled = false;
+                stockInput.placeholder = 'Batas Stok';
+                if (!stockInput.value) stockInput.value = '10';
+            }
+        }
+
+        function tambahBarisPaket(duration = '', price = '', stock = '', desc = '', isUnlimited = false) {
             const list = document.getElementById('adminPackagesList');
             const row = document.createElement('div');
             row.className = 'pkg-row';
+            
+            const isUnl = isUnlimited || stock === -1 || stock === '-1' || stock === 'unlimited';
+            const displayStock = isUnl ? '' : stock;
+
             row.innerHTML = `
                 <div class="pkg-row-top">
                     <span class="pkg-row-title">Item Paket</span>
@@ -3301,19 +3469,23 @@
                 <input type="text" class="form-input pkg-duration" placeholder="Durasi (cth: 1 Day / 7 Day / Lifetime)" value="${duration}">
                 <div class="pkg-row-grid">
                     <input type="number" class="form-input pkg-price" placeholder="Harga (Rp)" value="${price}">
-                    <input type="number" class="form-input pkg-stock" placeholder="Batas Stok" value="${stock}">
+                    <input type="number" class="form-input pkg-stock" placeholder="${isUnl ? '∞ Unlimited' : 'Batas Stok'}" value="${displayStock}" ${isUnl ? 'disabled' : ''}>
                 </div>
+                <label class="pkg-unlimited-label">
+                    <input type="checkbox" class="pkg-unlimited" onchange="toggleUnlimitedInput(this)" ${isUnl ? 'checked' : ''}>
+                    <span>Unlimited Stok (Stok Tanpa Batas)</span>
+                </label>
                 <input type="text" class="form-input pkg-desc" style="margin-bottom:0;" placeholder="Deskripsi Singkat (opsional)" value="${desc}">
             `;
             list.appendChild(row);
         }
 
-        // 13. CRUD Produk
+        // 14. CRUD Produk
         function simpanProdukFirebase() {
             const key = document.getElementById('editProdKey').value;
             const name = document.getElementById('admNama').value.trim();
             const desc = document.getElementById('admDesc').value.trim();
-            const device = document.getElementById('admDevice').value;
+            const device = document.getElementById('admDevice').value || 'MLBB';
 
             const selectedBadges = [];
             document.querySelectorAll('#admBadgesContainer input[type="checkbox"]:checked').forEach(cb => {
@@ -3331,11 +3503,18 @@
             pkgElements.forEach(el => {
                 const duration = el.querySelector('.pkg-duration').value.trim();
                 const price = parseInt(el.querySelector('.pkg-price').value) || 0;
-                const stock = parseInt(el.querySelector('.pkg-stock').value) || 0;
+                const isUnl = el.querySelector('.pkg-unlimited').checked;
+                const stockVal = isUnl ? -1 : (parseInt(el.querySelector('.pkg-stock').value) || 0);
                 const pdesc = el.querySelector('.pkg-desc').value.trim() || `${duration} access`;
 
                 if (duration && price > 0) {
-                    packages.push({ duration, price, stock, desc: pdesc });
+                    packages.push({ 
+                        duration, 
+                        price, 
+                        stock: stockVal, 
+                        isUnlimited: isUnl,
+                        desc: pdesc 
+                    });
                 }
             });
 
@@ -3379,7 +3558,7 @@
 
             const pkgs = item.packages || [];
             pkgs.forEach(p => {
-                tambahBarisPaket(p.duration, p.price, p.stock, p.desc);
+                tambahBarisPaket(p.duration, p.price, p.stock, p.desc, isPackageUnlimited(p));
             });
 
             document.getElementById('btnSaveProd').innerText = "Perbarui Produk";
@@ -3392,7 +3571,6 @@
             document.getElementById('prodFormTitle').innerText = "Tambah Produk Baru";
             document.getElementById('admNama').value = "";
             document.getElementById('admDesc').value = "";
-            document.getElementById('admDevice').value = "MLBB";
             
             document.querySelectorAll('#admBadgesContainer input[type="checkbox"]').forEach(cb => {
                 cb.checked = false;
@@ -3404,10 +3582,10 @@
             const list = document.getElementById('adminPackagesList');
             if (list) {
                 list.innerHTML = '';
-                tambahBarisPaket('1 Day', 10000, 20, '1 day access');
-                tambahBarisPaket('3 Day', 20000, 15, '3 days access');
-                tambahBarisPaket('7 Day', 45000, 10, '7 days access');
-                tambahBarisPaket('30 Day', 100000, 5, '30 days access');
+                tambahBarisPaket('1 Day', 10000, 20, '1 day access', false);
+                tambahBarisPaket('3 Day', 20000, 15, '3 days access', false);
+                tambahBarisPaket('7 Day', 45000, 10, '7 days access', false);
+                tambahBarisPaket('30 Day', 100000, -1, '30 days access', true);
             }
         }
 
@@ -3416,7 +3594,7 @@
             showCustomAlert("Produk berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 14. CRUD Promo dengan Expired & Max Device
+        // 15. CRUD Promo
         function simpanPromoFirebase() {
             const code = document.getElementById('admPromoCode').value.trim().toUpperCase();
             const discount = parseInt(document.getElementById('admPromoDisc').value);
@@ -3456,7 +3634,7 @@
             showCustomAlert("Kode promo dihapus!", "TERHAPUS", "success");
         }
 
-        // 15. CRUD Leaderboard & Notifikasi
+        // 16. CRUD Leaderboard & Notifikasi
         function simpanNotifikasiFirebase() {
             const buyer = document.getElementById('admNotifBuyer').value.trim();
             const product = document.getElementById('admNotifProd').value.trim();
@@ -3521,7 +3699,7 @@
             db.ref('zaxxy_leaderboard/' + key).remove();
         }
 
-        // 16. CRUD Kontak CS & Sosmed
+        // 17. CRUD Kontak
         function simpanKontakFirebase() {
             const wa = document.getElementById('admContactWA').value.trim();
             const tele = document.getElementById('admContactTele').value.trim();
@@ -3536,7 +3714,7 @@
             });
         }
 
-        // 17. CRUD Downloads
+        // 18. CRUD Downloads
         function simpanDownloadFirebase() {
             const key = document.getElementById('editDownKey').value;
             const title = document.getElementById('admDownTitle').value.trim();
@@ -3593,7 +3771,7 @@
             showCustomAlert("File download berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 18. Pembayaran & Eksekusi Lisensi
+        // 19. Pembayaran & Eksekusi Lisensi
         async function eksekusiPembayaran() {
             const nama = document.getElementById('inputNama').value.trim();
             if (!nama) {
@@ -3603,7 +3781,9 @@
             }
 
             const curPkg = produkTerpilih.packages[selectedPkgIndex];
-            if (!curPkg || parseInt(curPkg.stock) <= 0) {
+            const isUnl = isPackageUnlimited(curPkg);
+
+            if (!curPkg || (!isUnl && parseInt(curPkg.stock) <= 0)) {
                 showCustomAlert("Paket yang dipilih saat ini sedang habis!", "STOK KOSONG", "error");
                 return;
             }
@@ -3611,7 +3791,7 @@
             const finalPrice = hitungTotalSetelahDiskon();
 
             if (finalPrice <= 0) {
-                if (activeProductKey && produkTerpilih) {
+                if (activeProductKey && produkTerpilih && !isUnl) {
                     const pkgs = [...produkTerpilih.packages];
                     if (pkgs[selectedPkgIndex].stock > 0) {
                         pkgs[selectedPkgIndex].stock -= 1;
@@ -3685,7 +3865,7 @@
             } catch (err) {
                 console.error("MyDuit Gateway Error:", err);
                 tutupModal();
-                showCustomAlert("Gagal terhubung ke Gateway QRIS MyDuit. Pastikan file /api/invoice.js sudah terdeploy.", "KONEKSI GATEWAY GAGAL", "error");
+                showCustomAlert("Gagal terhubung ke Gateway QRIS MyDuit. Pastikan endpoint invoice sudah aktif.", "KONEKSI GATEWAY GAGAL", "error");
             }
         }
 
@@ -3704,7 +3884,8 @@
                     if (status === 'paid' || status === 'success' || status === true) {
                         clearInterval(loopStatus);
                         
-                        if (activeProductKey && produkTerpilih) {
+                        const isUnl = isPackageUnlimited(curPkg);
+                        if (activeProductKey && produkTerpilih && !isUnl) {
                             const pkgs = [...produkTerpilih.packages];
                             if (pkgs[selectedPkgIndex].stock > 0) {
                                 pkgs[selectedPkgIndex].stock -= 1;
