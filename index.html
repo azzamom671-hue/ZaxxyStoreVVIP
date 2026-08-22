@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ZaxxyStore - Digital Products</title>
     
     <!-- Firebase SDK Compat -->
@@ -37,8 +37,29 @@
         body {
             background-color: var(--bg-main);
             color: #ffffff;
-            padding-bottom: 70px;
+            padding-bottom: 20px;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.16) 0%, rgba(7, 4, 13, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: translateX(-50%) scale(0.9); opacity: 0.5; }
+            100% { transform: translateX(-50%) scale(1.15); opacity: 0.9; }
         }
 
         svg {
@@ -47,15 +68,31 @@
             flex-shrink: 0;
         }
 
+        .page-view {
+            animation: viewSlideFade 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes viewSlideFade {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
         /* --- Header & Navigation --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 14px 18px;
-            background: rgba(7, 4, 13, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
+            background: rgba(7, 4, 13, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(38, 21, 67, 0.8);
             position: sticky;
             top: 0;
             z-index: 50;
@@ -70,6 +107,11 @@
             cursor: pointer;
             letter-spacing: -0.5px;
             user-select: none;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .brand-logo:active {
+            transform: scale(0.94);
         }
 
         .logo-box {
@@ -80,7 +122,7 @@
             color: var(--accent);
             font-size: 13px;
             font-weight: 900;
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+            box-shadow: 0 0 14px rgba(168, 85, 247, 0.3);
         }
 
         .btn-menu {
@@ -93,6 +135,11 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-menu:active {
+            transform: scale(0.92);
         }
 
         /* --- Sidebar Navigation Overlay --- */
@@ -100,13 +147,14 @@
             position: fixed;
             inset: 0;
             background: rgba(7, 4, 13, 0.98);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             z-index: 150;
             display: flex;
             flex-direction: column;
             padding: 18px;
             transform: translateY(-100%);
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.32s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0;
             pointer-events: none;
         }
@@ -139,17 +187,19 @@
             font-weight: 600;
             color: #e2e8f0;
             text-decoration: none;
-            padding: 14px 12px;
-            border-radius: 10px;
+            padding: 14px 14px;
+            border-radius: 12px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid transparent;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .menu-item:active {
+        .menu-item:hover, .menu-item:active {
             background: var(--bg-card);
-            border-color: var(--border-color);
+            border-color: var(--primary);
             color: var(--accent);
+            transform: translateX(4px);
         }
 
         .social-buttons {
@@ -195,103 +245,157 @@
             max-width: 480px;
             margin: 0 auto;
             padding: 16px;
-        }
-
-        /* --- Hero Welcome Card --- */
-        .hero-card {
-            background: linear-gradient(145deg, #170d2c 0%, #0d061a 100%);
-            border: 1px solid #351c5c;
-            border-radius: 20px;
-            padding: 24px 20px;
-            text-align: center;
-            margin-bottom: 20px;
             position: relative;
-            box-shadow: 0 12px 30px rgba(147, 51, 234, 0.08);
+            z-index: 1;
         }
 
-        .hero-badge {
+        /* =========================================================
+           === NEW ULTRA-SLEEK CYBERPUNK HERO BANNER & STATS HUB ===
+           ========================================================= */
+        .hero-showcase {
+            background: linear-gradient(145deg, #170a2c 0%, #0c0517 60%, #07030e 100%);
+            border: 1px solid #3c1e6e;
+            border-radius: 20px;
+            padding: 22px 18px;
+            margin-bottom: 22px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-live-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            color: var(--accent);
-            padding: 4px 12px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #34d399;
             margin-bottom: 12px;
+            text-transform: uppercase;
         }
 
-        .hero-title {
-            font-size: 22px;
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            animation: livePulse 1.8s infinite;
+        }
+
+        .hero-title-glitch {
+            font-size: 21px;
             font-weight: 900;
             line-height: 1.3;
+            letter-spacing: -0.4px;
+            color: #ffffff;
             margin-bottom: 8px;
-            letter-spacing: -0.5px;
         }
 
-        .hero-desc {
+        .glow-text {
+            background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+        }
+
+        .hero-subtitle {
             font-size: 12px;
             color: var(--text-muted);
             line-height: 1.5;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
-        .hero-stats {
+        /* 3-Column Compact Micro Stats Grid */
+        .stats-counter-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            border-top: 1px solid #23143d;
-            padding-top: 14px;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .stat-item-val {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--accent);
-        }
-
-        .stat-item p {
-            font-size: 10px;
-            color: #716489;
-            font-weight: 600;
-        }
-
-        .platform-highlights {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .highlight-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background: rgba(8, 4, 16, 0.65);
+            border: 1px solid rgba(59, 29, 107, 0.6);
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 12px 6px;
+            margin-bottom: 14px;
+            backdrop-filter: blur(8px);
         }
 
-        .highlight-box h3 {
-            font-size: 16px;
-            font-weight: 800;
-            color: #ffffff;
+        .stat-counter-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-counter-box:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 15%;
+            bottom: 15%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-num {
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: -0.3px;
             margin-bottom: 2px;
         }
 
-        .highlight-box p {
-            font-size: 11px;
-            color: var(--text-muted);
+        .glow-purple { color: #c084fc; text-shadow: 0 0 10px rgba(192, 132, 252, 0.4); }
+        .glow-emerald { color: #34d399; text-shadow: 0 0 10px rgba(52, 211, 153, 0.4); }
+        .glow-amber { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+
+        .stat-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: #8b7fa1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Feature Chips Horizontal Strip */
+        .hero-feature-strip {
+            display: flex;
+            gap: 6px;
+            justify-content: space-between;
+        }
+
+        .feature-chip {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 6px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 10px;
+            font-weight: 800;
+            color: #cbd5e1;
+        }
+
+        .feature-chip svg {
+            color: var(--accent);
         }
 
         /* --- Search & Category Filters --- */
@@ -322,12 +426,12 @@
             border-radius: 12px;
             font-size: 13px;
             outline: none;
-            transition: 0.2s;
+            transition: all 0.25s ease;
         }
 
         .search-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 12px rgba(147, 51, 234, 0.25);
+            box-shadow: 0 0 16px rgba(147, 51, 234, 0.3);
             background: var(--bg-input);
         }
 
@@ -370,19 +474,21 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
-            transition: 0.2s;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .cat-btn:hover {
             border-color: rgba(147, 51, 234, 0.5);
             color: #fff;
+            transform: translateY(-2px);
         }
 
         .cat-btn.active {
             background: var(--primary);
             border-color: var(--primary);
             color: #ffffff;
-            box-shadow: 0 0 12px rgba(147, 51, 234, 0.35);
+            box-shadow: 0 0 14px rgba(147, 51, 234, 0.4);
+            transform: scale(1.02);
         }
 
         /* --- Section Titles --- */
@@ -392,7 +498,10 @@
             font-weight: 800;
             color: var(--accent);
             text-transform: uppercase;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .store-title {
@@ -402,7 +511,7 @@
             letter-spacing: -0.4px;
         }
 
-        /* --- Product Card --- */
+        /* --- Product Card with Hover Animation --- */
         .card-product {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -410,12 +519,19 @@
             padding: 16px;
             margin-bottom: 14px;
             cursor: pointer;
-            transition: 0.15s;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-product:hover {
+            border-color: rgba(147, 51, 234, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(147, 51, 234, 0.15);
         }
 
         .card-product:active {
-            border-color: var(--primary);
-            transform: scale(0.99);
+            transform: scale(0.98);
         }
 
         .badges {
@@ -466,7 +582,6 @@
             flex-wrap: wrap;
         }
 
-        /* --- Custom Badges (Best Seller, Hots, ROOT, IOS, PC) --- */
         .badge-bestseller {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #ffffff;
@@ -532,39 +647,6 @@
             box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
         }
 
-        .badge-checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .badge-checkbox {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            user-select: none;
-            transition: 0.2s;
-        }
-
-        .badge-checkbox:hover {
-            border-color: var(--primary);
-        }
-
-        .badge-checkbox input {
-            accent-color: var(--primary);
-            cursor: pointer;
-            width: 14px;
-            height: 14px;
-        }
-
         .product-desc {
             font-size: 12px;
             color: #94a3b8;
@@ -620,6 +702,12 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-view:hover {
+            background: var(--primary);
+            color: #fff;
         }
 
         /* --- View: Leaderboard --- */
@@ -658,8 +746,9 @@
         }
 
         .rank-card.top-1 {
-            border-color: rgba(245, 158, 11, 0.5);
-            background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, #120a21 100%);
+            border-color: rgba(245, 158, 11, 0.6);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, #120a21 100%);
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
         }
 
         .rank-card.top-2 {
@@ -752,6 +841,7 @@
             justify-content: center;
             gap: 8px;
             text-decoration: none;
+            transition: all 0.2s;
         }
 
         /* --- View: Detail & Checkout --- */
@@ -764,6 +854,11 @@
             font-weight: 700;
             cursor: pointer;
             margin-bottom: 16px;
+            transition: transform 0.2s;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-4px);
         }
 
         .detail-header-card {
@@ -884,37 +979,45 @@
             font-size: 13px;
             margin-bottom: 10px;
             outline: none;
+            transition: all 0.25s ease;
         }
 
         .form-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 10px rgba(147, 51, 234, 0.2);
+            box-shadow: 0 0 12px rgba(147, 51, 234, 0.25);
+            background: #100820;
         }
 
         /* --- Promo Code Section --- */
         .promo-container {
             display: flex;
             gap: 8px;
+            align-items: stretch;
         }
 
         .promo-container input {
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 700;
+            margin-bottom: 0;
+            flex: 1;
         }
 
         .btn-apply-promo {
             background: #251242;
             border: 1px solid var(--primary);
             color: var(--accent);
-            padding: 0 16px;
+            padding: 0 18px;
             border-radius: 10px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
             white-space: nowrap;
-            height: 43px;
-            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            flex-shrink: 0;
         }
 
         .btn-apply-promo:hover {
@@ -923,17 +1026,42 @@
         }
 
         .promo-badge {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             color: #34d399;
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 10px 12px;
+            border-radius: 10px;
             font-size: 11px;
             font-weight: 700;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .promo-badge-top {
+            display: flex;
             justify-content: space-between;
-            margin-top: 6px;
+            align-items: center;
+        }
+
+        .promo-detail-pills {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .promo-sub-pill {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: #a7f3d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         /* --- Package Cards --- */
@@ -941,7 +1069,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-bottom: 80px;
+            padding-bottom: 120px !important;
         }
 
         .package-item {
@@ -951,13 +1079,17 @@
             padding: 16px;
             cursor: pointer;
             position: relative;
-            transition: 0.2s;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .package-item:hover {
+            border-color: rgba(147, 51, 234, 0.5);
         }
 
         .package-item.active {
             border: 2px solid var(--primary);
             background: #1a0e30;
-            box-shadow: 0 0 14px rgba(147, 51, 234, 0.15);
+            box-shadow: 0 0 16px rgba(147, 51, 234, 0.25);
         }
 
         .package-item.out-of-stock {
@@ -1014,23 +1146,30 @@
             color: #f87171;
         }
 
+        /* --- FIXED BOTTOM CHECKOUT BAR --- */
         .bottom-checkout-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(13, 6, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid #23143d;
-            padding: 12px 18px;
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            max-width: 480px !important;
+            margin: 0 auto !important;
+            background: rgba(13, 6, 26, 0.98) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border-top: 1px solid #351c5c !important;
+            padding: 12px 18px !important;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 90;
+            z-index: 1000 !important;
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.8) !important;
         }
 
         .btn-checkout-now {
-            background: var(--primary);
+            background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
             border: none;
             color: #fff;
             padding: 12px 24px;
@@ -1041,6 +1180,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+            transition: all 0.2s;
+        }
+
+        .btn-checkout-now:active {
+            transform: scale(0.96);
         }
 
         /* --- Toast Notification (Recent Purchase) --- */
@@ -1056,14 +1201,15 @@
             border-radius: 16px;
             padding: 12px 14px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(147, 51, 234, 0.2);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 100;
-            transform: translateY(150%);
+            z-index: 1100;
+            transform: translateY(180%);
             opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
         }
 
         .recent-purchase-toast.show {
@@ -1133,10 +1279,6 @@
             justify-content: center;
         }
 
-        .btn-toast-close:hover {
-            color: #fff;
-        }
-
         /* --- Floating CS Button --- */
         .floating-cs-btn {
             position: fixed;
@@ -1156,66 +1298,287 @@
             cursor: pointer;
             z-index: 80;
             text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* --- Admin Layout & Dynamic Package List --- */
-        .admin-login-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 28px 20px;
+        .floating-cs-btn:hover {
+            transform: scale(1.06) translateY(-2px);
+        }
+
+        /* --- Admin Layout --- */
+        .admin-login-card {
+            background: linear-gradient(145deg, #180c30 0%, #0c051a 100%);
+            border: 1px solid #3c1e6e;
+            border-radius: 24px;
+            padding: 32px 24px;
             text-align: center;
-            max-width: 360px;
+            max-width: 380px;
             margin: 40px auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(147, 51, 234, 0.15);
         }
 
-        .admin-tabs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
-            background: var(--bg-card);
-            padding: 4px;
+        .admin-header-card {
+            background: linear-gradient(135deg, #180b33 0%, #0d061c 100%);
+            border: 1px solid #351c5c;
+            border-radius: 18px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-avatar {
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 18px;
-            gap: 4px;
+            background: linear-gradient(135deg, #9333ea 0%, #4c1d95 100%);
+            border: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(147, 51, 234, 0.4);
+        }
+
+        .admin-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+            animation: livePulse 1.8s infinite;
+        }
+
+        @keyframes livePulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .btn-logout-sleek {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .admin-nav-bar {
+            display: flex;
+            gap: 6px;
+            background: rgba(18, 10, 33, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 6px;
+            border-radius: 14px;
+            border: 1px solid #2b174a;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .admin-nav-bar::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-btn {
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
             color: var(--text-muted);
-            padding: 9px 2px;
-            border-radius: 9px;
-            font-size: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+            border-color: rgba(192, 132, 252, 0.4);
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(147, 51, 234, 0.35);
+        }
+
+        .admin-card {
+            background: linear-gradient(145deg, #130a24 0%, #0d061a 100%);
+            border: 1px solid #2f1754;
+            border-radius: 18px;
+            padding: 20px 18px;
+            margin-bottom: 18px;
+        }
+
+        .admin-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #241242;
+        }
+
+        .admin-card-header h4 {
+            font-size: 15px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .badge-checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .badge-checkbox {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #15092a;
+            border: 1px solid #311857;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .badge-checkbox:has(input:checked) {
+            background: rgba(147, 51, 234, 0.18);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .badge-checkbox input {
+            accent-color: var(--primary);
+            cursor: pointer;
+            width: 14px;
+            height: 14px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+            border: none;
+            color: #fff;
+            padding: 13px;
+            border-radius: 11px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.35);
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: #170b2e;
+            border: 1px dashed #4e2691;
+            color: var(--accent);
+            padding: 11px;
+            border-radius: 11px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .pkg-row {
+            background: #090412;
+            border: 1px solid #291547;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .pkg-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .pkg-row-title {
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .btn-del-pkg {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 3px;
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
         }
 
-        .tab-btn.active {
-            background: var(--primary);
-            color: #ffffff;
+        .pkg-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
         }
 
         .admin-item-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
+            border-left: 3px solid var(--primary);
             border-radius: 14px;
-            padding: 14px;
+            padding: 14px 16px;
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .admin-item-info h4 {
             font-size: 13px;
             font-weight: 800;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
+            color: #ffffff;
         }
 
         .admin-item-info p {
@@ -1230,10 +1593,10 @@
         }
 
         .btn-edit {
-            background: #1f1438;
-            border: 1px solid #3b2269;
+            background: #1b0e33;
+            border: 1px solid #3d1f70;
             color: var(--accent);
-            padding: 7px;
+            padding: 8px;
             border-radius: 8px;
             cursor: pointer;
             display: flex;
@@ -1245,7 +1608,7 @@
             background: rgba(239, 68, 68, 0.12);
             border: 1px solid rgba(239, 68, 68, 0.3);
             color: #f87171;
-            padding: 7px;
+            padding: 8px;
             border-radius: 8px;
             cursor: pointer;
             display: flex;
@@ -1253,85 +1616,16 @@
             justify-content: center;
         }
 
-        .btn-primary {
+        .btn-cancel {
             width: 100%;
-            background: var(--primary);
-            border: none;
-            color: #fff;
+            background: #1e1136;
+            border: 1px solid #331b5c;
+            color: #a39cb0;
             padding: 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 6px;
-        }
-
-        .btn-secondary {
-            width: 100%;
-            background: #1f1438;
-            border: 1px dashed var(--primary);
-            color: var(--accent);
-            padding: 10px;
             border-radius: 10px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .btn-danger-outline {
-            background: transparent;
-            border: 1px solid var(--danger);
-            color: var(--danger);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .pkg-row {
-            background: #0d061a;
-            border: 1px solid #261543;
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 8px;
-            position: relative;
-        }
-
-        .pkg-row-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .pkg-row-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-
-        .pkg-row-title {
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-
-        .btn-del-pkg {
-            background: transparent;
-            border: none;
-            color: #f87171;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 2px;
         }
 
         /* --- Custom Dialog / Notification Modal --- */
@@ -1339,13 +1633,12 @@
             position: fixed;
             inset: 0;
             background: rgba(4, 2, 8, 0.88);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 300;
+            z-index: 2000;
             padding: 18px;
-            animation: fadeIn 0.2s ease-out;
         }
 
         .custom-alert-card {
@@ -1356,8 +1649,7 @@
             width: 100%;
             max-width: 360px;
             text-align: center;
-            box-shadow: 0 16px 40px rgba(147, 51, 234, 0.25);
-            animation: popUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 16px 40px rgba(147, 51, 234, 0.3);
         }
 
         .custom-alert-icon {
@@ -1403,11 +1695,6 @@
             font-weight: 800;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
-            transition: 0.2s;
-        }
-
-        .btn-custom-alert:active {
-            transform: scale(0.98);
         }
 
         /* --- Modal QRIS --- */
@@ -1415,11 +1702,11 @@
             position: fixed;
             inset: 0;
             background: rgba(4, 2, 8, 0.92);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 200;
+            z-index: 2000;
             padding: 16px;
         }
 
@@ -1469,18 +1756,6 @@
             color: #34d399 !important;
         }
 
-        .btn-cancel {
-            width: 100%;
-            background: #23143d;
-            border: none;
-            color: #a39cb0;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
         .loader {
             width: 26px;
             height: 26px;
@@ -1492,8 +1767,6 @@
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
@@ -1561,53 +1834,49 @@
     <div class="container">
 
         <!-- ==================== VIEW 1: HOME ==================== -->
-        <div id="viewHome">
+        <div id="viewHome" class="page-view">
             
-            <div class="hero-card">
-                <div class="hero-badge">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                    DIGITAL LICENSE PLATFORM
+            <!-- NEW CYBERPUNK SHOWCASE HERO BANNER -->
+            <div class="hero-showcase">
+                <div class="hero-live-badge">
+                    <span class="live-dot"></span>
+                    <span>System Online · Instant Delivery</span>
                 </div>
-                <h1 class="hero-title">Premium tools and <span style="color: var(--accent);">instant digital licenses.</span></h1>
-                <p class="hero-desc">Lisensi digital, sumber daya setup, checkout aman, dan dukungan pelanggan dalam satu tempat.</p>
+                <h1 class="hero-title-glitch">
+                    Next-Gen <span class="glow-text">Digital License</span> Hub
+                </h1>
+                <p class="hero-subtitle">Lisensi digital VIP anti-banned dan tools instan terpercaya dengan garansi support penuh.</p>
                 
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-item-val">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                            Instant
-                        </div>
-                        <p>Auto Delivery</p>
+                <!-- 3-Column Compact Micro Stats -->
+                <div class="stats-counter-grid">
+                    <div class="stat-counter-box">
+                        <div class="stat-num glow-purple">5.000+</div>
+                        <div class="stat-label">Licenses Sold</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-item-val">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            Safe
-                        </div>
-                        <p>Anti Banned</p>
+                    <div class="stat-counter-box">
+                        <div class="stat-num glow-emerald">100%</div>
+                        <div class="stat-label">Anti Banned</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-item-val">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><line x1="12" y1="6" x2="12" y2="8"></line><line x1="12" y1="16" x2="12" y2="18"></line></svg>
-                            Affordable
-                        </div>
-                        <p>Best Price</p>
+                    <div class="stat-counter-box">
+                        <div class="stat-num glow-amber">2.000+</div>
+                        <div class="stat-label">VIP Members</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="platform-highlights">
-                <div class="highlight-box">
-                    <h3>5000+ Licenses</h3>
-                    <p>Delivered to customers with support.</p>
-                </div>
-                <div class="highlight-box">
-                    <h3>2000+ Members</h3>
-                    <p>Active community with instant support.</p>
-                </div>
-                <div class="highlight-box">
-                    <h3>Since 2024</h3>
-                    <p>Licenses ready for auto delivery.</p>
+                <!-- Feature Strip -->
+                <div class="hero-feature-strip">
+                    <div class="feature-chip">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span>Auto Process</span>
+                    </div>
+                    <div class="feature-chip">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <span>Safe Setup</span>
+                    </div>
+                    <div class="feature-chip">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                        <span>24/7 Support</span>
+                    </div>
                 </div>
             </div>
 
@@ -1658,7 +1927,7 @@
         </div>
 
         <!-- ==================== VIEW 2: LEADERBOARD TOP BUYER ==================== -->
-        <div id="viewLeaderboard" style="display: none;">
+        <div id="viewLeaderboard" class="page-view" style="display: none;">
             <div class="btn-back" onclick="pindahHalaman('viewHome')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                 Kembali ke Store
@@ -1680,7 +1949,7 @@
         </div>
 
         <!-- ==================== VIEW 3: DOWNLOADS ==================== -->
-        <div id="viewDownloads" style="display: none;">
+        <div id="viewDownloads" class="page-view" style="display: none;">
             <div class="store-label">DOWNLOADS</div>
             <div class="store-title">File & Launcher Mod</div>
 
@@ -1690,7 +1959,7 @@
         </div>
 
         <!-- ==================== VIEW 4: DETAIL & CHECKOUT ==================== -->
-        <div id="viewProduct" style="display: none;">
+        <div id="viewProduct" class="page-view" style="display: none;">
             <div class="btn-back" onclick="pindahHalaman('viewHome')">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                 Back to products
@@ -1745,11 +2014,11 @@
             </div>
 
             <!-- PROMO CODE SECTION -->
-            <div class="store-label">KODE PROMO</div>
-            <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Gunakan Kode Voucher / Promo</div>
+            <div class="store-label">KODE PROMO / VOUCHER</div>
+            <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Gunakan Kode Voucher Promo</div>
             <div class="form-card">
                 <div class="promo-container">
-                    <input type="text" id="inputPromoCode" class="form-input" style="margin-bottom: 0;" placeholder="Cth: AzzamMod">
+                    <input type="text" id="inputPromoCode" class="form-input" placeholder="Cth: AzzamMod">
                     <button class="btn-apply-promo" onclick="terapkanPromoCode()">Terapkan</button>
                 </div>
                 <div id="promoFeedback" style="display: none;"></div>
@@ -1759,70 +2028,73 @@
             <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Select Package</div>
             
             <div class="packages-container" id="packagesList"></div>
-
-            <div class="bottom-checkout-bar">
-                <div>
-                    <div style="font-size: 9px; color: #716489; font-weight: 800; letter-spacing: 1px;">TOTAL</div>
-                    <div style="font-size: 18px; font-weight: 900; color: #ffffff;" id="barTotal">Rp 0</div>
-                </div>
-                <button class="btn-checkout-now" onclick="eksekusiPembayaran()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                    BELI
-                </button>
-            </div>
         </div>
 
         <!-- ==================== VIEW 5: LOGIN ADMIN ==================== -->
-        <div id="viewLogin" style="display: none;">
-            <div class="admin-login-box">
-                <div class="logo-box" style="display: inline-block; margin-bottom: 12px;">ZX</div>
-                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">ZaxxyStore Admin</h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 18px;">Silakan login untuk mengelola produk & promo</p>
+        <div id="viewLogin" class="page-view" style="display: none;">
+            <div class="admin-login-card">
+                <div class="logo-box" style="display: inline-block; margin-bottom: 14px; font-size: 16px; padding: 8px 14px;">ZX</div>
+                <h3 style="font-size: 20px; font-weight: 900; margin-bottom: 6px;">Portal Administrator</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 22px;">Akses autentikasi untuk mengelola sistem ZaxxyStore.</p>
                 
                 <input type="text" id="loginUser" class="form-input" placeholder="Username">
                 <input type="password" id="loginPass" class="form-input" placeholder="Password">
                 
-                <button class="btn-primary" onclick="loginAdmin()">Masuk ke Admin</button>
+                <button class="btn-primary" onclick="loginAdmin()">Masuk ke Admin Central</button>
             </div>
         </div>
 
         <!-- ==================== VIEW 6: ADMIN PANEL ==================== -->
-        <div id="viewAdmin" style="display: none;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-                <div>
-                    <h2 style="font-size: 18px; font-weight: 800;">Admin Dashboard</h2>
-                    <p style="font-size: 11px; color: var(--text-muted);">Kelola Produk, Promo, & Kontak</p>
+        <div id="viewAdmin" class="page-view" style="display: none;">
+            <div class="admin-header-card">
+                <div class="admin-user-profile">
+                    <div class="admin-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 15px; font-weight: 900; color: #fff;">Admin Central</div>
+                        <div class="admin-status-pill">
+                            <span class="pulse-dot"></span>
+                            Live Sync
+                        </div>
+                    </div>
                 </div>
-                <button class="btn-danger-outline" onclick="logoutAdmin()">Logout</button>
+                <button class="btn-logout-sleek" onclick="logoutAdmin()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Logout
+                </button>
             </div>
 
-            <div class="admin-tabs">
+            <div class="admin-nav-bar">
                 <button id="tabBtnProd" class="tab-btn active" onclick="switchAdminTab('prod')">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                    Produk
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    Produk & Paket
                 </button>
                 <button id="tabBtnPromo" class="tab-btn" onclick="switchAdminTab('promo')">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
-                    Promo
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                    Voucher Promo
                 </button>
                 <button id="tabBtnNotif" class="tab-btn" onclick="switchAdminTab('notif')">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path></svg>
-                    Leader/Notif
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path></svg>
+                    Leader / Notif
                 </button>
                 <button id="tabBtnContact" class="tab-btn" onclick="switchAdminTab('contact')">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    Kontak
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    Kontak CS
                 </button>
                 <button id="tabBtnDown" class="tab-btn" onclick="switchAdminTab('down')">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>
-                    Downloads
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>
+                    Unduhan
                 </button>
             </div>
 
-            <!-- TAB 1: KELOLA PRODUK & PAKET DINAMIS -->
+            <!-- TAB 1: KELOLA PRODUK -->
             <div id="adminTabProd">
-                <div class="form-card">
-                    <h4 id="prodFormTitle" style="font-size: 14px; font-weight: 800; margin-bottom: 12px; color: var(--accent);">Tambah Produk Baru</h4>
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        <h4 id="prodFormTitle">Tambah Produk Baru</h4>
+                    </div>
                     <input type="hidden" id="editProdKey" value="">
                     
                     <input type="text" id="admNama" class="form-input" placeholder="Nama Produk (cth: ATTIC PREMIUM MLBB)">
@@ -1836,8 +2108,8 @@
                         <option value="BLOODSTRIKE">BLOODSTRIKE</option>
                     </select>
 
-                    <div style="font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">
-                        PILIH BADGE PRODUK (Bisa Pilih Lebih Dari 1):
+                    <div style="font-size: 11px; font-weight: 800; color: var(--accent); margin: 6px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Pilih Badge Produk:
                     </div>
                     <div id="admBadgesContainer" class="badge-checkbox-group">
                         <label class="badge-checkbox"><input type="checkbox" value="Best Seller"> <span>⭐ Best Seller</span></label>
@@ -1847,8 +2119,8 @@
                         <label class="badge-checkbox"><input type="checkbox" value="PC"> <span>💻 PC</span></label>
                     </div>
                     
-                    <div style="font-size: 12px; font-weight: 800; color: var(--accent); margin-top: 14px; margin-bottom: 6px;">
-                        Paket Produk & Batas Stok:
+                    <div style="font-size: 11px; font-weight: 800; color: var(--accent); margin-top: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Daftar Paket & Batas Stok:
                     </div>
                     
                     <div id="adminPackagesList"></div>
@@ -1862,27 +2134,45 @@
                     <button class="btn-cancel" id="btnCancelEditProd" onclick="resetFormProduk()" style="display: none; margin-top: 8px;">Batal Edit</button>
                 </div>
 
-                <div class="store-label">LIST PRODUK</div>
+                <div class="store-label">LIST PRODUK TERSIMPAN</div>
                 <div id="admListProduk"></div>
             </div>
 
             <!-- TAB 2: KELOLA KODE PROMO -->
             <div id="adminTabPromo" style="display: none;">
-                <div class="form-card">
-                    <h4 style="font-size: 14px; font-weight: 800; margin-bottom: 4px; color: var(--accent);">Tambah Kode Promo Baru</h4>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Atur kode voucher diskon mulai dari 0% hingga 100%.</p>
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                        <h4>Tambah Voucher Diskon</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Atur kode voucher diskon dengan batas tanggal kedaluwarsa, kuota pemakaian, dan batas device.</p>
 
                     <input type="text" id="admPromoCode" class="form-input" placeholder="Kode Promo (cth: DISKON50)">
-                    <input type="number" id="admPromoDisc" class="form-input" min="0" max="100" placeholder="Persentase Diskon (0 - 100)%">
+                    
+                    <div class="pkg-row-grid">
+                        <input type="number" id="admPromoDisc" class="form-input" min="0" max="100" placeholder="Diskon (0-100)%">
+                        <input type="number" id="admPromoMaxDevice" class="form-input" min="1" placeholder="Max Device (cth: 1)">
+                    </div>
 
-                    <button class="btn-primary" onclick="simpanPromoFirebase()">Simpan Kode Promo</button>
+                    <div class="pkg-row-grid">
+                        <div>
+                            <label style="font-size: 10px; color: var(--text-muted); font-weight: 700; display:block; margin-bottom:4px;">TANGGAL EXPIRED (OPSIONAL)</label>
+                            <input type="date" id="admPromoExpiry" class="form-input" style="color-scheme: dark;">
+                        </div>
+                        <div>
+                            <label style="font-size: 10px; color: var(--text-muted); font-weight: 700; display:block; margin-bottom:4px;">MAX KUOTA PAKAI (0 = UNLIMITED)</label>
+                            <input type="number" id="admPromoMaxUsage" class="form-input" min="0" placeholder="Kuota Pakai">
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" onclick="simpanPromoFirebase()">Simpan Voucher Promo</button>
                 </div>
 
-                <div class="store-label">KODE PROMO BAWAAN</div>
-                <div class="admin-item-card" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, #120a21 100%);">
+                <div class="store-label">KODE SISTEM (PERMANEN)</div>
+                <div class="admin-item-card" style="border-left-color: #10b981; background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, #120a21 100%);">
                     <div class="admin-item-info">
-                        <h4>AzzamMod <span style="color: #34d399; font-size: 11px;">[100% FREE - ALL PRODUK]</span></h4>
-                        <p>Kode bawaan permanen gratis semua produk.</p>
+                        <h4>AzzamMod <span style="color: #34d399; font-size: 11px;">[100% FREE · UNLIMITED DEVICE]</span></h4>
+                        <p>Kode bawaan permanen gratis semua produk selamanya.</p>
                     </div>
                 </div>
 
@@ -1890,74 +2180,98 @@
                 <div id="admListPromo"></div>
             </div>
 
-            <!-- TAB 3: KELOLA LEADERBOARD & BROADCAST NOTIFIKASI PEMBELIAN -->
+            <!-- TAB 3: KELOLA LEADERBOARD & NOTIFIKASI -->
             <div id="adminTabNotif" style="display: none;">
-                <div class="form-card">
-                    <h4 style="font-size: 14px; font-weight: 800; margin-bottom: 4px; color: var(--accent);">Broadcast / Pasang Notifikasi Beli</h4>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Notifikasi dikalkulasi secara real-time berdasarkan waktu bertransaksi.</p>
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <h4>Broadcast Transaksi Baru</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Notifikasi akan muncul di toast pengguna secara real-time.</p>
                     
                     <input type="text" id="admNotifBuyer" class="form-input" placeholder="Nama Pembeli (cth: L***y / Kat**)">
                     <input type="text" id="admNotifProd" class="form-input" placeholder="Produk & Durasi (cth: ATTIC PREMIUM MLBB · 3 Day)">
 
-                    <button class="btn-primary" onclick="simpanNotifikasiFirebase()">Kirim / Tambah Notifikasi</button>
+                    <button class="btn-primary" onclick="simpanNotifikasiFirebase()">Broadcast Notifikasi</button>
                 </div>
 
-                <div class="form-card">
-                    <h4 style="font-size: 14px; font-weight: 800; margin-bottom: 4px; color: var(--gold);">Tambah / Akali Leaderboard Top Buyer</h4>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Atur nama pembeli sultan dan total belanjanya di leaderboard.</p>
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path></svg>
+                        <h4 style="color: var(--gold);">Kelola Peringkat Sultan</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Tambahkan atau sesuaikan daftar top buyer di papan leaderboard.</p>
 
                     <input type="text" id="admLeadName" class="form-input" placeholder="Nama User (cth: Kat** / ZaxxyVIP)">
                     <input type="number" id="admLeadSpent" class="form-input" placeholder="Total Belanja (cth: 72000)">
                     <input type="number" id="admLeadBought" class="form-input" placeholder="Jumlah Produk Dibeli (cth: 8)">
 
-                    <button class="btn-primary" style="background: #d97706;" onclick="simpanLeaderboardFirebase()">Tambah ke Leaderboard</button>
+                    <button class="btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);" onclick="simpanLeaderboardFirebase()">Tambah ke Leaderboard</button>
                 </div>
 
-                <div class="store-label">LIST NOTIFIKASI AKTIF</div>
+                <div class="store-label">LIST BROADCAST AKTIF</div>
                 <div id="admListNotifikasi" style="margin-bottom: 18px;"></div>
 
                 <div class="store-label">LIST LEADERBOARD AKTIF</div>
                 <div id="admListLeaderboard"></div>
             </div>
 
-            <!-- TAB 4: KELOLA PENGATURAN KONTAK CS, WA, & TELEGRAM -->
+            <!-- TAB 4: KELOLA KONTAK -->
             <div id="adminTabContact" style="display: none;">
-                <div class="form-card">
-                    <h4 style="font-size: 14px; font-weight: 800; margin-bottom: 4px; color: #34d399;">Ubah Kontak CS & Media Sosial</h4>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Nomor WA CS, WA Navigasi, dan Link Telegram akan otomatis terpasang di seluruh tombol website.</p>
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <h4 style="color: #34d399;">Pengaturan Kontak Resmi</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Kontak ini akan terintegrasi ke seluruh tombol bantuan WhatsApp dan Telegram.</p>
 
-                    <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">NOMOR WHATSAPP (Awali dengan kode negara, cth: 6281234567890)</label>
-                    <input type="text" id="admContactWA" class="form-input" placeholder="Nomor WhatsApp (cth: 6281234567890)">
+                    <label style="font-size: 11px; font-weight: 800; color: var(--accent); display: block; margin-bottom: 4px; text-transform: uppercase;">Nomor WhatsApp CS</label>
+                    <input type="text" id="admContactWA" class="form-input" placeholder="6281234567890">
 
-                    <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">LINK TELEGRAM (cth: https://t.me/zaxxystore)</label>
-                    <input type="text" id="admContactTele" class="form-input" placeholder="Link Telegram (cth: https://t.me/zaxxystore)">
+                    <label style="font-size: 11px; font-weight: 800; color: var(--accent); display: block; margin-bottom: 4px; text-transform: uppercase;">Link Akun / Channel Telegram</label>
+                    <input type="text" id="admContactTele" class="form-input" placeholder="https://t.me/zaxxystore">
 
-                    <button class="btn-primary" style="background: #10b981;" onclick="simpanKontakFirebase()">Simpan Pengaturan Kontak</button>
+                    <button class="btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);" onclick="simpanKontakFirebase()">Simpan Pengaturan Kontak</button>
                 </div>
             </div>
 
             <!-- TAB 5: KELOLA DOWNLOADS -->
             <div id="adminTabDown" style="display: none;">
-                <div class="form-card">
-                    <h4 id="downFormTitle" style="font-size: 14px; font-weight: 800; margin-bottom: 12px; color: var(--accent);">Tambah File Download</h4>
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>
+                        <h4 id="downFormTitle">Tambah Berkas Download</h4>
+                    </div>
+
                     <input type="hidden" id="editDownKey" value="">
-
                     <input type="text" id="admDownTitle" class="form-input" placeholder="Nama File (cth: DIMZMODZ APK)">
-                    <input type="text" id="admDownDesc" class="form-input" placeholder="Deskripsi/Versi (cth: Versi 3.2 · Size 15MB)">
-                    <input type="text" id="admDownUrl" class="form-input" placeholder="URL Download (Link Mediafire/Drive/Direct)">
+                    <input type="text" id="admDownDesc" class="form-input" placeholder="Deskripsi Singkat (cth: Versi 3.2 · Size 15MB)">
+                    <input type="text" id="admDownUrl" class="form-input" placeholder="URL Download (MediaFire, Google Drive, dsb.)">
 
-                    <button class="btn-primary" id="btnSaveDown" onclick="simpanDownloadFirebase()">Simpan Download</button>
+                    <button class="btn-primary" id="btnSaveDown" onclick="simpanDownloadFirebase()">Simpan Berkas Download</button>
                     <button class="btn-cancel" id="btnCancelEditDown" onclick="resetFormDownload()" style="display: none; margin-top: 8px;">Batal Edit</button>
                 </div>
 
-                <div class="store-label">LIST DOWNLOADS</div>
+                <div class="store-label">LIST BERKAS TERSEDIA</div>
                 <div id="admListDownloads"></div>
             </div>
         </div>
 
     </div>
 
-    <!-- ==================== CUSTOM DIALOG / NOTIFICATION MODAL ==================== -->
+    <!-- BILAH CHECKOUT GLOBAL DI DASAR LAYAR -->
+    <div id="globalBottomBar" class="bottom-checkout-bar" style="display: none;">
+        <div>
+            <div style="font-size: 9px; color: #716489; font-weight: 800; letter-spacing: 1px;">TOTAL</div>
+            <div style="font-size: 18px; font-weight: 900; color: #ffffff;" id="barTotal">Rp 0</div>
+        </div>
+        <button class="btn-checkout-now" onclick="eksekusiPembayaran()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            BELI SEKARANG
+        </button>
+    </div>
+
+    <!-- CUSTOM DIALOG / NOTIFICATION MODAL -->
     <div id="customAlertModal" class="custom-alert-overlay">
         <div class="custom-alert-card">
             <div class="custom-alert-icon" id="customAlertIcon">
@@ -1969,7 +2283,7 @@
         </div>
     </div>
 
-    <!-- ==================== FLOATING RECENT PURCHASE TOAST ==================== -->
+    <!-- FLOATING RECENT PURCHASE TOAST -->
     <div id="recentToast" class="recent-purchase-toast">
         <div class="toast-icon-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
@@ -1985,13 +2299,13 @@
         </button>
     </div>
 
-    <!-- Floating WhatsApp CS Button -->
-    <a href="javascript:void(0)" onclick="bukaWhatsApp()" class="floating-cs-btn">
+    <!-- FLOATING WA BUTTON -->
+    <a href="javascript:void(0)" onclick="bukaWhatsApp()" class="floating-cs-btn" id="floatingCSBtn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
         CS Bantuan
     </a>
 
-    <!-- Modal QRIS Payment -->
+    <!-- MODAL QRIS PAYMENT -->
     <div id="modalQRIS" class="modal-overlay">
         <div class="modal-content">
             <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">Scan QRIS MyDuit</div>
@@ -2046,19 +2360,17 @@
         let selectedPkgIndex = 0;
         let hargaTerpilih = 0;
         let diskonPersen = 0;
-        let promoAktif = null;
+        let promoAktifKey = null;
+        let promoAktifObj = null;
         let loopStatus = null;
         let alertCallback = null;
 
-        // Filter State (Default ALL)
         let activeKategori = 'ALL';
         let kataKunciCari = '';
 
-        // Secret Logo Click Tracker
         let hitungKlikLogo = 0;
         let timerKlikLogo = null;
 
-        // FUNSI WAKTU DINAMIS / REAL-TIME RELATIVE TIMESTAMP
         function formatRelativeTime(ts) {
             if (!ts) return "Baru saja";
             if (typeof ts === 'string') return ts;
@@ -2075,7 +2387,6 @@
             return `${diffDay} hr lalu`;
         }
 
-        // HELPER RENDER BADGE DINAMIS (Dukungan Multi-Badge)
         function renderBadgesHTML(item) {
             let badges = [];
             if (Array.isArray(item.badges)) {
@@ -2103,7 +2414,6 @@
             }).join(' ');
         }
 
-        // GENERATOR KODE LISENSI AUTOMATIS ZaxxyStore-XXXX-XXXX
         function generateLicenseKey() {
             const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             const getSegment = () => {
@@ -2128,7 +2438,6 @@
             });
         }
 
-        // SISTEM CUSTOM ALERT MODAL UNTUK DUKUNGAN HTML
         function showCustomAlert(message, title = "ZaxxyStore", iconType = "success", callback = null) {
             const modal = document.getElementById('customAlertModal');
             document.getElementById('customAlertTitle').innerText = title;
@@ -2236,13 +2545,34 @@
             handleSearch('');
         }
 
-        // 4. Navigasi Router
+        // 4. Navigasi Router & Kontrol Elemen Floating
         function pindahHalaman(viewId) {
             const views = ['viewHome', 'viewLeaderboard', 'viewDownloads', 'viewProduct', 'viewLogin', 'viewAdmin'];
             views.forEach(v => {
                 const el = document.getElementById(v);
-                if (el) el.style.display = (v === viewId) ? 'block' : 'none';
+                if (el) {
+                    if (v === viewId) {
+                        el.style.display = 'block';
+                        el.classList.remove('page-view');
+                        void el.offsetWidth;
+                        el.classList.add('page-view');
+                    } else {
+                        el.style.display = 'none';
+                    }
+                }
             });
+
+            const bottomBar = document.getElementById('globalBottomBar');
+            const csBtn = document.getElementById('floatingCSBtn');
+
+            if (viewId === 'viewProduct') {
+                if (bottomBar) bottomBar.style.display = 'flex';
+                if (csBtn) csBtn.style.display = 'none';
+            } else {
+                if (bottomBar) bottomBar.style.display = 'none';
+                if (csBtn) csBtn.style.display = (viewId === 'viewAdmin' || viewId === 'viewLogin') ? 'none' : 'flex';
+            }
+
             document.getElementById('sidebarMenu').classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -2261,34 +2591,19 @@
         }
 
         function switchAdminTab(tab) {
-            document.getElementById('tabBtnProd').classList.remove('active');
-            document.getElementById('tabBtnPromo').classList.remove('active');
-            document.getElementById('tabBtnNotif').classList.remove('active');
-            document.getElementById('tabBtnContact').classList.remove('active');
-            document.getElementById('tabBtnDown').classList.remove('active');
+            const tabs = ['Prod', 'Promo', 'Notif', 'Contact', 'Down'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('tabBtn' + t);
+                const content = document.getElementById('adminTab' + t);
+                if (btn) btn.classList.remove('active');
+                if (content) content.style.display = 'none';
+            });
 
-            document.getElementById('adminTabProd').style.display = 'none';
-            document.getElementById('adminTabPromo').style.display = 'none';
-            document.getElementById('adminTabNotif').style.display = 'none';
-            document.getElementById('adminTabContact').style.display = 'none';
-            document.getElementById('adminTabDown').style.display = 'none';
-
-            if (tab === 'prod') {
-                document.getElementById('tabBtnProd').classList.add('active');
-                document.getElementById('adminTabProd').style.display = 'block';
-            } else if (tab === 'promo') {
-                document.getElementById('tabBtnPromo').classList.add('active');
-                document.getElementById('adminTabPromo').style.display = 'block';
-            } else if (tab === 'notif') {
-                document.getElementById('tabBtnNotif').classList.add('active');
-                document.getElementById('adminTabNotif').style.display = 'block';
-            } else if (tab === 'contact') {
-                document.getElementById('tabBtnContact').classList.add('active');
-                document.getElementById('adminTabContact').style.display = 'block';
-            } else {
-                document.getElementById('tabBtnDown').classList.add('active');
-                document.getElementById('adminTabDown').style.display = 'block';
-            }
+            const activeBtn = document.getElementById('tabBtn' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            const activeContent = document.getElementById('adminTab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+            
+            if (activeBtn) activeBtn.classList.add('active');
+            if (activeContent) activeContent.style.display = 'block';
         }
 
         // 5. Render Storefront
@@ -2406,12 +2721,16 @@
                 admContainer.innerHTML = '';
                 Object.keys(data).forEach(key => {
                     const item = data[key];
+                    const expText = item.expiry ? `Exp: ${item.expiry}` : 'Tanpa Expired';
+                    const maxDev = item.maxDevice ? `${item.maxDevice} Device` : '1 Device';
+                    const usage = item.maxUsage > 0 ? `Pakai: ${item.usedCount || 0}/${item.maxUsage}` : `Pakai: ${item.usedCount || 0}x (Unlimited)`;
+
                     const admCard = document.createElement('div');
                     admCard.className = 'admin-item-card';
                     admCard.innerHTML = `
                         <div class="admin-item-info">
-                            <h4>${item.code}</h4>
-                            <p>Diskon: ${item.discount}%</p>
+                            <h4>${item.code} <span style="color:var(--accent); font-size:11px;">[${item.discount}% OFF]</span></h4>
+                            <p>📱 ${maxDev} | ⏳ ${expText} | 📊 ${usage}</p>
                         </div>
                         <div class="admin-actions">
                             <button class="btn-delete" onclick="hapusPromoFirebase('${key}')">
@@ -2573,8 +2892,6 @@
             }
 
             daftarNotifikasi = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            
-            // Urutkan notifikasi terbaru berada di posisi atas berdasarkan timestamp
             daftarNotifikasi.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
             admContainer.innerHTML = '';
@@ -2716,16 +3033,13 @@
             db.ref('zaxxy_downloads').set(defaultDownloads);
         }
 
-        // 9. Popup Notifikasi (HANYA MEMANGGIL TRANSAKSI TERBARU)
+        // 9. Popup Notifikasi
         function tampilkanNotifikasiTerbaru() {
             if (!daftarNotifikasi || daftarNotifikasi.length === 0) return;
-            
-            // Selalu ambil elemen index 0 (item terbaru berdasarkan timestamp)
             const item = daftarNotifikasi[0];
             document.getElementById('toastBuyer').innerText = item.buyer;
             document.getElementById('toastProduct').innerText = item.product;
             
-            // Kalkulasi Waktu Realtime
             const formattedTime = formatRelativeTime(item.timestamp || item.time);
             document.getElementById('toastTime').innerText = formattedTime;
 
@@ -2740,7 +3054,6 @@
         function startNotificationRotation() {
             setTimeout(() => {
                 tampilkanNotifikasiTerbaru();
-                // Selalu tampilkan notifikasi terbaru secara berkala
                 setInterval(tampilkanNotifikasiTerbaru, 120000);
             }, 5000);
         }
@@ -2782,46 +3095,92 @@
 
             const cleanCode = codeInput.toUpperCase();
 
+            // Kode Default Permanen
             if (cleanCode === 'AZZAMMOD') {
                 diskonPersen = 100;
-                promoAktif = 'AzzamMod';
+                promoAktifKey = 'default_azzam';
+                promoAktifObj = { code: 'AzzamMod', discount: 100, maxDevice: 'Unlimited', expiry: null };
                 feedbackEl.style.display = 'block';
                 feedbackEl.innerHTML = `
                     <div class="promo-badge">
-                        <span>Kode <b>AzzamMod</b> aktif (Diskon 100% Free)</span>
-                        <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#f87171; font-weight:800; cursor:pointer;">Hapus</button>
+                        <div class="promo-badge-top">
+                            <span>Kode <b>AzzamMod</b> Aktif (Diskon 100%)</span>
+                            <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#f87171; font-weight:800; cursor:pointer;">Hapus</button>
+                        </div>
+                        <div class="promo-detail-pills">
+                            <span class="promo-sub-pill">📱 Unlimited Device</span>
+                            <span class="promo-sub-pill">⏳ Selamanya Aktif</span>
+                        </div>
                     </div>
                 `;
                 updateDisplayTotal();
                 return;
             }
 
+            let promoKeyFound = null;
             let promoDitemukan = null;
+
             Object.keys(daftarPromo).forEach(key => {
                 if (daftarPromo[key].code.toUpperCase() === cleanCode) {
+                    promoKeyFound = key;
                     promoDitemukan = daftarPromo[key];
                 }
             });
 
-            if (promoDitemukan) {
-                diskonPersen = parseInt(promoDitemukan.discount) || 0;
-                promoAktif = promoDitemukan.code;
-                feedbackEl.style.display = 'block';
-                feedbackEl.innerHTML = `
-                    <div class="promo-badge">
-                        <span>Kode <b>${promoDitemukan.code}</b> aktif (Diskon ${diskonPersen}%)</span>
+            if (!promoDitemukan) {
+                showCustomAlert("Kode promo tidak valid atau tidak ditemukan!", "PROMO GAGAL", "error");
+                return;
+            }
+
+            // 1. Cek Expired Date
+            if (promoDitemukan.expiry) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const expDate = new Date(promoDitemukan.expiry);
+                expDate.setHours(23, 59, 59, 999);
+
+                if (today > expDate) {
+                    showCustomAlert(`Voucher <b>${promoDitemukan.code}</b> telah kedaluwarsa pada ${promoDitemukan.expiry}!`, "VOUCHER EXPIRED", "error");
+                    return;
+                }
+            }
+
+            // 2. Cek Kuota Max Penggunaan
+            const maxUsage = parseInt(promoDitemukan.maxUsage) || 0;
+            const usedCount = parseInt(promoDitemukan.usedCount) || 0;
+
+            if (maxUsage > 0 && usedCount >= maxUsage) {
+                showCustomAlert(`Kuota pemakaian voucher <b>${promoDitemukan.code}</b> sudah habis! (${usedCount}/${maxUsage} terpakai)`, "KUOTA HABIS", "error");
+                return;
+            }
+
+            diskonPersen = parseInt(promoDitemukan.discount) || 0;
+            promoAktifKey = promoKeyFound;
+            promoAktifObj = promoDitemukan;
+
+            const devLimit = promoDitemukan.maxDevice ? `${promoDitemukan.maxDevice} Device` : '1 Device';
+            const expLimit = promoDitemukan.expiry ? `Exp: ${promoDitemukan.expiry}` : 'Aktif';
+
+            feedbackEl.style.display = 'block';
+            feedbackEl.innerHTML = `
+                <div class="promo-badge">
+                    <div class="promo-badge-top">
+                        <span>Kode <b>${promoDitemukan.code}</b> Aktif (Diskon ${diskonPersen}%)</span>
                         <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#f87171; font-weight:800; cursor:pointer;">Hapus</button>
                     </div>
-                `;
-                updateDisplayTotal();
-            } else {
-                showCustomAlert("Kode promo tidak valid atau telah kedaluwarsa!", "PROMO GAGAL", "error");
-            }
+                    <div class="promo-detail-pills">
+                        <span class="promo-sub-pill">📱 ${devLimit}</span>
+                        <span class="promo-sub-pill">⏳ ${expLimit}</span>
+                    </div>
+                </div>
+            `;
+            updateDisplayTotal();
         }
 
         function batalkanPromo() {
             diskonPersen = 0;
-            promoAktif = null;
+            promoAktifKey = null;
+            promoAktifObj = null;
             document.getElementById('inputPromoCode').value = '';
             document.getElementById('promoFeedback').style.display = 'none';
             updateDisplayTotal();
@@ -2936,7 +3295,7 @@
                 <div class="pkg-row-top">
                     <span class="pkg-row-title">Item Paket</span>
                     <button type="button" class="btn-del-pkg" onclick="this.closest('.pkg-row').remove()">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="18" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
                 <input type="text" class="form-input pkg-duration" placeholder="Durasi (cth: 1 Day / 7 Day / Lifetime)" value="${duration}">
@@ -2956,7 +3315,6 @@
             const desc = document.getElementById('admDesc').value.trim();
             const device = document.getElementById('admDevice').value;
 
-            // Ambil semua badge yang dicentang
             const selectedBadges = [];
             document.querySelectorAll('#admBadgesContainer input[type="checkbox"]:checked').forEach(cb => {
                 selectedBadges.push(cb.value);
@@ -3011,7 +3369,6 @@
             document.getElementById('admDesc').value = item.desc;
             document.getElementById('admDevice').value = item.device || 'MLBB';
 
-            // Set Checkbox Badges
             const badgesArr = Array.isArray(item.badges) ? item.badges : (item.badge ? [item.badge] : []);
             document.querySelectorAll('#admBadgesContainer input[type="checkbox"]').forEach(cb => {
                 cb.checked = badgesArr.includes(cb.value);
@@ -3037,7 +3394,6 @@
             document.getElementById('admDesc').value = "";
             document.getElementById('admDevice').value = "MLBB";
             
-            // Reset Badges Checkbox
             document.querySelectorAll('#admBadgesContainer input[type="checkbox"]').forEach(cb => {
                 cb.checked = false;
             });
@@ -3060,25 +3416,38 @@
             showCustomAlert("Produk berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 14. CRUD Kode Promo
+        // 14. CRUD Promo dengan Expired & Max Device
         function simpanPromoFirebase() {
             const code = document.getElementById('admPromoCode').value.trim().toUpperCase();
             const discount = parseInt(document.getElementById('admPromoDisc').value);
+            const maxDevice = parseInt(document.getElementById('admPromoMaxDevice').value) || 1;
+            const expiry = document.getElementById('admPromoExpiry').value || null;
+            const maxUsage = parseInt(document.getElementById('admPromoMaxUsage').value) || 0;
 
             if (!code || isNaN(discount) || discount < 0 || discount > 100) {
-                showCustomAlert("Kode promo dan persentase diskon (0-100)% harus valid!", "INPUT INVALID", "warning");
+                showCustomAlert("Kode promo dan diskon (0-100)% wajib diisi dengan benar!", "INPUT INVALID", "warning");
                 return;
             }
 
             if (code === 'AZZAMMOD') {
-                showCustomAlert("Kode AzzamMod adalah kode bawaan permanen 100% Free!", "KODE SYSTEM", "warning");
+                showCustomAlert("Kode AzzamMod adalah kode bawaan sistem!", "KODE SYSTEM", "warning");
                 return;
             }
 
-            db.ref('zaxxy_promos').push({ code, discount }, () => {
-                showCustomAlert("Kode promo berhasil disimpan!", "BERHASIL", "success");
+            db.ref('zaxxy_promos').push({
+                code,
+                discount,
+                maxDevice,
+                expiry,
+                maxUsage,
+                usedCount: 0
+            }, () => {
+                showCustomAlert("Voucher promo berhasil disimpan!", "BERHASIL", "success");
                 document.getElementById('admPromoCode').value = '';
                 document.getElementById('admPromoDisc').value = '';
+                document.getElementById('admPromoMaxDevice').value = '';
+                document.getElementById('admPromoExpiry').value = '';
+                document.getElementById('admPromoMaxUsage').value = '';
             });
         }
 
@@ -3224,7 +3593,7 @@
             showCustomAlert("File download berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 18. PEMBAYARAN & GENERATE LISENSI SIKRON DENGAN REAL-TIME TIMESTAMP (VIA SERVERLESS API)
+        // 18. Pembayaran & Eksekusi Lisensi
         async function eksekusiPembayaran() {
             const nama = document.getElementById('inputNama').value.trim();
             if (!nama) {
@@ -3241,7 +3610,6 @@
 
             const finalPrice = hitungTotalSetelahDiskon();
 
-            // Eksekusi Gratis (Diskon 100% / Promo AzzamMod)
             if (finalPrice <= 0) {
                 if (activeProductKey && produkTerpilih) {
                     const pkgs = [...produkTerpilih.packages];
@@ -3249,6 +3617,10 @@
                         pkgs[selectedPkgIndex].stock -= 1;
                         db.ref(`zaxxy_products/${activeProductKey}/packages`).set(pkgs);
                     }
+                }
+
+                if (promoAktifKey && promoAktifKey !== 'default_azzam') {
+                    db.ref(`zaxxy_promos/${promoAktifKey}/usedCount`).transaction(current => (current || 0) + 1);
                 }
 
                 const maskedName = maskBuyerName(nama);
@@ -3261,11 +3633,12 @@
                 tambahAtauUpdateLeaderboard(nama, hargaTerpilih);
 
                 const generatedKey = generateLicenseKey();
+                const devSlot = promoAktifObj?.maxDevice ? `${promoAktifObj.maxDevice} Device Slot` : '1 Device Slot';
 
                 const infoMsg = `Selamat <b>${nama}</b>! Transaksi Anda Berhasil.<br><br>` +
                                 `• <b>Produk:</b> ${produkTerpilih.name} (${curPkg.duration})<br>` +
-                                `• <b>Total Bayar:</b> GRATIS (Rp 0)<br>` +
-                                `• <b>Leaderboard:</b> Rp ${Number(hargaTerpilih).toLocaleString('id-ID')}<br><br>` +
+                                `• <b>Batas Device:</b> ${devSlot}<br>` +
+                                `• <b>Total Bayar:</b> GRATIS (Rp 0)<br><br>` +
                                 `<div style="background: #0d061a; border: 1px dashed #9333ea; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">` +
                                 `<div style="font-size: 10px; color: #8b7fa1; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">KODE LISENSI ANDA</div>` +
                                 `<div style="font-size: 16px; font-weight: 900; color: #c084fc; letter-spacing: 1px;" id="lisensiText">${generatedKey}</div>` +
@@ -3278,7 +3651,6 @@
                 return;
             }
 
-            // Tampilkan Modal QRIS MyDuit
             const modal = document.getElementById('modalQRIS');
             const loading = document.getElementById('modalLoading');
             const dataArea = document.getElementById('modalData');
@@ -3289,7 +3661,6 @@
             dataArea.style.display = 'none';
 
             try {
-                // Memanggil backend Vercel Serverless Endpoint /api/invoice.js
                 const res = await fetch(`/api/invoice.js?amount=${finalPrice}`);
                 if (!res.ok) throw new Error("Gagal merespon dari endpoint API");
 
@@ -3323,7 +3694,6 @@
             
             loopStatus = setInterval(async () => {
                 try {
-                    // Pengecekan status invoice via /api/invoice.js
                     const res = await fetch(`/api/invoice.js?action=status&invoice_id=${invoiceId}`);
                     if (!res.ok) return;
 
@@ -3340,6 +3710,10 @@
                                 pkgs[selectedPkgIndex].stock -= 1;
                                 db.ref(`zaxxy_products/${activeProductKey}/packages`).set(pkgs);
                             }
+                        }
+
+                        if (promoAktifKey && promoAktifKey !== 'default_azzam') {
+                            db.ref(`zaxxy_promos/${promoAktifKey}/usedCount`).transaction(current => (current || 0) + 1);
                         }
 
                         const maskedName = maskBuyerName(namaPembeli);
@@ -3359,11 +3733,13 @@
                         statusBox.classList.add('status-success');
                         
                         const generatedKey = generateLicenseKey();
+                        const devSlot = promoAktifObj?.maxDevice ? `${promoAktifObj.maxDevice} Device Slot` : '1 Device Slot';
 
                         setTimeout(() => {
                             tutupModal();
                             const successMsg = `Pembayaran Lunas untuk <b>${namaPembeli}</b>!<br><br>` +
-                                               `• <b>Produk:</b> ${produkTerpilih.name} (${curPkg.duration})<br><br>` +
+                                               `• <b>Produk:</b> ${produkTerpilih.name} (${curPkg.duration})<br>` +
+                                               `• <b>Batas Device:</b> ${devSlot}<br><br>` +
                                                `<div style="background: #0d061a; border: 1px dashed #10b981; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">` +
                                                `<div style="font-size: 10px; color: #8b7fa1; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">KODE LISENSI ANDA</div>` +
                                                `<div style="font-size: 16px; font-weight: 900; color: #34d399; letter-spacing: 1px;" id="lisensiText">${generatedKey}</div>` +
