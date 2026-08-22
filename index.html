@@ -16,8 +16,10 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
 
+        /* --- TEMA DARK (DEFAULT) --- */
         :root {
             --bg-main: #07040d;
             --bg-card: #120a21;
@@ -28,15 +30,48 @@
             --primary: #9333ea;
             --primary-hover: #7e22ce;
             --accent: #c084fc;
+            --text-main: #ffffff;
             --text-muted: #8b7fa1;
+            --text-sub: #94a3b8;
             --success: #10b981;
             --danger: #ef4444;
             --gold: #f59e0b;
+            --header-bg: rgba(7, 4, 13, 0.9);
+            --modal-overlay: rgba(4, 2, 8, 0.92);
+            --hero-bg: linear-gradient(145deg, #170a2c 0%, #0c0517 60%, #07030e 100%);
+            --hero-border: #3c1e6e;
+            --glow-color: rgba(147, 51, 234, 0.16);
+            --bottom-bar-bg: rgba(13, 6, 26, 0.98);
+        }
+
+        /* --- TEMA WHITE / LIGHT (ANTI BUG) --- */
+        body.light-theme {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-alt: #f1f5f9;
+            --bg-input: #f8fafc;
+            --border-color: #e2e8f0;
+            --border-focus: #9333ea;
+            --primary: #9333ea;
+            --primary-hover: #7e22ce;
+            --accent: #7c3aed;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-sub: #475569;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gold: #d97706;
+            --header-bg: rgba(255, 255, 255, 0.92);
+            --modal-overlay: rgba(15, 23, 42, 0.7);
+            --hero-bg: linear-gradient(145deg, #f5f3ff 0%, #ffffff 60%, #ede9fe 100%);
+            --hero-border: #ddd6fe;
+            --glow-color: rgba(147, 51, 234, 0.08);
+            --bottom-bar-bg: rgba(255, 255, 255, 0.98);
         }
 
         body {
             background-color: var(--bg-main);
-            color: #ffffff;
+            color: var(--text-main);
             padding-bottom: 20px;
             overflow-x: hidden;
             position: relative;
@@ -51,7 +86,7 @@
             transform: translateX(-50%);
             width: 500px;
             height: 350px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.16) 0%, rgba(7, 4, 13, 0) 70%);
+            background: radial-gradient(circle, var(--glow-color) 0%, rgba(0, 0, 0, 0) 70%);
             pointer-events: none;
             z-index: 0;
             animation: pulseGlow 8s infinite alternate ease-in-out;
@@ -73,14 +108,8 @@
         }
 
         @keyframes viewSlideFade {
-            0% {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            100% {
-                opacity: 1;
-                transform: none;
-            }
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: none; }
         }
 
         /* --- Header & Navigation --- */
@@ -89,10 +118,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 14px 18px;
-            background: rgba(7, 4, 13, 0.9);
+            background: var(--header-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(38, 21, 67, 0.8);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 50;
@@ -110,43 +139,38 @@
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .brand-logo:active {
-            transform: scale(0.94);
-        }
+        .brand-logo:active { transform: scale(0.94); }
 
-        .logo-box {
-            background: linear-gradient(135deg, #2b144d 0%, #120a21 100%);
-            border: 1px solid var(--primary);
-            padding: 5px 9px;
+        .navbar-logo-img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
             border-radius: 8px;
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 900;
-            box-shadow: 0 0 14px rgba(168, 85, 247, 0.3);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+            background: var(--bg-card);
         }
 
-        .btn-menu {
+        .btn-menu, .btn-theme-toggle {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            color: #fff;
+            color: var(--text-main);
             padding: 8px 12px;
             border-radius: 9px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
-        .btn-menu:active {
-            transform: scale(0.92);
-        }
+        .btn-menu:active, .btn-theme-toggle:active { transform: scale(0.92); }
 
         /* --- Sidebar Navigation Overlay --- */
         .nav-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(7, 4, 13, 0.98);
+            background: var(--bg-main);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 150;
@@ -185,18 +209,16 @@
             gap: 14px;
             font-size: 15px;
             font-weight: 600;
-            color: #e2e8f0;
+            color: var(--text-main);
             text-decoration: none;
             padding: 14px 14px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid transparent;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .menu-item:hover, .menu-item:active {
-            background: var(--bg-card);
             border-color: var(--primary);
             color: var(--accent);
             transform: translateX(4px);
@@ -251,25 +273,14 @@
 
         /* Hero Showcase */
         .hero-showcase {
-            background: linear-gradient(145deg, #170a2c 0%, #0c0517 60%, #07030e 100%);
-            border: 1px solid #3c1e6e;
+            background: var(--hero-bg);
+            border: 1px solid var(--hero-border);
             border-radius: 20px;
             padding: 22px 18px;
             margin-bottom: 22px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .hero-showcase::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
-            pointer-events: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .hero-live-badge {
@@ -283,7 +294,7 @@
             font-size: 10px;
             font-weight: 800;
             letter-spacing: 0.8px;
-            color: #34d399;
+            color: #10b981;
             margin-bottom: 12px;
             text-transform: uppercase;
         }
@@ -302,15 +313,14 @@
             font-weight: 900;
             line-height: 1.3;
             letter-spacing: -0.4px;
-            color: #ffffff;
+            color: var(--text-main);
             margin-bottom: 8px;
         }
 
         .glow-text {
-            background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #38bdf8 100%);
+            background: linear-gradient(135deg, #9333ea 0%, #c084fc 50%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
         }
 
         .hero-subtitle {
@@ -324,12 +334,11 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            background: rgba(8, 4, 16, 0.65);
-            border: 1px solid rgba(59, 29, 107, 0.6);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 12px 6px;
             margin-bottom: 14px;
-            backdrop-filter: blur(8px);
         }
 
         .stat-counter-box {
@@ -347,7 +356,7 @@
             top: 15%;
             bottom: 15%;
             width: 1px;
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--border-color);
         }
 
         .stat-num {
@@ -357,14 +366,14 @@
             margin-bottom: 2px;
         }
 
-        .glow-purple { color: #c084fc; text-shadow: 0 0 10px rgba(192, 132, 252, 0.4); }
-        .glow-emerald { color: #34d399; text-shadow: 0 0 10px rgba(52, 211, 153, 0.4); }
-        .glow-amber { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        .glow-purple { color: var(--accent); }
+        .glow-emerald { color: #10b981; }
+        .glow-amber { color: var(--gold); }
 
         .stat-label {
             font-size: 9px;
             font-weight: 700;
-            color: #8b7fa1;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -377,8 +386,8 @@
 
         .feature-chip {
             flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 6px 4px;
             display: flex;
@@ -387,17 +396,13 @@
             gap: 5px;
             font-size: 10px;
             font-weight: 800;
-            color: #cbd5e1;
+            color: var(--text-main);
         }
 
-        .feature-chip svg {
-            color: var(--accent);
-        }
+        .feature-chip svg { color: var(--accent); }
 
         /* --- Search & Filters --- */
-        .search-filter-section {
-            margin-bottom: 20px;
-        }
+        .search-filter-section { margin-bottom: 20px; }
 
         .search-box {
             position: relative;
@@ -417,17 +422,16 @@
             width: 100%;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            color: #fff;
+            color: var(--text-main);
             padding: 12px 38px 12px 40px;
             border-radius: 12px;
             font-size: 13px;
             outline: none;
-            transition: all 0.25s ease;
         }
 
         .search-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 16px rgba(147, 51, 234, 0.3);
+            box-shadow: 0 0 16px rgba(147, 51, 234, 0.2);
             background: var(--bg-input);
         }
 
@@ -452,9 +456,7 @@
             scrollbar-width: none;
         }
 
-        .category-scroll::-webkit-scrollbar {
-            display: none;
-        }
+        .category-scroll::-webkit-scrollbar { display: none; }
 
         .cat-btn {
             background: var(--bg-card);
@@ -470,13 +472,11 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .cat-btn:hover {
-            border-color: rgba(147, 51, 234, 0.5);
-            color: #fff;
-            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--text-main);
         }
 
         .cat-btn.active {
@@ -484,7 +484,6 @@
             border-color: var(--primary);
             color: #ffffff;
             box-shadow: 0 0 14px rgba(147, 51, 234, 0.4);
-            transform: scale(1.02);
         }
 
         .store-label {
@@ -504,6 +503,10 @@
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -0.4px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* --- Product Card --- */
@@ -514,19 +517,15 @@
             padding: 16px;
             margin-bottom: 14px;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .card-product:hover {
-            border-color: rgba(147, 51, 234, 0.6);
+            border-color: var(--primary);
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(147, 51, 234, 0.15);
-        }
-
-        .card-product:active {
-            transform: scale(0.98);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 15px rgba(147, 51, 234, 0.15);
         }
 
         .badges {
@@ -537,8 +536,9 @@
         }
 
         .badge-device {
-            background: #1b1030;
-            color: #cbd5e1;
+            background: var(--bg-card-alt);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
             font-size: 10px;
             font-weight: 700;
             padding: 4px 8px;
@@ -550,7 +550,7 @@
 
         .badge-ready {
             background: rgba(16, 185, 129, 0.12);
-            color: #34d399;
+            color: #10b981;
             border: 1px solid rgba(16, 185, 129, 0.3);
             font-size: 10px;
             font-weight: 700;
@@ -571,12 +571,14 @@
         .product-name {
             font-size: 16px;
             font-weight: 800;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
         }
 
+        /* Clean Vector Badges */
         .badge-bestseller {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: #ffffff;
@@ -587,7 +589,6 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
         }
 
         .badge-hots {
@@ -600,7 +601,6 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
         }
 
         .badge-root {
@@ -613,7 +613,6 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
         }
 
         .badge-ios {
@@ -626,7 +625,6 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
         }
 
         .badge-pc {
@@ -639,12 +637,11 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
         }
 
         .product-desc {
             font-size: 12px;
-            color: #94a3b8;
+            color: var(--text-sub);
             margin-top: 6px;
             line-height: 1.4;
         }
@@ -667,7 +664,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            border-top: 1px solid #1c1033;
+            border-top: 1px solid var(--border-color);
             padding-top: 12px;
         }
 
@@ -675,7 +672,7 @@
             font-size: 9px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #716489;
+            color: var(--text-muted);
             margin-bottom: 2px;
             font-weight: 700;
         }
@@ -687,7 +684,7 @@
         }
 
         .btn-view {
-            background: #1c1033;
+            background: var(--bg-card-alt);
             border: 1px solid var(--border-color);
             color: var(--accent);
             padding: 8px 16px;
@@ -697,7 +694,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.2s;
         }
 
         .btn-view:hover {
@@ -705,10 +701,110 @@
             color: #fff;
         }
 
+        /* --- Section Review & Testimonial --- */
+        .reviews-section {
+            margin-top: 28px;
+            margin-bottom: 24px;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .review-author {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .verified-badge {
+            font-size: 9px;
+            font-weight: 800;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.12);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .review-text {
+            font-size: 12px;
+            color: var(--text-sub);
+            line-height: 1.4;
+            margin-top: 6px;
+        }
+
+        .review-product-tag {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Star Rating Form Input (Vektor SVG) */
+        .star-input-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 14px 0;
+        }
+
+        .star-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: #64748b;
+            transition: transform 0.15s ease, color 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .star-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+        }
+
+        .star-btn.selected {
+            color: #f59e0b;
+        }
+
+        .star-btn.selected svg {
+            fill: #f59e0b;
+        }
+
+        .star-btn:hover {
+            transform: scale(1.2);
+            color: #f59e0b;
+        }
+
         /* --- Leaderboard --- */
         .leaderboard-top-card {
-            background: linear-gradient(145deg, #1e0f38 0%, #100820 100%);
-            border: 1px solid #3c2069;
+            background: var(--hero-bg);
+            border: 1px solid var(--hero-border);
             border-radius: 20px;
             padding: 24px 20px;
             text-align: center;
@@ -742,13 +838,11 @@
 
         .rank-card.top-1 {
             border-color: rgba(245, 158, 11, 0.6);
-            background: linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, #120a21 100%);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.12) 0%, var(--bg-card) 100%);
             box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
         }
 
-        .rank-card.top-2 {
-            border-color: rgba(192, 132, 252, 0.4);
-        }
+        .rank-card.top-2 { border-color: var(--accent); }
 
         .rank-left {
             display: flex;
@@ -760,7 +854,7 @@
             width: 28px;
             height: 28px;
             border-radius: 8px;
-            background: #1b1030;
+            background: var(--bg-card-alt);
             color: var(--accent);
             font-size: 12px;
             font-weight: 800;
@@ -777,7 +871,7 @@
         .rank-user-name {
             font-size: 14px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
         }
 
         .rank-user-orders {
@@ -785,9 +879,7 @@
             color: var(--text-muted);
         }
 
-        .rank-right {
-            text-align: right;
-        }
+        .rank-right { text-align: right; }
 
         .rank-spent-val {
             font-size: 14px;
@@ -819,6 +911,7 @@
         .download-title {
             font-size: 15px;
             font-weight: 800;
+            color: var(--text-main);
         }
 
         .btn-download-action {
@@ -836,7 +929,6 @@
             justify-content: center;
             gap: 8px;
             text-decoration: none;
-            transition: all 0.2s;
         }
 
         /* --- Detail & Checkout --- */
@@ -849,12 +941,9 @@
             font-weight: 700;
             cursor: pointer;
             margin-bottom: 16px;
-            transition: transform 0.2s;
         }
 
-        .btn-back:hover {
-            transform: translateX(-4px);
-        }
+        .btn-back:hover { transform: translateX(-4px); }
 
         .detail-header-card {
             background: var(--bg-card);
@@ -873,7 +962,7 @@
 
         .info-box {
             background: var(--bg-input);
-            border: 1px solid #1f1138;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 12px;
         }
@@ -881,7 +970,7 @@
         .info-box-label {
             font-size: 9px;
             letter-spacing: 1px;
-            color: #716489;
+            color: var(--text-muted);
             font-weight: 800;
             text-transform: uppercase;
             margin-bottom: 4px;
@@ -910,12 +999,13 @@
         .help-box h4 {
             font-size: 14px;
             font-weight: 700;
+            color: var(--text-main);
             margin-bottom: 4px;
         }
 
         .help-box p {
             font-size: 11px;
-            color: #94a3b8;
+            color: var(--text-sub);
             line-height: 1.4;
             margin-bottom: 12px;
         }
@@ -927,9 +1017,9 @@
         }
 
         .btn-help-download {
-            background: #1c1033;
-            border: 1px solid #331d57;
-            color: #e2e8f0;
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 9px;
             border-radius: 8px;
             font-size: 12px;
@@ -967,20 +1057,18 @@
         .form-input {
             width: 100%;
             background: var(--bg-input);
-            border: 1px solid #24143d;
-            color: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             padding: 12px 14px;
             border-radius: 10px;
             font-size: 13px;
             margin-bottom: 10px;
             outline: none;
-            transition: all 0.25s ease;
         }
 
         .form-input:focus {
             border-color: var(--border-focus);
             box-shadow: 0 0 12px rgba(147, 51, 234, 0.25);
-            background: #100820;
         }
 
         /* --- Promo Code Section --- */
@@ -999,7 +1087,7 @@
         }
 
         .btn-apply-promo {
-            background: #251242;
+            background: var(--bg-card-alt);
             border: 1px solid var(--primary);
             color: var(--accent);
             padding: 0 18px;
@@ -1011,7 +1099,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             flex-shrink: 0;
         }
 
@@ -1023,7 +1110,7 @@
         .promo-badge {
             background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(16, 185, 129, 0.35);
-            color: #34d399;
+            color: #10b981;
             padding: 10px 12px;
             border-radius: 10px;
             font-size: 11px;
@@ -1048,15 +1135,16 @@
         }
 
         .promo-sub-pill {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(16, 185, 129, 0.25);
-            padding: 2px 7px;
+            padding: 3px 8px;
             border-radius: 6px;
             font-size: 10px;
-            color: #a7f3d0;
+            color: #10b981;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
+            font-weight: 700;
         }
 
         /* --- Package Cards --- */
@@ -1074,23 +1162,19 @@
             padding: 16px;
             cursor: pointer;
             position: relative;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .package-item:hover {
-            border-color: rgba(147, 51, 234, 0.5);
-        }
+        .package-item:hover { border-color: var(--primary); }
 
         .package-item.active {
             border: 2px solid var(--primary);
-            background: #1a0e30;
+            background: var(--bg-card-alt);
             box-shadow: 0 0 16px rgba(147, 51, 234, 0.25);
         }
 
         .package-item.out-of-stock {
             opacity: 0.5;
             cursor: not-allowed;
-            border-color: #1f1430;
         }
 
         .package-top {
@@ -1103,6 +1187,7 @@
             font-size: 15px;
             font-weight: 800;
             text-align: right;
+            color: var(--text-main);
         }
 
         .package-duration span {
@@ -1115,7 +1200,7 @@
         .pkg-price-label {
             font-size: 9px;
             letter-spacing: 1px;
-            color: #716489;
+            color: var(--text-muted);
             text-transform: uppercase;
             margin-bottom: 2px;
             font-weight: 700;
@@ -1129,7 +1214,7 @@
 
         .package-meta-stock {
             font-size: 11px;
-            color: #34d399;
+            color: #10b981;
             margin-top: 8px;
             display: flex;
             align-items: center;
@@ -1137,9 +1222,7 @@
             font-weight: 700;
         }
 
-        .package-meta-stock.empty {
-            color: #f87171;
-        }
+        .package-meta-stock.empty { color: #f87171; }
 
         /* --- FIXED BOTTOM CHECKOUT BAR --- */
         .bottom-checkout-bar {
@@ -1150,17 +1233,17 @@
             width: 100% !important;
             max-width: 480px !important;
             margin: 0 auto !important;
-            background: rgba(13, 6, 26, 0.98) !important;
+            background: var(--bottom-bar-bg) !important;
             backdrop-filter: blur(16px) !important;
             -webkit-backdrop-filter: blur(16px) !important;
-            border-top: 1px solid #351c5c !important;
+            border-top: 1px solid var(--border-color) !important;
             padding: 12px 18px !important;
             padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000 !important;
-            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.8) !important;
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.15) !important;
         }
 
         .btn-checkout-now {
@@ -1176,12 +1259,9 @@
             align-items: center;
             gap: 8px;
             box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
-            transition: all 0.2s;
         }
 
-        .btn-checkout-now:active {
-            transform: scale(0.96);
-        }
+        .btn-checkout-now:active { transform: scale(0.96); }
 
         /* --- Toast Notification --- */
         .recent-purchase-toast {
@@ -1191,11 +1271,11 @@
             right: 16px;
             max-width: 440px;
             margin: 0 auto;
-            background: rgba(18, 10, 33, 0.95);
-            border: 1px solid #3c2069;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 12px 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(147, 51, 234, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             display: flex;
@@ -1215,7 +1295,7 @@
         .toast-icon-box {
             width: 38px;
             height: 38px;
-            background: #251242;
+            background: var(--bg-card-alt);
             border: 1px solid var(--primary);
             border-radius: 10px;
             display: flex;
@@ -1224,10 +1304,7 @@
             color: var(--accent);
         }
 
-        .toast-body {
-            flex: 1;
-            min-width: 0;
-        }
+        .toast-body { flex: 1; min-width: 0; }
 
         .toast-tag {
             font-size: 9px;
@@ -1241,7 +1318,7 @@
         .toast-buyer {
             font-size: 13px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
             line-height: 1.2;
             white-space: nowrap;
             overflow: hidden;
@@ -1250,7 +1327,7 @@
 
         .toast-product {
             font-size: 11px;
-            color: #94a3b8;
+            color: var(--text-sub);
             margin-top: 1px;
             white-space: nowrap;
             overflow: hidden;
@@ -1259,19 +1336,16 @@
 
         .toast-time {
             font-size: 10px;
-            color: #716489;
+            color: var(--text-muted);
             margin-top: 2px;
         }
 
         .btn-toast-close {
             background: transparent;
             border: none;
-            color: #716489;
+            color: var(--text-muted);
             cursor: pointer;
             padding: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         /* --- Floating CS Button --- */
@@ -1293,28 +1367,23 @@
             cursor: pointer;
             z-index: 80;
             text-decoration: none;
-            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .floating-cs-btn:hover {
-            transform: scale(1.06) translateY(-2px);
         }
 
         /* --- Admin Layout --- */
         .admin-login-card {
-            background: linear-gradient(145deg, #180c30 0%, #0c051a 100%);
-            border: 1px solid #3c1e6e;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 24px;
             padding: 32px 24px;
             text-align: center;
             max-width: 380px;
             margin: 40px auto;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(147, 51, 234, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
 
         .admin-header-card {
-            background: linear-gradient(135deg, #180b33 0%, #0d061c 100%);
-            border: 1px solid #351c5c;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 18px;
             padding: 16px 18px;
             margin-bottom: 16px;
@@ -1339,7 +1408,6 @@
             align-items: center;
             justify-content: center;
             color: #fff;
-            box-shadow: 0 0 12px rgba(147, 51, 234, 0.4);
         }
 
         .admin-status-pill {
@@ -1348,7 +1416,7 @@
             gap: 5px;
             background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #34d399;
+            color: #10b981;
             padding: 2px 7px;
             border-radius: 12px;
             font-size: 9px;
@@ -1356,19 +1424,10 @@
             text-transform: uppercase;
         }
 
-        .pulse-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 8px #10b981;
-            animation: livePulse 1.8s infinite;
-        }
-
         .btn-logout-sleek {
             background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #f87171;
+            color: #ef4444;
             padding: 8px 14px;
             border-radius: 10px;
             font-size: 12px;
@@ -1382,19 +1441,16 @@
         .admin-nav-bar {
             display: flex;
             gap: 6px;
-            background: rgba(18, 10, 33, 0.8);
-            backdrop-filter: blur(12px);
+            background: var(--bg-card);
             padding: 6px;
             border-radius: 14px;
-            border: 1px solid #2b174a;
+            border: 1px solid var(--border-color);
             margin-bottom: 20px;
             overflow-x: auto;
             scrollbar-width: none;
         }
 
-        .admin-nav-bar::-webkit-scrollbar {
-            display: none;
-        }
+        .admin-nav-bar::-webkit-scrollbar { display: none; }
 
         .tab-btn {
             background: transparent;
@@ -1411,19 +1467,17 @@
             gap: 6px;
             white-space: nowrap;
             flex-shrink: 0;
-            transition: all 0.2s;
         }
 
         .tab-btn.active {
             background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
-            border-color: rgba(192, 132, 252, 0.4);
             color: #ffffff;
             box-shadow: 0 4px 16px rgba(147, 51, 234, 0.35);
         }
 
         .admin-card {
-            background: linear-gradient(145deg, #130a24 0%, #0d061a 100%);
-            border: 1px solid #2f1754;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 18px;
             padding: 20px 18px;
             margin-bottom: 18px;
@@ -1435,13 +1489,13 @@
             gap: 8px;
             margin-bottom: 14px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #241242;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .admin-card-header h4 {
             font-size: 15px;
             font-weight: 900;
-            color: #ffffff;
+            color: var(--text-main);
         }
 
         .badge-checkbox-group {
@@ -1455,26 +1509,19 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #15092a;
-            border: 1px solid #311857;
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
             padding: 8px 12px;
             border-radius: 10px;
             font-size: 11px;
             font-weight: 700;
+            color: var(--text-main);
             cursor: pointer;
         }
 
         .badge-checkbox:has(input:checked) {
             background: rgba(147, 51, 234, 0.18);
             border-color: var(--accent);
-            color: #ffffff;
-        }
-
-        .badge-checkbox input {
-            accent-color: var(--primary);
-            cursor: pointer;
-            width: 14px;
-            height: 14px;
         }
 
         .btn-primary {
@@ -1493,8 +1540,8 @@
 
         .btn-secondary {
             width: 100%;
-            background: #170b2e;
-            border: 1px dashed #4e2691;
+            background: var(--bg-card-alt);
+            border: 1px dashed var(--accent);
             color: var(--accent);
             padding: 11px;
             border-radius: 11px;
@@ -1510,8 +1557,8 @@
         }
 
         .pkg-row {
-            background: #090412;
-            border: 1px solid #291547;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 14px;
             margin-bottom: 10px;
@@ -1534,7 +1581,7 @@
         .btn-del-pkg {
             background: rgba(239, 68, 68, 0.12);
             border: 1px solid rgba(239, 68, 68, 0.25);
-            color: #f87171;
+            color: #ef4444;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1556,16 +1603,10 @@
             gap: 6px;
             font-size: 11px;
             font-weight: 800;
-            color: #34d399;
+            color: #10b981;
             margin: 6px 0 10px 0;
             cursor: pointer;
             user-select: none;
-        }
-
-        .pkg-unlimited-label input {
-            accent-color: #10b981;
-            width: 14px;
-            height: 14px;
         }
 
         .admin-item-card {
@@ -1585,7 +1626,10 @@
             font-size: 13px;
             font-weight: 800;
             margin-bottom: 4px;
-            color: #ffffff;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .admin-item-info p {
@@ -1599,9 +1643,9 @@
             gap: 6px;
         }
 
-        .btn-edit {
-            background: #1b0e33;
-            border: 1px solid #3d1f70;
+        .btn-edit, .btn-acc {
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
             color: var(--accent);
             padding: 8px;
             border-radius: 8px;
@@ -1611,10 +1655,16 @@
             justify-content: center;
         }
 
+        .btn-acc {
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
         .btn-delete {
             background: rgba(239, 68, 68, 0.12);
             border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #f87171;
+            color: #ef4444;
             padding: 8px;
             border-radius: 8px;
             cursor: pointer;
@@ -1625,9 +1675,9 @@
 
         .btn-cancel {
             width: 100%;
-            background: #1e1136;
-            border: 1px solid #331b5c;
-            color: #a39cb0;
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
             padding: 12px;
             border-radius: 10px;
             font-size: 13px;
@@ -1639,7 +1689,7 @@
         .custom-alert-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(4, 2, 8, 0.88);
+            background: var(--modal-overlay);
             backdrop-filter: blur(12px);
             display: none;
             justify-content: center;
@@ -1649,14 +1699,14 @@
         }
 
         .custom-alert-card {
-            background: linear-gradient(145deg, #180a2c 0%, #0d061a 100%);
-            border: 1px solid #4a2482;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 24px 20px;
             width: 100%;
             max-width: 360px;
             text-align: center;
-            box-shadow: 0 16px 40px rgba(147, 51, 234, 0.3);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
         }
 
         .custom-alert-icon {
@@ -1675,19 +1725,19 @@
         .custom-alert-title {
             font-size: 17px;
             font-weight: 900;
-            color: #ffffff;
+            color: var(--text-main);
             margin-bottom: 8px;
         }
 
         .custom-alert-msg {
             font-size: 12px;
-            color: #cbd5e1;
+            color: var(--text-sub);
             line-height: 1.5;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-input);
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
             text-align: left;
         }
 
@@ -1701,14 +1751,24 @@
             font-size: 13px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.4);
+        }
+
+        /* --- Modal Rating / Ulasan --- */
+        .modal-review-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px 20px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
         }
 
         /* --- Modal QRIS --- */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(4, 2, 8, 0.92);
+            background: var(--modal-overlay);
             backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
@@ -1719,7 +1779,7 @@
 
         .modal-content {
             background: var(--bg-card);
-            border: 1px solid #3c2a5e;
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 24px;
             width: 100%;
@@ -1733,6 +1793,7 @@
             border-radius: 14px;
             display: inline-block;
             margin: 14px 0;
+            border: 1px solid #cbd5e1;
         }
 
         .qris-box img {
@@ -1745,7 +1806,7 @@
         .status-pill {
             background: rgba(234, 179, 8, 0.12);
             border: 1px solid rgba(234, 179, 8, 0.3);
-            color: #facc15;
+            color: #d97706;
             padding: 9px;
             border-radius: 9px;
             font-size: 12px;
@@ -1760,13 +1821,13 @@
         .status-success {
             background: rgba(16, 185, 129, 0.15) !important;
             border-color: rgba(16, 185, 129, 0.4) !important;
-            color: #34d399 !important;
+            color: #10b981 !important;
         }
 
         .loader {
             width: 26px;
             height: 26px;
-            border: 3px solid #372852;
+            border: 3px solid var(--border-color);
             border-top: 3px solid var(--accent);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -1782,11 +1843,11 @@
     <div class="nav-overlay" id="sidebarMenu">
         <div class="nav-header">
             <div class="brand-logo" onclick="handleBrandLogoClick()">
-                <div class="logo-box">ZX</div>
+                <img src="zxs.png" alt="ZaxxyStore Logo" class="navbar-logo-img">
                 <div>Zaxxy<span style="color: var(--accent);">Store</span></div>
             </div>
             <button class="btn-menu" onclick="toggleMenu()" style="border-color: var(--primary); color: var(--accent);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="18" x2="18" y2="18"></line></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 Close
             </button>
         </div>
@@ -1825,10 +1886,16 @@
     <!-- Header Bar -->
     <header>
         <div class="brand-logo" onclick="handleBrandLogoClick()">
-            <div class="logo-box">ZX</div>
+            <img src="zxs.png" alt="ZaxxyStore Logo" class="navbar-logo-img">
             <div>Zaxxy<span style="color: var(--accent);">Store</span></div>
         </div>
         <div style="display: flex; gap: 8px; align-items: center;">
+            <!-- TOGGLE DARK / WHITE MODE (SVG VECTOR) -->
+            <button class="btn-theme-toggle" id="btnThemeToggle" onclick="toggleTheme()" title="Ubah Tema">
+                <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg id="themeIconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+
             <button class="btn-menu" onclick="pindahHalaman('viewLeaderboard')" title="Leaderboard" style="padding: 8px 10px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M14 9V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v5"></path><path d="M18 9a6 6 0 0 1-12 0v-.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5z"></path></svg>
             </button>
@@ -1890,7 +1957,7 @@
                     <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     <input type="text" id="inputSearchProduct" class="search-input" placeholder="Cari cheat, aplikasi, atau lisensi..." oninput="handleSearch(this.value)">
                     <button id="btnClearSearch" class="btn-clear-search" onclick="clearSearch()" style="display: none;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="18" x2="18" y2="18"></line></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
 
@@ -1904,6 +1971,18 @@
 
             <div id="listProdukContainer">
                 <div class="loader"></div>
+            </div>
+
+            <!-- SECTION TESTIMONI & ULASAN TERVERIFIKASI -->
+            <div class="reviews-section">
+                <div class="store-label">TESTIMONIALS</div>
+                <div class="store-title">
+                    <span>Ulasan Pembeli Terverifikasi</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <div id="publicReviewsContainer">
+                    <div style="text-align:center; padding:18px; color:var(--text-muted); font-size:12px;">Memuat ulasan...</div>
+                </div>
             </div>
         </div>
 
@@ -1995,7 +2074,7 @@
             <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">Gunakan Kode Voucher Promo</div>
             <div class="form-card">
                 <div class="promo-container">
-                    <input type="text" id="inputPromoCode" class="form-input" placeholder="Cth: Koncol">
+                    <input type="text" id="inputPromoCode" class="form-input" placeholder="Cth: VIPZAX">
                     <button class="btn-apply-promo" onclick="terapkanPromoCode()">Terapkan</button>
                 </div>
                 <div id="promoFeedback" style="display: none;"></div>
@@ -2010,7 +2089,7 @@
         <!-- ==================== VIEW 5: LOGIN ADMIN ==================== -->
         <div id="viewLogin" class="page-view" style="display: none;">
             <div class="admin-login-card">
-                <div class="logo-box" style="display: inline-block; margin-bottom: 14px; font-size: 16px; padding: 8px 14px;">ZX</div>
+                <img src="zxs.png" alt="Logo" style="width: 48px; height: 48px; object-fit: contain; border-radius: 12px; margin-bottom: 14px; border: 1px solid var(--primary); box-shadow: 0 0 14px rgba(147, 51, 234, 0.4);">
                 <h3 style="font-size: 20px; font-weight: 900; margin-bottom: 6px;">Portal Administrator</h3>
                 <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 22px;">Akses autentikasi untuk mengelola sistem ZaxxyStore.</p>
                 
@@ -2029,9 +2108,9 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     </div>
                     <div>
-                        <div style="font-size: 15px; font-weight: 900; color: #fff;">Admin Central</div>
+                        <div style="font-size: 15px; font-weight: 900;">Admin Central</div>
                         <div class="admin-status-pill">
-                            <span class="pulse-dot"></span>
+                            <span class="live-dot" style="width: 6px; height: 6px;"></span>
                             Live Sync
                         </div>
                     </div>
@@ -2045,23 +2124,27 @@
             <div class="admin-nav-bar">
                 <button id="tabBtnProd" class="tab-btn active" onclick="switchAdminTab('prod')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                    Produk & Paket
+                    Produk
                 </button>
                 <button id="tabBtnCat" class="tab-btn" onclick="switchAdminTab('cat')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     Kategori
                 </button>
+                <button id="tabBtnReview" class="tab-btn" onclick="switchAdminTab('review')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    ACC Review <span id="adminPendingReviewCount" style="background:#ef4444; color:#fff; padding:1px 6px; border-radius:10px; font-size:10px; display:none;">0</span>
+                </button>
                 <button id="tabBtnPromo" class="tab-btn" onclick="switchAdminTab('promo')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
-                    Voucher Promo
+                    Voucher
                 </button>
                 <button id="tabBtnNotif" class="tab-btn" onclick="switchAdminTab('notif')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path></svg>
-                    Leader / Notif
+                    Leader/Notif
                 </button>
                 <button id="tabBtnContact" class="tab-btn" onclick="switchAdminTab('contact')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    Kontak CS
+                    Kontak
                 </button>
                 <button id="tabBtnDown" class="tab-btn" onclick="switchAdminTab('down')">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>
@@ -2088,11 +2171,26 @@
                         Pilih Badge Produk:
                     </div>
                     <div id="admBadgesContainer" class="badge-checkbox-group">
-                        <label class="badge-checkbox"><input type="checkbox" value="Best Seller"> <span>⭐ Best Seller</span></label>
-                        <label class="badge-checkbox"><input type="checkbox" value="Hots"> <span>🔥 Hots</span></label>
-                        <label class="badge-checkbox"><input type="checkbox" value="ROOT"> <span>🛡️ ROOT</span></label>
-                        <label class="badge-checkbox"><input type="checkbox" value="IOS"> <span>📱 IOS</span></label>
-                        <label class="badge-checkbox"><input type="checkbox" value="PC"> <span>💻 PC</span></label>
+                        <label class="badge-checkbox">
+                            <input type="checkbox" value="Best Seller"> 
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Best Seller</span>
+                        </label>
+                        <label class="badge-checkbox">
+                            <input type="checkbox" value="Hots"> 
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Hots</span>
+                        </label>
+                        <label class="badge-checkbox">
+                            <input type="checkbox" value="ROOT"> 
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> ROOT</span>
+                        </label>
+                        <label class="badge-checkbox">
+                            <input type="checkbox" value="IOS"> 
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> IOS</span>
+                        </label>
+                        <label class="badge-checkbox">
+                            <input type="checkbox" value="PC"> 
+                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> PC</span>
+                        </label>
                     </div>
                     
                     <div style="font-size: 11px; font-weight: 800; color: var(--accent); margin-top: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -2131,7 +2229,24 @@
                 <div id="admListKategori"></div>
             </div>
 
-            <!-- TAB 3: KELOLA KODE PROMO -->
+            <!-- TAB 3: MODERASI REVIEW & RATING -->
+            <div id="adminTabReview" style="display: none;">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <h4>Moderasi Review Pembeli</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Setujui (ACC) atau tolak ulasan pembeli sebelum dipublikasikan ke halaman utama toko.</p>
+                </div>
+
+                <div class="store-label">MENUNGGU PERSETUJUAN ADMIN (PENDING)</div>
+                <div id="admListPendingReviews" style="margin-bottom: 20px;"></div>
+
+                <div class="store-label">REVIEW SUDAH DI-ACC (PUBLIK)</div>
+                <div id="admListApprovedReviews"></div>
+            </div>
+
+            <!-- TAB 4: KELOLA KODE PROMO -->
             <div id="adminTabPromo" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2150,7 +2265,7 @@
                     <div class="pkg-row-grid">
                         <div>
                             <label style="font-size: 10px; color: var(--text-muted); font-weight: 700; display:block; margin-bottom:4px;">TANGGAL EXPIRED (OPSIONAL)</label>
-                            <input type="date" id="admPromoExpiry" class="form-input" style="color-scheme: dark;">
+                            <input type="date" id="admPromoExpiry" class="form-input">
                         </div>
                         <div>
                             <label style="font-size: 10px; color: var(--text-muted); font-weight: 700; display:block; margin-bottom:4px;">MAX KUOTA PAKAI (0 = UNLIMITED)</label>
@@ -2162,9 +2277,9 @@
                 </div>
 
                 <div class="store-label">KODE SISTEM (PERMANEN)</div>
-                <div class="admin-item-card" style="border-left-color: #10b981; background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, #120a21 100%);">
+                <div class="admin-item-card" style="border-left-color: #10b981; background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, var(--bg-card) 100%);">
                     <div class="admin-item-info">
-                        <h4>AzzamMod <span style="color: #34d399; font-size: 11px;">[100% FREE · UNLIMITED DEVICE]</span></h4>
+                        <h4>AzzamMod <span style="color: #10b981; font-size: 11px;">[100% FREE · UNLIMITED DEVICE]</span></h4>
                         <p>Kode bawaan permanen gratis semua produk selamanya.</p>
                     </div>
                 </div>
@@ -2173,7 +2288,7 @@
                 <div id="admListPromo"></div>
             </div>
 
-            <!-- TAB 4: KELOLA LEADERBOARD & NOTIFIKASI -->
+            <!-- TAB 5: KELOLA LEADERBOARD & NOTIFIKASI -->
             <div id="adminTabNotif" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2199,7 +2314,7 @@
                     <input type="number" id="admLeadSpent" class="form-input" placeholder="Total Belanja (cth: 72000)">
                     <input type="number" id="admLeadBought" class="form-input" placeholder="Jumlah Produk Dibeli (cth: 8)">
 
-                    <button class="btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);" onclick="simpanLeaderboardFirebase()">Tambah ke Leaderboard</button>
+                    <button class="btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);" onclick="simpanLeaderboardFirebase()">Tambah ke Leaderboard</button>
                 </div>
 
                 <div class="store-label">LIST BROADCAST AKTIF</div>
@@ -2209,12 +2324,12 @@
                 <div id="admListLeaderboard"></div>
             </div>
 
-            <!-- TAB 5: KELOLA KONTAK -->
+            <!-- TAB 6: KELOLA KONTAK -->
             <div id="adminTabContact" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        <h4 style="color: #34d399;">Pengaturan Kontak Resmi</h4>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <h4 style="color: #10b981;">Pengaturan Kontak Resmi</h4>
                     </div>
                     <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">Kontak ini akan terintegrasi ke seluruh tombol bantuan WhatsApp dan Telegram.</p>
 
@@ -2224,11 +2339,11 @@
                     <label style="font-size: 11px; font-weight: 800; color: var(--accent); display: block; margin-bottom: 4px; text-transform: uppercase;">Link Akun / Channel Telegram</label>
                     <input type="text" id="admContactTele" class="form-input" placeholder="https://t.me/zaxxystore">
 
-                    <button class="btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);" onclick="simpanKontakFirebase()">Simpan Pengaturan Kontak</button>
+                    <button class="btn-primary" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);" onclick="simpanKontakFirebase()">Simpan Pengaturan Kontak</button>
                 </div>
             </div>
 
-            <!-- TAB 6: KELOLA DOWNLOADS -->
+            <!-- TAB 7: KELOLA DOWNLOADS -->
             <div id="adminTabDown" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
@@ -2255,13 +2370,39 @@
     <!-- BILAH CHECKOUT GLOBAL -->
     <div id="globalBottomBar" class="bottom-checkout-bar" style="display: none;">
         <div>
-            <div style="font-size: 9px; color: #716489; font-weight: 800; letter-spacing: 1px;">TOTAL</div>
-            <div style="font-size: 18px; font-weight: 900; color: #ffffff;" id="barTotal">Rp 0</div>
+            <div style="font-size: 9px; color: var(--text-muted); font-weight: 800; letter-spacing: 1px;">TOTAL</div>
+            <div style="font-size: 18px; font-weight: 900; color: var(--text-main);" id="barTotal">Rp 0</div>
         </div>
         <button class="btn-checkout-now" onclick="eksekusiPembayaran()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             BELI SEKARANG
         </button>
+    </div>
+
+    <!-- MODAL BERI RATING & ULASAN SETELAH TRANSAKSI -->
+    <div id="modalReview" class="custom-alert-overlay">
+        <div class="modal-review-card">
+            <div class="custom-alert-icon" style="background: rgba(245, 158, 11, 0.15); border-color: #f59e0b; color: #f59e0b;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <h3 style="font-size: 18px; font-weight: 900; color: var(--text-main); margin-bottom: 4px;">Beri Rating & Ulasan</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;" id="reviewModalSubtitle">Bagikan pengalaman Anda menggunakan produk ini</p>
+            
+            <!-- Dynamic Vector Star Buttons -->
+            <div class="star-input-group" id="starInputGroup">
+                <button type="button" class="star-btn selected" data-val="1" onclick="setRatingValue(1)"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button type="button" class="star-btn selected" data-val="2" onclick="setRatingValue(2)"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button type="button" class="star-btn selected" data-val="3" onclick="setRatingValue(3)"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button type="button" class="star-btn selected" data-val="4" onclick="setRatingValue(4)"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                <button type="button" class="star-btn selected" data-val="5" onclick="setRatingValue(5)"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+            </div>
+            <div style="font-size: 11px; font-weight: 800; color: var(--gold); margin-bottom: 12px;" id="ratingTextDesc">5 / 5 - Sangat Puas & Recommended!</div>
+
+            <textarea id="inputReviewText" class="form-input" rows="3" placeholder="Tulis kepuasan Anda (cth: Lisensi langsung aktif, aman anti banned, mantap!)..." style="resize: none; font-size: 12px;"></textarea>
+
+            <button class="btn-primary" onclick="kirimUlasanFirebase()" style="margin-bottom: 8px;">Kirim Ulasan</button>
+            <button class="btn-cancel" onclick="lewatiUlasan()">Lewati / Nanti Saja</button>
+        </div>
     </div>
 
     <!-- CUSTOM DIALOG MODAL -->
@@ -2288,7 +2429,7 @@
             <div class="toast-time" id="toastTime">Baru saja</div>
         </div>
         <button class="btn-toast-close" onclick="closeToast()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="18" x2="18" y2="18"></line></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
     </div>
 
@@ -2301,7 +2442,7 @@
     <!-- MODAL QRIS PAYMENT -->
     <div id="modalQRIS" class="modal-overlay">
         <div class="modal-content">
-            <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">Scan QRIS MyDuit</div>
+            <div style="font-size: 18px; font-weight: 800; margin-bottom: 4px; color: var(--text-main);">Scan QRIS MyDuit</div>
             <p id="modalNamaProduk" style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;"></p>
 
             <div id="modalLoading">
@@ -2311,7 +2452,7 @@
 
             <div id="modalData" style="display: none;">
                 <div style="font-size: 13px; color: var(--accent); font-weight: 700;">
-                    Total: <span id="modalTotalBayar" style="color: #fff; font-size: 16px;"></span>
+                    Total: <span id="modalTotalBayar" style="color: var(--text-main); font-size: 16px;"></span>
                 </div>
                 <div class="qris-box">
                     <img id="modalImgQRIS" src="" alt="QRIS">
@@ -2347,6 +2488,7 @@
         let daftarLeaderboard = {};
         let daftarNotifikasi = [];
         let daftarPromo = {};
+        let daftarReviews = {};
         let configKontak = { wa: "6281234567890", tele: "https://t.me/zaxxystore" };
         
         let activeProductKey = null;
@@ -2364,6 +2506,37 @@
 
         let hitungKlikLogo = 0;
         let timerKlikLogo = null;
+
+        // State Rating Pembeli
+        let pendingReviewData = null;
+        let currentRatingScore = 5;
+
+        // --- SISTEM TEMA DARK / WHITE ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('zaxxy_theme') || 'dark';
+            applyTheme(savedTheme);
+        }
+
+        function toggleTheme() {
+            const isLight = document.body.classList.contains('light-theme');
+            const newTheme = isLight ? 'dark' : 'light';
+            applyTheme(newTheme);
+            localStorage.setItem('zaxxy_theme', newTheme);
+        }
+
+        function applyTheme(theme) {
+            const sunIcon = document.getElementById('themeIconSun');
+            const moonIcon = document.getElementById('themeIconMoon');
+            if (theme === 'light') {
+                document.body.classList.add('light-theme');
+                if (sunIcon) sunIcon.style.display = 'none';
+                if (moonIcon) moonIcon.style.display = 'inline-block';
+            } else {
+                document.body.classList.remove('light-theme');
+                if (sunIcon) sunIcon.style.display = 'inline-block';
+                if (moonIcon) moonIcon.style.display = 'none';
+            }
+        }
 
         function isPackageUnlimited(pkg) {
             if (!pkg) return false;
@@ -2386,6 +2559,20 @@
             return `${diffDay} hr lalu`;
         }
 
+        // Helper Render Bintang SVG Murni
+        function renderStarRatingHTML(score, max = 5, size = 13) {
+            let html = '<div style="display: inline-flex; gap: 2px; align-items: center;">';
+            for (let i = 1; i <= max; i++) {
+                if (i <= score) {
+                    html += `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+                } else {
+                    html += `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+                }
+            }
+            html += '</div>';
+            return html;
+        }
+
         function renderBadgesHTML(item) {
             let badges = [];
             if (Array.isArray(item.badges)) {
@@ -2399,7 +2586,7 @@
             return badges.map(b => {
                 const bClean = (b || '').trim();
                 if (bClean === 'Best Seller') {
-                    return `<span class="badge-bestseller"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> Best Seller</span>`;
+                    return `<span class="badge-bestseller"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Best Seller</span>`;
                 } else if (bClean === 'Hots' || bClean === 'Hot') {
                     return `<span class="badge-hots"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Hots</span>`;
                 } else if (bClean === 'ROOT') {
@@ -2429,8 +2616,10 @@
             navigator.clipboard.writeText(key).then(() => {
                 const btn = document.getElementById('btnSalinKey');
                 if (btn) {
-                    btn.innerHTML = '✅ Lisensi Berhasil Disalin!';
-                    setTimeout(() => { btn.innerHTML = '📋 Salin Kode Lisensi'; }, 2000);
+                    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Lisensi Berhasil Disalin!`;
+                    setTimeout(() => { 
+                        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> Salin Kode Lisensi`; 
+                    }, 2000);
                 }
             }).catch(() => {
                 showCustomAlert("Kode Lisensi Anda:\n" + key, "SALIN LISENSI", "info");
@@ -2452,9 +2641,9 @@
                 iconBox.style.borderColor = "#ef4444";
                 iconBox.style.background = "rgba(239, 68, 68, 0.15)";
             } else {
-                iconBox.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12" y2="12"></line></svg>`;
-                iconBox.style.borderColor = "#c084fc";
-                iconBox.style.background = "rgba(192, 132, 252, 0.15)";
+                iconBox.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12.01" y2="16"></line><line x1="12" y1="8" x2="12" y2="12"></line></svg>`;
+                iconBox.style.borderColor = "var(--accent)";
+                iconBox.style.background = "rgba(147, 51, 234, 0.15)";
             }
 
             modal.style.display = 'flex';
@@ -2519,6 +2708,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
             cekStatusNavAdmin();
             resetFormProduk();
             startNotificationRotation();
@@ -2544,7 +2734,7 @@
             handleSearch('');
         }
 
-        // 4. Navigasi Router & Kontrol Elemen Floating
+        // 4. Navigasi Router
         function pindahHalaman(viewId) {
             const views = ['viewHome', 'viewLeaderboard', 'viewDownloads', 'viewProduct', 'viewLogin', 'viewAdmin'];
             views.forEach(v => {
@@ -2590,7 +2780,7 @@
         }
 
         function switchAdminTab(tab) {
-            const tabs = ['Prod', 'Cat', 'Promo', 'Notif', 'Contact', 'Down'];
+            const tabs = ['Prod', 'Cat', 'Review', 'Promo', 'Notif', 'Contact', 'Down'];
             tabs.forEach(t => {
                 const btn = document.getElementById('tabBtn' + t);
                 const content = document.getElementById('adminTab' + t);
@@ -2639,15 +2829,14 @@
             if (filteredKeys.length === 0) {
                 container.innerHTML = `
                     <div style="text-align:center; padding:36px 16px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:16px;">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#716489" stroke-width="2" style="margin-bottom:8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <p style="font-size:13px; font-weight:700; color:#cbd5e1; margin-bottom:4px;">Produk Tidak Ditemukan</p>
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" style="margin-bottom:8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <p style="font-size:13px; font-weight:700; color:var(--text-main); margin-bottom:4px;">Produk Tidak Ditemukan</p>
                         <p style="font-size:11px; color:var(--text-muted);">Coba ubah kata kunci atau ganti filter kategori.</p>
                     </div>
                 `;
                 return;
             }
 
-            // LOGIKA SORTING: Best Seller (1), Hots (2), Lainnya A-Z (3)
             filteredKeys.sort((a, b) => {
                 const getBadgesArr = (item) => Array.isArray(item.badges) ? item.badges : (item.badge ? [item.badge] : []);
                 const badgesA = getBadgesArr(daftarProduk[a]).map(x => x.toLowerCase().trim());
@@ -2662,12 +2851,8 @@
                 const prioA = getPriority(badgesA);
                 const prioB = getPriority(badgesB);
 
-                // Jika prioritas tag berbeda, urutkan berdasarkan prioritas
-                if (prioA !== prioB) {
-                    return prioA - prioB;
-                }
+                if (prioA !== prioB) return prioA - prioB;
 
-                // Jika prioritasnya sama, urutkan berdasarkan nama produk secara alfabetis A-Z
                 const nameA = (daftarProduk[a].name || '').toLowerCase();
                 const nameB = (daftarProduk[b].name || '').toLowerCase();
                 return nameA.localeCompare(nameB);
@@ -2716,7 +2901,7 @@
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                             From 1 day
                         </div>
-                        <div class="meta-item" style="color: ${isAvailable ? '#34d399' : '#f87171'}; font-weight: 700;">
+                        <div class="meta-item" style="color: ${isAvailable ? '#10b981' : '#f87171'}; font-weight: 700;">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
                             ${stockText}
                         </div>
@@ -2736,7 +2921,185 @@
             });
         }
 
-        // 6. REALTIME LISTENER: KATEGORI
+        // 6. REALTIME LISTENER: REVIEWS & RATINGS (ACC OLEH ADMIN)
+        db.ref('zaxxy_reviews').on('value', (snapshot) => {
+            const data = snapshot.val() || {};
+            daftarReviews = data;
+            
+            // 1. Render Public Approved Reviews di Halaman Depan
+            const publicContainer = document.getElementById('publicReviewsContainer');
+            if (publicContainer) {
+                const approvedKeys = Object.keys(data).filter(k => data[k].status === 'approved');
+                
+                if (approvedKeys.length === 0) {
+                    publicContainer.innerHTML = `
+                        <div style="text-align:center; padding:24px; background:var(--bg-card); border:1px dashed var(--border-color); border-radius:14px;">
+                            <p style="font-size:12px; color:var(--text-muted);">Belum ada ulasan yang disetujui admin. Jadilah pembeli pertama yang memberikan review!</p>
+                        </div>
+                    `;
+                } else {
+                    publicContainer.innerHTML = '';
+                    approvedKeys.sort((a, b) => (data[b].timestamp || 0) - (data[a].timestamp || 0));
+                    
+                    approvedKeys.forEach(key => {
+                        const item = data[key];
+                        const starsHTML = renderStarRatingHTML(item.rating || 5, 5, 12);
+                        const rCard = document.createElement('div');
+                        rCard.className = 'review-card';
+                        rCard.innerHTML = `
+                            <div class="review-header">
+                                <div class="review-author">
+                                    ${item.buyerName}
+                                    <span class="verified-badge">
+                                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        Terverifikasi
+                                    </span>
+                                </div>
+                                <div>${starsHTML}</div>
+                            </div>
+                            <div class="review-text">"${item.comment || 'Produk sangat bagus dan recommended!'}"</div>
+                            <div class="review-product-tag">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                                <span>${item.productName || 'Lisensi VIP'} · <span style="color:var(--text-muted);">${formatRelativeTime(item.timestamp)}</span></span>
+                            </div>
+                        `;
+                        publicContainer.appendChild(rCard);
+                    });
+                }
+            }
+
+            // 2. Render Admin Panel Review Moderation
+            const pendingContainer = document.getElementById('admListPendingReviews');
+            const approvedContainer = document.getElementById('admListApprovedReviews');
+            const countBadge = document.getElementById('adminPendingReviewCount');
+
+            if (pendingContainer && approvedContainer) {
+                pendingContainer.innerHTML = '';
+                approvedContainer.innerHTML = '';
+
+                let pendingCount = 0;
+
+                Object.keys(data).forEach(key => {
+                    const rev = data[key];
+                    const starsHTML = renderStarRatingHTML(rev.rating || 5, 5, 11);
+                    
+                    if (rev.status === 'pending') {
+                        pendingCount++;
+                        const admCard = document.createElement('div');
+                        admCard.className = 'admin-item-card';
+                        admCard.style.borderLeftColor = '#f59e0b';
+                        admCard.innerHTML = `
+                            <div class="admin-item-info">
+                                <h4>${rev.buyerName} ${starsHTML}</h4>
+                                <p style="color:var(--text-main); margin-bottom:2px;">"${rev.comment || 'Tanpa komentar'}"</p>
+                                <p style="font-size:10px;">Produk: <b>${rev.productName}</b> · ${formatRelativeTime(rev.timestamp)}</p>
+                            </div>
+                            <div class="admin-actions">
+                                <button class="btn-acc" onclick="accReviewFirebase('${key}')" title="Setujui Review">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </button>
+                                <button class="btn-delete" onclick="hapusReviewFirebase('${key}')" title="Tolak / Hapus">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        `;
+                        pendingContainer.appendChild(admCard);
+                    } else if (rev.status === 'approved') {
+                        const admCard = document.createElement('div');
+                        admCard.className = 'admin-item-card';
+                        admCard.style.borderLeftColor = '#10b981';
+                        admCard.innerHTML = `
+                            <div class="admin-item-info">
+                                <h4>${rev.buyerName} ${starsHTML}</h4>
+                                <p style="color:var(--text-main); margin-bottom:2px;">"${rev.comment || 'Tanpa komentar'}"</p>
+                                <p style="font-size:10px;">Produk: <b>${rev.productName}</b></p>
+                            </div>
+                            <div class="admin-actions">
+                                <button class="btn-delete" onclick="hapusReviewFirebase('${key}')" title="Hapus Ulasan Publik">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        `;
+                        approvedContainer.appendChild(admCard);
+                    }
+                });
+
+                if (pendingCount === 0) {
+                    pendingContainer.innerHTML = '<div style="font-size:11px; color:var(--text-muted); padding:10px 0;">Tidak ada ulasan baru yang menunggu ACC.</div>';
+                    if (countBadge) countBadge.style.display = 'none';
+                } else {
+                    if (countBadge) {
+                        countBadge.innerText = pendingCount;
+                        countBadge.style.display = 'inline-block';
+                    }
+                }
+            }
+        });
+
+        // 7. Review Rating Functions
+        function setRatingValue(val) {
+            currentRatingScore = val;
+            const stars = document.querySelectorAll('#starInputGroup .star-btn');
+            stars.forEach((s, idx) => {
+                s.classList.toggle('selected', idx < val);
+            });
+            const textMap = {
+                1: "1 / 5 - Kurang Puas",
+                2: "2 / 5 - Cukup",
+                3: "3 / 5 - Standar",
+                4: "4 / 5 - Puas & Bagus!",
+                5: "5 / 5 - Sangat Puas & Recommended!"
+            };
+            document.getElementById('ratingTextDesc').innerText = textMap[val] || `${val} / 5`;
+        }
+
+        function bukaModalReview(buyerName, productName) {
+            pendingReviewData = { buyerName, productName };
+            document.getElementById('reviewModalSubtitle').innerText = `Bagikan ulasan Anda untuk ${productName}`;
+            document.getElementById('inputReviewText').value = '';
+            setRatingValue(5);
+            document.getElementById('modalReview').style.display = 'flex';
+        }
+
+        function kirimUlasanFirebase() {
+            if (!pendingReviewData) return;
+            const comment = document.getElementById('inputReviewText').value.trim();
+
+            db.ref('zaxxy_reviews').push({
+                buyerName: pendingReviewData.buyerName,
+                productName: pendingReviewData.productName,
+                rating: currentRatingScore,
+                comment: comment || 'Pelayanan cepat dan lisensi langsung aktif!',
+                status: 'pending',
+                timestamp: Date.now()
+            }, () => {
+                document.getElementById('modalReview').style.display = 'none';
+                pendingReviewData = null;
+                showCustomAlert("Terima kasih atas ulasan Anda!<br><br>Ulasan Anda telah tersimpan dan akan <b>ditampilkan setelah diverifikasi oleh Admin</b>.", "ULASAN TERKIRIM", "success", () => {
+                    pindahHalaman('viewHome');
+                });
+            });
+        }
+
+        function lewatiUlasan() {
+            document.getElementById('modalReview').style.display = 'none';
+            pendingReviewData = null;
+            pindahHalaman('viewHome');
+        }
+
+        function accReviewFirebase(key) {
+            db.ref(`zaxxy_reviews/${key}`).update({ status: 'approved' }, () => {
+                showCustomAlert("Ulasan berhasil di-ACC dan sudah tampil ke publik!", "REVIEW APPROVED", "success");
+            });
+        }
+
+        function hapusReviewFirebase(key) {
+            db.ref(`zaxxy_reviews/${key}`).remove(() => {
+                showCustomAlert("Ulasan berhasil dihapus!", "TERHAPUS", "success");
+            });
+        }
+
+        // 8. REALTIME LISTENER: KATEGORI
         db.ref('zaxxy_categories').on('value', (snapshot) => {
             const data = snapshot.val();
             if (!data) {
@@ -2746,7 +3109,6 @@
 
             daftarKategori = data;
             
-            // Render Storefront Filter Scroll
             const scrollContainer = document.getElementById('categoryScrollContainer');
             if (scrollContainer) {
                 let html = `<button class="cat-btn ${activeKategori === 'ALL' ? 'active' : ''}" data-cat="ALL" onclick="pilihKategori('ALL')">
@@ -2767,7 +3129,6 @@
                 scrollContainer.innerHTML = html;
             }
 
-            // Render Select Device di Form Admin
             const selectDevice = document.getElementById('admDevice');
             if (selectDevice) {
                 const currentVal = selectDevice.value;
@@ -2782,7 +3143,6 @@
                 if (currentVal) selectDevice.value = currentVal;
             }
 
-            // Render List Kategori di Admin Panel
             const admListCat = document.getElementById('admListKategori');
             if (admListCat) {
                 admListCat.innerHTML = '';
@@ -2845,7 +3205,7 @@
             });
         }
 
-        // 7. Realtime Listeners Lainnya
+        // 9. Realtime Listeners Lainnya
         db.ref('zaxxy_promos').on('value', (snapshot) => {
             const data = snapshot.val() || {};
             daftarPromo = data;
@@ -2863,7 +3223,7 @@
                     admCard.innerHTML = `
                         <div class="admin-item-info">
                             <h4>${item.code} <span style="color:var(--accent); font-size:11px;">[${item.discount}% OFF]</span></h4>
-                            <p>📱 ${maxDev} | ⏳ ${expText} | 📊 ${usage}</p>
+                            <p>${maxDev} · ${expText} · ${usage}</p>
                         </div>
                         <div class="admin-actions">
                             <button class="btn-delete" onclick="hapusPromoFirebase('${key}')">
@@ -2899,44 +3259,46 @@
             daftarProduk = data;
             renderStorefront();
 
-            admContainer.innerHTML = '';
-            Object.keys(data).forEach(key => {
-                const item = data[key];
-                const pkgs = item.packages || [];
-                let hasUnlimited = false;
-                let totalStock = 0;
-                
-                const pkgSummary = pkgs.map(p => {
-                    const isUnl = isPackageUnlimited(p);
-                    if (isUnl) hasUnlimited = true;
-                    else totalStock += (parseInt(p.stock) || 0);
-                    return `${p.duration}: ${isUnl ? 'Unlimited' : p.stock}`;
-                }).join(' | ');
+            if (admContainer) {
+                admContainer.innerHTML = '';
+                Object.keys(data).forEach(key => {
+                    const item = data[key];
+                    const pkgs = item.packages || [];
+                    let hasUnlimited = false;
+                    let totalStock = 0;
+                    
+                    const pkgSummary = pkgs.map(p => {
+                        const isUnl = isPackageUnlimited(p);
+                        if (isUnl) hasUnlimited = true;
+                        else totalStock += (parseInt(p.stock) || 0);
+                        return `${p.duration}: ${isUnl ? 'Unlimited' : p.stock}`;
+                    }).join(' | ');
 
-                const stockDisplay = hasUnlimited ? 'Unlimited' : totalStock;
-                const badgesSummary = (Array.isArray(item.badges) ? item.badges.join(', ') : item.badge) || 'Tanpa Badge';
+                    const stockDisplay = hasUnlimited ? 'Unlimited' : totalStock;
+                    const badgesSummary = (Array.isArray(item.badges) ? item.badges.join(', ') : item.badge) || 'Tanpa Badge';
 
-                const admCard = document.createElement('div');
-                admCard.className = 'admin-item-card';
-                admCard.innerHTML = `
-                    <div class="admin-item-info">
-                        <h4>${item.name} <span style="color:var(--gold); font-size:11px;">[${badgesSummary}]</span></h4>
-                        <p>Total Stok: ${stockDisplay} | Kategori: ${item.device || 'MLBB'}<br>${pkgSummary || 'Tidak ada paket'}</p>
-                    </div>
-                    <div class="admin-actions">
-                        <button class="btn-edit" onclick="isiFormEditProduk('${key}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                        </button>
-                        <button class="btn-delete" onclick="hapusProdukFirebase('${key}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        </button>
-                    </div>
-                `;
-                admContainer.appendChild(admCard);
-            });
+                    const admCard = document.createElement('div');
+                    admCard.className = 'admin-item-card';
+                    admCard.innerHTML = `
+                        <div class="admin-item-info">
+                            <h4>${item.name} <span style="color:var(--gold); font-size:11px;">[${badgesSummary}]</span></h4>
+                            <p>Total Stok: ${stockDisplay} | Kategori: ${item.device || 'MLBB'}<br>${pkgSummary || 'Tidak ada paket'}</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn-edit" onclick="isiFormEditProduk('${key}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button class="btn-delete" onclick="hapusProdukFirebase('${key}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    `;
+                    admContainer.appendChild(admCard);
+                });
+            }
         });
 
-        // 8. Leaderboard & Notifikasi
+        // 10. Leaderboard & Notifikasi
         function tambahAtauUpdateLeaderboard(namaUser, nominal) {
             const masked = maskBuyerName(namaUser);
             const nominalAngka = parseInt(nominal) || 0;
@@ -2979,8 +3341,8 @@
             }
 
             daftarLeaderboard = data;
-            container.innerHTML = '';
-            admContainer.innerHTML = '';
+            if (container) container.innerHTML = '';
+            if (admContainer) admContainer.innerHTML = '';
 
             const sortedKeys = Object.keys(data).sort((a, b) => (data[b].spent || 0) - (data[a].spent || 0));
 
@@ -2990,37 +3352,41 @@
                 const isTop1 = rank === 1;
                 const isTop2 = rank === 2;
 
-                const card = document.createElement('div');
-                card.className = `rank-card ${isTop1 ? 'top-1' : isTop2 ? 'top-2' : ''}`;
-                card.innerHTML = `
-                    <div class="rank-left">
-                        <div class="rank-number">${rank}</div>
-                        <div>
-                            <div class="rank-user-name">${item.name}</div>
-                            <div class="rank-user-orders">${item.bought || 1} produk dibeli</div>
+                if (container) {
+                    const card = document.createElement('div');
+                    card.className = `rank-card ${isTop1 ? 'top-1' : isTop2 ? 'top-2' : ''}`;
+                    card.innerHTML = `
+                        <div class="rank-left">
+                            <div class="rank-number">${rank}</div>
+                            <div>
+                                <div class="rank-user-name">${item.name}</div>
+                                <div class="rank-user-orders">${item.bought || 1} produk dibeli</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="rank-right">
-                        <div class="rank-spent-val">Rp ${Number(item.spent || 0).toLocaleString('id-ID')}</div>
-                        <div class="rank-spent-lbl">belanja produk</div>
-                    </div>
-                `;
-                container.appendChild(card);
+                        <div class="rank-right">
+                            <div class="rank-spent-val">Rp ${Number(item.spent || 0).toLocaleString('id-ID')}</div>
+                            <div class="rank-spent-lbl">belanja produk</div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
 
-                const admCard = document.createElement('div');
-                admCard.className = 'admin-item-card';
-                admCard.innerHTML = `
-                    <div class="admin-item-info">
-                        <h4>#${rank} ${item.name}</h4>
-                        <p>Rp ${Number(item.spent || 0).toLocaleString('id-ID')} (${item.bought || 1} pesanan)</p>
-                    </div>
-                    <div class="admin-actions">
-                        <button class="btn-delete" onclick="hapusLeaderboardFirebase('${key}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        </button>
-                    </div>
-                `;
-                admContainer.appendChild(admCard);
+                if (admContainer) {
+                    const admCard = document.createElement('div');
+                    admCard.className = 'admin-item-card';
+                    admCard.innerHTML = `
+                        <div class="admin-item-info">
+                            <h4>#${rank} ${item.name}</h4>
+                            <p>Rp ${Number(item.spent || 0).toLocaleString('id-ID')} (${item.bought || 1} pesanan)</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn-delete" onclick="hapusLeaderboardFirebase('${key}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    `;
+                    admContainer.appendChild(admCard);
+                }
             });
         });
 
@@ -3036,25 +3402,26 @@
             daftarNotifikasi = Object.keys(data).map(key => ({ id: key, ...data[key] }));
             daftarNotifikasi.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
-            admContainer.innerHTML = '';
-
-            daftarNotifikasi.forEach(item => {
-                const relativeTime = formatRelativeTime(item.timestamp || item.time);
-                const admCard = document.createElement('div');
-                admCard.className = 'admin-item-card';
-                admCard.innerHTML = `
-                    <div class="admin-item-info">
-                        <h4>${item.buyer} bought ${item.product}</h4>
-                        <p style="color:var(--accent);">${relativeTime}</p>
-                    </div>
-                    <div class="admin-actions">
-                        <button class="btn-delete" onclick="hapusNotifikasiFirebase('${item.id}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        </button>
-                    </div>
-                `;
-                admContainer.appendChild(admCard);
-            });
+            if (admContainer) {
+                admContainer.innerHTML = '';
+                daftarNotifikasi.forEach(item => {
+                    const relativeTime = formatRelativeTime(item.timestamp || item.time);
+                    const admCard = document.createElement('div');
+                    admCard.className = 'admin-item-card';
+                    admCard.innerHTML = `
+                        <div class="admin-item-info">
+                            <h4>${item.buyer} bought ${item.product}</h4>
+                            <p style="color:var(--accent);">${relativeTime}</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn-delete" onclick="hapusNotifikasiFirebase('${item.id}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    `;
+                    admContainer.appendChild(admCard);
+                });
+            }
         });
 
         db.ref('zaxxy_downloads').on('value', (snapshot) => {
@@ -3068,47 +3435,51 @@
             }
 
             daftarDownloads = data;
-            container.innerHTML = '';
-            admContainer.innerHTML = '';
+            if (container) container.innerHTML = '';
+            if (admContainer) admContainer.innerHTML = '';
 
             Object.keys(data).forEach(key => {
                 const item = data[key];
 
-                const card = document.createElement('div');
-                card.className = 'download-card';
-                card.innerHTML = `
-                    <div class="download-top">
-                        <div class="download-title">${item.title}</div>
-                        <span class="badge-device">${item.desc || 'Direct File'}</span>
-                    </div>
-                    <a href="${item.url || '#'}" target="_blank" class="btn-download-action">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Download File
-                    </a>
-                `;
-                container.appendChild(card);
+                if (container) {
+                    const card = document.createElement('div');
+                    card.className = 'download-card';
+                    card.innerHTML = `
+                        <div class="download-top">
+                            <div class="download-title">${item.title}</div>
+                            <span class="badge-device">${item.desc || 'Direct File'}</span>
+                        </div>
+                        <a href="${item.url || '#'}" target="_blank" class="btn-download-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Download File
+                        </a>
+                    `;
+                    container.appendChild(card);
+                }
 
-                const admCard = document.createElement('div');
-                admCard.className = 'admin-item-card';
-                admCard.innerHTML = `
-                    <div class="admin-item-info">
-                        <h4>${item.title}</h4>
-                        <p>${item.desc || 'No Description'}</p>
-                    </div>
-                    <div class="admin-actions">
-                        <button class="btn-edit" onclick="isiFormEditDownload('${key}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                        </button>
-                        <button class="btn-delete" onclick="hapusDownloadFirebase('${key}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        </button>
-                    </div>
-                `;
-                admContainer.appendChild(admCard);
+                if (admContainer) {
+                    const admCard = document.createElement('div');
+                    admCard.className = 'admin-item-card';
+                    admCard.innerHTML = `
+                        <div class="admin-item-info">
+                            <h4>${item.title}</h4>
+                            <p>${item.desc || 'No Description'}</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn-edit" onclick="isiFormEditDownload('${key}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button class="btn-delete" onclick="hapusDownloadFirebase('${key}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    `;
+                    admContainer.appendChild(admCard);
+                }
             });
         });
 
-        // 9. Data Awal Default
+        // 11. Data Awal Default
         function seedInitialData() {
             const defaultProducts = {
                 prod_1: {
@@ -3175,7 +3546,7 @@
             db.ref('zaxxy_downloads').set(defaultDownloads);
         }
 
-        // 10. Notifikasi Toast
+        // 12. Notifikasi Toast
         function tampilkanNotifikasiTerbaru() {
             if (!daftarNotifikasi || daftarNotifikasi.length === 0) return;
             const item = daftarNotifikasi[0];
@@ -3204,7 +3575,7 @@
             document.getElementById('recentToast').classList.remove('show');
         }
 
-        // 11. Detail & Logika Pembelian
+        // 13. Detail & Logika Pembelian
         function hitungTotalSetelahDiskon() {
             if (diskonPersen >= 100) return 0;
             if (diskonPersen > 0) {
@@ -3218,8 +3589,8 @@
             const finalPrice = hitungTotalSetelahDiskon();
             if (diskonPersen > 0) {
                 document.getElementById('barTotal').innerHTML = `
-                    <span style="text-decoration: line-through; color: #716489; font-size: 13px;">Rp ${Number(hargaTerpilih).toLocaleString('id-ID')}</span>
-                    <span style="color: #34d399;">Rp ${Number(finalPrice).toLocaleString('id-ID')}</span>
+                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 13px;">Rp ${Number(hargaTerpilih).toLocaleString('id-ID')}</span>
+                    <span style="color: #10b981;">Rp ${Number(finalPrice).toLocaleString('id-ID')}</span>
                 `;
             } else {
                 document.getElementById('barTotal').innerText = 'Rp ' + Number(hargaTerpilih).toLocaleString('id-ID');
@@ -3246,11 +3617,11 @@
                     <div class="promo-badge">
                         <div class="promo-badge-top">
                             <span>Kode <b>AzzamMod</b> Aktif (Diskon 100%)</span>
-                            <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#f87171; font-weight:800; cursor:pointer;">Hapus</button>
+                            <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#ef4444; font-weight:800; cursor:pointer;">Hapus</button>
                         </div>
                         <div class="promo-detail-pills">
-                            <span class="promo-sub-pill">📱 Unlimited Device</span>
-                            <span class="promo-sub-pill">⏳ Selamanya Aktif</span>
+                            <span class="promo-sub-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> Unlimited Device</span>
+                            <span class="promo-sub-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg> Selamanya Aktif</span>
                         </div>
                     </div>
                 `;
@@ -3305,11 +3676,11 @@
                 <div class="promo-badge">
                     <div class="promo-badge-top">
                         <span>Kode <b>${promoDitemukan.code}</b> Aktif (Diskon ${diskonPersen}%)</span>
-                        <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#f87171; font-weight:800; cursor:pointer;">Hapus</button>
+                        <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#ef4444; font-weight:800; cursor:pointer;">Hapus</button>
                     </div>
                     <div class="promo-detail-pills">
-                        <span class="promo-sub-pill">📱 ${devLimit}</span>
-                        <span class="promo-sub-pill">⏳ ${expLimit}</span>
+                        <span class="promo-sub-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> ${devLimit}</span>
+                        <span class="promo-sub-pill"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg> ${expLimit}</span>
                     </div>
                 </div>
             `;
@@ -3416,7 +3787,7 @@
             pindahHalaman('viewProduct');
         }
 
-        // 12. Admin Auth
+        // 14. Admin Auth
         function loginAdmin() {
             const user = document.getElementById('loginUser').value.trim();
             const pass = document.getElementById('loginPass').value.trim();
@@ -3436,7 +3807,7 @@
             pindahHalaman('viewHome');
         }
 
-        // 13. Dinamisasi Paket (Termasuk Opsi Unlimited Stock)
+        // 15. Dinamisasi Paket
         function toggleUnlimitedInput(checkbox) {
             const row = checkbox.closest('.pkg-row');
             const stockInput = row.querySelector('.pkg-stock');
@@ -3463,7 +3834,7 @@
                 <div class="pkg-row-top">
                     <span class="pkg-row-title">Item Paket</span>
                     <button type="button" class="btn-del-pkg" onclick="this.closest('.pkg-row').remove()">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="18" x2="18" y2="18"></line></svg>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
                 <input type="text" class="form-input pkg-duration" placeholder="Durasi (cth: 1 Day / 7 Day / Lifetime)" value="${duration}">
@@ -3480,7 +3851,7 @@
             list.appendChild(row);
         }
 
-        // 14. CRUD Produk
+        // 16. CRUD Produk
         function simpanProdukFirebase() {
             const key = document.getElementById('editProdKey').value;
             const name = document.getElementById('admNama').value.trim();
@@ -3594,7 +3965,7 @@
             showCustomAlert("Produk berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 15. CRUD Promo
+        // 17. CRUD Promo
         function simpanPromoFirebase() {
             const code = document.getElementById('admPromoCode').value.trim().toUpperCase();
             const discount = parseInt(document.getElementById('admPromoDisc').value);
@@ -3634,7 +4005,7 @@
             showCustomAlert("Kode promo dihapus!", "TERHAPUS", "success");
         }
 
-        // 16. CRUD Leaderboard & Notifikasi
+        // 18. CRUD Leaderboard & Notifikasi
         function simpanNotifikasiFirebase() {
             const buyer = document.getElementById('admNotifBuyer').value.trim();
             const product = document.getElementById('admNotifProd').value.trim();
@@ -3699,7 +4070,7 @@
             db.ref('zaxxy_leaderboard/' + key).remove();
         }
 
-        // 17. CRUD Kontak
+        // 19. CRUD Kontak
         function simpanKontakFirebase() {
             const wa = document.getElementById('admContactWA').value.trim();
             const tele = document.getElementById('admContactTele').value.trim();
@@ -3714,7 +4085,7 @@
             });
         }
 
-        // 18. CRUD Downloads
+        // 20. CRUD Downloads
         function simpanDownloadFirebase() {
             const key = document.getElementById('editDownKey').value;
             const title = document.getElementById('admDownTitle').value.trim();
@@ -3771,7 +4142,7 @@
             showCustomAlert("File download berhasil dihapus!", "TERHAPUS", "success");
         }
 
-        // 19. Pembayaran & Eksekusi Lisensi
+        // 21. Pembayaran & Eksekusi Lisensi + Pemicu Rating Ulasan
         async function eksekusiPembayaran() {
             const nama = document.getElementById('inputNama').value.trim();
             if (!nama) {
@@ -3790,6 +4161,7 @@
 
             const finalPrice = hitungTotalSetelahDiskon();
 
+            // Skenario 1: Promo Gratis 100% (AzzamMod dsb.)
             if (finalPrice <= 0) {
                 if (activeProductKey && produkTerpilih && !isUnl) {
                     const pkgs = [...produkTerpilih.packages];
@@ -3806,7 +4178,7 @@
                 const maskedName = maskBuyerName(nama);
                 db.ref('zaxxy_notifications').push({
                     buyer: `${maskedName} bought`,
-                    product: `${produkTerpilih.name} · ${curPkg.duration} [PROMO]`,
+                    product: `${produkTerpilih.name} · ${curPkg.duration}  `,
                     timestamp: Date.now()
                 });
 
@@ -3819,18 +4191,19 @@
                                 `• <b>Produk:</b> ${produkTerpilih.name} (${curPkg.duration})<br>` +
                                 `• <b>Batas Device:</b> ${devSlot}<br>` +
                                 `• <b>Total Bayar:</b> GRATIS (Rp 0)<br><br>` +
-                                `<div style="background: #0d061a; border: 1px dashed #9333ea; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">` +
-                                `<div style="font-size: 10px; color: #8b7fa1; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">KODE LISENSI ANDA</div>` +
-                                `<div style="font-size: 16px; font-weight: 900; color: #c084fc; letter-spacing: 1px;" id="lisensiText">${generatedKey}</div>` +
+                                `<div style="background: var(--bg-input); border: 1px dashed var(--primary); padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">` +
+                                `<div style="font-size: 10px; color: var(--text-muted); font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">KODE LISENSI ANDA</div>` +
+                                `<div style="font-size: 16px; font-weight: 900; color: var(--accent); letter-spacing: 1px;" id="lisensiText">${generatedKey}</div>` +
                                 `</div>` +
-                                `<button id="btnSalinKey" onclick="salinLisensi('${generatedKey}')" style="width:100%; background:#251242; border:1px solid #9333ea; color:#c084fc; padding:8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12px; margin-bottom:10px;">📋 Salin Kode Lisensi</button>`;
+                                `<button id="btnSalinKey" onclick="salinLisensi('${generatedKey}')" style="width:100%; background:var(--bg-card-alt); border:1px solid var(--primary); color:var(--accent); padding:10px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12px; margin-bottom:10px; display:flex; align-items:center; justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> Salin Kode Lisensi</button>`;
 
                 showCustomAlert(infoMsg, "TRANSAKSI SUKSES", "success", () => {
-                    pindahHalaman('viewHome');
+                    bukaModalReview(nama, produkTerpilih.name);
                 });
                 return;
             }
 
+            // Skenario 2: Pembayaran Berbayar QRIS MyDuit
             const modal = document.getElementById('modalQRIS');
             const loading = document.getElementById('modalLoading');
             const dataArea = document.getElementById('modalData');
@@ -3921,14 +4294,14 @@
                             const successMsg = `Pembayaran Lunas untuk <b>${namaPembeli}</b>!<br><br>` +
                                                `• <b>Produk:</b> ${produkTerpilih.name} (${curPkg.duration})<br>` +
                                                `• <b>Batas Device:</b> ${devSlot}<br><br>` +
-                                               `<div style="background: #0d061a; border: 1px dashed #10b981; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">` +
-                                               `<div style="font-size: 10px; color: #8b7fa1; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">KODE LISENSI ANDA</div>` +
-                                               `<div style="font-size: 16px; font-weight: 900; color: #34d399; letter-spacing: 1px;" id="lisensiText">${generatedKey}</div>` +
+                                               `<div style="background: var(--bg-input); border: 1px dashed #10b981; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">` +
+                                               `<div style="font-size: 10px; color: var(--text-muted); font-weight: 800; letter-spacing: 1px; margin-bottom: 4px;">KODE LISENSI ANDA</div>` +
+                                               `<div style="font-size: 16px; font-weight: 900; color: #10b981; letter-spacing: 1px;" id="lisensiText">${generatedKey}</div>` +
                                                `</div>` +
-                                               `<button id="btnSalinKey" onclick="salinLisensi('${generatedKey}')" style="width:100%; background:#10b981; border:none; color:#ffffff; padding:8px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12px; margin-bottom:10px;">📋 Salin Kode Lisensi</button>`;
+                                               `<button id="btnSalinKey" onclick="salinLisensi('${generatedKey}')" style="width:100%; background:#10b981; border:none; color:#ffffff; padding:10px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12px; margin-bottom:10px; display:flex; align-items:center; justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> Salin Kode Lisensi</button>`;
 
                             showCustomAlert(successMsg, "PEMBAYARAN SUKSES", "success", () => {
-                                pindahHalaman('viewHome');
+                                bukaModalReview(namaPembeli, produkTerpilih.name);
                             });
                         }, 1500);
                     }
