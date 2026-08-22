@@ -1079,8 +1079,6 @@
         }
 
         .promo-container input {
-            text-transform: uppercase;
-            letter-spacing: 1px;
             font-weight: 700;
             margin-bottom: 0;
             flex: 1;
@@ -1839,6 +1837,16 @@
 </head>
 <body>
 
+    <!-- MAINTENANCE MODE SCREEN (KECUALI ADMIN) -->
+    <div id="maintenanceOverlay" style="position: fixed; inset: 0; background: var(--bg-main); z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px;">
+        <div style="width: 72px; height: 72px; background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--danger); box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+        </div>
+        <h2 style="font-size: 23px; font-weight: 900; margin-bottom: 8px; color: var(--text-main);">Website Sedang Maintenance</h2>
+        <p style="font-size: 13px; color: var(--text-muted); max-width: 320px; line-height: 1.5; margin-bottom: 24px;">ZaxxyStore sedang dalam peningkatan sistem & pemeliharaan server. Silakan kembali beberapa saat lagi.</p>
+        <button onclick="bukaWhatsApp()" class="btn-primary" style="max-width: 240px; background: #10b981; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">Hubungi CS WhatsApp</button>
+    </div>
+
     <!-- Sidebar Overlay Menu -->
     <div class="nav-overlay" id="sidebarMenu">
         <div class="nav-header">
@@ -2150,6 +2158,10 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline></svg>
                     Unduhan
                 </button>
+                <button id="tabBtnSetting" class="tab-btn" onclick="switchAdminTab('setting')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Pengaturan
+                </button>
             </div>
 
             <!-- TAB 1: KELOLA PRODUK -->
@@ -2255,7 +2267,7 @@
                     </div>
                     <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">Atur kode voucher diskon dengan batas tanggal kedaluwarsa, kuota pemakaian, dan batas device.</p>
 
-                    <input type="text" id="admPromoCode" class="form-input" placeholder="Kode Promo (cth: DISKON50)">
+                    <input type="text" id="admPromoCode" class="form-input" placeholder="Kode Promo (cth: diskon50 / DISKON50)">
                     
                     <div class="pkg-row-grid">
                         <input type="number" id="admPromoDisc" class="form-input" min="0" max="100" placeholder="Diskon (0-100)%">
@@ -2362,6 +2374,25 @@
 
                 <div class="store-label">LIST BERKAS TERSEDIA</div>
                 <div id="admListDownloads"></div>
+            </div>
+
+            <!-- TAB 8: PENGATURAN / MAINTENANCE -->
+            <div id="adminTabSetting" style="display: none;">
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <h4>Mode Maintenance Website</h4>
+                    </div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">Jika diaktifkan, seluruh pengunjung biasa akan melihat halaman pemeliharaan. Anda sebagai admin tetap bisa mengakses situs secara normal.</p>
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 14px;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 800; color: var(--text-main);">Status Maintenance</div>
+                            <div style="font-size: 11px; color: var(--text-muted);" id="maintenanceStatusLabel">Memuat status...</div>
+                        </div>
+                        <button id="btnToggleMaintenance" onclick="toggleMaintenanceMode()" class="btn-primary" style="width: auto; padding: 8px 16px; margin-top: 0; background: #ef4444;">Nyalakan</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -2490,6 +2521,7 @@
         let daftarPromo = {};
         let daftarReviews = {};
         let configKontak = { wa: "6281234567890", tele: "https://t.me/zaxxystore" };
+        let isMaintenanceMode = false;
         
         let activeProductKey = null;
         let produkTerpilih = null;
@@ -2510,6 +2542,51 @@
         // State Rating Pembeli
         let pendingReviewData = null;
         let currentRatingScore = 5;
+
+        // --- REALTIME LISTENER: MAINTENANCE MODE ---
+        db.ref('zaxxy_settings/maintenance').on('value', (snapshot) => {
+            const val = snapshot.val();
+            isMaintenanceMode = (val === true || val === 'true');
+
+            // Update UI switch di Admin
+            const btnMaint = document.getElementById('btnToggleMaintenance');
+            const lblMaint = document.getElementById('maintenanceStatusLabel');
+            if (btnMaint && lblMaint) {
+                if (isMaintenanceMode) {
+                    btnMaint.innerText = "Matikan Maintenance";
+                    btnMaint.style.background = "#10b981";
+                    lblMaint.innerText = "Status: AKTIF (Website ditutup untuk pengunjung)";
+                } else {
+                    btnMaint.innerText = "Nyalakan Maintenance";
+                    btnMaint.style.background = "#ef4444";
+                    lblMaint.innerText = "Status: NONAKTIF (Website berjalan normal)";
+                }
+            }
+
+            checkMaintenanceDisplay();
+        });
+
+        function toggleMaintenanceMode() {
+            const newState = !isMaintenanceMode;
+            db.ref('zaxxy_settings/maintenance').set(newState, () => {
+                showCustomAlert(newState ? "Mode Maintenance berhasil dinyalakan!" : "Mode Maintenance dimatikan. Website kembali normal.", "MAINTENANCE UPDATED", "success");
+            });
+        }
+
+        function checkMaintenanceDisplay() {
+            const overlay = document.getElementById('maintenanceOverlay');
+            if (!overlay) return;
+
+            const isLoggedAdmin = localStorage.getItem('zaxxy_admin_logged') === 'true';
+            const isUnlockedAdmin = localStorage.getItem('zaxxy_admin_unlocked') === 'true';
+            const isAdminBypass = isLoggedAdmin || isUnlockedAdmin;
+
+            if (isMaintenanceMode && !isAdminBypass) {
+                overlay.style.display = 'flex';
+            } else {
+                overlay.style.display = 'none';
+            }
+        }
 
         // --- SISTEM TEMA DARK / WHITE ---
         function initTheme() {
@@ -2667,6 +2744,7 @@
             if (hitungKlikLogo >= 3) {
                 localStorage.setItem('zaxxy_admin_unlocked', 'true');
                 cekStatusNavAdmin();
+                checkMaintenanceDisplay();
                 showCustomAlert("Akses Menu Admin Berhasil Dibuka Permanen!", "ADMIN UNLOCKED", "success");
                 hitungKlikLogo = 0;
             } else {
@@ -2712,6 +2790,7 @@
             cekStatusNavAdmin();
             resetFormProduk();
             startNotificationRotation();
+            checkMaintenanceDisplay();
         });
 
         // 3. Filter Kategori & Search
@@ -2780,7 +2859,7 @@
         }
 
         function switchAdminTab(tab) {
-            const tabs = ['Prod', 'Cat', 'Review', 'Promo', 'Notif', 'Contact', 'Down'];
+            const tabs = ['Prod', 'Cat', 'Review', 'Promo', 'Notif', 'Contact', 'Down', 'Setting'];
             tabs.forEach(t => {
                 const btn = document.getElementById('tabBtn' + t);
                 const content = document.getElementById('adminTab' + t);
@@ -3606,17 +3685,17 @@
                 return;
             }
 
-            const cleanCode = codeInput.toUpperCase();
+            const cleanCode = codeInput.toLowerCase();
 
-            if (cleanCode === 'AZZAMMOD') {
+            if (cleanCode === 'azzammod') {
                 diskonPersen = 100;
                 promoAktifKey = 'default_azzam';
-                promoAktifObj = { code: 'AzzamMod', discount: 100, maxDevice: 'Unlimited', expiry: null };
+                promoAktifObj = { code: codeInput, discount: 100, maxDevice: 'Unlimited', expiry: null };
                 feedbackEl.style.display = 'block';
                 feedbackEl.innerHTML = `
                     <div class="promo-badge">
                         <div class="promo-badge-top">
-                            <span>Kode <b>AzzamMod</b> Aktif (Diskon 100%)</span>
+                            <span>Kode <b>${codeInput}</b> Aktif (Diskon 100%)</span>
                             <button onclick="batalkanPromo()" style="background:transparent; border:none; color:#ef4444; font-weight:800; cursor:pointer;">Hapus</button>
                         </div>
                         <div class="promo-detail-pills">
@@ -3633,7 +3712,7 @@
             let promoDitemukan = null;
 
             Object.keys(daftarPromo).forEach(key => {
-                if (daftarPromo[key].code.toUpperCase() === cleanCode) {
+                if (daftarPromo[key].code.toLowerCase() === cleanCode) {
                     promoKeyFound = key;
                     promoDitemukan = daftarPromo[key];
                 }
@@ -3794,6 +3873,8 @@
 
             if (user === "Azzam" && pass === "17") {
                 localStorage.setItem('zaxxy_admin_logged', 'true');
+                cekStatusNavAdmin();
+                checkMaintenanceDisplay();
                 pindahHalaman('viewAdmin');
             } else {
                 showCustomAlert("Username atau Password Admin salah!", "AKSES DITOLAK", "error");
@@ -3804,6 +3885,7 @@
             localStorage.removeItem('zaxxy_admin_logged');
             document.getElementById('loginUser').value = '';
             document.getElementById('loginPass').value = '';
+            checkMaintenanceDisplay();
             pindahHalaman('viewHome');
         }
 
@@ -3967,7 +4049,7 @@
 
         // 17. CRUD Promo
         function simpanPromoFirebase() {
-            const code = document.getElementById('admPromoCode').value.trim().toUpperCase();
+            const code = document.getElementById('admPromoCode').value.trim();
             const discount = parseInt(document.getElementById('admPromoDisc').value);
             const maxDevice = parseInt(document.getElementById('admPromoMaxDevice').value) || 1;
             const expiry = document.getElementById('admPromoExpiry').value || null;
@@ -3978,7 +4060,7 @@
                 return;
             }
 
-            if (code === 'AZZAMMOD') {
+            if (code.toLowerCase() === 'azzammod') {
                 showCustomAlert("Kode AzzamMod adalah kode bawaan sistem!", "KODE SYSTEM", "warning");
                 return;
             }
