@@ -1,680 +1,430 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ALIGHT MOTION - PREMIUM MISSION (COMIC EDITION)</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Font Komik & Modern -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Grotesk:wght@500;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Space Grotesk', sans-serif;
-      background-color: #fef08a;
-      background-image: 
-        radial-gradient(#f59e0b 20%, transparent 20%),
-        radial-gradient(#fbbf24 20%, transparent 20%);
-      background-size: 24px 24px;
-      background-position: 0 0, 12px 12px;
-    }
-
-    .comic-font {
-      font-family: 'Bangers', cursive;
-      letter-spacing: 1.5px;
-    }
-
-    .hand-font {
-      font-family: 'Permanent Marker', cursive;
-    }
-
-    /* Comic Neo-brutalism Shadow */
-    .comic-box {
-      border: 4px solid #000;
-      box-shadow: 6px 6px 0px #000;
-      transition: all 0.15s ease-in-out;
-    }
-
-    .comic-box:hover {
-      box-shadow: 8px 8px 0px #000;
-      transform: translate(-2px, -2px);
-    }
-
-    .comic-btn {
-      border: 3px solid #000;
-      box-shadow: 4px 4px 0px #000;
-      font-weight: 900;
-      transition: all 0.1s ease;
-    }
-
-    .comic-btn:hover:not(:disabled) {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px #000;
-    }
-
-    .comic-btn:active:not(:disabled) {
-      transform: translate(2px, 2px);
-      box-shadow: 1px 1px 0px #000;
-    }
-
-    .comic-input {
-      border: 3px solid #000;
-      box-shadow: 3px 3px 0px #000;
-      outline: none;
-    }
-
-    .comic-input:focus {
-      border-color: #ef4444;
-      background-color: #fefce8;
-    }
-
-    /* Comic Speech Bubble */
-    .speech-bubble {
-      position: relative;
-      background: #ffffff;
-      border: 4px solid #000;
-      border-radius: 18px;
-      box-shadow: 5px 5px 0px #000;
-    }
-
-    .speech-bubble:after {
-      content: '';
-      position: absolute;
-      bottom: -18px;
-      left: 32px;
-      border-width: 18px 18px 0;
-      border-style: solid;
-      border-color: #000 transparent;
-      display: block;
-      width: 0;
-    }
-
-    .speech-bubble:before {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      left: 35px;
-      border-width: 15px 15px 0;
-      border-style: solid;
-      border-color: #ffffff transparent;
-      display: block;
-      width: 0;
-      z-index: 1;
-    }
-
-    /* Terminal Scrollbar */
-    #console-log::-webkit-scrollbar {
-      width: 8px;
-    }
-    #console-log::-webkit-scrollbar-track {
-      background: #111827;
-    }
-    #console-log::-webkit-scrollbar-thumb {
-      background: #ef4444;
-      border-radius: 4px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090d18">
+<title>Alight Premium Dashboard</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#090d18;
+  --panel:#111827;
+  --border:#293449;
+  --text:#f1f5f9;
+  --muted:#94a3b8;
+  --purple:#8b5cf6;
+  --cyan:#22d3ee;
+  --green:#4ade80;
+  --red:#f87171;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  padding:20px 14px;
+  min-height:100vh;
+  background:radial-gradient(ellipse at top,#211747 0%,var(--bg) 58%);
+  color:var(--text);
+  font-family:system-ui,-apple-system,sans-serif;
+}
+main { width:100%; max-width:680px; margin:auto; }
+header {
+  display:flex; align-items:center; gap:12px;
+  margin:8px 0 30px;
+}
+.logo {
+  width:46px; height:46px; flex-shrink:0;
+  display:grid; place-items:center; border-radius:14px;
+  background:linear-gradient(135deg,var(--purple),var(--cyan));
+  font-size:24px; font-weight:900;
+}
+.brand { font-weight:800; font-size:17px; }
+.brand span { color:var(--cyan); }
+.small { font-size:12px; color:var(--muted); margin-top:4px; }
+.pill {
+  margin-left:auto; font-size:11px; color:var(--green);
+  border:1px solid #315b49; border-radius:30px; padding:7px 9px;
+}
+.hero { text-align:center; margin-bottom:25px; }
+.eyebrow { color:var(--cyan); font-size:11px; letter-spacing:3px; }
+h1 { font-size:clamp(28px,7vw,42px); margin:12px 0; line-height:1.15; }
+h1 span {
+  background:linear-gradient(90deg,#c4b5fd,var(--cyan));
+  color:transparent; background-clip:text;
+}
+.hero p { color:var(--muted); font-size:14px; line-height:1.7; }
+.card {
+  background:rgba(17,24,39,.96);
+  border:1px solid var(--border);
+  border-radius:18px; padding:20px; margin:14px 0;
+  min-width:0;
+}
+.card-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+.number {
+  width:39px; height:39px; flex-shrink:0; display:grid; place-items:center;
+  border-radius:12px; background:#8b5cf622;
+  border:1px solid #8b5cf655; color:#c4b5fd; font-weight:800;
+}
+h2 { font-size:16px; margin:0 0 5px; }
+.desc { color:var(--muted); font-size:12px; }
+label { display:block; font-size:13px; margin:15px 0 8px; }
+input {
+  display:block; width:100%; min-width:0; min-height:46px;
+  background:#090e18; color:var(--text);
+  border:1px solid var(--border); border-radius:10px;
+  padding:12px; font:inherit; font-size:14px;
+}
+input:focus { outline:2px solid var(--purple); outline-offset:1px; }
+button {
+  display:block; width:100%; min-height:46px; margin-top:15px;
+  padding:12px; border:0; border-radius:10px;
+  color:white; background:linear-gradient(100deg,#7c3aed,#4f46e5);
+  font-size:14px; font-weight:750; cursor:pointer;
+}
+button:disabled { opacity:.45; cursor:not-allowed; }
+.secondary { background:#202a3c; border:1px solid var(--border); }
+.status {
+  white-space:pre-wrap; overflow-wrap:anywhere;
+  font-size:12px; line-height:1.7; margin-top:12px;
+}
+.success { color:var(--green); }
+.error { color:var(--red); }
+.muted { color:var(--muted); }
+pre {
+  white-space:pre-wrap; overflow-wrap:anywhere;
+  max-height:230px; overflow:auto; font-size:12px;
+  line-height:1.6; color:#cbd5e1;
+  background:#090e18; border-radius:10px; padding:12px;
+}
+.notice {
+  padding:13px; border:1px solid var(--border); border-radius:10px;
+  font-size:12px; line-height:1.7; color:var(--muted);
+}
+[hidden] { display:none !important; }
+footer { text-align:center; color:#77849a; font-size:11px; padding:24px 0; }
+@media(max-width:380px) {
+  body { padding:14px 10px; }
+  .card { padding:15px; }
+  .pill { font-size:10px; padding:6px; }
+}
+</style>
 </head>
-<body class="min-h-screen text-slate-900 flex flex-col p-4 md:p-8">
-
-  <!-- TOP HEADER / BANNER -->
-  <header class="max-w-6xl w-full mx-auto mb-8">
-    <div class="comic-box bg-red-500 text-white p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 rotate-[-0.5deg]">
-      <div>
-        <div class="inline-block bg-yellow-300 text-black px-3 py-1 font-black text-sm uppercase comic-box rotate-[-2deg] mb-2">
-          ⚡ ISSUE #1 — REST API POWER ⚡
-        </div>
-        <h1 class="comic-font text-4xl md:text-6xl tracking-wide uppercase text-yellow-300 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-          ALIGHT MOTION AUTO-PREMIUM!
-        </h1>
-        <p class="font-bold text-white text-sm md:text-base mt-1 drop-shadow-[1px_1px_0px_#000]">
-          Sistem Otomasi Inject Akun Premium Melalui Jalur Magic-Link API!
-        </p>
-      </div>
-
-      <!-- Setting Mode & API Key Config -->
-      <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-        <button id="toggle-sim-mode" class="comic-btn bg-yellow-400 text-black px-4 py-2 text-xs md:text-sm uppercase flex items-center justify-center gap-1">
-          <span id="mode-indicator" class="inline-block w-3 h-3 rounded-full bg-emerald-600 border border-black"></span>
-          <span id="mode-text">MODE: REAL API</span>
-        </button>
-        <button onclick="openApiModal()" class="comic-btn bg-white text-black px-4 py-2 text-xs md:text-sm uppercase">
-          ⚙️ KUNCI API
-        </button>
-      </div>
+<body>
+<main>
+  <header>
+    <div class="logo">A</div>
+    <div>
+      <div class="brand">ALIGHT <span>PREMIUM</span></div>
+      <div class="small">Account Management Dashboard</div>
     </div>
+    <div class="pill">● Dashboard</div>
   </header>
 
-  <!-- MAIN WRAPPER -->
-  <main class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow">
-    
-    <!-- LEFT PANEL: THE 3-STEP MISSION -->
-    <section class="lg:col-span-7 flex flex-col gap-6">
+  <section class="hero">
+    <div class="eyebrow">CONTROL CENTER</div>
+    <h1>Account <span>Activation</span></h1>
+    <p>Antarmuka responsif dengan proses bertahap,
+       status permintaan, dan tampilan respons API.</p>
+  </section>
 
-      <!-- HERO SPEECH BUBBLE -->
-      <div class="flex items-start gap-4">
-        <div class="w-16 h-16 md:w-20 md:h-20 bg-emerald-400 rounded-full border-4 border-black flex-shrink-0 flex items-center justify-center text-3xl md:text-4xl shadow-[4px_4px_0_#000]">
-          🦸‍♂️
-        </div>
-        <div class="speech-bubble p-4 flex-grow">
-          <p id="hero-msg" class="text-sm md:text-base font-bold text-slate-800">
-            "Halo Agent! Masukkan email target di bawah, kita tembakkan Magic Link lalu sulap akunnya jadi <span class="bg-yellow-300 px-1 border border-black">PREMIUM UNLIMITED</span>!"
-          </p>
-        </div>
-      </div>
-
-      <!-- STEP 1: SEND MAGIC LINK -->
-      <div class="comic-box bg-white p-5 rotate-[0.3deg]">
-        <div class="flex items-center justify-between mb-3 border-b-2 border-black pb-2">
-          <span class="comic-font text-2xl text-red-600 flex items-center gap-2">
-            <span class="w-7 h-7 bg-red-600 text-white rounded-full inline-flex items-center justify-center text-base border-2 border-black">1</span>
-            SEND MAGIC LINK
-          </span>
-          <span id="badge-step1" class="comic-font text-sm bg-yellow-300 px-2 py-0.5 border-2 border-black">PENDING</span>
-        </div>
-        <p class="text-xs text-gray-700 font-bold mb-3">
-          Tembak endpoint <code class="bg-gray-200 px-1 border border-black">/send-magic-link</code> untuk memicu email verifikasi ke target.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-2">
-          <input type="email" id="input-email" placeholder="contoh: target@gmail.com" class="comic-input p-3 flex-grow font-bold text-sm bg-amber-50">
-          <button id="btn-step1" onclick="handleSendMagicLink()" class="comic-btn bg-red-500 hover:bg-red-600 text-white px-5 py-3 comic-font text-lg tracking-wider">
-            KIRIM LINK 🚀
-          </button>
-        </div>
-      </div>
-
-      <!-- STEP 2: VERIFY ACCOUNT -->
-      <div class="comic-box bg-white p-5 rotate-[-0.2deg]">
-        <div class="flex items-center justify-between mb-3 border-b-2 border-black pb-2">
-          <span class="comic-font text-2xl text-blue-600 flex items-center gap-2">
-            <span class="w-7 h-7 bg-blue-600 text-white rounded-full inline-flex items-center justify-center text-base border-2 border-black">2</span>
-            VERIFY ACCOUNT
-          </span>
-          <span id="badge-step2" class="comic-font text-sm bg-gray-200 px-2 py-0.5 border-2 border-black">LOCKED</span>
-        </div>
-        <p class="text-xs text-gray-700 font-bold mb-3">
-          Buka inbox email, copy link login Firebase (<code class="bg-gray-200 px-1 border border-black text-[11px]">https://alight-creative.firebaseapp.com/...apiKey=...&oobCode=...</code>) dan tempel di sini:
-        </p>
-        <div class="flex flex-col gap-2">
-          <textarea id="input-rawlink" rows="2" placeholder="Tempel URL lengkap dari email di sini..." class="comic-input p-3 font-bold text-xs bg-amber-50 resize-none"></textarea>
-          <button id="btn-step2" onclick="handleVerifyAccount()" disabled class="comic-btn bg-blue-500 opacity-50 cursor-not-allowed text-white px-5 py-3 comic-font text-lg tracking-wider">
-            VERIFIKASI LINK 🔍
-          </button>
-        </div>
-      </div>
-
-      <!-- STEP 3: APPLY PREMIUM -->
-      <div class="comic-box bg-white p-5 rotate-[0.4deg]">
-        <div class="flex items-center justify-between mb-3 border-b-2 border-black pb-2">
-          <span class="comic-font text-2xl text-emerald-600 flex items-center gap-2">
-            <span class="w-7 h-7 bg-emerald-600 text-white rounded-full inline-flex items-center justify-center text-base border-2 border-black">3</span>
-            APPLY PREMIUM
-          </span>
-          <span id="badge-step3" class="comic-font text-sm bg-gray-200 px-2 py-0.5 border-2 border-black">LOCKED</span>
-        </div>
-        <p class="text-xs text-gray-700 font-bold mb-3">
-          Gunakan <code class="bg-gray-200 px-1 border border-black">idToken</code> terverifikasi untuk meng-upgrade akun target menjadi Full Premium!
-        </p>
-        <div class="bg-emerald-50 border-2 border-black p-3 mb-3 text-xs font-mono break-all" id="token-preview">
-          Token Status: <span class="text-gray-500 font-bold">Menunggu Langkah 2...</span>
-        </div>
-        <button id="btn-step3" onclick="handleApplyPremium()" disabled class="comic-btn w-full bg-emerald-500 opacity-50 cursor-not-allowed text-white px-5 py-3 comic-font text-2xl tracking-wider shadow-[4px_4px_0_#000]">
-          ⚡ AKTIFKAN PREMIUM SEKARANG ⚡
-        </button>
-      </div>
-
-    </section>
-
-    <!-- RIGHT PANEL: COMIC CONSOLE & STATUS -->
-    <section class="lg:col-span-5 flex flex-col gap-6">
-
-      <!-- ACCOUNT STATUS BADGE -->
-      <div class="comic-box bg-purple-600 text-white p-5">
-        <h2 class="comic-font text-2xl text-yellow-300 flex items-center justify-between">
-          <span>MISSION RADAR</span>
-          <span class="text-sm bg-black px-2 py-1 text-white border border-yellow-300">LIVE HUD</span>
-        </h2>
-        <div class="mt-4 space-y-2 text-sm font-bold">
-          <div class="flex justify-between border-b border-purple-400 pb-1">
-            <span class="text-purple-200">Target Email:</span>
-            <span id="hud-email" class="font-mono text-yellow-300">Belum Ada</span>
-          </div>
-          <div class="flex justify-between border-b border-purple-400 pb-1">
-            <span class="text-purple-200">User UID:</span>
-            <span id="hud-uid" class="font-mono text-yellow-300">-</span>
-          </div>
-          <div class="flex justify-between border-b border-purple-400 pb-1">
-            <span class="text-purple-200">Order ID:</span>
-            <span id="hud-order" class="font-mono text-yellow-300">-</span>
-          </div>
-          <div class="flex justify-between border-b border-purple-400 pb-1">
-            <span class="text-purple-200">Sisa Kuota API:</span>
-            <span id="hud-quota" class="font-mono text-emerald-300">-- / --</span>
-          </div>
-          <div class="flex justify-between items-center pt-1">
-            <span class="text-purple-200">Status Akun:</span>
-            <span id="hud-status" class="comic-font text-lg px-2 py-0.5 bg-black text-red-400 border border-black">FREE TIER</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- TERMINAL / CONSOLE LOG -->
-      <div class="comic-box bg-black text-emerald-400 p-4 font-mono text-xs flex-grow flex flex-col h-80 lg:h-auto min-h-[350px]">
-        <div class="flex justify-between items-center border-b border-gray-700 pb-2 mb-2">
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-red-500 inline-block border border-black"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block border border-black"></span>
-            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block border border-black"></span>
-            <span class="font-bold text-white uppercase ml-1">TERMINAL LOGS</span>
-          </div>
-          <button onclick="clearLogs()" class="text-[10px] text-gray-400 hover:text-white underline">Bersihkan</button>
-        </div>
-
-        <div id="console-log" class="flex-grow overflow-y-auto space-y-1.5 pr-1 font-mono text-[11px] leading-relaxed">
-          <div class="text-gray-500">> Sistem Alight Motion Comic Engine siap dioperasikan.</div>
-          <div class="text-yellow-400">> Siap menerima parameter request API.</div>
-        </div>
-      </div>
-
-    </section>
-  </main>
-
-  <!-- SUCCESS MODAL (BOOM POPUP) -->
-  <div id="modal-success" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 hidden">
-    <div class="comic-box bg-yellow-300 p-6 md:p-8 max-w-md w-full text-center relative rotate-[-1deg]">
-      <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-red-600 text-yellow-300 comic-font text-3xl px-6 py-1 border-4 border-black shadow-[4px_4px_0_#000] rotate-[-3deg]">
-        BOOOOM!! 🎉
-      </div>
-      <div class="mt-6">
-        <h3 class="comic-font text-4xl text-black uppercase mb-2">PREMIUM BERHASIL DIAKTIFKAN!</h3>
-        <p class="text-sm font-bold text-gray-800 mb-4">Akun Alight Motion target telah berhasil di-upgrade ke keanggotaan Premium!</p>
-        
-        <div class="bg-white border-2 border-black p-3 text-left font-mono text-xs mb-4 space-y-1">
-          <p><strong>Email:</strong> <span id="modal-email">-</span></p>
-          <p><strong>Order ID:</strong> <span id="modal-order">-</span></p>
-          <p><strong>Status:</strong> <span class="text-emerald-600 font-bold">AKTIF / SUKSES</span></p>
-        </div>
-
-        <button onclick="closeSuccessModal()" class="comic-btn bg-emerald-500 text-white w-full py-3 comic-font text-xl tracking-wider">
-          MANTAP, TERIMA KASIH! 👊
-        </button>
+  <section class="card">
+    <div class="card-head">
+      <div class="number">01</div>
+      <div>
+        <h2>Send Magic Link</h2>
+        <div class="desc">Langkah pertama</div>
       </div>
     </div>
-  </div>
+    <label for="email1">Email akun</label>
+    <input id="email1" type="email" autocomplete="email"
+           placeholder="user@example.com">
+    <button id="btn1">Kirim Permintaan</button>
+    <div id="status1" class="status muted" role="status" aria-live="polite"></div>
+  </section>
 
-  <!-- API KEY SETTINGS MODAL -->
-  <div id="modal-api" class="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 hidden">
-    <div class="comic-box bg-white p-6 max-w-md w-full">
-      <h3 class="comic-font text-3xl text-red-600 mb-2">KONFIGURASI API</h3>
-      <p class="text-xs font-bold text-gray-600 mb-4">Ubah Base URL atau API-Key yang digunakan untuk memproses request.</p>
-      
-      <div class="space-y-3 mb-5">
-        <div>
-          <label class="block text-xs font-black uppercase mb-1">API Base URL:</label>
-          <input type="text" id="cfg-url" value="https://axzyedev.biz.id/api/v1" class="comic-input w-full p-2 text-xs font-mono bg-gray-50">
-        </div>
-        <div>
-          <label class="block text-xs font-black uppercase mb-1">X-API-KEY:</label>
-          <input type="text" id="cfg-key" value="AzaGanteng-x6TS52s8BJSXoM0tjVD7A7NGFalcFvUL" class="comic-input w-full p-2 text-xs font-mono bg-gray-50">
-        </div>
-      </div>
-
-      <div class="flex gap-2 justify-end">
-        <button onclick="closeApiModal()" class="comic-btn bg-gray-300 px-4 py-2 text-xs uppercase">Batal</button>
-        <button onclick="saveApiConfig()" class="comic-btn bg-red-500 text-white px-4 py-2 text-xs uppercase">Simpan Konfigurasi</button>
+  <section class="card">
+    <div class="card-head">
+      <div class="number">02</div>
+      <div>
+        <h2>Verify Account</h2>
+        <div class="desc">Langkah kedua · memerlukan langkah pertama</div>
       </div>
     </div>
-  </div>
+    <label for="email2">Email akun</label>
+    <input id="email2" type="email" autocomplete="email"
+           placeholder="user@example.com">
+    <label for="magiclink">Magic link</label>
+    <input id="magiclink" type="url" inputmode="url"
+           placeholder="https://..." autocomplete="url">
+    <button id="btn2" disabled>Verifikasi Akun</button>
+    <div id="status2" class="status muted" role="status" aria-live="polite">
+      Selesaikan langkah 1 terlebih dahulu.
+    </div>
+  </section>
 
-  <!-- JAVASCRIPT LOGIC -->
-  <script>
-    // State Aplikasi
-    let API_CONFIG = {
-      baseUrl: "https://axzyedev.biz.id/api/v1",
-      apiKey: "AzaGanteng-GDaEZQm5cokWG7y721MFCJxJGs2AvtuD",
-      simulationMode: false
-    };
+  <section class="card">
+    <div class="card-head">
+      <div class="number">03</div>
+      <div>
+        <h2>Apply Premium</h2>
+        <div class="desc">Langkah ketiga · memerlukan hasil verifikasi</div>
+      </div>
+    </div>
+    <label for="email3">Email akun</label>
+    <input id="email3" type="email" autocomplete="email"
+           placeholder="user@example.com">
+    <label for="token">ID token hasil verifikasi</label>
+    <input id="token" type="password" autocomplete="off"
+           placeholder="Masukkan token yang sah">
+    <button id="btn3" disabled>Submit Permintaan</button>
+    <div id="status3" class="status muted" role="status" aria-live="polite">
+      Selesaikan langkah 2 terlebih dahulu.
+    </div>
+    <div class="notice">
+      Gunakan endpoint resmi dan token yang sah. Penerapan lisensi
+      bergantung pada validasi backend serta izin akun.
+    </div>
+  </section>
 
-    let sessionData = {
-      email: "",
-      rawLink: "",
-      idToken: "",
-      refreshToken: "",
-      uid: "",
-      orderId: ""
-    };
+  <section class="card">
+    <div class="card-head">
+      <div class="number">↗</div>
+      <div>
+        <h2>API Response</h2>
+        <div class="desc">Respons server terbaru</div>
+      </div>
+    </div>
+    <pre id="response" aria-live="polite">Belum ada permintaan.</pre>
+    <button id="reset" class="secondary">Reset Proses</button>
+  </section>
 
-    // Sound FX generator menggunakan Web Audio API
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playComicBeep(type = 'click') {
-      try {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
+  <footer>ALIGHT PREMIUM · Responsive Dashboard</footer>
+</main>
 
-        const now = audioCtx.currentTime;
-        if (type === 'click') {
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(400, now);
-          osc.frequency.exponentialRampToValueAtTime(100, now + 0.08);
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
-          osc.start(now);
-          osc.stop(now + 0.08);
-        } else if (type === 'success') {
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(300, now);
-          osc.frequency.exponentialRampToValueAtTime(800, now + 0.25);
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
-          osc.start(now);
-          osc.stop(now + 0.25);
-        } else if (type === 'error') {
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(150, now);
-          osc.frequency.linearRampToValueAtTime(80, now + 0.18);
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.linearRampToValueAtTime(0.01, now + 0.18);
-          osc.start(now);
-          osc.stop(now + 0.18);
-        }
-      } catch (e) {
-        console.error("Audio error", e);
-      }
-    }
+<script>
+"use strict";
 
-    // Logger Utility
-    function logToConsole(text, type = 'info') {
-      const container = document.getElementById('console-log');
-      const time = new Date().toLocaleTimeString();
-      const div = document.createElement('div');
-      
-      let color = 'text-gray-300';
-      let icon = '>';
-      if (type === 'success') { color = 'text-emerald-400 font-bold'; icon = '✓'; }
-      if (type === 'error') { color = 'text-red-400 font-bold'; icon = '✖'; }
-      if (type === 'warn') { color = 'text-yellow-400'; icon = '!'; }
+// Endpoint ini harus dibuat pada backend yang kamu kontrol.
+// Backend menyimpan kredensial rahasia dan memanggil API resmi.
+const API = {
+  send: "/api/v1/send-magiclink",
+  verify: "/api/v1/verify-account",
+  apply: "/api/v1/apply-premium"
+};
 
-      div.className = `${color}`;
-      div.innerHTML = `<span class="text-gray-500">[${time}]</span> ${icon} ${text}`;
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-    }
+const $ = id => document.getElementById(id);
+const state = { sent: false, verified: false, busy: false };
 
-    function clearLogs() {
-      document.getElementById('console-log').innerHTML = '';
-      logToConsole('Terminal dibersihkan.');
-    }
+function showStatus(id, message, type = "muted") {
+  const el = $(id);
+  el.textContent = message;
+  el.className = "status " + type;
+}
 
-    // Toggle Sim Mode
-    document.getElementById('toggle-sim-mode').addEventListener('click', () => {
-      playComicBeep('click');
-      API_CONFIG.simulationMode = !API_CONFIG.simulationMode;
-      const indicator = document.getElementById('mode-indicator');
-      const label = document.getElementById('mode-text');
-      if (API_CONFIG.simulationMode) {
-        indicator.className = 'inline-block w-3 h-3 rounded-full bg-yellow-400 border border-black';
-        label.innerText = 'MODE: SIMULASI (DEMO)';
-        logToConsole('Mode dialihkan ke SIMULASI. Semua API request akan di-mock tanpa batasan CORS.', 'warn');
-      } else {
-        indicator.className = 'inline-block w-3 h-3 rounded-full bg-emerald-600 border border-black';
-        label.innerText = 'MODE: REAL API';
-        logToConsole('Mode dialihkan ke REAL API backend.', 'info');
-      }
+function showResponse(data) {
+  // textContent mencegah respons server dieksekusi sebagai HTML.
+  $("response").textContent =
+    typeof data === "string" ? data : JSON.stringify(data, null, 2);
+}
+
+async function request(url, payload) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify(payload)
+  });
+
+  const text = await response.text();
+  let data;
+
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { message: text || "Server mengembalikan respons kosong." };
+  }
+
+  showResponse({
+    httpStatus: response.status,
+    ok: response.ok,
+    data
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || data.error || `HTTP ${response.status}`
+    );
+  }
+
+  return data;
+}
+
+function setBusy(value) {
+  state.busy = value;
+  updateButtons();
+}
+
+function updateButtons() {
+  $("btn1").disabled = state.busy;
+  $("btn2").disabled = state.busy || !state.sent;
+  $("btn3").disabled = state.busy || !state.verified;
+}
+
+function validEmail(id) {
+  const el = $(id);
+  el.value = el.value.trim();
+
+  if (!el.reportValidity() || !el.value) {
+    el.focus();
+    return false;
+  }
+
+  return true;
+}
+
+$("btn1").addEventListener("click", async () => {
+  if (!validEmail("email1") || state.busy) return;
+
+  setBusy(true);
+  showStatus("status1", "Mengirim permintaan...", "muted");
+
+  try {
+    const result = await request(API.send, {
+      email: $("email1").value
     });
 
-    // STEP 1: SEND MAGIC LINK
-    async function handleSendMagicLink() {
-      const email = document.getElementById('input-email').value.trim();
-      const btn = document.getElementById('btn-step1');
+    state.sent = true;
+    state.verified = false;
+    $("email2").value = $("email1").value;
+    $("email3").value = $("email1").value;
+    $("token").value = "";
 
-      if (!email || !email.includes('@')) {
-        playComicBeep('error');
-        logToConsole('Email tidak valid! Periksa kembali.', 'error');
-        alert('Tolong masukkan email yang valid!');
-        return;
-      }
+    showStatus(
+      "status1",
+      result.message || "Langkah 1 berhasil.",
+      "success"
+    );
+    showStatus(
+      "status2",
+      "Masukkan magic link yang diterima untuk melanjutkan.",
+      "muted"
+    );
+    showStatus("status3", "Menunggu verifikasi akun.", "muted");
+  } catch (error) {
+    showStatus("status1", error.message, "error");
+  } finally {
+    setBusy(false);
+  }
+});
 
-      playComicBeep('click');
-      btn.disabled = true;
-      btn.innerText = 'MENGIRIM... ⏳';
-      logToConsole(`Mengirim magic link untuk: ${email} ...`, 'info');
+$("btn2").addEventListener("click", async () => {
+  if (!state.sent || state.busy) return;
+  if (!validEmail("email2")) return;
 
-      try {
-        let resData;
-        if (API_CONFIG.simulationMode) {
-          await new Promise(r => setTimeout(r, 1200));
-          resData = { success: true, message: "Magic link sent successfully (Simulasi)" };
-        } else {
-          const res = await fetch(`${API_CONFIG.baseUrl}/send-magic-link`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-API-Key': API_CONFIG.apiKey
-            },
-            body: JSON.stringify({ email })
-          });
-          resData = await res.json();
-          if (!res.ok) throw new Error(resData.message || 'Gagal mengirim magic link via server.');
-        }
+  const link = $("magiclink").value.trim();
 
-        sessionData.email = email;
-        document.getElementById('hud-email').innerText = email;
-        
-        // Update Step 1 UI
-        document.getElementById('badge-step1').className = 'comic-font text-sm bg-emerald-400 text-black px-2 py-0.5 border-2 border-black';
-        document.getElementById('badge-step1').innerText = 'TERKIRIM ✓';
+  try {
+    const parsed = new URL(link);
+    if (parsed.protocol !== "https:") throw new Error();
+  } catch {
+    showStatus(
+      "status2",
+      "Masukkan URL HTTPS magic link yang valid.",
+      "error"
+    );
+    return;
+  }
 
-        // Unlock Step 2
-        const btnStep2 = document.getElementById('btn-step2');
-        btnStep2.disabled = false;
-        btnStep2.className = 'comic-btn bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 comic-font text-lg tracking-wider';
-        document.getElementById('badge-step2').className = 'comic-font text-sm bg-yellow-300 text-black px-2 py-0.5 border-2 border-black';
-        document.getElementById('badge-step2').innerText = 'READY';
+  setBusy(true);
+  showStatus("status2", "Memverifikasi akun...", "muted");
 
-        document.getElementById('hero-msg').innerHTML = `"Mantap! Magic link terkirim ke <b>${email}</b>. Buka kotak masuk email-mu, salin link verifikasinya dan masukkan ke <b>Langkah 2</b>!"`;
-        logToConsole(`Magic link berhasil dikirim ke: ${email}`, 'success');
-        playComicBeep('success');
+  try {
+    const result = await request(API.verify, {
+      email: $("email2").value,
+      rawLink: link
+    });
 
-      } catch (err) {
-        logToConsole(`Gagal Langkah 1: ${err.message}`, 'error');
-        playComicBeep('error');
-        alert(`Gagal: ${err.message}\n(Jika terkena issue CORS di browser, aktifkan MODE SIMULASI di pojok kanan atas)`);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'KIRIM LAGI 🚀';
-      }
+    const token = result.idToken;
+
+    if (typeof token !== "string" || !token.trim()) {
+      throw new Error(
+        "Verifikasi merespons, tetapi idToken tidak ditemukan. Periksa format respons backend."
+      );
     }
 
-    // STEP 2: VERIFY ACCOUNT
-    async function handleVerifyAccount() {
-      const rawLink = document.getElementById('input-rawlink').value.trim();
-      const btn = document.getElementById('btn-step2');
+    state.verified = true;
+    $("email3").value = $("email2").value;
+    $("token").value = token;
 
-      if (!rawLink) {
-        playComicBeep('error');
-        logToConsole('URL Verifikasi Firebase kosong!', 'error');
-        alert('Silakan paste link dari email Alight Motion!');
-        return;
-      }
+    showStatus(
+      "status2",
+      result.message || "Verifikasi berhasil.",
+      "success"
+    );
+    showStatus(
+      "status3",
+      "Akun terverifikasi. Kamu dapat melanjutkan permintaan lisensi.",
+      "success"
+    );
+  } catch (error) {
+    state.verified = false;
+    showStatus("status2", error.message, "error");
+  } finally {
+    setBusy(false);
+  }
+});
 
-      playComicBeep('click');
-      btn.disabled = true;
-      btn.innerText = 'MEMVERIFIKASI... ⏳';
-      logToConsole('Mengirim link verifikasi ke endpoint /verify-account...', 'info');
+$("btn3").addEventListener("click", async () => {
+  if (!state.verified || state.busy) return;
+  if (!validEmail("email3")) return;
 
-      try {
-        let vData;
-        if (API_CONFIG.simulationMode) {
-          await new Promise(r => setTimeout(r, 1400));
-          vData = {
-            success: true,
-            uid: "AM-" + Math.random().toString(36).substring(2, 9).toUpperCase(),
-            idToken: "eyJhGciOiJKV1QiLCJhbGciOiJSUzI1NiJ9.simulatedToken." + Date.now(),
-            refreshToken: "mock-refresh-token-" + Date.now()
-          };
-        } else {
-          const res = await fetch(`${API_CONFIG.baseUrl}/verify-account`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-API-Key': API_CONFIG.apiKey
-            },
-            body: JSON.stringify({ email: sessionData.email, rawLink })
-          });
-          vData = await res.json();
-          if (!vData.success) throw new Error(vData.message || 'Verifikasi akun gagal.');
-        }
+  const idToken = $("token").value.trim();
 
-        sessionData.rawLink = rawLink;
-        sessionData.uid = vData.uid || 'AM-UID-UNKNOWN';
-        sessionData.idToken = vData.idToken;
-        sessionData.refreshToken = vData.refreshToken;
+  if (!idToken) {
+    showStatus("status3", "ID token belum tersedia.", "error");
+    return;
+  }
 
-        // Update HUD
-        document.getElementById('hud-uid').innerText = sessionData.uid;
+  setBusy(true);
+  showStatus("status3", "Mengirim permintaan lisensi...", "muted");
 
-        // Update Step 2 UI
-        document.getElementById('badge-step2').className = 'comic-font text-sm bg-emerald-400 text-black px-2 py-0.5 border-2 border-black';
-        document.getElementById('badge-step2').innerText = 'VERIFIED ✓';
+  try {
+    const result = await request(API.apply, {
+      email: $("email3").value,
+      idToken
+    });
 
-        // Update Step 3 Token Display
-        document.getElementById('token-preview').innerHTML = `
-          <div class="text-emerald-700 font-bold">✓ Token Diperoleh!</div>
-          <div class="truncate text-[10px] text-gray-700">UID: ${sessionData.uid}</div>
-          <div class="truncate text-[10px] text-gray-500 font-mono">${sessionData.idToken.substring(0, 32)}...</div>
-        `;
+    showStatus(
+      "status3",
+      result.message || "Permintaan berhasil diproses oleh server.",
+      "success"
+    );
+  } catch (error) {
+    showStatus("status3", error.message, "error");
+  } finally {
+    setBusy(false);
+  }
+});
 
-        // Unlock Step 3 Button
-        const btnStep3 = document.getElementById('btn-step3');
-        btnStep3.disabled = false;
-        btnStep3.className = 'comic-btn w-full bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3 comic-font text-2xl tracking-wider shadow-[4px_4px_0_#000] cursor-pointer';
-        document.getElementById('badge-step3').className = 'comic-font text-sm bg-yellow-300 text-black px-2 py-0.5 border-2 border-black';
-        document.getElementById('badge-step3').innerText = 'READY TO INJECT';
+$("reset").addEventListener("click", () => {
+  if (state.busy) return;
 
-        document.getElementById('hero-msg').innerHTML = `"Identitas akun terkonfirmasi! UID: <b>${sessionData.uid}</b>. Sekarang tinggal tekan tombol hijau di <b>Langkah 3</b> untuk menyuntikkan Lisensi Premium!"`;
-        logToConsole(`Akun terverifikasi! UID: ${sessionData.uid}`, 'success');
-        playComicBeep('success');
+  state.sent = false;
+  state.verified = false;
 
-      } catch (err) {
-        logToConsole(`Gagal verifikasi: ${err.message}`, 'error');
-        playComicBeep('error');
-        alert(`Verifikasi Gagal: ${err.message}`);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = 'VERIFIKASI ULANG 🔍';
-      }
-    }
+  ["email1", "email2", "email3", "magiclink", "token"].forEach(id => {
+    $(id).value = "";
+  });
 
-    // STEP 3: APPLY PREMIUM
-    async function handleApplyPremium() {
-      const btn = document.getElementById('btn-step3');
-      if (!sessionData.idToken) {
-        alert('Harap selesaikan langkah 1 & 2 terlebih dahulu!');
-        return;
-      }
+  showStatus("status1", "Siap memulai.", "muted");
+  showStatus("status2", "Selesaikan langkah 1 terlebih dahulu.", "muted");
+  showStatus("status3", "Selesaikan langkah 2 terlebih dahulu.", "muted");
+  showResponse("Belum ada permintaan.");
+  updateButtons();
+});
 
-      playComicBeep('click');
-      btn.disabled = true;
-      btn.innerText = 'MEMPROSES LISENSI PREMIUM... ⚡';
-      logToConsole('Memanggil endpoint /apply-premium ...', 'info');
-
-      try {
-        let pData;
-        if (API_CONFIG.simulationMode) {
-          await new Promise(r => setTimeout(r, 1600));
-          pData = {
-            success: true,
-            orderId: "ORD-ALIGHT-" + Math.floor(100000 + Math.random() * 900000),
-            quota: {
-              remaining: 88,
-              limit: 100
-            }
-          };
-        } else {
-          const res = await fetch(`${API_CONFIG.baseUrl}/apply-premium`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-API-Key': API_CONFIG.apiKey
-            },
-            body: JSON.stringify({
-              idToken: sessionData.idToken,
-              email: sessionData.email
-            })
-          });
-          pData = await res.json();
-          if (!pData.success) throw new Error(pData.message || 'Gagal menerapkan status premium.');
-        }
-
-        sessionData.orderId = pData.orderId || 'ORD-SUCCESS';
-
-        // Update HUD
-        document.getElementById('hud-order').innerText = sessionData.orderId;
-        if (pData.quota) {
-          document.getElementById('hud-quota').innerText = `${pData.quota.remaining} / ${pData.quota.limit}`;
-        }
-        const hudStatus = document.getElementById('hud-status');
-        hudStatus.className = 'comic-font text-lg px-2 py-0.5 bg-yellow-400 text-black border border-black animate-bounce';
-        hudStatus.innerText = 'PREMIUM AKTIF 👑';
-
-        // Update Step 3 Badge
-        document.getElementById('badge-step3').className = 'comic-font text-sm bg-emerald-400 text-black px-2 py-0.5 border-2 border-black';
-        document.getElementById('badge-step3').innerText = 'COMPLETED 🎉';
-
-        logToConsole(`Premium aktif! Order ID: ${sessionData.orderId}`, 'success');
-        if (pData.quota) {
-          logToConsole(`Sisa kuota API: ${pData.quota.remaining}/${pData.quota.limit}`, 'info');
-        }
-        playComicBeep('success');
-
-        // Show Modal Popup
-        document.getElementById('modal-email').innerText = sessionData.email;
-        document.getElementById('modal-order').innerText = sessionData.orderId;
-        document.getElementById('modal-success').classList.remove('hidden');
-
-      } catch (err) {
-        logToConsole(`Gagal Apply Premium: ${err.message}`, 'error');
-        playComicBeep('error');
-        alert(`Gagal: ${err.message}`);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = '⚡ SUDAH AKTIF (KLIK UNTUK APPLY ULANG)';
-      }
-    }
-
-    // Modal Handlers
-    function closeSuccessModal() {
-      playComicBeep('click');
-      document.getElementById('modal-success').classList.add('hidden');
-    }
-
-    function openApiModal() {
-      playComicBeep('click');
-      document.getElementById('cfg-url').value = API_CONFIG.baseUrl;
-      document.getElementById('cfg-key').value = API_CONFIG.apiKey;
-      document.getElementById('modal-api').classList.remove('hidden');
-    }
-
-    function closeApiModal() {
-      playComicBeep('click');
-      document.getElementById('modal-api').classList.add('hidden');
-    }
-
-    function saveApiConfig() {
-      playComicBeep('click');
-      API_CONFIG.baseUrl = document.getElementById('cfg-url').value.trim();
-      API_CONFIG.apiKey = document.getElementById('cfg-key').value.trim();
-      logToConsole('Konfigurasi API diperbarui!', 'success');
-      closeApiModal();
-    }
-  </script>
+updateButtons();
+</script>
 </body>
 </html>
