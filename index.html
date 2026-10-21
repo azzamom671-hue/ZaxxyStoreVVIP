@@ -3,428 +3,290 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090d18">
-<title>Alight Premium Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZaxxyXML — AM Premium</title>
 <style>
-:root {
-  color-scheme: dark;
-  --bg:#090d18;
-  --panel:#111827;
-  --border:#293449;
-  --text:#f1f5f9;
-  --muted:#94a3b8;
-  --purple:#8b5cf6;
-  --cyan:#22d3ee;
-  --green:#4ade80;
-  --red:#f87171;
+:root{
+ --bg:#f6f3eb;--ink:#171717;--purple:#b8a1ff;
+ --green:#c8ff72;--pink:#ff9fba;--white:#fff;
 }
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  padding:20px 14px;
-  min-height:100vh;
-  background:radial-gradient(ellipse at top,#211747 0%,var(--bg) 58%);
-  color:var(--text);
-  font-family:system-ui,-apple-system,sans-serif;
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--ink);
+ font-family:Arial,Helvetica,sans-serif;
+ min-height:100vh;
+ background-image:radial-gradient(#17171720 1px,transparent 1px);
+ background-size:18px 18px;
 }
-main { width:100%; max-width:680px; margin:auto; }
-header {
-  display:flex; align-items:center; gap:12px;
-  margin:8px 0 30px;
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:12px;padding:20px max(5%,calc((100% - 900px)/2));
+ border-bottom:3px solid var(--ink);background:var(--white);
 }
-.logo {
-  width:46px; height:46px; flex-shrink:0;
-  display:grid; place-items:center; border-radius:14px;
-  background:linear-gradient(135deg,var(--purple),var(--cyan));
-  font-size:24px; font-weight:900;
+.logo{font-size:23px;font-weight:1000;letter-spacing:-1px}
+.logo span{background:var(--green);padding:4px 7px;border:2px solid}
+.sound{border:2px solid;padding:8px 12px;background:white;
+ box-shadow:3px 3px 0 var(--ink);font-weight:800}
+main{max-width:640px;margin:38px auto;padding:0 16px 35px}
+.hero{text-align:center;margin-bottom:25px}
+.eyebrow{font-weight:900;text-transform:uppercase;letter-spacing:2px}
+h1{font-size:clamp(35px,8vw,54px);margin:12px 0;letter-spacing:-2px}
+.hero p{line-height:1.6;color:#444;margin:0}
+.card{
+ background:var(--white);border:3px solid var(--ink);
+ box-shadow:7px 7px 0 var(--ink);padding:23px;
 }
-.brand { font-weight:800; font-size:17px; }
-.brand span { color:var(--cyan); }
-.small { font-size:12px; color:var(--muted); margin-top:4px; }
-.pill {
-  margin-left:auto; font-size:11px; color:var(--green);
-  border:1px solid #315b49; border-radius:30px; padding:7px 9px;
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+ margin-bottom:24px}
+.step{text-align:center;font-size:12px;font-weight:900}
+.circle{
+ width:37px;height:37px;display:grid;place-items:center;
+ border:2px solid var(--ink);margin:0 auto 7px;
+ background:white;font-size:16px
 }
-.hero { text-align:center; margin-bottom:25px; }
-.eyebrow { color:var(--cyan); font-size:11px; letter-spacing:3px; }
-h1 { font-size:clamp(28px,7vw,42px); margin:12px 0; line-height:1.15; }
-h1 span {
-  background:linear-gradient(90deg,#c4b5fd,var(--cyan));
-  color:transparent; background-clip:text;
+.step.active .circle{background:var(--green)}
+.step.done .circle{background:var(--purple)}
+.progress{height:10px;border:2px solid;margin:-8px 0 23px;background:#eee}
+.bar{height:100%;width:0;background:var(--green);transition:width .45s}
+.panel{display:none;animation:enter .35s ease}
+.panel.active{display:block}
+@keyframes enter{
+ from{opacity:0;transform:translateY(9px)}
+ to{opacity:1;transform:translateY(0)}
 }
-.hero p { color:var(--muted); font-size:14px; line-height:1.7; }
-.card {
-  background:rgba(17,24,39,.96);
-  border:1px solid var(--border);
-  border-radius:18px; padding:20px; margin:14px 0;
-  min-width:0;
+h2{font-size:25px;margin:0 0 10px;letter-spacing:-1px}
+.desc{color:#555;line-height:1.55;font-size:14px;margin-bottom:22px}
+label{display:block;font-size:13px;font-weight:900;margin-bottom:8px}
+input{
+ width:100%;padding:14px;border:2px solid var(--ink);
+ background:#fff;font-size:15px;outline:none;border-radius:0;
+ margin-bottom:15px
 }
-.card-head { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
-.number {
-  width:39px; height:39px; flex-shrink:0; display:grid; place-items:center;
-  border-radius:12px; background:#8b5cf622;
-  border:1px solid #8b5cf655; color:#c4b5fd; font-weight:800;
+input:focus{box-shadow:4px 4px 0 var(--purple)}
+.btn{
+ width:100%;border:2px solid var(--ink);padding:15px;
+ background:var(--green);font-weight:1000;
+ box-shadow:4px 4px 0 var(--ink);
+ transition:transform .15s,box-shadow .15s
 }
-h2 { font-size:16px; margin:0 0 5px; }
-.desc { color:var(--muted); font-size:12px; }
-label { display:block; font-size:13px; margin:15px 0 8px; }
-input {
-  display:block; width:100%; min-width:0; min-height:46px;
-  background:#090e18; color:var(--text);
-  border:1px solid var(--border); border-radius:10px;
-  padding:12px; font:inherit; font-size:14px;
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn:active{transform:translate(4px,4px);box-shadow:none}
+.btn:disabled{opacity:.55;cursor:wait}
+.secondary{background:white;margin-top:12px}
+.notice{padding:13px;border:2px solid;margin:16px 0;
+ font-size:13px;line-height:1.5;background:#fff}
+.notice.purple{background:#eee7ff}
+.notice.yellow{background:#fff1bd}
+.notice.green{background:#e7ffd3}
+.status{font-size:12px;font-weight:900;text-transform:uppercase;
+ letter-spacing:1px;margin-bottom:10px}
+.big-icon{font-size:52px;margin:10px 0}
+.center{text-align:center}
+footer{text-align:center;color:#555;font-size:12px;
+ padding:24px 10px;line-height:1.8}
+@media(max-width:420px){
+ main{margin-top:25px}.card{padding:17px}
+ header{padding:16px}.logo{font-size:19px}
+ .step{font-size:10px}
 }
-input:focus { outline:2px solid var(--purple); outline-offset:1px; }
-button {
-  display:block; width:100%; min-height:46px; margin-top:15px;
-  padding:12px; border:0; border-radius:10px;
-  color:white; background:linear-gradient(100deg,#7c3aed,#4f46e5);
-  font-size:14px; font-weight:750; cursor:pointer;
-}
-button:disabled { opacity:.45; cursor:not-allowed; }
-.secondary { background:#202a3c; border:1px solid var(--border); }
-.status {
-  white-space:pre-wrap; overflow-wrap:anywhere;
-  font-size:12px; line-height:1.7; margin-top:12px;
-}
-.success { color:var(--green); }
-.error { color:var(--red); }
-.muted { color:var(--muted); }
-pre {
-  white-space:pre-wrap; overflow-wrap:anywhere;
-  max-height:230px; overflow:auto; font-size:12px;
-  line-height:1.6; color:#cbd5e1;
-  background:#090e18; border-radius:10px; padding:12px;
-}
-.notice {
-  padding:13px; border:1px solid var(--border); border-radius:10px;
-  font-size:12px; line-height:1.7; color:var(--muted);
-}
-[hidden] { display:none !important; }
-footer { text-align:center; color:#77849a; font-size:11px; padding:24px 0; }
-@media(max-width:380px) {
-  body { padding:14px 10px; }
-  .card { padding:15px; }
-  .pill { font-size:10px; padding:6px; }
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
 }
 </style>
 </head>
 <body>
+<header>
+ <div class="logo">⚡ Zaxxy<span>XML</span></div>
+ <button class="sound" id="sound" aria-pressed="false">
+  ♫ SOUND: OFF
+ </button>
+</header>
+
 <main>
-  <header>
-    <div class="logo">A</div>
-    <div>
-      <div class="brand">ALIGHT <span>PREMIUM</span></div>
-      <div class="small">Account Management Dashboard</div>
-    </div>
-    <div class="pill">● Dashboard</div>
-  </header>
+ <section class="hero">
+  <div class="eyebrow">✦ Creative tools ✦</div>
+  <h1>AM PREMIUM<span style="color:#7955df">.</span></h1>
+  <p>Clean interface. Bold design. Four simple demo steps.</p>
+ </section>
 
-  <section class="hero">
-    <div class="eyebrow">CONTROL CENTER</div>
-    <h1>Account <span>Activation</span></h1>
-    <p>Antarmuka responsif dengan proses bertahap,
-       status permintaan, dan tampilan respons API.</p>
+ <section class="card">
+  <div class="steps">
+   <div class="step active"><div class="circle">✉</div>Email</div>
+   <div class="step"><div class="circle">↗</div>Link</div>
+   <div class="step"><div class="circle">✓</div>Verify</div>
+   <div class="step"><div class="circle">✦</div>Finish</div>
+  </div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+
+  <section class="panel active" id="p0">
+   <div class="status">01 / Start here</div>
+   <h2>Enter your email.</h2>
+   <p class="desc">Masukkan email untuk mencoba simulasi alur aktivasi. Demo ini tidak mengirim data ke server.</p>
+   <form id="emailForm">
+    <label for="email">EMAIL ADDRESS</label>
+    <input id="email" type="email" placeholder="you@example.com"
+     autocomplete="email" required maxlength="254">
+    <button class="btn" type="submit">CONTINUE →</button>
+   </form>
+   <div class="notice yellow">⚠ DEMO MODE — tidak ada email magic link yang dikirim.</div>
   </section>
 
-  <section class="card">
-    <div class="card-head">
-      <div class="number">01</div>
-      <div>
-        <h2>Send Magic Link</h2>
-        <div class="desc">Langkah pertama</div>
-      </div>
-    </div>
-    <label for="email1">Email akun</label>
-    <input id="email1" type="email" autocomplete="email"
-           placeholder="user@example.com">
-    <button id="btn1">Kirim Permintaan</button>
-    <div id="status1" class="status muted" role="status" aria-live="polite"></div>
+  <section class="panel" id="p1">
+   <div class="status">02 / Link input</div>
+   <h2>Verification link.</h2>
+   <p class="desc">Dalam integrasi resmi, link harus berasal dari proses verifikasi yang sah. Di demo ini, kolom hanya untuk menguji tampilan dan validasi URL.</p>
+   <form id="linkForm">
+    <label for="link">VERIFICATION URL</label>
+    <input id="link" type="url" placeholder="https://example.com/verify"
+     required>
+    <button class="btn" type="submit">CHECK LINK →</button>
+    <button class="btn secondary" type="button" data-back="0">← BACK</button>
+   </form>
+   <div class="notice purple">Jangan tempelkan token akun asli ke demo ini.</div>
   </section>
 
-  <section class="card">
-    <div class="card-head">
-      <div class="number">02</div>
-      <div>
-        <h2>Verify Account</h2>
-        <div class="desc">Langkah kedua · memerlukan langkah pertama</div>
-      </div>
-    </div>
-    <label for="email2">Email akun</label>
-    <input id="email2" type="email" autocomplete="email"
-           placeholder="user@example.com">
-    <label for="magiclink">Magic link</label>
-    <input id="magiclink" type="url" inputmode="url"
-           placeholder="https://..." autocomplete="url">
-    <button id="btn2" disabled>Verifikasi Akun</button>
-    <div id="status2" class="status muted" role="status" aria-live="polite">
-      Selesaikan langkah 1 terlebih dahulu.
-    </div>
+  <section class="panel" id="p2">
+   <div class="status">03 / Account status</div>
+   <div class="center">
+    <div class="big-icon">🔎</div>
+    <h2>Verification demo</h2>
+    <p class="desc">URL lolos validasi dasar. Ini bukan bukti bahwa akun atau tautan telah diverifikasi oleh Alight Motion.</p>
+   </div>
+   <div class="notice green" id="verifyStatus">✓ Validasi format URL berhasil.</div>
+   <button class="btn" id="verifyBtn">CONTINUE DEMO →</button>
+   <button class="btn secondary" data-back="1">← BACK</button>
   </section>
 
-  <section class="card">
-    <div class="card-head">
-      <div class="number">03</div>
-      <div>
-        <h2>Apply Premium</h2>
-        <div class="desc">Langkah ketiga · memerlukan hasil verifikasi</div>
-      </div>
-    </div>
-    <label for="email3">Email akun</label>
-    <input id="email3" type="email" autocomplete="email"
-           placeholder="user@example.com">
-    <label for="token">ID token hasil verifikasi</label>
-    <input id="token" type="password" autocomplete="off"
-           placeholder="Masukkan token yang sah">
-    <button id="btn3" disabled>Submit Permintaan</button>
-    <div id="status3" class="status muted" role="status" aria-live="polite">
-      Selesaikan langkah 2 terlebih dahulu.
-    </div>
-    <div class="notice">
-      Gunakan endpoint resmi dan token yang sah. Penerapan lisensi
-      bergantung pada validasi backend serta izin akun.
-    </div>
+  <section class="panel" id="p3">
+   <div class="status">04 / Final screen</div>
+   <div class="center">
+    <div class="big-icon" id="finalIcon">✦</div>
+    <h2 id="finalTitle">Premium workflow demo</h2>
+    <p class="desc" id="finalDesc">Simulasi tampilan akhir tanpa mengubah status langganan.</p>
+   </div>
+   <div class="notice purple" id="finalNotice">
+    Demo selesai. Tidak ada premium yang diaktifkan.
+   </div>
+   <button class="btn" id="finishBtn">SIMULATE COMPLETE ✓</button>
+   <button class="btn secondary" id="resetBtn">↻ START AGAIN</button>
   </section>
 
-  <section class="card">
-    <div class="card-head">
-      <div class="number">↗</div>
-      <div>
-        <h2>API Response</h2>
-        <div class="desc">Respons server terbaru</div>
-      </div>
-    </div>
-    <pre id="response" aria-live="polite">Belum ada permintaan.</pre>
-    <button id="reset" class="secondary">Reset Proses</button>
-  </section>
-
-  <footer>ALIGHT PREMIUM · Responsive Dashboard</footer>
+  <div class="notice" id="message" role="status" aria-live="polite" hidden></div>
+ </section>
 </main>
 
+<footer>
+ <strong>ZaxxyXML</strong> · Neo-Brutalism UI<br>
+ Demo independen, bukan situs resmi Alight Motion.
+</footer>
+
 <script>
-"use strict";
+(() => {
+ const $ = id => document.getElementById(id);
+ let current = 0;
+ let soundOn = false;
+ let audio;
+ const panels = [...document.querySelectorAll('.panel')];
+ const steps = [...document.querySelectorAll('.step')];
 
-// Endpoint ini harus dibuat pada backend yang kamu kontrol.
-// Backend menyimpan kredensial rahasia dan memanggil API resmi.
-const API = {
-  send: "/api/v1/send-magiclink",
-  verify: "/api/v1/verify-account",
-  apply: "/api/v1/apply-premium"
-};
+ function tone(freq=520) {
+  if (!soundOn) return;
+  try {
+   audio ||= new (window.AudioContext || window.webkitAudioContext)();
+   if (audio.state === 'suspended') audio.resume();
+   const osc = audio.createOscillator();
+   const gain = audio.createGain();
+   osc.frequency.value = freq;
+   gain.gain.setValueAtTime(.055, audio.currentTime);
+   gain.gain.exponentialRampToValueAtTime(.001, audio.currentTime + .12);
+   osc.connect(gain); gain.connect(audio.destination);
+   osc.start(); osc.stop(audio.currentTime + .12);
+  } catch (_) {}
+ }
 
-const $ = id => document.getElementById(id);
-const state = { sent: false, verified: false, busy: false };
-
-function showStatus(id, message, type = "muted") {
-  const el = $(id);
-  el.textContent = message;
-  el.className = "status " + type;
-}
-
-function showResponse(data) {
-  // textContent mencegah respons server dieksekusi sebagai HTML.
-  $("response").textContent =
-    typeof data === "string" ? data : JSON.stringify(data, null, 2);
-}
-
-async function request(url, payload) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "same-origin",
-    body: JSON.stringify(payload)
+ function notify(text) {
+  $('message').hidden = false;
+  $('message').textContent = text;
+ }
+ function go(n) {
+  current = n;
+  panels.forEach((p,i) => p.classList.toggle('active', i === n));
+  steps.forEach((s,i) => {
+   s.classList.toggle('active', i === n);
+   s.classList.toggle('done', i < n);
   });
+  $('bar').style.width = (n / 3 * 100) + '%';
+  $('message').hidden = true;
+  tone(n === 3 ? 760 : 520);
+  window.scrollTo({top:0,behavior:'smooth'});
+ }
 
-  const text = await response.text();
-  let data;
+ $('sound').addEventListener('click', () => {
+  soundOn = !soundOn;
+  $('sound').textContent = soundOn ? '♫ SOUND: ON' : '♫ SOUND: OFF';
+  $('sound').setAttribute('aria-pressed', String(soundOn));
+  tone();
+ });
 
+ $('emailForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!$('email').reportValidity()) return;
+  go(1);
+  notify('Email diterima untuk demo lokal. Tidak ada permintaan jaringan.');
+ });
+
+ $('linkForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!$('link').reportValidity()) return;
   try {
-    data = text ? JSON.parse(text) : {};
-  } catch {
-    data = { message: text || "Server mengembalikan respons kosong." };
-  }
-
-  showResponse({
-    httpStatus: response.status,
-    ok: response.ok,
-    data
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      data.message || data.error || `HTTP ${response.status}`
-    );
-  }
-
-  return data;
-}
-
-function setBusy(value) {
-  state.busy = value;
-  updateButtons();
-}
-
-function updateButtons() {
-  $("btn1").disabled = state.busy;
-  $("btn2").disabled = state.busy || !state.sent;
-  $("btn3").disabled = state.busy || !state.verified;
-}
-
-function validEmail(id) {
-  const el = $(id);
-  el.value = el.value.trim();
-
-  if (!el.reportValidity() || !el.value) {
-    el.focus();
-    return false;
-  }
-
-  return true;
-}
-
-$("btn1").addEventListener("click", async () => {
-  if (!validEmail("email1") || state.busy) return;
-
-  setBusy(true);
-  showStatus("status1", "Mengirim permintaan...", "muted");
-
-  try {
-    const result = await request(API.send, {
-      email: $("email1").value
-    });
-
-    state.sent = true;
-    state.verified = false;
-    $("email2").value = $("email1").value;
-    $("email3").value = $("email1").value;
-    $("token").value = "";
-
-    showStatus(
-      "status1",
-      result.message || "Langkah 1 berhasil.",
-      "success"
-    );
-    showStatus(
-      "status2",
-      "Masukkan magic link yang diterima untuk melanjutkan.",
-      "muted"
-    );
-    showStatus("status3", "Menunggu verifikasi akun.", "muted");
-  } catch (error) {
-    showStatus("status1", error.message, "error");
-  } finally {
-    setBusy(false);
-  }
-});
-
-$("btn2").addEventListener("click", async () => {
-  if (!state.sent || state.busy) return;
-  if (!validEmail("email2")) return;
-
-  const link = $("magiclink").value.trim();
-
-  try {
-    const parsed = new URL(link);
-    if (parsed.protocol !== "https:") throw new Error();
-  } catch {
-    showStatus(
-      "status2",
-      "Masukkan URL HTTPS magic link yang valid.",
-      "error"
-    );
+   const u = new URL($('link').value.trim());
+   if (u.protocol !== 'https:') {
+    notify('Gunakan URL HTTPS yang valid.');
     return;
+   }
+   $('verifyStatus').textContent =
+    '✓ Format HTTPS valid. Kepemilikan akun belum diverifikasi.';
+   go(2);
+  } catch (_) {
+   notify('URL tidak valid. Periksa kembali input.');
   }
+ });
 
-  setBusy(true);
-  showStatus("status2", "Memverifikasi akun...", "muted");
+ $('verifyBtn').addEventListener('click', () => {
+  $('finalIcon').textContent = '🧪';
+  $('finalTitle').textContent = 'Demo process complete';
+  $('finalDesc').textContent =
+   'Tahapan antarmuka selesai. Status premium akun tidak berubah.';
+  $('finalNotice').textContent =
+   'SIMULATION ONLY — tidak ada API dipanggil, token dibuat, atau premium diterapkan.';
+  $('finishBtn').textContent = 'DEMO COMPLETED ✓';
+  go(3);
+ });
 
-  try {
-    const result = await request(API.verify, {
-      email: $("email2").value,
-      rawLink: link
-    });
+ $('finishBtn').addEventListener('click', () => {
+  notify('Simulasi selesai. Tidak ada perubahan pada akun asli.');
+  tone(760);
+ });
 
-    const token = result.idToken;
+ document.querySelectorAll('[data-back]').forEach(btn => {
+  btn.addEventListener('click', () => go(Number(btn.dataset.back)));
+ });
 
-    if (typeof token !== "string" || !token.trim()) {
-      throw new Error(
-        "Verifikasi merespons, tetapi idToken tidak ditemukan. Periksa format respons backend."
-      );
-    }
-
-    state.verified = true;
-    $("email3").value = $("email2").value;
-    $("token").value = token;
-
-    showStatus(
-      "status2",
-      result.message || "Verifikasi berhasil.",
-      "success"
-    );
-    showStatus(
-      "status3",
-      "Akun terverifikasi. Kamu dapat melanjutkan permintaan lisensi.",
-      "success"
-    );
-  } catch (error) {
-    state.verified = false;
-    showStatus("status2", error.message, "error");
-  } finally {
-    setBusy(false);
-  }
-});
-
-$("btn3").addEventListener("click", async () => {
-  if (!state.verified || state.busy) return;
-  if (!validEmail("email3")) return;
-
-  const idToken = $("token").value.trim();
-
-  if (!idToken) {
-    showStatus("status3", "ID token belum tersedia.", "error");
-    return;
-  }
-
-  setBusy(true);
-  showStatus("status3", "Mengirim permintaan lisensi...", "muted");
-
-  try {
-    const result = await request(API.apply, {
-      email: $("email3").value,
-      idToken
-    });
-
-    showStatus(
-      "status3",
-      result.message || "Permintaan berhasil diproses oleh server.",
-      "success"
-    );
-  } catch (error) {
-    showStatus("status3", error.message, "error");
-  } finally {
-    setBusy(false);
-  }
-});
-
-$("reset").addEventListener("click", () => {
-  if (state.busy) return;
-
-  state.sent = false;
-  state.verified = false;
-
-  ["email1", "email2", "email3", "magiclink", "token"].forEach(id => {
-    $(id).value = "";
-  });
-
-  showStatus("status1", "Siap memulai.", "muted");
-  showStatus("status2", "Selesaikan langkah 1 terlebih dahulu.", "muted");
-  showStatus("status3", "Selesaikan langkah 2 terlebih dahulu.", "muted");
-  showResponse("Belum ada permintaan.");
-  updateButtons();
-});
-
-updateButtons();
+ $('resetBtn').addEventListener('click', () => {
+  $('emailForm').reset();
+  $('linkForm').reset();
+  $('finalIcon').textContent = '✦';
+  $('finalTitle').textContent = 'Premium workflow demo';
+  $('finalDesc').textContent =
+   'Simulasi tampilan akhir tanpa mengubah status langganan.';
+  $('finalNotice').textContent =
+   'Demo selesai. Tidak ada premium yang diaktifkan.';
+  $('finishBtn').textContent = 'SIMULATE COMPLETE ✓';
+  go(0);
+ });
+})();
 </script>
 </body>
 </html>
