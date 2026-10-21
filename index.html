@@ -1,292 +1,669 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZaxxyXML — AM Premium</title>
-<style>
-:root{
- --bg:#f6f3eb;--ink:#171717;--purple:#b8a1ff;
- --green:#c8ff72;--pink:#ff9fba;--white:#fff;
-}
-*{box-sizing:border-box}
-body{
- margin:0;background:var(--bg);color:var(--ink);
- font-family:Arial,Helvetica,sans-serif;
- min-height:100vh;
- background-image:radial-gradient(#17171720 1px,transparent 1px);
- background-size:18px 18px;
-}
-button,input{font:inherit}
-button{cursor:pointer}
-header{
- display:flex;justify-content:space-between;align-items:center;
- gap:12px;padding:20px max(5%,calc((100% - 900px)/2));
- border-bottom:3px solid var(--ink);background:var(--white);
-}
-.logo{font-size:23px;font-weight:1000;letter-spacing:-1px}
-.logo span{background:var(--green);padding:4px 7px;border:2px solid}
-.sound{border:2px solid;padding:8px 12px;background:white;
- box-shadow:3px 3px 0 var(--ink);font-weight:800}
-main{max-width:640px;margin:38px auto;padding:0 16px 35px}
-.hero{text-align:center;margin-bottom:25px}
-.eyebrow{font-weight:900;text-transform:uppercase;letter-spacing:2px}
-h1{font-size:clamp(35px,8vw,54px);margin:12px 0;letter-spacing:-2px}
-.hero p{line-height:1.6;color:#444;margin:0}
-.card{
- background:var(--white);border:3px solid var(--ink);
- box-shadow:7px 7px 0 var(--ink);padding:23px;
-}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
- margin-bottom:24px}
-.step{text-align:center;font-size:12px;font-weight:900}
-.circle{
- width:37px;height:37px;display:grid;place-items:center;
- border:2px solid var(--ink);margin:0 auto 7px;
- background:white;font-size:16px
-}
-.step.active .circle{background:var(--green)}
-.step.done .circle{background:var(--purple)}
-.progress{height:10px;border:2px solid;margin:-8px 0 23px;background:#eee}
-.bar{height:100%;width:0;background:var(--green);transition:width .45s}
-.panel{display:none;animation:enter .35s ease}
-.panel.active{display:block}
-@keyframes enter{
- from{opacity:0;transform:translateY(9px)}
- to{opacity:1;transform:translateY(0)}
-}
-h2{font-size:25px;margin:0 0 10px;letter-spacing:-1px}
-.desc{color:#555;line-height:1.55;font-size:14px;margin-bottom:22px}
-label{display:block;font-size:13px;font-weight:900;margin-bottom:8px}
-input{
- width:100%;padding:14px;border:2px solid var(--ink);
- background:#fff;font-size:15px;outline:none;border-radius:0;
- margin-bottom:15px
-}
-input:focus{box-shadow:4px 4px 0 var(--purple)}
-.btn{
- width:100%;border:2px solid var(--ink);padding:15px;
- background:var(--green);font-weight:1000;
- box-shadow:4px 4px 0 var(--ink);
- transition:transform .15s,box-shadow .15s
-}
-.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-.btn:active{transform:translate(4px,4px);box-shadow:none}
-.btn:disabled{opacity:.55;cursor:wait}
-.secondary{background:white;margin-top:12px}
-.notice{padding:13px;border:2px solid;margin:16px 0;
- font-size:13px;line-height:1.5;background:#fff}
-.notice.purple{background:#eee7ff}
-.notice.yellow{background:#fff1bd}
-.notice.green{background:#e7ffd3}
-.status{font-size:12px;font-weight:900;text-transform:uppercase;
- letter-spacing:1px;margin-bottom:10px}
-.big-icon{font-size:52px;margin:10px 0}
-.center{text-align:center}
-footer{text-align:center;color:#555;font-size:12px;
- padding:24px 10px;line-height:1.8}
-@media(max-width:420px){
- main{margin-top:25px}.card{padding:17px}
- header{padding:16px}.logo{font-size:19px}
- .step{font-size:10px}
-}
-@media(prefers-reduced-motion:reduce){
- *,*::before,*::after{animation:none!important;transition:none!important}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALIGHT MAGIC – Premium Activator</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    /* ---------- NEOBRUTALISM TOKENS ---------- */
+    :root {
+      --yellow: #FFE500;
+      --cyan: #00E0FF;
+      --pink: #FF5CA8;
+      --lime: #B0FF3C;
+      --purple: #B27CFF;
+      --orange: #FF9F1C;
+      --bg: #FFFDF5;
+      --black: #0A0A0A;
+      --border: 3px solid var(--black);
+      --shadow: 6px 6px 0 var(--black);
+      --shadow-lg: 8px 8px 0 var(--black);
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    /* ---------- CARD ---------- */
+    .card {
+      background: #fff;
+      border: var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 560px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 10px 10px 0 var(--black);
+    }
+
+    /* ---------- HEADER ---------- */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--yellow);
+      border: var(--border);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      box-shadow: 3px 3px 0 var(--black);
+      transform: rotate(-4deg);
+    }
+
+    .header h1 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .header h1 span {
+      color: var(--pink);
+    }
+
+    /* ---------- PROGRESS BAR ---------- */
+    .progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .progress-step {
+      flex: 1;
+      height: 8px;
+      background: #e0e0e0;
+      border: 2px solid var(--black);
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .progress-step.active {
+      background: var(--cyan);
+    }
+
+    .progress-step.done {
+      background: var(--lime);
+    }
+
+    /* ---------- STEP CONTENT ---------- */
+    .step {
+      display: none;
+      animation: fadeSlide 0.35s ease;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step h2 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .step p {
+      font-size: 15px;
+      margin-bottom: 18px;
+      color: #333;
+    }
+
+    /* ---------- INPUT ---------- */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .input-group label {
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .input-group input {
+      padding: 12px 14px;
+      border: var(--border);
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      background: #fff;
+    }
+
+    .input-group input:focus {
+      box-shadow: 4px 4px 0 var(--cyan);
+      border-color: var(--black);
+    }
+
+    /* ---------- BUTTON ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border: var(--border);
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 4px 4px 0 var(--black);
+      background: var(--yellow);
+      color: var(--black);
+      width: 100%;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--black);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: var(--cyan);
+    }
+
+    .btn-success {
+      background: var(--lime);
+    }
+
+    .btn-icon {
+      font-size: 18px;
+    }
+
+    /* ---------- MESSAGE BOX ---------- */
+    .msg-box {
+      padding: 14px 16px;
+      border: var(--border);
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      animation: fadeSlide 0.3s ease;
+    }
+
+    .msg-box.info    { background: var(--cyan);   }
+    .msg-box.success { background: var(--lime);   }
+    .msg-box.error   { background: var(--pink);   }
+
+    /* ---------- LOADING OVERLAY ---------- */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid var(--yellow);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ---------- TOAST ---------- */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--black);
+      color: #fff;
+      padding: 14px 22px;
+      border: var(--border);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: var(--shadow);
+      z-index: 10000;
+      transition: transform 0.35s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast i {
+      color: var(--lime);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 480px) {
+      .card { padding: 24px 18px; }
+      .header h1 { font-size: 20px; }
+    }
+  </style>
 </head>
 <body>
-<header>
- <div class="logo">⚡ Zaxxy<span>XML</span></div>
- <button class="sound" id="sound" aria-pressed="false">
-  ♫ SOUND: OFF
- </button>
-</header>
 
-<main>
- <section class="hero">
-  <div class="eyebrow">✦ Creative tools ✦</div>
-  <h1>AM PREMIUM<span style="color:#7955df">.</span></h1>
-  <p>Clean interface. Bold design. Four simple demo steps.</p>
- </section>
+  <!-- ========== CARD ========== -->
+  <div class="card" id="appCard">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-icon"><i class="fa-solid fa-bolt"></i></div>
+      <h1>ALIGHT <span>MAGIC</span></h1>
+    </div>
 
- <section class="card">
-  <div class="steps">
-   <div class="step active"><div class="circle">✉</div>Email</div>
-   <div class="step"><div class="circle">↗</div>Link</div>
-   <div class="step"><div class="circle">✓</div>Verify</div>
-   <div class="step"><div class="circle">✦</div>Finish</div>
+    <!-- Progress -->
+    <div class="progress">
+      <div class="progress-step active" id="prog1"></div>
+      <div class="progress-step" id="prog2"></div>
+      <div class="progress-step" id="prog3"></div>
+      <div class="progress-step" id="prog4"></div>
+    </div>
+
+    <!-- STEP 1: Email -->
+    <div class="step active" id="step1">
+      <h2><i class="fa-solid fa-envelope"></i> Masukkan Email</h2>
+      <p>Kami akan mengirim link verifikasi ke email kamu.</p>
+      <div class="input-group">
+        <label for="emailInput"><i class="fa-solid fa-at"></i> Alamat Email</label>
+        <input type="email" id="emailInput" placeholder="contoh@email.com" autocomplete="email">
+      </div>
+      <button class="btn" id="btnSendLink">
+        <i class="fa-solid fa-paper-plane btn-icon"></i> Kirim Magic Link
+      </button>
+    </div>
+
+    <!-- STEP 2: Raw Link -->
+    <div class="step" id="step2">
+      <h2><i class="fa-solid fa-link"></i> Tempel Link Verifikasi</h2>
+      <p>Cek email kamu, lalu salin <strong>seluruh URL verifikasi</strong> dari email tersebut.</p>
+      <div class="msg-box info">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Link biasanya terlihat seperti <em>https://alight-creative...</em></span>
+      </div>
+      <div class="input-group">
+        <label for="rawLinkInput"><i class="fa-solid fa-globe"></i> Raw Link</label>
+        <input type="url" id="rawLinkInput" placeholder="https://alight-creative...">
+      </div>
+      <button class="btn btn-secondary" id="btnVerify">
+        <i class="fa-solid fa-shield-halved btn-icon"></i> Verifikasi Akun
+      </button>
+    </div>
+
+    <!-- STEP 3: Verified -->
+    <div class="step" id="step3">
+      <h2><i class="fa-solid fa-circle-check"></i> Akun Terverifikasi</h2>
+      <div class="msg-box success">
+        <i class="fa-solid fa-check"></i>
+        <span>Email <strong id="verifiedEmail"></strong> berhasil diverifikasi.</span>
+      </div>
+      <p>Sekarang kamu bisa mengaktifkan premium.</p>
+      <button class="btn btn-success" id="btnApplyPremium">
+        <i class="fa-solid fa-crown btn-icon"></i> Aktifkan Premium
+      </button>
+    </div>
+
+    <!-- STEP 4: Success -->
+    <div class="step" id="step4">
+      <h2><i class="fa-solid fa-trophy"></i> Premium Aktif!</h2>
+      <div class="msg-box success">
+        <i class="fa-solid fa-star"></i>
+        <span>Selamat! Akun <strong id="successEmail"></strong> telah menjadi <strong>Alight Motion Premium</strong>.</span>
+      </div>
+      <p>Kamu bisa langsung membuka aplikasi Alight Motion dan menikmati semua fitur premium.</p>
+      <button class="btn" id="btnReset">
+        <i class="fa-solid fa-rotate-left btn-icon"></i> Mulai Lagi
+      </button>
+    </div>
   </div>
-  <div class="progress"><div class="bar" id="bar"></div></div>
 
-  <section class="panel active" id="p0">
-   <div class="status">01 / Start here</div>
-   <h2>Enter your email.</h2>
-   <p class="desc">Masukkan email untuk mencoba simulasi alur aktivasi. Demo ini tidak mengirim data ke server.</p>
-   <form id="emailForm">
-    <label for="email">EMAIL ADDRESS</label>
-    <input id="email" type="email" placeholder="you@example.com"
-     autocomplete="email" required maxlength="254">
-    <button class="btn" type="submit">CONTINUE →</button>
-   </form>
-   <div class="notice yellow">⚠ DEMO MODE — tidak ada email magic link yang dikirim.</div>
-  </section>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
 
-  <section class="panel" id="p1">
-   <div class="status">02 / Link input</div>
-   <h2>Verification link.</h2>
-   <p class="desc">Dalam integrasi resmi, link harus berasal dari proses verifikasi yang sah. Di demo ini, kolom hanya untuk menguji tampilan dan validasi URL.</p>
-   <form id="linkForm">
-    <label for="link">VERIFICATION URL</label>
-    <input id="link" type="url" placeholder="https://example.com/verify"
-     required>
-    <button class="btn" type="submit">CHECK LINK →</button>
-    <button class="btn secondary" type="button" data-back="0">← BACK</button>
-   </form>
-   <div class="notice purple">Jangan tempelkan token akun asli ke demo ini.</div>
-  </section>
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">Berhasil</span>
+  </div>
 
-  <section class="panel" id="p2">
-   <div class="status">03 / Account status</div>
-   <div class="center">
-    <div class="big-icon">🔎</div>
-    <h2>Verification demo</h2>
-    <p class="desc">URL lolos validasi dasar. Ini bukan bukti bahwa akun atau tautan telah diverifikasi oleh Alight Motion.</p>
-   </div>
-   <div class="notice green" id="verifyStatus">✓ Validasi format URL berhasil.</div>
-   <button class="btn" id="verifyBtn">CONTINUE DEMO →</button>
-   <button class="btn secondary" data-back="1">← BACK</button>
-  </section>
+  <script>
+    // ============================================================
+    //  KONFIGURASI API
+    // ============================================================
+    const API_BASE = 'https://api.axzyedev.biz.id';
+    const API_KEY  = 'axdproject-axzye-and-zenu-qisk25bz4d42';
 
-  <section class="panel" id="p3">
-   <div class="status">04 / Final screen</div>
-   <div class="center">
-    <div class="big-icon" id="finalIcon">✦</div>
-    <h2 id="finalTitle">Premium workflow demo</h2>
-    <p class="desc" id="finalDesc">Simulasi tampilan akhir tanpa mengubah status langganan.</p>
-   </div>
-   <div class="notice purple" id="finalNotice">
-    Demo selesai. Tidak ada premium yang diaktifkan.
-   </div>
-   <button class="btn" id="finishBtn">SIMULATE COMPLETE ✓</button>
-   <button class="btn secondary" id="resetBtn">↻ START AGAIN</button>
-  </section>
+    // ============================================================
+    //  STATE
+    // ============================================================
+    let state = {
+      email: '',
+      idToken: '',
+      step: 1,
+    };
 
-  <div class="notice" id="message" role="status" aria-live="polite" hidden></div>
- </section>
-</main>
+    // ============================================================
+    //  DOM REFS
+    // ============================================================
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => document.querySelectorAll(sel);
 
-<footer>
- <strong>ZaxxyXML</strong> · Neo-Brutalism UI<br>
- Demo independen, bukan situs resmi Alight Motion.
-</footer>
+    const step1 = $('#step1');
+    const step2 = $('#step2');
+    const step3 = $('#step3');
+    const step4 = $('#step4');
 
-<script>
-(() => {
- const $ = id => document.getElementById(id);
- let current = 0;
- let soundOn = false;
- let audio;
- const panels = [...document.querySelectorAll('.panel')];
- const steps = [...document.querySelectorAll('.step')];
+    const emailInput   = $('#emailInput');
+    const rawLinkInput = $('#rawLinkInput');
 
- function tone(freq=520) {
-  if (!soundOn) return;
-  try {
-   audio ||= new (window.AudioContext || window.webkitAudioContext)();
-   if (audio.state === 'suspended') audio.resume();
-   const osc = audio.createOscillator();
-   const gain = audio.createGain();
-   osc.frequency.value = freq;
-   gain.gain.setValueAtTime(.055, audio.currentTime);
-   gain.gain.exponentialRampToValueAtTime(.001, audio.currentTime + .12);
-   osc.connect(gain); gain.connect(audio.destination);
-   osc.start(); osc.stop(audio.currentTime + .12);
-  } catch (_) {}
- }
+    const btnSendLink    = $('#btnSendLink');
+    const btnVerify      = $('#btnVerify');
+    const btnApplyPremium= $('#btnApplyPremium');
+    const btnReset       = $('#btnReset');
 
- function notify(text) {
-  $('message').hidden = false;
-  $('message').textContent = text;
- }
- function go(n) {
-  current = n;
-  panels.forEach((p,i) => p.classList.toggle('active', i === n));
-  steps.forEach((s,i) => {
-   s.classList.toggle('active', i === n);
-   s.classList.toggle('done', i < n);
-  });
-  $('bar').style.width = (n / 3 * 100) + '%';
-  $('message').hidden = true;
-  tone(n === 3 ? 760 : 520);
-  window.scrollTo({top:0,behavior:'smooth'});
- }
+    const loadingOverlay = $('#loadingOverlay');
+    const toast          = $('#toast');
+    const toastMsg       = $('#toastMsg');
 
- $('sound').addEventListener('click', () => {
-  soundOn = !soundOn;
-  $('sound').textContent = soundOn ? '♫ SOUND: ON' : '♫ SOUND: OFF';
-  $('sound').setAttribute('aria-pressed', String(soundOn));
-  tone();
- });
+    const verifiedEmail = $('#verifiedEmail');
+    const successEmail  = $('#successEmail');
 
- $('emailForm').addEventListener('submit', e => {
-  e.preventDefault();
-  if (!$('email').reportValidity()) return;
-  go(1);
-  notify('Email diterima untuk demo lokal. Tidak ada permintaan jaringan.');
- });
+    // ============================================================
+    //  SOUND EFFECT (Web Audio API)
+    // ============================================================
+    let audioCtx = null;
 
- $('linkForm').addEventListener('submit', e => {
-  e.preventDefault();
-  if (!$('link').reportValidity()) return;
-  try {
-   const u = new URL($('link').value.trim());
-   if (u.protocol !== 'https:') {
-    notify('Gunakan URL HTTPS yang valid.');
-    return;
-   }
-   $('verifyStatus').textContent =
-    '✓ Format HTTPS valid. Kepemilikan akun belum diverifikasi.';
-   go(2);
-  } catch (_) {
-   notify('URL tidak valid. Periksa kembali input.');
-  }
- });
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
 
- $('verifyBtn').addEventListener('click', () => {
-  $('finalIcon').textContent = '🧪';
-  $('finalTitle').textContent = 'Demo process complete';
-  $('finalDesc').textContent =
-   'Tahapan antarmuka selesai. Status premium akun tidak berubah.';
-  $('finalNotice').textContent =
-   'SIMULATION ONLY — tidak ada API dipanggil, token dibuat, atau premium diterapkan.';
-  $('finishBtn').textContent = 'DEMO COMPLETED ✓';
-  go(3);
- });
+    function playBeep(freq = 800, duration = 0.08, type = 'sine') {
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // ignore audio errors
+      }
+    }
 
- $('finishBtn').addEventListener('click', () => {
-  notify('Simulasi selesai. Tidak ada perubahan pada akun asli.');
-  tone(760);
- });
+    function playClick() {
+      playBeep(600, 0.06, 'square');
+    }
 
- document.querySelectorAll('[data-back]').forEach(btn => {
-  btn.addEventListener('click', () => go(Number(btn.dataset.back)));
- });
+    function playSuccess() {
+      playBeep(800, 0.1, 'sine');
+      setTimeout(() => playBeep(1000, 0.12, 'sine'), 120);
+    }
 
- $('resetBtn').addEventListener('click', () => {
-  $('emailForm').reset();
-  $('linkForm').reset();
-  $('finalIcon').textContent = '✦';
-  $('finalTitle').textContent = 'Premium workflow demo';
-  $('finalDesc').textContent =
-   'Simulasi tampilan akhir tanpa mengubah status langganan.';
-  $('finalNotice').textContent =
-   'Demo selesai. Tidak ada premium yang diaktifkan.';
-  $('finishBtn').textContent = 'SIMULATE COMPLETE ✓';
-  go(0);
- });
-})();
-</script>
+    function playError() {
+      playBeep(300, 0.15, 'sawtooth');
+    }
+
+    // ============================================================
+    //  UI HELPERS
+    // ============================================================
+    function goToStep(n) {
+      state.step = n;
+      [step1, step2, step3, step4].forEach((el, i) => {
+        el.classList.toggle('active', i === n - 1);
+      });
+
+      // progress bar
+      for (let i = 1; i <= 4; i++) {
+        const prog = $(`#prog${i}`);
+        prog.classList.remove('active', 'done');
+        if (i < n)  prog.classList.add('done');
+        if (i === n) prog.classList.add('active');
+      }
+    }
+
+    function showLoading() {
+      loadingOverlay.classList.add('active');
+      [btnSendLink, btnVerify, btnApplyPremium, btnReset].forEach(b => b.disabled = true);
+    }
+
+    function hideLoading() {
+      loadingOverlay.classList.remove('active');
+      [btnSendLink, btnVerify, btnApplyPremium, btnReset].forEach(b => b.disabled = false);
+    }
+
+    function showToast(msg, type = 'success') {
+      toastMsg.textContent = msg;
+      toast.style.background = type === 'error' ? 'var(--pink)' : 'var(--black)';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function showError(msg) {
+      playError();
+      showToast(msg, 'error');
+    }
+
+    // ============================================================
+    //  API HELPER
+    // ============================================================
+    async function callAPI(endpoint, body) {
+      const url = `${API_BASE}${endpoint}`;
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY,
+      };
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const msg = data.message || data.error || `HTTP ${res.status}`;
+        throw new Error(msg);
+      }
+
+      return data;
+    }
+
+    // ============================================================
+    //  STEP 1: Send Magic Link
+    // ============================================================
+    btnSendLink.addEventListener('click', async () => {
+      playClick();
+      const email = emailInput.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('Masukkan alamat email yang valid.');
+        return;
+      }
+
+      state.email = email;
+      showLoading();
+
+      try {
+        // Endpoint: POST /am-prem/send-magiclink
+        await callAPI('/am-prem/send-magiclink', { email });
+        hideLoading();
+        playSuccess();
+        showToast('Magic link terkirim! Cek email kamu.');
+        goToStep(2);
+      } catch (err) {
+        hideLoading();
+        showError(err.message || 'Gagal mengirim magic link.');
+      }
+    });
+
+    // ============================================================
+    //  STEP 2: Verify Account
+    // ============================================================
+    btnVerify.addEventListener('click', async () => {
+      playClick();
+      const rawLink = rawLinkInput.value.trim();
+
+      if (!rawLink || !rawLink.startsWith('http')) {
+        showError('Tempel URL verifikasi yang valid.');
+        return;
+      }
+
+      showLoading();
+
+      try {
+        // Endpoint: POST /am-prem/verify-account
+        const data = await callAPI('/am-prem/verify-account', {
+          email: state.email,
+          rawLink,
+        });
+
+        // API diharapkan mengembalikan { idToken: '...' }
+        const idToken = data.idToken || data.token || data.id_token;
+        if (!idToken) {
+          throw new Error('idToken tidak ditemukan dalam respons API.');
+        }
+
+        state.idToken = idToken;
+        hideLoading();
+        playSuccess();
+        showToast('Akun berhasil diverifikasi!');
+        verifiedEmail.textContent = state.email;
+        goToStep(3);
+      } catch (err) {
+        hideLoading();
+        showError(err.message || 'Verifikasi gagal.');
+      }
+    });
+
+    // ============================================================
+    //  STEP 3: Apply Premium
+    // ============================================================
+    btnApplyPremium.addEventListener('click', async () => {
+      playClick();
+      showLoading();
+
+      try {
+        // Endpoint: POST /am-prem/apply-premium
+        await callAPI('/am-prem/apply-premium', {
+          idToken: state.idToken,
+        });
+
+        hideLoading();
+        playSuccess();
+        showToast('Premium berhasil diaktifkan!');
+        successEmail.textContent = state.email;
+        goToStep(4);
+      } catch (err) {
+        hideLoading();
+        showError(err.message || 'Gagal mengaktifkan premium.');
+      }
+    });
+
+    // ============================================================
+    //  RESET
+    // ============================================================
+    btnReset.addEventListener('click', () => {
+      playClick();
+      state = { email: '', idToken: '', step: 1 };
+      emailInput.value = '';
+      rawLinkInput.value = '';
+      goToStep(1);
+    });
+
+    // ============================================================
+    //  ENTER KEY SUPPORT
+    // ============================================================
+    emailInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') btnSendLink.click();
+    });
+    rawLinkInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') btnVerify.click();
+    });
+
+    // ============================================================
+    //  INIT
+    // ============================================================
+    goToStep(1);
+    // Pre‑warm audio on first interaction
+    document.body.addEventListener('click', initAudio, { once: true });
+  </script>
 </body>
 </html>
